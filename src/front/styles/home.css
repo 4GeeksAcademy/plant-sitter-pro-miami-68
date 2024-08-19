@@ -5,3 +5,24 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+
+.logo {
+    height: 150px;
+
+}
+
+.diphylleia-regular {
+    font-family: "Diphylleia", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.title {
+    color: rgb(70, 108, 70);
+    font-size: 5em;
+}
+  
+.homePageImages {
+    height: 20rem;
+    margin: 30px;
+}
