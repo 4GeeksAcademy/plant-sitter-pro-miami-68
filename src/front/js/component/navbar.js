@@ -9,10 +9,6 @@ export const Navbar = () => {
 				<img className="logo" src={logo2}/>
 				<h1 className="diphylleia-regular title">Plant Sitter Pro</h1>
 				<div className="ml-auto">
-					{/* <Link to="#">
-						<button className="btn btn-success">Start Here</button>
-					</Link> */}
-
 					<div class="dropdown">
 						<button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 							Start Here
@@ -26,11 +22,6 @@ export const Navbar = () => {
 							<li><a class="dropdown-item" href="#">Contact Us</a></li>
 						</ul>
 					</div>
-
-
-					{/* <Link to="/demo">
-						<button className="btn btn-primary">Check the Context in action</button>
-					</Link> */}
 				</div>
 			</div>
 		</nav>
