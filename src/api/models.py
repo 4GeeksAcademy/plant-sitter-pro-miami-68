@@ -80,3 +80,86 @@ class ClientProfiles(db.Model):
         except (GeocoderTimedOut, GeocoderQuotaExceeded) as e:
             # Handle timeout or quota exceeded
             raise ValueError("Error occurred during geocoding request.") from e
+
+class PlantSitter(db.Model):
+    __tablename__ = 'plant_sitters'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    prefered_plants = db.Column(JSONB, nullable=True)
+    service_preferences = db.Column(JSONB, nullable=True)
+    zip_code = db.Column(db.String(10), nullable=True)
+    location = db.Column(db.String(255), nullable=True)
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref=db.backref('plant_sitters', lazy=True))
+    job_posts = db.relationship('JobPost', back_populates='plant_sitter')
+
+    def __repr__(self):
+        return f'<PlantSitter {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "user_id": self.user_id,
+            "prefered_plants": self.prefered_plants,
+            "service_preferences": self.service_preferences,
+            "zip_code": self.zip_code,
+            "location": self.location,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
+        }
+
+    def set_location_by_zip(self, zip_code):
+        geolocator = Nominatim(user_agent="Plant_Sitter_Pro")
+        try:
+            location = geolocator.geocode(zip_code, country_codes='US')
+            if location:
+                self.zip_code = zip_code
+                self.location = location.address
+                self.latitude = location.latitude
+                self.longitude = location.longitude
+            else:
+                raise ValueError("Could not find location for the provided zip code.")
+        except (GeocoderTimedOut, GeocoderQuotaExceeded) as e:
+            raise ValueError("Error occurred during geocoding request.") from e
+
+class JobPost(db.Model):
+   id = db.Column(db.Integer, primary_key=True)
+   title = db.Column(db.String(200), nullable=False)
+   details = db.Column(db.String(200), nullable=False)
+   start_date = db.Column(db.DateTime, nullable=False)
+   end_date = db.Column(db.DateTime, nullable=False)
+   rate = db.Column(db.Integer, nullable=False)
+   address = db.Column(db.String(200), nullable=False)
+   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+   plant_sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
+   status = db.Column(db.String(50), default='open', nullable=False)
+   created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+   updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+   user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
+   plant_sitter = db.relationship('PlantSitter', back_populates='job_posts')
+
+   def __repr__(self):
+       return f'<JobPost {self.title} by PlantSitter {self.plant_sitter_id}>'
+
+   def serialize(self):
+       return {
+           "id": self.id,
+           "title": self.title,
+           "details": self.details,
+           "start_date": self.start_date,
+           "end_date": self.end_date,
+           "rate": self.rate,
+           "address": self.address,
+           "user_id": self.user_id,
+           "plant_sitter_id": self.plant_sitter_id,
+           "status": self.status,
+           "created_at": self.created_at,
+           "updated_at": self.updated_at
+       }
