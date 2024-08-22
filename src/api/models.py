@@ -139,6 +139,8 @@ class JobPost(db.Model):
    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
    plant_sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
    status = db.Column(db.String(50), default='open', nullable=False)
+   created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+   updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
    user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
    plant_sitter = db.relationship('PlantSitter', back_populates='job_posts')
