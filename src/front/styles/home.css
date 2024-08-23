@@ -39,8 +39,11 @@
 }
 
 .plants {
-  height: 500px;
+  height: 250px;
   width: auto;
+  border-radius: 25px;
+  border: 3px solid white;
+  padding: 0;
 }
 
 .plant-types {
@@ -61,6 +64,13 @@
 .fa-leaf {
   color: green;
 }
+
+.div-wrapper {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+
 
 /* Customize the label (the container) */
 .checkbx {

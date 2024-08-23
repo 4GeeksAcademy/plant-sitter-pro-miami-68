@@ -7,7 +7,7 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
-import { ProviderPlantTypes } from "./pages/providerPlantTypes";
+// import { ProviderPlantTypes } from "./pages/providerPlantTypes";
 import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
 import { ProviderSignUp } from "./pages/providerSignUp";
@@ -36,7 +36,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
-                        <Route element={<ProviderPlantTypes />} path="/plant-types" />
+                        {/* <Route element={<ProviderPlantTypes />} path="/plant-types" /> */}
                         <Route element={<ProviderMapPage />} path="/provider-map" />
                         <Route element={<ProviderSignUp />} path="/provider-signup" />
                         <Route element={<h1>Not found!</h1>} />
