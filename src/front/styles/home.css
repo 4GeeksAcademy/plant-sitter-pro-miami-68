@@ -26,3 +26,193 @@
     height: 25rem;
     margin: 30px;
 }
+
+.picUpload {
+    height: 10rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.icon {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.plants {
+  height: 250px;
+  width: auto;
+  border-radius: 25px;
+  border: 3px solid white;
+  padding: 0;
+}
+
+.plant-types {
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+}
+
+.map {
+  height: 400px;
+  width: auto;
+  justify-content: center;
+}
+
+.pin {
+  padding-left: 10px;
+}
+
+.fa-leaf {
+  color: green;
+}
+
+.div-wrapper {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+
+.jobs {
+  text-align: center;
+}
+
+.subscription {
+  height: 300px;
+  width:400px;
+  border-radius: 25px;
+  padding: 20px;
+  background-color: blanchedalmond;
+  border: 2px solid green;
+}
+
+.plant {
+  height: 100px;
+  width: auto;
+}
+
+/* Customize the label (the container) */
+.checkbx {
+    display: block;
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 12px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbx input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbx:hover input ~ .checkmark {
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbx input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbx input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbx .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .topRow {
+    margin-top: 30px;
+  }
+
+  .bottomRow {
+    margin-bottom: 30px;
+  }
+
+
+
+
+  /* * {box-sizing: border-box;} */
+
+/* Style the input container */
+/* .input-container {
+  display: flex;
+  width: 100%;
+  margin-bottom: 15px;
+} */
+
+/* Style the form icons */
+/* .icon {
+  padding: 10px;
+  background: dodgerblue;
+  color: white;
+  min-width: 50px;
+  text-align: center;
+} */
+
+/* Style the input fields */
+/* .input-field {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+.input-field:focus {
+  border: 2px solid dodgerblue;
+} */
+
+/* Set a style for the submit button */
+/* .btn {
+  background-color: dodgerblue;
+  color: white;
+  padding: 15px 20px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.btn:hover {
+  opacity: 1;
+} */
