@@ -1,0 +1,28 @@
+.profile-form {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-form label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.profile-form input,
+.profile-form select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+}
+
+.profile-form button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+   

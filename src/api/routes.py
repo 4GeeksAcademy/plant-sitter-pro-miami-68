@@ -6,6 +6,8 @@ from api.models import db, User, ClientProfiles
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
+from .models import UserProfile
+from .import db
 
 api = Blueprint('api', __name__)
 
@@ -144,3 +146,36 @@ def delete_client_profile(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+
+
+
+# Ojr
+routes = Blueprint('routes', __name__)
+
+@routes.route('/api/profile', methods=['POST'])
+def create_profile():
+    data = request.json
+    new_profile = UserProfile(
+        name=data['name'],
+        email=data['email'],
+        plant_types=','.join(data.get('plant_types', [])),
+        allow_caretaker=data['allow_caretaker'],
+        address=data['address'],
+        location=data.get('location')
+    )
+    db.session.add(new_profile)
+    db.session.commit()
+    return jsonify({'message': 'Profile created successfully'}), 201
+
+@routes.route('/api/profile/<int:id>', methods=['PUT'])
+def update_profile(id):
+    profile = UserProfile.query.get_or_404(id)
+    data = request.json
+    profile.name = data['name']
+    profile.email = data['email']
+    profile.plant_types = ','.join(data.get('plant_types', []))
+    profile.allow_caretaker = data['allow_caretaker']
+    profile.address = data['address']
+    profile.location = data.get('location')
+    db.session.commit()
+    return jsonify({'message': 'Profile updated successfully'}), 200

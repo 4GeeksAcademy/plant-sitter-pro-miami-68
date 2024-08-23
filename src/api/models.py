@@ -5,6 +5,7 @@ from sqlalchemy.dialects.postgresql import JSONB
 from datetime import datetime, timezone
 from geopy.geocoders import Nominatim
 from geopy.exc import GeocoderTimedOut, GeocoderQuotaExceeded
+from . import db 
 
 db = SQLAlchemy()
 
@@ -49,6 +50,18 @@ class ClientProfiles(db.Model):
 
     user = db.relationship('User', backref=db.backref('client_profiles', lazy=True))
 
+    from . import db
+
+class UserProfile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    plant_types = db.Column(db.String(120), nullable=True)
+    allow_caretaker = db.Column(db.Boolean, nullable=False, default=False)
+    address = db.Column(db.String(200), nullable=False)
+    # location = db.Column(db.String(200), nullable=True)  # Optional, for storing coordinates
+
+
     def __repr__(self):
         return f'<ClientProfile {self.id}>'
 
@@ -80,3 +93,4 @@ class ClientProfiles(db.Model):
         except (GeocoderTimedOut, GeocoderQuotaExceeded) as e:
             # Handle timeout or quota exceeded
             raise ValueError("Error occurred during geocoding request.") from e
+        
