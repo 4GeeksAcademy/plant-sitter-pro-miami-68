@@ -6,10 +6,14 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
+import { ProviderProfile } from "./pages/providerProfile";
+import { ProviderPlantTypes } from "./pages/providerPlantTypes";
+import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+
 
 //create your first component
 const Layout = () => {
@@ -28,6 +32,9 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
+                        <Route element={<ProviderProfile />} path="/for-providers" />
+                        <Route element={<ProviderPlantTypes />} path="/plant-types" />
+                        <Route element={<ProviderMapPage />} path="/provider-map" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

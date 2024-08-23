@@ -26,3 +26,111 @@
     height: 25rem;
     margin: 30px;
 }
+
+.picUpload {
+    height: 10rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.icon {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.plants {
+  height: 500px;
+  width: auto;
+}
+
+.plant-types {
+  flex-wrap: wrap;
+  justify-content:space-evenly;
+}
+
+.map {
+  height: 400px;
+  width: auto;
+  justify-content: center;
+}
+
+/* Customize the label (the container) */
+.checkbx {
+    display: block;
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 12px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbx input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbx:hover input ~ .checkmark {
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbx input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbx input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbx .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .topRow {
+    margin-top: 30px;
+  }
+
+  .bottomRow {
+    margin-bottom: 30px;
+  }
