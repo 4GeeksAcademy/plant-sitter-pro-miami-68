@@ -15,7 +15,8 @@ export const ProviderServices = () => {
 
 	return (
 		<div className="text-center m-5">
-			<h1 className="diphylleia-regular">What services can you provide?</h1>
+			<h1 className="diphylleia-regular">Welcome to the Plant Care Pro Team! <i class="fa-solid fa-leaf"></i></h1>
+			<h3 className="diphylleia-regular"><strong>What kind of services can you provide?</strong></h3>
 			<h5 className="mt-3">Select all that apply</h5>
 			<div className="row justify-content-center topRow">
 				<label className="checkbx col-2">
@@ -57,12 +58,13 @@ export const ProviderServices = () => {
 					<span className="checkmark"></span>
 				</label>
 			</div>
+			
 			<button 
 				type="submit" 
 				className="btn btn-success mb-5 col-2 rounded-pill"
 				onClick={
 					() => {
-						navigate('/plant-types')
+						navigate('/provider-profile')
 					}
 				}
 			>

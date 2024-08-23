@@ -10,10 +10,11 @@ import { ProviderProfile } from "./pages/providerProfile";
 import { ProviderPlantTypes } from "./pages/providerPlantTypes";
 import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
-
+import { ProviderSignUp } from "./pages/providerSignUp";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ProviderServices } from "./pages/providerServices";
+
 
 
 //create your first component
@@ -37,6 +38,7 @@ const Layout = () => {
                         <Route element={<ProviderProfile />} path="/provider-profile" />
                         <Route element={<ProviderPlantTypes />} path="/plant-types" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
+                        <Route element={<ProviderSignUp />} path="/provider-signup" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

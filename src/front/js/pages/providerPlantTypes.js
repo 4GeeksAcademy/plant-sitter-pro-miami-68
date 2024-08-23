@@ -6,6 +6,9 @@ import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
 import carnivorous from "../../img/carnivorous.jpg";
 import usual from "../../img/usual.jpg";
+import landscape from "../../img/landscape.jpg";
+import outdoors from "../../img/outdoors.jpg";
+import veggies from "../../img/veggies.jpg";
 
 import { useNavigate } from "react-router-dom";
 
@@ -19,24 +22,36 @@ export const ProviderPlantTypes = () => {
 			<h5 className="mt-4">Select all that apply</h5>
 			<div className="d-flex plant-types">
 				<div className="justify-content-center">
-							<img className="plants btn" src={usual}/>
-							<p><strong>Standard House Plants</strong></p>
+					<img className="plants btn" src={usual}/>
+					<p><strong>Standard House Plants</strong></p>
 				</div>
 				<div className="justify-content-center">
-						<img className="plants btn" src={succulents}/>
-						<p><strong>Succulents</strong></p>
+					<img className="plants btn" src={succulents}/>
+					<p><strong>Succulents</strong></p>
 				</div>
 				<div className="justify-content-center">
-						<img className="plants btn" src={orchids}/>
-						<p><strong>Orchids</strong></p>
+					<img className="plants btn" src={orchids}/>
+					<p><strong>Orchids</strong></p>
 				</div>
 				<div className="justify-content-center">
-						<img className="plants btn" src={carnivorous}/>
-						<p><strong>Carnivorous</strong></p>
+					<img className="plants btn" src={carnivorous}/>
+					<p><strong>Carnivorous</strong></p>
 				</div>
 				<div className="justify-content-center">
-						<img className="plants btn" src={unusual}/>
-						<p><strong>Other / Picky / Unusual</strong></p>
+					<img className="plants btn" src={unusual}/>
+					<p><strong>Other / Picky / Unusual</strong></p>
+				</div>
+				<div className="justify-content-center">
+					<img className="plants btn" src={landscape}/>
+					<p><strong>Landscape Plants</strong></p>
+				</div>
+				<div className="justify-content-center">
+					<img className="plants btn" src={outdoors}/>
+					<p><strong>Outdoor Potted Plants</strong></p>
+				</div>
+				<div className="justify-content-center">
+					<img className="plants btn" src={veggies}/>
+					<p><strong>Vegetable Gardens</strong></p>
 				</div>
 			</div>
 			<button 

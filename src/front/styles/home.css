@@ -58,6 +58,10 @@
   padding-left: 10px;
 }
 
+.fa-leaf {
+  color: green;
+}
+
 /* Customize the label (the container) */
 .checkbx {
     display: block;
