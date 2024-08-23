@@ -12,7 +12,7 @@ export const ProviderSignUp2= () => {
 	return (
 		<div className="row justify-content-center">
 			<div className="col-lg-6 bg-indigo">
-				<h1 className="fw-normal mb-3 diphylleia-regular">Create an account</h1>
+				<h1 className="fw-normal mb-3 diphylleia-regular jobs">Create an account</h1>
 				<div className="mb-2 pb-2">
 					<div data-mdb-input-init className="form-outline form-white">
 						<input type="text" id="form3Examplea2" className="form-control form-control-lg" />
@@ -76,17 +76,19 @@ export const ProviderSignUp2= () => {
 					</label>
 				</div>
 
-				<button
-                    type="submit" 
-                    className="btn btn-success mb-5 col-5 rounded-pill"
-                    onClick={
-                        () => {
-                            navigate('/provider-services')
-                        }
-                    }
-                >
-                    Register
-                </button>
+				<div className="d-flex justify-content-center mb-2 pb-3">
+					<button
+						type="submit" 
+						className="btn btn-success mb-5 col-5 rounded-pill"
+						onClick={
+							() => {
+								navigate('/provider-services')
+							}
+						}
+					>
+						Register
+					</button>
+				</div>
 			</div>
 		</div>
 	);
