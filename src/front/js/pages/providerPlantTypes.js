@@ -44,7 +44,7 @@ export const ProviderPlantTypes = () => {
 				className="btn btn-success mb-5 col-2 rounded-pill"
 				onClick={
 					() => {
-						navigate('/plant-types')
+						navigate('/provider-profile')
 					}
 				}
 			>

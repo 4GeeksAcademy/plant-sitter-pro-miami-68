@@ -15,61 +15,40 @@ export const ProviderProfile = () => {
 
 	return (
 		<div className="text-center m-5">
-			<h1 className="diphylleia-regular">What services can you provide?</h1>
-			<h5 className="mt-3">Select all that apply</h5>
-			<div className="row justify-content-center topRow">
-				<label className="checkbx col-2">
-					<img className="icon" src={watering}/>
-					Watering
-					<input type="checkbox"/>
-					<span className="checkmark"></span>
-				</label>
-			</div>
-			<div className="row justify-content-center">
-				<label className="checkbx col-2">
-					<img className="icon" src={repotting}/>
-					Repotting
-					<input type="checkbox"/>
-					<span className="checkmark"></span>
-				</label>
-			</div>
-			<div className="row justify-content-center">
-				<label className="checkbx col-2">
-					<img className="icon" src={pruning}/>
-					Pruning
-					<input type="checkbox"/>
-					<span className="checkmark"></span>
-				</label>
-			</div>
-			<div className="row justify-content-center">
-				<label className="checkbx col-2">
-					<img className="icon" src={pestControl}/>
-					Pest Control
-					<input type="checkbox"/>
-					<span className="checkmark"></span>
-				</label>
-			</div>
-			<div className="row justify-content-center bottomRow">
-				<label className="checkbx col-2">
-					<img className="icon" src={cleaning}/>
-					Plant Cleaning
-					<input type="checkbox"/>
-					<span className="checkmark"></span>
-				</label>
-			</div>
-			<button 
-				type="submit" 
-				className="btn btn-success mb-5 col-2 rounded-pill"
-				onClick={
-					() => {
-						navigate('/plant-types')
-					}
-				}
-			>
-				Next
-			</button>
+			<h1 className="diphylleia-regular">Let's Build Your Profile!</h1>
 
+            <div className="input-group mb-3">
+                <span className="input-group-text" id="basic-addon1">@</span>
+                <input type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"/>
+            </div>
 
+            <div className="input-group mb-3">
+                <input type="text" className="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2"/>
+                <span className="input-group-text" id="basic-addon2">@example.com</span>
+            </div>
+
+            <label for="basic-url" className="form-label">Your vanity URL</label>
+            <div className="input-group mb-3">
+                <span className="input-group-text" id="basic-addon3">https://example.com/users/</span>
+                <input type="text" className="form-control" id="basic-url" aria-describedby="basic-addon3"/>
+            </div>
+
+            <div className="input-group mb-3">
+                <span className="input-group-text">$</span>
+                <input type="text" className="form-control" aria-label="Amount (to the nearest dollar)"/>
+                <span className="input-group-text">.00</span>
+            </div>
+
+            <div className="input-group mb-3">
+                <input type="text" className="form-control" placeholder="Username" aria-label="Username"/>
+                <span className="input-group-text">@</span>
+                <input type="text" className="form-control" placeholder="Server" aria-label="Server"/>
+            </div>
+
+            <div className="input-group">
+                <span className="input-group-text">With textarea</span>
+                <textarea className="form-control" aria-label="With textarea"></textarea>
+            </div>
 
 			<h5>This is where providers can create and update their profile with 
 				personal information, 
@@ -92,9 +71,17 @@ export const ProviderProfile = () => {
 			/>
 			<p><strong>Add a Profile Picture</strong></p>
 
-			{/* <p>
-				<img className="homePageImages" src={plantPic} />
-			</p> */}
+            <button 
+				type="submit" 
+				className="btn btn-success mb-5 col-2 rounded-pill"
+				onClick={
+					() => {
+						navigate('/plant-types')
+					}
+				}
+			>
+				Next
+			</button>
 		</div>
 	);
 };
