@@ -32,7 +32,7 @@ export const ProviderMapPage = () => {
                 className="btn btn-success mb-3 col-2 rounded-pill"
                 onClick={
                     () => {
-                        navigate('/provider-services')
+                        navigate('/provider-signup1')
                     }
                 }
             >

@@ -19,7 +19,7 @@ export const ProviderProfile = () => {
 
 	return (
 		<div className="text-center m-2">
-            <h1 className="mb-4"> Let's build your profile!</h1>
+            <h1 className="mb-4"> Let's build your profile</h1>
             <div className="row">
                 <h3 className="diphylleia-regular m-auto col-8">Clients will view your profile to decide if you're the right fit to take care of their plants, 
                     so be sure to include all of your relevant knowledge, experience, and passion for plants!
@@ -30,12 +30,13 @@ export const ProviderProfile = () => {
                     <h3 className="diphylleia-regular text-white">Upload a profile picture ⬇️</h3>
                     <img className="img-fluid btn" src={picture}/>
                     <div data-mdb-input-init className="form-outline form-white">
-                        <input type="text" placeholder="Your Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
-                    </div>
-                    <div data-mdb-input-init className="form-outline form-white">
+                        <input type="text" placeholder="First Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
+                        <input type="text" placeholder="Last Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
+                    {/* </div>
+                    <div data-mdb-input-init className="form-outline form-white"> */}
                         <input type="text" placeholder="Your Location (City, State)" id="form3Examplea5" className="form-control form-control-lg mb-3" />
-                    </div>
-                    <div data-mdb-input-init className="form-outline form-white">
+                    {/* </div>
+                    <div data-mdb-input-init className="form-outline form-white"> */}
                         <textarea className="form-control form-control-lg" placeholder="Brief Intro..." aria-label="With textarea">
                         </textarea>
                     </div>

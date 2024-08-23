@@ -10,7 +10,8 @@ import { ProviderProfile } from "./pages/providerProfile";
 // import { ProviderPlantTypes } from "./pages/providerPlantTypes";
 import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
-import { ProviderSignUp } from "./pages/providerSignUp";
+import { ProviderSignUp1 } from "./pages/providerSignUp1";
+import { ProviderSignUp2 } from "./pages/providerSignUp2";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ProviderServices } from "./pages/providerServices";
@@ -36,9 +37,9 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
-                        {/* <Route element={<ProviderPlantTypes />} path="/plant-types" /> */}
                         <Route element={<ProviderMapPage />} path="/provider-map" />
-                        <Route element={<ProviderSignUp />} path="/provider-signup" />
+                        <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
+                        <Route element={<ProviderSignUp2 />} path="/provider-signup2" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
