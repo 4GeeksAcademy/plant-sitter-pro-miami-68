@@ -118,7 +118,7 @@ export const ProviderProfile = () => {
                 className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
-                        navigate('/')
+                        navigate('/provider-profile-completed')
                     }
                 }
             >

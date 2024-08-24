@@ -15,6 +15,7 @@ import { ProviderSignUp2 } from "./pages/providerSignUp2";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ProviderServices } from "./pages/providerServices";
+import { ProviderProfileCompleted } from "./pages/providerProfileCompleted";
 
 
 
@@ -37,6 +38,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
+                        <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
                         <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
                         <Route element={<ProviderSignUp2 />} path="/provider-signup2" />

@@ -75,6 +75,12 @@
   text-align: center;
 }
 
+.description {
+  border: 1px solid white;
+  border-radius: 25px;
+  padding: 10px;
+}
+
 .subscription {
   height: 300px;
   width:400px;
