@@ -37,7 +37,9 @@ class User(db.Model):
 
 class ClientProfiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phone = db.Column(db.String(120), unique=True, nullable=False)
     my_plants = db.Column(JSONB, nullable=True)
     service_preferences = db.Column(JSONB, nullable=True)
     zip_code = db.Column(db.String(10), nullable=True)
@@ -47,7 +49,8 @@ class ClientProfiles(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    user = db.relationship('User', backref=db.backref('client_profiles', lazy=True))
+    # user = db.relationship('User', backref=db.backref('client_profiles', lazy=True))
+    job_posts = db.relationship('JobPost', back_populates='client_profiles')
 
     def __repr__(self):
         return f'<ClientProfile {self.id}>'
@@ -55,7 +58,9 @@ class ClientProfiles(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
+            # "user_id": self.user_id,
+            "email": self.email,
+            "phone": self.phone,
             "my_plants": self.my_plants,
             "service_preferences": self.service_preferences,
             "zip_code": self.zip_code,
@@ -84,7 +89,9 @@ class ClientProfiles(db.Model):
 class PlantSitter(db.Model):
     __tablename__ = 'plant_sitters'
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    phone = db.Column(db.String(120), unique=True, nullable=False)
     prefered_plants = db.Column(JSONB, nullable=True)
     service_preferences = db.Column(JSONB, nullable=True)
     zip_code = db.Column(db.String(10), nullable=True)
@@ -94,8 +101,8 @@ class PlantSitter(db.Model):
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    user = db.relationship('User', backref=db.backref('plant_sitters', lazy=True))
-    job_posts = db.relationship('JobPost', back_populates='plant_sitter')
+    # user = db.relationship('User', backref=db.backref('plant_sitters', lazy=True))
+    # job_posts = db.relationship('JobPost', back_populates='plant_sitter')
 
     def __repr__(self):
         return f'<PlantSitter {self.id}>'
@@ -103,7 +110,9 @@ class PlantSitter(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "user_id": self.user_id,
+            # "user_id": self.user_id,
+            "email": self.email,
+            "phone": self.phone,
             "prefered_plants": self.prefered_plants,
             "service_preferences": self.service_preferences,
             "zip_code": self.zip_code,
@@ -136,14 +145,14 @@ class JobPost(db.Model):
    end_date = db.Column(db.DateTime, nullable=False)
    rate = db.Column(db.Integer, nullable=False)
    address = db.Column(db.String(200), nullable=False)
-   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-   plant_sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
+#    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+   client_profiles_id = db.Column(db.Integer, db.ForeignKey('client_profiles.id'), nullable=False)
    status = db.Column(db.String(50), default='open', nullable=False)
    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-   user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
-   plant_sitter = db.relationship('PlantSitter', back_populates='job_posts')
+#    user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
+   client_profiles = db.relationship('ClientProfiles', back_populates='job_posts')
 
    def __repr__(self):
        return f'<JobPost {self.title} by PlantSitter {self.plant_sitter_id}>'
@@ -157,8 +166,8 @@ class JobPost(db.Model):
            "end_date": self.end_date,
            "rate": self.rate,
            "address": self.address,
-           "user_id": self.user_id,
-           "plant_sitter_id": self.plant_sitter_id,
+        #    "user_id": self.user_id,
+           "client_profiles_id": self.plant_sitter_id,
            "status": self.status,
            "created_at": self.created_at,
            "updated_at": self.updated_at
