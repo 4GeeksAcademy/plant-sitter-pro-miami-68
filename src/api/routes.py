@@ -229,64 +229,64 @@ def delete_plant_sitter(id):
 
 # --------endpoints for jobposts--------------
 
-@api.route('/job_posts', methods=['POST'])
-@jwt_required()
-def create_job_post():
-    user_id = get_jwt_identity()
-    data = request.get_json()
-    try:
-        new_job = JobPost(user_id=user_id, **data)
-        db.session.add(new_job)
-        db.session.commit()
+# @api.route('/job_posts', methods=['POST'])
+# @jwt_required()
+# def create_job_post():
+#     user_id = get_jwt_identity()
+#     data = request.get_json()
+#     try:
+#         new_job = JobPost(user_id=user_id, **data)
+#         db.session.add(new_job)
+#         db.session.commit()
         
-        return jsonify(new_job.serialize()), 201
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 400
+#         return jsonify(new_job.serialize()), 201
+#     except Exception as e:
+#         db.session.rollback()
+#         return jsonify({"error": str(e)}), 400
 
 
-@api.route('/job_posts/<int:id>', methods=['PUT'])
-@jwt_required()
-def update_job_post(id):
-    user_id = get_jwt_identity()
-    job_post = JobPost.query.filter_by(id=id, user_id=user_id).first()
+# @api.route('/job_posts/<int:id>', methods=['PUT'])
+# @jwt_required()
+# def update_job_post(id):
+#     user_id = get_jwt_identity()
+#     job_post = JobPost.query.filter_by(id=id, user_id=user_id).first()
 
-    if not job_post:
-        return jsonify({"error": "Job post not found"}), 404
+#     if not job_post:
+#         return jsonify({"error": "Job post not found"}), 404
 
-    data = request.get_json()
+#     data = request.get_json()
 
-    try:
-        job_post.title = data.get('title', job_post.title)
-        job_post.details = data.get('details', job_post.details)
-        job_post.start_date = data.get('start_date', job_post.start_date)
-        job_post.end_date = data.get('end_date', job_post.end_date)
-        job_post.rate = data.get('rate', job_post.rate)
-        job_post.address = data.get('address', job_post.address)
-        job_post.status = data.get('status', job_post.status)
+#     try:
+#         job_post.title = data.get('title', job_post.title)
+#         job_post.details = data.get('details', job_post.details)
+#         job_post.start_date = data.get('start_date', job_post.start_date)
+#         job_post.end_date = data.get('end_date', job_post.end_date)
+#         job_post.rate = data.get('rate', job_post.rate)
+#         job_post.address = data.get('address', job_post.address)
+#         job_post.status = data.get('status', job_post.status)
 
-        db.session.commit()
-        return jsonify({"message": "Job post updated successfully", "job_post": job_post.serialize()}), 200
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 400
-
-
-@api.route('/job_posts/<int:id>', methods=['GET'])
-@jwt_required()
-def get_job_post(id):
-    job_post = JobPost.query.get_or_404(id)
-    return jsonify(job_post.serialize()), 200
+#         db.session.commit()
+#         return jsonify({"message": "Job post updated successfully", "job_post": job_post.serialize()}), 200
+#     except Exception as e:
+#         db.session.rollback()
+#         return jsonify({"error": str(e)}), 400
 
 
-@api.route('/job_posts/<int:id>', methods=['DELETE'])
-@jwt_required()
-def delete_job_post(id):
-    job_post = JobPost.query.get_or_404(id)
-    try:
-        db.session.delete(job_post)
-        db.session.commit()
-        return jsonify({"message": "Job post deleted"}), 200
-    except Exception as e:
-        db.session.rollback()
-        return jsonify({"error": str(e)}), 400
+# @api.route('/job_posts/<int:id>', methods=['GET'])
+# @jwt_required()
+# def get_job_post(id):
+#     job_post = JobPost.query.get_or_404(id)
+#     return jsonify(job_post.serialize()), 200
+
+
+# @api.route('/job_posts/<int:id>', methods=['DELETE'])
+# @jwt_required()
+# def delete_job_post(id):
+#     job_post = JobPost.query.get_or_404(id)
+#     try:
+#         db.session.delete(job_post)
+#         db.session.commit()
+#         return jsonify({"message": "Job post deleted"}), 200
+#     except Exception as e:
+#         db.session.rollback()
+#         return jsonify({"error": str(e)}), 400
