@@ -33,7 +33,7 @@ export const ProviderProfile = () => {
                         <input type="text" placeholder="First Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
                         <input type="text" placeholder="Last Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
                         <input type="text" placeholder="Your Location (City, State)" id="form3Examplea5" className="form-control form-control-lg mb-3" />
-                        <textarea className="form-control form-control-lg" placeholder="Brief Intro..." aria-label="With textarea"></textarea>
+                        <textarea rows="5" className="form-control form-control" placeholder="Brief Intro..." aria-label="With textarea"></textarea>
                     </div>
                 </div>
                 <div className="col bg-success rounded p-3 m-2">
