@@ -11,6 +11,7 @@ db = SQLAlchemy()
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    phone = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
@@ -31,26 +32,28 @@ class User(db.Model):
         return {
             "id": self.id,
             "email": self.email,
+            "phone": self.phone,
             "created_at": self.created_at,
             "updated_at": self.updated_at
         }
 
 class ClientProfiles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    phone = db.Column(db.String(120), unique=True, nullable=False)
-    my_plants = db.Column(JSONB, nullable=True)
-    service_preferences = db.Column(JSONB, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    address_line_1 = db.Column(db.String(255), nullable=True)
+    address_line_2 = db.Column(db.String(255), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    country = db.Column(db.String(50), default='United States')
     zip_code = db.Column(db.String(10), nullable=True)
     location = db.Column(db.String(255), nullable=True)  # Address from geolocation
     latitude = db.Column(db.Float, nullable=True)  # Latitude for geolocation
     longitude = db.Column(db.Float, nullable=True)  # Longitude for geolocation
+    my_plants = db.Column(JSONB, nullable=True)
+    service_preferences = db.Column(JSONB, nullable=True)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    # user = db.relationship('User', backref=db.backref('client_profiles', lazy=True))
-    job_posts = db.relationship('JobPost', back_populates='client_profiles')
+    user = db.relationship('User', backref=db.backref('client_profiles', lazy=True))
 
     def __repr__(self):
         return f'<ClientProfile {self.id}>'
@@ -58,17 +61,19 @@ class ClientProfiles(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            # "user_id": self.user_id,
-            "email": self.email,
-            "phone": self.phone,
-            "my_plants": self.my_plants,
-            "service_preferences": self.service_preferences,
+            "user_id": self.user_id,
+            "address_line_1": self.address_line_1,
+            "address_line_2": self.address_line_2,
+            "city": self.city,
             "zip_code": self.zip_code,
+            "country": self.country,
             "location": self.location,
             "latitude": self.latitude,
             "longitude": self.longitude,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "my_plants": self.my_plants,
+            "service_preferences": self.service_preferences,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat(),
         }
 
     def set_location_by_zip(self, zip_code):
@@ -83,26 +88,32 @@ class ClientProfiles(db.Model):
             else:
                 raise ValueError("Could not find location for the provided zip code.")
         except (GeocoderTimedOut, GeocoderQuotaExceeded) as e:
-            # Handle timeout or quota exceeded
             raise ValueError("Error occurred during geocoding request.") from e
 
 class PlantSitter(db.Model):
     __tablename__ = 'plant_sitters'
     id = db.Column(db.Integer, primary_key=True)
-    # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    phone = db.Column(db.String(120), unique=True, nullable=False)
-    prefered_plants = db.Column(JSONB, nullable=True)
-    service_preferences = db.Column(JSONB, nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    profile_picture_url = db.Column(db.String(255), nullable=True)
+    address_line_1 = db.Column(db.String(255), nullable=True)
+    address_line_2 = db.Column(db.String(255), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    country = db.Column(db.String(50), default='United States')
     zip_code = db.Column(db.String(10), nullable=True)
-    location = db.Column(db.String(255), nullable=True)
-    latitude = db.Column(db.Float, nullable=True)
-    longitude = db.Column(db.Float, nullable=True)
+    location = db.Column(db.String(255), nullable=True)  # Address from geolocation
+    latitude = db.Column(db.Float, nullable=True)  # Latitude for geolocation
+    longitude = db.Column(db.Float, nullable=True)  # Longitude for geolocation
+    bio = db.Column(db.Text, nullable=True)
+    professional_experience = db.Column(db.Text, nullable=True)
+    additional_info = db.Column(db.Text, nullable=True)
+    prefered_plants = db.Column(JSONB, nullable=True)  # List of plant types
+    service_preferences = db.Column(JSONB, nullable=True)  # Preferences on service
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    # user = db.relationship('User', backref=db.backref('plant_sitters', lazy=True))
-    # job_posts = db.relationship('JobPost', back_populates='plant_sitter')
+    user = db.relationship('User', backref=db.backref('plant_sitters', lazy=True))
 
     def __repr__(self):
         return f'<PlantSitter {self.id}>'
@@ -110,17 +121,25 @@ class PlantSitter(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            # "user_id": self.user_id,
-            "email": self.email,
-            "phone": self.phone,
-            "prefered_plants": self.prefered_plants,
-            "service_preferences": self.service_preferences,
+            "user_id": self.user_id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "profile_picture_url": self.profile_picture_url,
+            "address_line_1": self.address_line_1,
+            "address_line_2": self.address_line_2,
+            "city": self.city,
             "zip_code": self.zip_code,
+            "country": self.country,
             "location": self.location,
             "latitude": self.latitude,
             "longitude": self.longitude,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "bio": self.bio,
+            "professional_experience": self.professional_experience,
+            "additional_info": self.additional_info,
+            "prefered_plants": self.prefered_plants,
+            "service_preferences": self.service_preferences,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
         }
 
     def set_location_by_zip(self, zip_code):
@@ -138,37 +157,37 @@ class PlantSitter(db.Model):
             raise ValueError("Error occurred during geocoding request.") from e
 
 class JobPost(db.Model):
-   id = db.Column(db.Integer, primary_key=True)
-   title = db.Column(db.String(200), nullable=False)
-   details = db.Column(db.String(200), nullable=False)
-   start_date = db.Column(db.DateTime, nullable=False)
-   end_date = db.Column(db.DateTime, nullable=False)
-   rate = db.Column(db.Integer, nullable=False)
-   address = db.Column(db.String(200), nullable=False)
-#    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-   client_profiles_id = db.Column(db.Integer, db.ForeignKey('client_profiles.id'), nullable=False)
-   status = db.Column(db.String(50), default='open', nullable=False)
-   created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-   updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    details = db.Column(db.String(200), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    rate = db.Column(db.Integer, nullable=False)
+    address = db.Column(db.String(200), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    client_profiles_id = db.Column(db.Integer, db.ForeignKey('client_profiles.id'), nullable=False)
+    status = db.Column(db.String(50), default='open', nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-#    user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
-   client_profiles = db.relationship('ClientProfiles', back_populates='job_posts')
+    user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
+    client_profile = db.relationship('ClientProfiles', backref='job_posts')
 
-   def __repr__(self):
-       return f'<JobPost {self.title} by PlantSitter {self.plant_sitter_id}>'
+    def __repr__(self):
+        return f'<JobPost {self.title} by User {self.user_id}>'
 
-   def serialize(self):
-       return {
-           "id": self.id,
-           "title": self.title,
-           "details": self.details,
-           "start_date": self.start_date,
-           "end_date": self.end_date,
-           "rate": self.rate,
-           "address": self.address,
-        #    "user_id": self.user_id,
-           "client_profiles_id": self.plant_sitter_id,
-           "status": self.status,
-           "created_at": self.created_at,
-           "updated_at": self.updated_at
-       }
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "details": self.details,
+            "start_date": self.start_date.isoformat(),
+            "end_date": self.end_date.isoformat(),
+            "rate": self.rate,
+            "address": self.address,
+            "user_id": self.user_id,
+            "client_profiles_id": self.client_profiles_id,
+            "status": self.status,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
+        }
