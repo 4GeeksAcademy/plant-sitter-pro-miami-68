@@ -79,14 +79,16 @@
   height: 300px;
   width:400px;
   border-radius: 25px;
-  padding: 20px;
+  padding: 5px;
   background-color: blanchedalmond;
   border: 2px solid green;
+  text-align: center;
 }
 
 .plant {
   height: 100px;
   width: auto;
+  margin-bottom: 10px;
 }
 
 /* Customize the label (the container) */

@@ -14,8 +14,10 @@ export const ProviderSignUp1= () => {
 				<h1 className="fw-normal mb-3 diphylleia-regular jobs">Find jobs near you</h1>
 				<div className="mb-2 pb-2 d-flex justify-content-center">
 					<div className="subscription">
+						<p className="m-auto diphylleia-regular fs-3"><strong>Subscribe Now</strong></p>
                         $15.00/yr.
-						<p></p>
+						<p className="mb-0">✔️ Includes background check</p>
+						<p className="mt-0">✔️ Find & apply to jobs</p>
 						<img className="plant" src={plant}/>
 						<div className="d-flex justify-content-center">
 							<button
