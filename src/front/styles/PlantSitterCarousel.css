@@ -1,0 +1,26 @@
+.carousel-container {
+    overflow: hidden;
+    width: 100%;
+    margin-top: 20px;
+    position: relative;
+  }
+  
+  .plant-sitter-carousel {
+    display: flex;
+    gap: 15px;
+    animation: scroll 20s linear infinite;
+  }
+  
+  .plant-sitter-card {
+    flex: 0 0 auto;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+  
