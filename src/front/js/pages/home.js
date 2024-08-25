@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import houseplants from "../../img/houseplants2.jpg";
 import PlantSitterCarousel from "../component/PlantSitterCard";
+import ServicesCarousel from "../component/ServicesCarousel";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -18,6 +19,7 @@ export const Home = () => {
 		</div>
 		<div className="carousel-container">
         <PlantSitterCarousel />
+		<ServicesCarousel />
       </div>
 		</>
 	);
