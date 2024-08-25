@@ -86,6 +86,7 @@ class ClientProfiles(db.Model):
             "user_id": self.user_id,
             "my_plants": self.my_plants,
             "service_preferences": self.service_preferences,
+            "location": self.user.location if self.user else None,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),
         }
@@ -122,6 +123,7 @@ class PlantSitter(db.Model):
             "additional_info": self.additional_info,
             "preferred_plants": self.preferred_plants,
             "service_preferences": self.service_preferences,
+            "location": self.user.location if self.user else None,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
         }
