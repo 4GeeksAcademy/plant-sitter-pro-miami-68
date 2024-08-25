@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, ClientProfiles, PlantSitter, JobPost
+from api.models import db, User, ClientProfiles, PlantSitter, JobPost, Rating
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -30,23 +30,48 @@ def signup():
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
+    phone = data.get('phone')
+    address_line_1 = data.get('address_line_1')
+    address_line_2 = data.get('address_line_2')
+    city = data.get('city')
+    country = data.get('country', 'United States')
+    zip_code = data.get('zip_code')
 
-    if not email or not password:
-        return jsonify({"error": "Email and password are required"}), 400
+    if not email or not password or not phone:
+        return jsonify({"error": "Email, password, and phone are required"}), 400
 
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "Email already registered"}), 400
 
+    if User.query.filter_by(phone=phone).first():
+        return jsonify({"error": "Phone number already registered"}), 400
+
     try:
-        new_user = User(email=email)
+        new_user = User(
+            email=email,
+            phone=phone,
+            address_line_1=address_line_1,
+            address_line_2=address_line_2,
+            city=city,
+            country=country,
+            zip_code=zip_code,
+        )
         new_user.set_password(password)
+
+        if zip_code:
+            new_user.set_location_by_zip(zip_code)
+
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"message": "User registered successfully"}), 201
+        access_token = new_user.generate_token()
+        return jsonify({
+            "message": "User registered successfully",
+            "access_token": access_token
+        }), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
-    
+
 
 @api.route('/login', methods=['POST'])
 def login():
@@ -63,6 +88,67 @@ def login():
         return jsonify({"access_token": access_token}), 200
     else:
         return jsonify({"error": "Invalid email or password"}), 401
+    
+
+@api.route('/user/<int:id>', methods=['GET'])
+@jwt_required()
+def get_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    return jsonify(user.serialize()), 200
+
+
+@api.route('/users', methods=['GET'])
+@jwt_required()
+def get_all_users():
+    users = User.query.all()
+    return jsonify([user.serialize() for user in users]), 200
+
+
+@api.route('/user/<int:id>', methods=['PUT'])
+@jwt_required()
+def update_user(id):
+    data = request.get_json()
+    user = User.query.get(id)
+
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    user.email = data.get('email', user.email)
+    user.phone = data.get('phone', user.phone)
+    user.address_line_1 = data.get('address_line_1', user.address_line_1)
+    user.address_line_2 = data.get('address_line_2', user.address_line_2)
+    user.city = data.get('city', user.city)
+    user.zip_code = data.get('zip_code', user.zip_code)
+    user.country = data.get('country', user.country)
+
+    if 'password' in data:
+        user.set_password(data['password'])
+
+    try:
+        db.session.commit()
+        return jsonify({"message": "User updated successfully", "user": user.serialize()}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 400
+
+
+@api.route('/user/<int:id>', methods=['DELETE'])
+@jwt_required()
+def delete_user(id):
+    user = User.query.get(id)
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    try:
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({"message": "User deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 400
 
 
 #---------------------endpoints for ClientProfiles--------------------
