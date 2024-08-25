@@ -1,44 +1,52 @@
 .carousel-container {
-    overflow: hidden;
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
+  overflow: hidden;
+  width: 100%;
+  margin-top: 20px;
+  position: relative;
+}
+
+.services-carousel {
+  display: flex;
+  gap: 15px;
+  animation: scroll 20s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+      transform: translateX(0);
   }
-  
-  .services-carousel {
-    display: flex;
-    gap: 15px;
-    animation: scroll 20s linear infinite;
+  100% {
+      transform: translateX(-100%);
   }
-  
-  .service-card {
-    position: relative;
-    flex: 0 0 250px;
-    text-decoration: none;
-  }
-  
-  .card-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
-  }
-  
-  .card-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 10px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 0 0 15px 15px;
-    text-align: center;
-  }
-  
-  .service-name {
-    color: #fff;
-    font-size: 18px;
-    font-weight: bold;
-    margin: 0;
-  }
-  
+}
+
+.service-card {
+  position: relative;
+  flex: 0 0 250px;
+  text-decoration: none;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 10px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 0 0 15px 15px;
+  text-align: center;
+}
+
+.service-name {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}

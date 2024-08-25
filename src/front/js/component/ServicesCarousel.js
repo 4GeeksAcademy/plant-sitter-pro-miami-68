@@ -1,30 +1,62 @@
 import React from "react";
 import "../../styles/ServicesCarousel.css";
+import pruning from "../../img/HomePageImages/Gemini.Pruning.Service.home.jpg"
+import watering from "../../img/HomePageImages/Gemini.Watering.Service.Home.jpg"
+import repotting from "../../img/HomePageImages/Gemini.Repotting.Home.jpg"
+import pestcontrol from "../../img/HomePageImages/Gemini.PestControl.Service.home.jpg"
+import plantcleaning from "../../img/HomePageImages/Gemini.PlantCleaning.Service.Home.jpg"
+import "../../styles/ServicesCarousel.css"
+
 
 const services = [
   {
     name: "Watering",
-    image: "path_to_watering_image.jpg",  // Replace with the actual path to your image
+    image: watering,  
     link: "/services/watering",
   },
   {
     name: "Re-Potting",
-    image: "path_to_repotting_image.jpg",  // Replace with the actual path to your image
+    image: repotting,  // Replace with the actual path to your image
     link: "/services/repotting",
   },
   {
     name: "Pruning",
-    image: "path_to_pruning_image.jpg",  // Replace with the actual path to your image
+    image: pruning,  // Replace with the actual path to your image
     link: "/services/pruning",
   },
   {
     name: "Pest Control",
-    image: "path_to_pestcontrol_image.jpg",  // Replace with the actual path to your image
+    image: pestcontrol,  // Replace with the actual path to your image
     link: "/services/pestcontrol",
   },
   {
     name: "Plant Cleaning",
-    image: "path_to_plantcleaning_image.jpg",  // Replace with the actual path to your image
+    image: plantcleaning,  // Replace with the actual path to your image
+    link: "/services/plantcleaning",
+  },
+  {
+    name: "Watering",
+    image: watering,  
+    link: "/services/watering",
+  },
+  {
+    name: "Re-Potting",
+    image: repotting,  
+    link: "/services/repotting",
+  },
+  {
+    name: "Pruning",
+    image: pruning,  
+    link: "/services/pruning",
+  },
+  {
+    name: "Pest Control",
+    image: pestcontrol,  
+    link: "/services/pestcontrol",
+  },
+  {
+    name: "Plant Cleaning",
+    image: plantcleaning,  
     link: "/services/plantcleaning",
   },
 ];
