@@ -5,14 +5,14 @@ import plantPic from "../../img/plants-on-stand.jpg";
 import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
 
-export const ProviderSignUp2= () => {
+export const ClientSignUp2= () => {
 	// const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 
 	return (
 		<div className="row justify-content-center">
 			<div className="col-lg-6 bg-indigo">
-			<h1 className="fw-normal mb-5 diphylleia-regular jobs">Create an account</h1>
+				<h1 className="fw-normal mb-5 diphylleia-regular jobs">Create an account</h1>
                 <div className="row">
 					<div className="col-md-6 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
@@ -28,7 +28,7 @@ export const ProviderSignUp2= () => {
 						</div>
 					</div>
 				</div>
-                
+
 				<div className="mb-2 pb-2">
 					<div data-mdb-input-init className="form-outline form-white">
 						<input type="text" id="form3Examplea2" className="form-control form-control-lg" />
@@ -98,7 +98,7 @@ export const ProviderSignUp2= () => {
 						className="btn btn-success mb-5 col-5 rounded-pill"
 						onClick={
 							() => {
-								navigate('/provider-services')
+								navigate('/client-services')
 							}
 						}
 					>

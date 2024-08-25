@@ -81,6 +81,14 @@
   padding: 10px;
 }
 
+.needs {
+  border: 2px solid green;
+  border-radius: 25px;
+  padding: 10px;
+  width: 400px;
+  height: 400px;
+}
+
 .subscription {
   height: 300px;
   width:400px;

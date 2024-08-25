@@ -28,7 +28,18 @@ export const Navbar = () => {
 								</a>
 							</li>
 							<li><a className="dropdown-item" href="#">How it Works</a></li>
-							<li><a className="dropdown-item" href="#">Services</a></li>
+							<li>
+								<a 
+									className="dropdown-item" 
+									onClick={
+                                        () => {
+                                            navigate('/client-map')
+                                        }
+                                    }
+								>
+									Services
+								</a>
+							</li>
 							<li>
 								<a 
 									className="dropdown-item" 
