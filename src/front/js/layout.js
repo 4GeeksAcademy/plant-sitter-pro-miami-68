@@ -6,18 +6,10 @@ import { BackendURL } from "./component/backendURL";
 import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
-import { ProviderProfile } from "./pages/providerProfile";
-// import { ProviderPlantTypes } from "./pages/providerPlantTypes";
-import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
-import { ProviderSignUp1 } from "./pages/providerSignUp1";
-import { ProviderSignUp2 } from "./pages/providerSignUp2";
+
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import { ProviderServices } from "./pages/providerServices";
-import { ProviderProfileCompleted } from "./pages/providerProfileCompleted";
-
-
 
 //create your first component
 const Layout = () => {
@@ -36,12 +28,6 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
-                        <Route element={<ProviderServices />} path="/provider-services" />
-                        <Route element={<ProviderProfile />} path="/provider-profile" />
-                        <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
-                        <Route element={<ProviderMapPage />} path="/provider-map" />
-                        <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
-                        <Route element={<ProviderSignUp2 />} path="/provider-signup2" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

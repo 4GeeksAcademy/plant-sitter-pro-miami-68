@@ -41,27 +41,6 @@ const injectContext = PassedComponent => {
 		);
 	};
 	return StoreWrapper;
-
-function PlantSitterCard() {
-  const [plantSitters, setPlantSitters] = useState([]);
-
-  useEffect(() => {
-    // Fetch data from an API
-    fetch('/api/plant-sitters')
-      .then(response => response.json())
-      .then(data => setPlantSitters(data));
-  }, []);
-
-  return (
-    <div>
-      {plantSitters.map(sitter => (
-        <div key={sitter.id}>
-          {/* Render sitter information */}
-        </div>
-      ))}
-    </div>
-  );
-}
 };
 
 export default injectContext;
