@@ -1,0 +1,38 @@
+.plant-sitter-card {
+    width: 250px;
+    margin-right: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+  
+  .card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .card-body {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .card-name {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+  }
+  
+  .card-title {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+  }
+  
+  .card-tags .badge {
+    margin-right: 5px;
+    background-color: #333;
+    color: #fff;
+  }
+  
