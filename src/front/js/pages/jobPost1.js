@@ -72,9 +72,9 @@ export const JobPost1= () => {
                     </div>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What else should potential plant sitters know about this job?</strong></label>
                     <div className="input-group mb-3">
-                        <textarea rows="8" className="form-control" placeholder="I will be out of town for a month and need someone to take care of my indoor and outdoors plants. It's a big job, but I will leave all of the instructions that you need..." aria-label="With textarea"></textarea>
+                        <textarea rows="8" className="form-control" placeholder="I have a lot of plants! It's a big job, but I will leave all of the instructions that you need..." aria-label="With textarea"></textarea>
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Anything else you would like to share?</strong></label>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Anything else you would like to share about the duration of the job?</strong></label>
                     <div className="input-group justify-contents-center mb-3">
                         <textarea rows="5" className="form-control" placeholder="Example: 'There is a chance that my trip could be extended for a week...'" aria-label="With textarea">
                         </textarea>
@@ -91,7 +91,7 @@ export const JobPost1= () => {
                 }
             >
                 Submit
-        </button>
+            </button>
         </div>
 	);
 };
