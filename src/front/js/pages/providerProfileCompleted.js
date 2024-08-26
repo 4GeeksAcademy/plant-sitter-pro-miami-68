@@ -19,8 +19,8 @@ export const ProviderProfileCompleted = () => {
 	return (
 		<div className="text-center m-2">
             <div className="row container-fluid mt-4">
-                <h1 className="mb-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h1>
-                <div className="col bg-success rounded p-3 m-2">
+                <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h1>
+                <div className="col bckgrnd rounded p-3 m-2">
                     <img className="img-fluid" src={picture}/>
                     <div data-mdb-input-init className="form-outline form-white">
                         <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>Alex Hawthorne</strong></h1>
@@ -28,7 +28,7 @@ export const ProviderProfileCompleted = () => {
                         <p className="fs-4 mt-4 text-white description">Hi! I'm Alex. I have a bachelor's degree in Horticulture and years of experience caring for plants of all kinds.</p>
                     </div>
                 </div>
-                <div className="col bg-success rounded p-3 m-2">
+                <div className="col bckgrnd rounded p-3 m-2">
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
                     <div className="input-group mb-3">
                         <p className="fs-4 text-white description">Plants are my passion! I've been a plant lover my whole life and have dedicated my career to their care.</p>
@@ -49,7 +49,7 @@ export const ProviderProfileCompleted = () => {
                         </p>
                     </div>
                 </div>
-                <div className="col bg-success rounded p-3 m-2">
+                <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="diphylleia-regular text-white mb-5">I am comfortable taking care of the following types of plants:</h1>
                     <div className="d-flex plant-types">
                         <div className="justify-content-center">

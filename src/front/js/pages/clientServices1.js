@@ -14,6 +14,7 @@ import cleaning from "../../img/cleaning.png";
 import pruning from "../../img/pruning.png";
 import repotting from "../../img/repotting.png";
 import pestControl from "../../img/pestControl.png";
+import border from "../../img/border.png";
 import { useNavigate } from "react-router-dom";
 
 export const ClientServices1 = () => {
@@ -22,17 +23,21 @@ export const ClientServices1 = () => {
 
 	return (
 		<div className="text-center m-5">
-			<h1 className="diphylleia-regular">Welcome (link to first name)! <i class="fa-solid fa-leaf"></i></h1>
-			<h3 className="diphylleia-regular mt-5"><strong>How frequently do you want help?</strong></h3>
+			<h1 className="diphylleia-regular">Welcome (link to first name)!</h1>
+            <img className="divider" src={border}></img>
+			<h3 className="diphylleia-regular mt-1"><strong>How frequently do you want help?</strong></h3>
             <div className="d-flex row client-services">
                 <div className="col scheduler">
                     <div className="centered">
                         <strong>Insert scheduler</strong>
                     </div>
                 </div>
+            <p></p>
+            <img className="divider m-auto" src={border}></img>
             <h3 className="diphylleia-regular mt-4"><strong>What kind of plants do you have that need care?</strong></h3>
-            <h5 className="mt-3">Select all that apply</h5>
-            <div className="d-flex plant-types mb-4">
+            <p className="fs-5">Don't worry - you can be more specific when you post a job</p>
+            <h5 className="mt-3 mb-4">Select all that apply</h5>
+            <div className="d-flex plant-types">
                 <form action="/submit-url" method="post" className="justify-content-center">
                     <input type="image"  alt="Submit" className="plants img-fluid" src={usual}/>
                     <p className="text-white"><strong>Standard House Plants</strong></p>
@@ -66,62 +71,45 @@ export const ClientServices1 = () => {
                     <p className="text-white"><strong>Vegetable Gardens</strong></p>
                 </form>
             </div>
-
-            <h3 className="diphylleia-regular mt-5"><strong>What kind of services do you need?</strong></h3>
-            <h5 className="mt-3">Select all that apply</h5>
+            <img className="divider m-auto" src={border}></img>
+            <h3 className="diphylleia-regular mt-4"><strong>What kind of services do you need?</strong></h3>
+            <h5 className="mt-3 mb-4">Select all that apply</h5>
             <div className="d-flex plant-types">
-                <div className="row justify-content-center topRow">
-                    <label className="checkbx col-5">
-                        <img className="icon" src={watering}/>
-                        Watering
-                        <input type="checkbox"/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
-                <div className="row justify-content-center">
-                    <label className="checkbx col-5">
-                        <img className="icon" src={repotting}/>
-                        Repotting
-                        <input type="checkbox"/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
-                <div className="row justify-content-center">
-                    <label className="checkbx col-5">
-                        <img className="icon" src={pruning}/>
-                        Pruning
-                        <input type="checkbox"/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
-                <div className="row justify-content-center">
-                    <label className="checkbx col-5">
-                        <img className="icon" src={pestControl}/>
-                        Pest Control
-                        <input type="checkbox"/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
-                <div className="row justify-content-center bottomRow">
-                    <label className="checkbx col-5">
-                        <img className="icon" src={cleaning}/>
-                        Plant Cleaning
-                        <input type="checkbox"/>
-                        <span className="checkmark"></span>
-                    </label>
-                </div>
+                <form action="/submit-url" method="post" className="justify-content-center">
+                    <input type="image"  alt="Submit" className="plants img-fluid" src={watering}/>
+                    <p className="text-white"><strong>Watering</strong></p>
+                </form>
+                <form action="/submit-url" method="post" className="justify-content-center">
+                    <input type="image"  alt="Submit" className="plants img-fluid" src={cleaning}/>
+                    <p className="text-white"><strong>Cleaning</strong></p>
+                </form>
+                <form action="/submit-url" method="post" className="justify-content-center">
+                    <input type="image"  alt="Submit" className="plants img-fluid" src={pruning}/>
+                    <p className="text-white"><strong>Pruning</strong></p>
+                </form>
+                <form action="/submit-url" method="post" className="justify-content-center">
+                    <input type="image"  alt="Submit" className="plants img-fluid" src={repotting}/>
+                    <p className="text-white"><strong>Repotting</strong></p>
+                </form>
+                <form action="/submit-url" method="post" className="justify-content-center">
+                    <input type="image"  alt="Submit" className="plants img-fluid" src={pestControl}/>
+                    <p className="text-white"><strong>Pest control</strong></p>
+                </form>
             </div>
-            <button
-                type="submit" 
-                className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                onClick={
-                    () => {
-                        navigate('/client-services2')
+            <div className="container row mt-5 mb-5">
+                <button
+                    type="submit" 
+                    className="btn btn-success m-auto col-2 rounded-pill"
+                    onClick={
+                        () => {
+                            navigate('/job-post1')
+                        }
                     }
-                }
-            >
-                Next
-        </button>
+                >
+                    Next
+                </button>
+            </div>
+            <div className="mb-5"> </div>
         </div>
     </div>
 	);
