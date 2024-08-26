@@ -19,7 +19,8 @@ import { ProviderProfileCompleted } from "./pages/providerProfileCompleted";
 import { ClientMapPage } from "./pages/clientMapPage";
 import { ClientSignUp1 } from "./pages/clientSignUp1";
 import { ClientSignUp2 } from "./pages/clientSignUp2";
-import { ClientServices } from "./pages/clientServices";
+import { ClientServices1 } from "./pages/clientServices1";
+import { ClientServices2 } from "./pages/clientServices2";
 
 
 
@@ -41,7 +42,8 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
-                        <Route element={<ClientServices />} path="/client-services" />
+                        <Route element={<ClientServices1 />} path="/client-services1" />
+                        <Route element={<ClientServices2 />} path="/client-services2" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
