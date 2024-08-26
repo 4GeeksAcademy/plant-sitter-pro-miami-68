@@ -66,7 +66,7 @@ export const Navbar = () => {
 							<li>
 								<a 
 									className="dropdown-item" 
-									onClick={() => navigate('/signup')}
+									onClick={() => navigate('/SignUp')}
 								>
 									Sign Up
 								</a>

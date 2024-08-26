@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import "../../styles/home.css";
 
 export const SignUp = () => {
 	const navigate = useNavigate();
@@ -38,7 +37,14 @@ export const SignUp = () => {
 						<label className="form-label" htmlFor="password">Password</label>
 					</div>
 				</div>
-				
+
+				<div className="mb-2 pb-2">
+					<div data-mdb-input-init className="form-outline form-white">
+						<input type="tel" id="phone" className="form-control form-control-lg" />
+						<label className="form-label" htmlFor="phone">Phone Number</label>
+					</div>
+				</div>
+
 				<div className="form-check d-flex justify-content-start mb-2 pb-3">
 					<input className="form-check-input me-3" type="checkbox" value="" id="terms" />
 					<label className="form-check-label" htmlFor="terms">
@@ -46,14 +52,18 @@ export const SignUp = () => {
 					</label>
 				</div>
 
-				<div className="d-flex justify-content-center mb-2 pb-3">
+				<div className="d-flex justify-content-center">
 					<button
 						type="submit" 
 						className="btn btn-success mb-5 col-5 rounded-pill"
-						onClick={() => navigate('/welcome')}
+						onClick={() => navigate('/')}
 					>
 						Sign Up
 					</button>
+				</div>
+
+				<div className="text-center">
+					<p>Already have an account? <a href="/login"><u>Log in</u></a></p>
 				</div>
 			</div>
 		</div>

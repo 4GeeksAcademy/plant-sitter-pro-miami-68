@@ -35,12 +35,12 @@ export const ProviderLogin = () => {
                     </label>
                 </div>
 
-                <div className="d-flex justify-content-center mb-2 pb-3">
+                <div className="d-flex justify-content-center">
                     <button
                         type="submit" 
                         className="btn btn-success mb-5 col-5 rounded-pill"
                         onClick={() => {
-                            navigate('/provider-services');
+                            navigate('/');
                         }}
                     >
                         Log In
@@ -48,7 +48,7 @@ export const ProviderLogin = () => {
                 </div>
 
                 <div className="text-center">
-                    <p>Don't have an account? <a href="/sign-up" className="text-white"><u>Sign up</u></a></p>
+                    <p>Don't have an account? <a href="/sign-up"><u>Sign up</u></a></p>
                 </div>
             </div>
         </div>

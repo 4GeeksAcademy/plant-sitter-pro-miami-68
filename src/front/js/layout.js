@@ -22,6 +22,8 @@ import { ClientSignUp2 } from "./pages/clientSignUp2";
 import { ClientServices1 } from "./pages/clientServices1";
 import { JobPost1 } from "./pages/jobPost1";
 import { JobPost2 } from "./pages/jobPost2";
+import { SignUp } from "./component/SignUp";
+import { ProviderLogin } from "./component/login";
 
 
 
@@ -54,6 +56,8 @@ const Layout = () => {
                         <Route element={<ClientSignUp1 />} path="/client-signup1" />
                         <Route element={<ProviderSignUp2 />} path="/provider-signup2" />
                         <Route element={<ClientSignUp2 />} path="/client-signup2" />
+                        <Route element={<ProviderLogin />} path="/login" />
+                        <Route element={<SignUp />} path="/signup" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />
