@@ -217,6 +217,12 @@
     transform: rotate(45deg);
   }
 
+  .imageSmall {
+    height: 150px;
+    width: 150px;
+    border-radius: 25px;
+  }
+
   .bckgrnd{
     background-color: rgb(70, 108, 70) !important;
     color: white;

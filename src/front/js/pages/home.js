@@ -13,14 +13,14 @@ export const Home = () => {
 		<div className="text-center mt-5">
 			<h1 className="diphylleia-regular">Find Expert Help for Your Plants Anytime, Anywhere</h1>
 			<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
-			<p>
-				<img className="homePageImages" src={houseplants} />
-			</p>
 		</div>
 		<div className="carousel-container">
         <PlantSitterCarousel />
 		<ServicesCarousel />
       </div>
+			{/* <p>
+				<img className="homePageImages" src={houseplants} />
+			</p> */}
 		</>
 	);
 };
