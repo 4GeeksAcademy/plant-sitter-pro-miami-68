@@ -4,21 +4,21 @@ import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import plant from "../../img/plant.png";
 
-export const ProviderSignUp1= () => {
+export const ClientSignUp1= () => {
 	// const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 
 	return (
 		<div className="row d-flex">
+            <h1 className="fw-normal mb-3 diphylleia-regular jobs">There are __ Plant Sitters near you!</h1>
 			<div className="col-lg-4 bg-indigo m-auto">
-				<h1 className="fw-normal mt-3 mb-4 diphylleia-regular jobs">There are __ plant sits near you!</h1>
-				{/* <h1 className="fw-normal mb-3 diphylleia-regular jobs">Find jobs now</h1> */}
 				<div className="mb-2 pb-2 d-flex justify-content-center">
 					<div className="subscription">
-						<p className="m-auto diphylleia-regular fs-3"><strong>Subscribe now to find jobs</strong></p>
-                        $15.00/yr.
-						<p className="mb-0">✔️ Includes background check</p>
-						<p className="mt-0">✔️ Find & apply to jobs</p>
+						<p className="m-auto diphylleia-regular fs-3"><strong>Subscribe Now to Continue</strong></p>
+                        <strong>$5.00/yr.</strong>
+						<p className="mb-0">✔️ Find and hire qualitifed help near you</p>
+						<p className="mt-0 mb-0">✔️ Background checks completed for all sitters</p>
+                        <p className="mt-0 mb-0">✔️ Cancel anytime</p>
 						<img className="plant" src={plant}/>
 						<div className="d-flex justify-content-center">
 							<button
@@ -26,7 +26,7 @@ export const ProviderSignUp1= () => {
 								className="btn btn-success mb-5 col-6 rounded-pill"
 								onClick={
 									() => {
-										navigate('/provider-signup2')
+										navigate('/client-signup2')
 									}
 								}
 							>

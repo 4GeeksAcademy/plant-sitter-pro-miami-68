@@ -16,6 +16,12 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ProviderServices } from "./pages/providerServices";
 import { ProviderProfileCompleted } from "./pages/providerProfileCompleted";
+import { ClientMapPage } from "./pages/clientMapPage";
+import { ClientSignUp1 } from "./pages/clientSignUp1";
+import { ClientSignUp2 } from "./pages/clientSignUp2";
+import { ClientServices1 } from "./pages/clientServices1";
+import { JobPost1 } from "./pages/jobPost1";
+import { JobPost2 } from "./pages/jobPost2";
 
 
 
@@ -37,11 +43,17 @@ const Layout = () => {
                         <Route element={<Demo />} path="/demo" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
+                        <Route element={<ClientServices1 />} path="/client-services1" />
+                        <Route element={<JobPost1 />} path="/job-post1" />
+                        <Route element={<JobPost2 />} path="/job-post2" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
+                        <Route element={<ClientMapPage />} path="/client-map" />
                         <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
+                        <Route element={<ClientSignUp1 />} path="/client-signup1" />
                         <Route element={<ProviderSignUp2 />} path="/provider-signup2" />
+                        <Route element={<ClientSignUp2 />} path="/client-signup2" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

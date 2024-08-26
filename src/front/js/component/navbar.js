@@ -11,7 +11,7 @@ export const Navbar = () => {
 				<h1 className="diphylleia-regular title">Plant Sitter Pro</h1>
 				<div className="ml-auto">
 					<div className="dropdown">
-						<button className="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						<button className="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 							Start Here
 						</button>
 						<ul className="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton1">
@@ -28,7 +28,18 @@ export const Navbar = () => {
 								</a>
 							</li>
 							<li><a className="dropdown-item" href="#">How it Works</a></li>
-							<li><a className="dropdown-item" href="#">Services</a></li>
+							<li>
+								<a 
+									className="dropdown-item" 
+									onClick={
+                                        () => {
+                                            navigate('/client-map')
+                                        }
+                                    }
+								>
+									Services
+								</a>
+							</li>
 							<li>
 								<a 
 									className="dropdown-item" 

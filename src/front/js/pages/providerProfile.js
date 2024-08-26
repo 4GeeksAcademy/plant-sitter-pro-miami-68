@@ -18,7 +18,7 @@ export const ProviderProfile = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="text-center m-2">
+		<div className="text-center m-2 mt-4">
             <h1 className="mb-4"> Let's build your profile</h1>
             <div className="row">
                 <h3 className="diphylleia-regular m-auto col-8">Clients will view your profile to decide if you're the right fit to take care of their plants, 
@@ -26,7 +26,7 @@ export const ProviderProfile = () => {
                 </h3>
             </div>
             <div className="row container-fluid mt-4">
-                <div className="col bg-success rounded p-3 m-2">
+                <div className="col bckgrnd rounded p-3 m-2">
                     <h3 className="diphylleia-regular text-white">Upload a profile picture ⬇️</h3>
                     <img className="img-fluid btn" src={picture}/>
                     <div data-mdb-input-init className="form-outline form-white">
@@ -36,7 +36,7 @@ export const ProviderProfile = () => {
                         <textarea rows="5" className="form-control form-control" placeholder="Brief Intro..." aria-label="With textarea"></textarea>
                     </div>
                 </div>
-                <div className="col bg-success rounded p-3 m-2">
+                <div className="col bckgrnd rounded p-3 m-2">
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What should potential clients know about you?</strong></label>
                     <div className="input-group mb-3">
                         <textarea rows="5" className="form-control" placeholder="I've been a plant lover my whole life..." aria-label="With textarea"></textarea>
@@ -57,7 +57,7 @@ export const ProviderProfile = () => {
                         </textarea>
                     </div>
                 </div>
-                <div className="col bg-success rounded p-3 m-2">
+                <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="diphylleia-regular text-white">What kinds of plants are you comfortable taking care of?</h1>
                     <h5 className="mt-4 mb-4 text-white">Select all that apply</h5>
 
@@ -115,7 +115,7 @@ export const ProviderProfile = () => {
             </div>
             <button
                 type="submit" 
-                className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                className="btn mb-3 mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
                         navigate('/provider-profile-completed')
