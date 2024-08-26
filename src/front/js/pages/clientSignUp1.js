@@ -10,7 +10,7 @@ export const ClientSignUp1= () => {
 
 	return (
 		<div className="row d-flex">
-            <h1 className="fw-normal mb-3 diphylleia-regular jobs">There are __ Plant Sitters near you!</h1>
+            <h1 className="fw-normal mb-3 mt-5 diphylleia-regular jobs">There are __ Plant Sitters near you!</h1>
 			<div className="col-lg-4 bg-indigo m-auto">
 				<div className="mb-2 pb-2 d-flex justify-content-center">
 					<div className="subscription">

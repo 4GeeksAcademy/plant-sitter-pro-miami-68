@@ -12,7 +12,7 @@ export const ProviderSignUp2= () => {
 	return (
 		<div className="row justify-content-center">
 			<div className="col-lg-6 bg-indigo">
-			<h1 className="fw-normal mb-5 diphylleia-regular jobs">Create an account</h1>
+			<h1 className="fw-normal mb-5 mt-5 diphylleia-regular jobs">Create an account</h1>
                 <div className="row">
 					<div className="col-md-6 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">

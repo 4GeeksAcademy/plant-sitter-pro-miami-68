@@ -12,7 +12,7 @@ export const ClientSignUp2= () => {
 	return (
 		<div className="row justify-content-center">
 			<div className="col-lg-6 bg-indigo">
-				<h1 className="fw-normal mb-5 diphylleia-regular jobs">Create an account</h1>
+				<h1 className="fw-normal mb-5 mt-5 diphylleia-regular jobs">Create an account</h1>
                 <div className="row">
 					<div className="col-md-6 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
@@ -20,7 +20,6 @@ export const ClientSignUp2= () => {
 							<label className="form-label" for="firstName">First Name</label>
 						</div>
 					</div>
-
 					<div className="col-md-6 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
 							<input type="text" id="lastName" className="form-control form-control-lg" />
@@ -28,21 +27,18 @@ export const ClientSignUp2= () => {
 						</div>
 					</div>
 				</div>
-                
 				<div className="mb-2 pb-2">
 					<div data-mdb-input-init className="form-outline form-white">
 						<input type="text" id="address1" className="form-control form-control-lg" />
 						<label className="form-label" for="address1">Address Line 1</label>
 					</div>
 				</div>
-
 				<div className="mb-2 pb-2">
 					<div data-mdb-input-init className="form-outline form-white">
 						<input type="text" id="address2" className="form-control form-control-lg" />
 						<label className="form-label" for="address2">Address Line 2</label>
 					</div>
 				</div>
-
 				<div className="row">
 					<div className="col-md-5 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
@@ -50,7 +46,6 @@ export const ClientSignUp2= () => {
 							<label className="form-label" for="form3Examplea4">City</label>
 						</div>
 					</div>
-
 					<div className="col-md-7 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
 							<input type="text" id="zipcode" className="form-control form-control-lg" />
@@ -58,7 +53,6 @@ export const ClientSignUp2= () => {
 						</div>
 					</div>
 				</div>
-
 				<div className="mb-2 pb-2">
 					<fieldset disabled>
 						<div data-mdb-input-init className="form-outline form-white">
@@ -67,7 +61,6 @@ export const ClientSignUp2= () => {
 						</div>
 					</fieldset>
 				</div>
-
 				<div className="row">
 					<div className="mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
@@ -76,21 +69,18 @@ export const ClientSignUp2= () => {
 						</div>
 					</div>
 				</div>
-
 				<div className="mb-2">
 					<div data-mdb-input-init className="form-outline form-white">
 						<input type="text" id="email" className="form-control form-control-lg" />
 						<label className="form-label" for="email">Email</label>
 					</div>
 				</div>
-
 				<div className="mb-2">
 					<div data-mdb-input-init className="form-outline form-white">
 						<input type="text" id="password" className="form-control form-control-lg" />
 						<label className="form-label" for="password">Password</label>
 					</div>
 				</div>
-				
 				<div className="form-check d-flex justify-content-start mb-2 pb-3">
 					<input className="form-check-input me-3" type="checkbox" value="" id="terms" />
 					<label className="form-check-label " for="terms">
@@ -98,7 +88,6 @@ export const ClientSignUp2= () => {
 						site.
 					</label>
 				</div>
-
 				<div className="d-flex justify-content-center mb-2 pb-3">
 					<button
 						type="submit" 
