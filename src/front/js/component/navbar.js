@@ -54,6 +54,23 @@ export const Navbar = () => {
 							</li>
 							<li><a className="dropdown-item" href="#">Blog/Resources</a></li>
 							<li><a className="dropdown-item" href="#">Contact Us</a></li>
+							<li><hr className="dropdown-divider" /></li>
+							<li>
+								<a 
+									className="dropdown-item" 
+									onClick={() => navigate('/login')}
+								>
+									Log In
+								</a>
+							</li>
+							<li>
+								<a 
+									className="dropdown-item" 
+									onClick={() => navigate('/signup')}
+								>
+									Sign Up
+								</a>
+							</li>
 						</ul>
 					</div>
 				</div>
