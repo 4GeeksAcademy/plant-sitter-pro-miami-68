@@ -57,7 +57,15 @@ export const Navbar = () => {
                                     Become a Plant Sitter
                                 </a>
                             </li>
-                            <li><a className="dropdown-item" href="#">Blog/Resources</a></li>
+                            <li>
+                                <a 
+                                    className="dropdown-item" 
+                                    href="#"
+                                    onClick={()=> navigate('/blog')}
+                                >
+                                    Blog/Resources
+                                </a>
+                            </li>
                             <li><a className="dropdown-item" href="#">Contact Us</a></li>
                             <li><hr className="dropdown-divider" /></li>
                             {token ? (
