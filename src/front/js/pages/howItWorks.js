@@ -14,7 +14,7 @@ export const HowItWorks = () => {
             <h1 className="diphylleia-regular mb-4 "><strong>How it Works</strong></h1>
             <div className="row container-fluid">
                 <div className="col">
-                    <h3>Need Help?</h3>
+                    <h2>Need Help?</h2>
                     <div className=" works text-start text-white">
                         <h3>🌿Going out of town?</h3>
                         <h3>🌿Love plants, but can't keep them alive?</h3>
@@ -23,7 +23,7 @@ export const HowItWorks = () => {
                     </div>
                 </div>
                 <div className="col">
-                    <h3>Looking to Help?</h3>
+                    <h2>Looking to Help?</h2>
                     <div className=" works text-start text-white">
                         <h3>🌿Love plants?</h3>
                         <h3>🌿Got a green thumb?</h3>
@@ -36,9 +36,17 @@ export const HowItWorks = () => {
                 <div className="col justify-contents-center">
                     <img className="arrow" src={arrow}/>
                 </div>
-                
                 <div className="col justify-contents-center">
                     <img className="arrow" src={arrow}/>
+                </div>
+            </div>
+
+            <div className="row container-fluid">
+                <div className="col justify-contents-center">
+                    <h3>Hire a Plant Sitter</h3>
+                </div>
+                <div className="col justify-contents-center">
+                    <h3>Become a Plant Sitter</h3>
                 </div>
             </div>
 		</div>
