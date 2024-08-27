@@ -1,13 +1,23 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import plantPic from "../../img/plants-on-stand.jpg";
-import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
 
-export const ProviderLogin = () => {
-    // const { store, actions } = useContext(Context);
+export const Login = () => {
+    const { actions } = useContext(Context);
     const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+
+    const handleLogin = async () => {
+        const response = await actions.login(email, password);
+        if (response.success) {
+            navigate('/');
+        } else {
+            setError(response.error);
+        }
+    };
 
     return (
         <div className="row justify-content-center">
@@ -16,14 +26,26 @@ export const ProviderLogin = () => {
                 
                 <div className="mb-2">
                     <div data-mdb-input-init className="form-outline form-white">
-                        <input type="text" id="email" className="form-control form-control-lg" />
+                        <input 
+                            type="text" 
+                            id="email" 
+                            className="form-control form-control-lg" 
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <label className="form-label" htmlFor="email">Email</label>
                     </div>
                 </div>
 
                 <div className="mb-2">
                     <div data-mdb-input-init className="form-outline form-white">
-                        <input type="password" id="password" className="form-control form-control-lg" />
+                        <input 
+                            type="password" 
+                            id="password" 
+                            className="form-control form-control-lg" 
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
                         <label className="form-label" htmlFor="password">Password</label>
                     </div>
                 </div>
@@ -35,20 +57,20 @@ export const ProviderLogin = () => {
                     </label>
                 </div>
 
+                {error && <div className="alert alert-danger">{error}</div>}
+
                 <div className="d-flex justify-content-center">
                     <button
-                        type="submit" 
+                        type="button" 
                         className="btn btn-success mb-5 col-5 rounded-pill"
-                        onClick={() => {
-                            navigate('/');
-                        }}
+                        onClick={handleLogin}
                     >
                         Log In
                     </button>
                 </div>
 
                 <div className="text-center">
-                    <p>Don't have an account? <a href="/sign-up"><u>Sign up</u></a></p>
+                    <p>Don't have an account? <a href="/signup"><u>Sign up</u></a></p>
                 </div>
             </div>
         </div>
