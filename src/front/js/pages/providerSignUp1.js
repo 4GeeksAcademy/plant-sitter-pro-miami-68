@@ -10,9 +10,8 @@ export const ProviderSignUp1= () => {
 
 	return (
 		<div className="row d-flex">
+			<h1 className="fw-normal mt-5 mb-4 diphylleia-regular jobs">There are __ plant sits near you!</h1>				
 			<div className="col-lg-4 bg-indigo m-auto">
-				<h1 className="fw-normal mt-5 mb-4 diphylleia-regular jobs">There are __ plant sits near you!</h1>
-				{/* <h1 className="fw-normal mb-3 diphylleia-regular jobs">Find jobs now</h1> */}
 				<div className="mb-2 pb-2 d-flex justify-content-center">
 					<div className="subscription">
 						<p className="m-auto diphylleia-regular fs-3"><strong>Subscribe Now to Find Jobs</strong></p>

@@ -24,6 +24,8 @@ import { JobPost1 } from "./pages/jobPost1";
 import { JobPost2 } from "./pages/jobPost2";
 import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
+import { ViewJobs } from "./pages/viewJobs";
+import { HowItWorks } from "./pages/howItWorks";
 
 
 
@@ -43,6 +45,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
+                        <Route element={<HowItWorks/>} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
@@ -58,6 +61,7 @@ const Layout = () => {
                         <Route element={<ClientSignUp2 />} path="/client-signup2" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<SignUp />} path="/signup" />
+                        <Route element={<ViewJobs />} path="/view-jobs" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

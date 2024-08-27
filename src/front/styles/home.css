@@ -10,15 +10,25 @@
   border-bottom: 2px solid rgb(70, 108, 70);
 }
 
+.works {
+  background-color: rgb(70, 108, 70);
+  border-radius: 25px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.arrow {
+  height: 200px;
+  width: auto;
+}
+
 .client-services {
   flex-wrap: wrap;
-  height: 200px;
   margin-top: 40px;
 }
 
 .logo {
     height: 150px;
-
 }
 
 .diphylleia-regular {
