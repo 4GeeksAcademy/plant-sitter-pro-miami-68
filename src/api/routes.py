@@ -36,6 +36,7 @@ def signup():
     address_line_1 = data.get('address_line_1')
     address_line_2 = data.get('address_line_2')
     city = data.get('city')
+    state = data.get('state')
     country = data.get('country', 'United States')
     zip_code = data.get('zip_code')
 
@@ -57,6 +58,7 @@ def signup():
             address_line_1=address_line_1,
             address_line_2=address_line_2,
             city=city,
+            state=state,
             country=country,
             zip_code=zip_code,
         )
@@ -127,6 +129,7 @@ def update_user(id):
     user.address_line_1 = data.get('address_line_1', user.address_line_1)
     user.address_line_2 = data.get('address_line_2', user.address_line_2)
     user.city = data.get('city', user.city)
+    user.state = data.get('city', user.state)
     user.zip_code = data.get('zip_code', user.zip_code)
     user.country = data.get('country', user.country)
 

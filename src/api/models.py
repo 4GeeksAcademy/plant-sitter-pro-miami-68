@@ -18,6 +18,7 @@ class User(db.Model):
     address_line_1 = db.Column(db.String(255), nullable=True)
     address_line_2 = db.Column(db.String(255), nullable=True)
     city = db.Column(db.String(100), nullable=True)
+    state = db.Column(db.String(100), nullable=True)
     country = db.Column(db.String(50), default='United States')
     zip_code = db.Column(db.String(10), nullable=True)
     location = db.Column(db.String(255), nullable=True)  # Address from geolocation
@@ -62,6 +63,7 @@ class User(db.Model):
             "address_line_1": self.address_line_1,
             "address_line_2": self.address_line_2,
             "city": self.city,
+            "state": self.state,
             "zip_code": self.zip_code,
             "country": self.country,
             "location": self.location,
