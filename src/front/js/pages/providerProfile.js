@@ -4,6 +4,7 @@ import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import plantoutlines from "../../img/plantoutlines.jpg";
 import picture from "../../img/profilePicture.png";
+import client from "../../img/client.png";
 import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
@@ -28,7 +29,7 @@ export const ProviderProfile = () => {
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h3 className="diphylleia-regular text-white">Upload a profile picture ⬇️</h3>
-                    <img className="img-fluid btn" src={picture}/>
+                    <img className="img-fluid btn" src={client}/>
                     <div data-mdb-input-init className="form-outline form-white">
                         <input type="text" placeholder="First Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
                         <input type="text" placeholder="Last Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />

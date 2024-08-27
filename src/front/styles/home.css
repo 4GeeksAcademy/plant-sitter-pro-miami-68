@@ -11,8 +11,7 @@
 }
 
 .works {
-  background-color: rgb(70, 108, 70);
-  border-radius: 25px;
+  border-top: 2px solid rgb(70, 108, 70);
   padding: 20px;
   margin: 20px;
 }

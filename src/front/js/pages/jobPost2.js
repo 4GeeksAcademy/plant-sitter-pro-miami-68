@@ -4,6 +4,7 @@ import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import plantoutlines from "../../img/plantoutlines.jpg";
 import client from "../../img/client.png";
+import picture from "../../img/profilePicture.png";
 import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
@@ -28,7 +29,7 @@ export const JobPost2= () => {
             <div className="row container-fluid mt-4">
                 <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <img className="img-fluid" src={client}/>
+                    <img className="img-fluid" src={picture}/>
                     <div data-mdb-input-init className="form-outline form-white">
                         <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>Rose McIntosh</strong></h1>
                         <h3 className="text-white mb-3 diphylleia-regular jobs"><strong>Nashville, TN</strong></h3>
