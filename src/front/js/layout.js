@@ -26,6 +26,7 @@ import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
 import { HowItWorks } from "./pages/howItWorks";
+import { Blog } from "./pages/blog";
 
 
 
@@ -62,6 +63,7 @@ const Layout = () => {
                         <Route element={<Login />} path="/login" />
                         <Route element={<SignUp />} path="/signup" />
                         <Route element={<ViewJobs />} path="/view-jobs" />
+                        <Route element={<Blog />} path="/blog" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

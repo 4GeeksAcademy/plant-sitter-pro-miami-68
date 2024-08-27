@@ -7,9 +7,11 @@ import arrow from "../../img/arrow.png";
 import houseplants from "../../img/houseplants2.jpg";
 import PlantSitterCarousel from "../component/PlantSitterCard";
 import ServicesCarousel from "../component/ServicesCarousel";
+import { useNavigate } from "react-router-dom";
 
 export const HowItWorks = () => {
 	const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
 
 	return (
 		<div className="text-center mt-5">
@@ -20,6 +22,19 @@ export const HowItWorks = () => {
                 <div className="col m-3">
                     <h2>Need help with your plants? <img src={wilting}/></h2>
                     <div className="container works text-start">
+                        <button
+                            type="submit" 
+                            className="btn col-6 rounded-pill"
+                            onClick={
+                                () => {
+                                    navigate('/client-map')
+                                }
+                            }
+                        >
+                            <h1 className="diphylleia-regular text-center">
+                                Hire a Plant Sitter
+                            </h1>
+                        </button>
                         <h2 className="diphylleia-regular mt-3"><strong>🌿Step 1: Tell us where you're located.</strong></h2>
                         <p className="mb-3 fs-4">We'll tell you how many plant sitters are available near you.</p>
                         <h2 className="diphylleia-regular mt-3"><strong>🌿Step 2: Subscribe to our service and create an account.</strong></h2>
@@ -31,6 +46,19 @@ export const HowItWorks = () => {
                 <div className="col m-3">
                     <h2><img src={helping}/> Looking for work in plant care?</h2>
                     <div className="container works text-start">
+                    <button
+                            type="submit" 
+                            className="btn col-6 rounded-pill"
+                            onClick={
+                                () => {
+                                    navigate('/provider-map')
+                                }
+                            }
+                        >
+                            <h1 className="diphylleia-regular text-center">
+                                Become a Plant Sitter
+                            </h1>
+                        </button>
                         <h2 className="diphylleia-regular mt-3"><strong>🌿Step 1: Tell us where you're located and how far you're willing to travel.</strong></h2>
                         <p className="mb-3 fs-4">We'll tell you how many jobs are available in your search area.</p>
                         <h2 className="diphylleia-regular mt-3"><strong>🌿Step 2: Subscribe to our service and create an account.</strong></h2>

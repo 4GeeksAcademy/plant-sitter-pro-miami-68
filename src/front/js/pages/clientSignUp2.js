@@ -46,7 +46,15 @@ export const ClientSignUp2= () => {
 							<label className="form-label" for="form3Examplea4">City</label>
 						</div>
 					</div>
-					<div className="col-md-7 mb-2 pb-2">
+
+					<div className="col-md-5 mb-2 pb-2">
+						<div data-mdb-input-init className="form-outline form-white">
+							<input type="text" id="state" className="form-control form-control-lg" />
+							<label className="form-label" for="state">State</label>
+						</div>
+					</div>
+
+					<div className="col-md-2 mb-2 pb-2">
 						<div data-mdb-input-init className="form-outline form-white">
 							<input type="text" id="zipcode" className="form-control form-control-lg" />
 							<label className="form-label" for="zipcode">ZIP Code</label>

@@ -14,9 +14,8 @@ export const ProviderMapPage = () => {
         <div className="text-center m-5">
         <h1 className="diphylleia-regular">Where would you like to work?</h1>
         <form action="/action_page.php">
-            <div class="input-container p-3">
-                <input placeholder="   ZIP code" type="text" id="zipcode" className="input-field rounded" name="zipcode"/>  
-                <i className="fa-solid fa-location-dot pin"></i>
+            <div className="row container address w-50">
+                <input placeholder="   ZIP code" type="text" id="zipcode" className="input-field rounded" />
             </div>
             <img className="map" src={map}/>
             <p></p>
