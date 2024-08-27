@@ -27,7 +27,19 @@ export const Navbar = () => {
 									Home
 								</a>
 							</li>
-							<li><a className="dropdown-item" href="#">How it Works</a></li>
+							<li>
+								<a 
+									className="dropdown-item" 
+									href="#"
+									onClick={
+                                        () => {
+                                            navigate('/how-it-works')
+                                        }
+                                    }
+								>
+									How it Works
+								</a>
+							</li>
 							<li>
 								<a 
 									className="dropdown-item" 
@@ -37,7 +49,7 @@ export const Navbar = () => {
                                         }
                                     }
 								>
-									Services
+									Hire a Plant Sitter
 								</a>
 							</li>
 							<li>
@@ -49,7 +61,7 @@ export const Navbar = () => {
                                         }
                                     }
 								>
-									For Providers
+									Become a Plant Sitter
 								</a>
 							</li>
 							<li><a className="dropdown-item" href="#">Blog/Resources</a></li>

@@ -23,6 +23,7 @@ import { ClientServices1 } from "./pages/clientServices1";
 import { JobPost1 } from "./pages/jobPost1";
 import { JobPost2 } from "./pages/jobPost2";
 import { ViewJobs } from "./pages/viewJobs";
+import { HowItWorks } from "./pages/howItWorks";
 
 
 
@@ -42,6 +43,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
+                        <Route element={<HowItWorks/>} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
