@@ -13,7 +13,11 @@
 .works {
   border-top: 2px solid rgb(70, 108, 70);
   padding: 20px;
-  margin: 20px;
+  margin: 30px;
+}
+
+.steps {
+  text-align: left;
 }
 
 .arrow {
