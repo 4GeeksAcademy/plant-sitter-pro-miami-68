@@ -12,6 +12,7 @@ export const SignUp = () => {
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
     const [city, setCity] = useState("");
+    const [state, setState] = useState("");
     const [country, setCountry] = useState("United States");
     const [zipCode, setZipCode] = useState("");
     const [termsAccepted, setTermsAccepted] = useState(false);
@@ -26,7 +27,7 @@ export const SignUp = () => {
             return;
         }
 
-        const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, country, zipCode);
+        const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
         if (result.success) {
             navigate('/');
         } else {
@@ -105,7 +106,21 @@ export const SignUp = () => {
                                 <label className="form-label" htmlFor="city">City</label>
                             </div>
                         </div>
-                        <div className="col-md-7 mb-2 pb-2">
+
+                        <div className="col-md-5 mb-2 pb-2">
+						<div data-mdb-input-init className="form-outline form-white">
+							<input 
+                                type="text" 
+                                id="state" 
+                                className="form-control form-control-lg"
+                                value={state}
+                                onChange={(e) => setState(e.target.value)}
+                            />
+							<label className="form-label" for="state">State</label>
+						</div>
+					</div>
+                    
+                        <div className="col-md-2 mb-2 pb-2">
                             <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"

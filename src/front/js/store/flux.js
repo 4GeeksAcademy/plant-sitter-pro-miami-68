@@ -51,7 +51,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
             // Sign up a new user
-            signup: async (email, password, phone, first_name, last_name, address_line_1, address_line_2, city, country, zip_code) => {
+            signup: async (email, password, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code) => {
                 try {
                     const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
                         method: "POST",
@@ -67,6 +67,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             address_line_1, 
                             address_line_2, 
                             city, 
+                            state,
                             country, 
                             zip_code 
                         })
@@ -137,7 +138,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Update user data
-            updateUser: async (id, email, phone, first_name, last_name, address_line_1, address_line_2, city, country, zip_code, password = null) => {
+            updateUser: async (id, email, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code, password = null) => {
                 const store = getStore();
                 try {
                     const resp = await fetch(`${process.env.BACKEND_URL}/api/user/${id}`, {
@@ -154,6 +155,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             address_line_1, 
                             address_line_2, 
                             city, 
+                            state,
                             country, 
                             zip_code, 
                             password 
