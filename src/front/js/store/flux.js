@@ -50,16 +50,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
-			// Sign up a new user
-            signup: async (email, password, phone, address_line_1, address_line_2, city, country, zip_code) => {
+            // Sign up a new user
+            signup: async (email, password, phone, first_name, last_name, address_line_1, address_line_2, city, country, zip_code) => {
                 try {
                     const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
                         method: "POST",
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ email, password, phone, address_line_1, address_line_2, city, country, zip_code })
+                        body: JSON.stringify({ 
+                            email, 
+                            password, 
+                            phone, 
+                            first_name, 
+                            last_name, 
+                            address_line_1, 
+                            address_line_2, 
+                            city, 
+                            country, 
+                            zip_code 
+                        })
                     });
+                    
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ token: data.access_token });
@@ -125,7 +137,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Update user data
-            updateUser: async (id, email, phone, address_line_1, address_line_2, city, country, zip_code, password = null) => {
+            updateUser: async (id, email, phone, first_name, last_name, address_line_1, address_line_2, city, country, zip_code, password = null) => {
                 const store = getStore();
                 try {
                     const resp = await fetch(`${process.env.BACKEND_URL}/api/user/${id}`, {
@@ -134,8 +146,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${store.token}`
                         },
-                        body: JSON.stringify({ email, phone, address_line_1, address_line_2, city, country, zip_code, password })
+                        body: JSON.stringify({ 
+                            email, 
+                            phone, 
+                            first_name, 
+                            last_name, 
+                            address_line_1, 
+                            address_line_2, 
+                            city, 
+                            country, 
+                            zip_code, 
+                            password 
+                        })
                     });
+                    
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ user: data.user });
@@ -178,7 +202,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
             // Create a new plant sitter
-            createPlantSitter: async (first_name, last_name, profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences) => {
+            createPlantSitter: async (profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences) => {
                 const store = getStore();
                 try {
                     const resp = await fetch(process.env.BACKEND_URL + "/api/plant_sitters", {
@@ -187,8 +211,16 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${store.token}`
                         },
-                        body: JSON.stringify({ first_name, last_name, profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences })
+                        body: JSON.stringify({
+                            profile_picture_url,
+                            bio,
+                            professional_experience,
+                            additional_info,
+                            preferred_plants,
+                            service_preferences
+                        })
                     });
+                    
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ plantSitter: data });
@@ -204,7 +236,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Update plant sitter data
-            updatePlantSitter: async (id, first_name, last_name, profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences) => {
+            updatePlantSitter: async (id, profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences) => {
                 const store = getStore();
                 try {
                     const resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter/${id}`, {
@@ -213,8 +245,16 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${store.token}`
                         },
-                        body: JSON.stringify({ first_name, last_name, profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences })
+                        body: JSON.stringify({
+                            profile_picture_url,
+                            bio,
+                            professional_experience,
+                            additional_info,
+                            preferred_plants,
+                            service_preferences
+                        })
                     });
+                    
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ plantSitter: data.plant_sitter });
