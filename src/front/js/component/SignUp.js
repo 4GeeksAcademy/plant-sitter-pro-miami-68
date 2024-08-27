@@ -12,10 +12,10 @@ export const SignUp = () => {
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
     const [city, setCity] = useState("");
-    const [country, setCountry] = useState("United States"); // Default to United States
+    const [country, setCountry] = useState("United States");
     const [zipCode, setZipCode] = useState("");
     const [termsAccepted, setTermsAccepted] = useState(false);
-    const { actions } = useContext(Context); // Access Flux actions
+    const { actions } = useContext(Context);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
