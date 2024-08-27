@@ -119,7 +119,7 @@ export const SignUp = () => {
 							<label className="form-label" for="state">State</label>
 						</div>
 					</div>
-                    
+
                         <div className="col-md-2 mb-2 pb-2">
                             <div data-mdb-input-init className="form-outline form-white">
                                 <input
