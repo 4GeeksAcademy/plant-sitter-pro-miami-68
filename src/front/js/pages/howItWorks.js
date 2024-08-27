@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import wilting from "../../img/wilting.png";
+import helping from "../../img/helping.png";
 import arrow from "../../img/arrow.png";
 import houseplants from "../../img/houseplants2.jpg";
 import PlantSitterCarousel from "../component/PlantSitterCard";
@@ -16,7 +18,7 @@ export const HowItWorks = () => {
 
             <div className="row container-fluid">
                 <div className="col m-3">
-                    <h2>Need help with your plants?</h2>
+                    <h2>Need help with your plants? <img src={wilting}/></h2>
                     <div className="container works text-start">
                         <h2 className="diphylleia-regular mt-3"><strong>🌿Step 1: Tell us where you're located.</strong></h2>
                         <p className="mb-3 fs-4">We'll tell you how many plant sitters are available near you.</p>
@@ -27,7 +29,7 @@ export const HowItWorks = () => {
                     </div>
                 </div>
                 <div className="col m-3">
-                    <h2>Looking for work in plant care?</h2>
+                    <h2><img src={helping}/> Looking for work in plant care?</h2>
                     <div className="container works text-start">
                         <h2 className="diphylleia-regular mt-3"><strong>🌿Step 1: Tell us where you're located and how far you're willing to travel.</strong></h2>
                         <p className="mb-3 fs-4">We'll tell you how many jobs are available in your search area.</p>
