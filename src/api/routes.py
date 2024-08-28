@@ -7,6 +7,9 @@ from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
+
+
+
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
@@ -416,3 +419,35 @@ def delete_plant_sitter(id):
 #     except Exception as e:
 #         db.session.rollback()
 #         return jsonify({"error": str(e)}), 400
+
+
+
+# ---------------------------endpoints for messeages--------------------------------------
+
+@api.route('/messages/send', methods=['POST'])
+@jwt_required()
+def send_message():
+    data = request.get_json()
+    if not data or 'receiver_id' not in data or 'message_content' not in data:
+        return jsonify({'message': 'Missing data'}), 400
+    new_message = Message(
+        sender_id=current_user.id,
+        receiver_id=data['receiver_id'],
+        message_content=data['message_content']
+    )
+    db.session.add(new_message)
+    db.session.commit()
+    return jsonify(new_message.serialize()), 201
+
+@api.route('/messages', methods=['GET'])
+@jwt_required()
+def get_messages():
+    client_id = request.args.get('client_id')
+    if client_id:
+        messages = Message.query.filter_by(
+            sender_id=current_user.id, receiver_id=client_id).all()
+    else:
+        messages = Message.query.filter(
+            (Message.sender_id == current_user.id) | (Message.receiver_id == current_user.id)
+        ).all()
+    return jsonify([message.serialize() for message in messages]), 200
