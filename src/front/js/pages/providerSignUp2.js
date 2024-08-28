@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import plantPic from "../../img/plants-on-stand.jpg";
@@ -20,6 +20,13 @@ export const ProviderSignUp2= () => {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const { actions } = useContext(Context);
     const navigate = useNavigate();
+
+	useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            navigate("/provider-services");
+        }
+    }, [navigate]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
