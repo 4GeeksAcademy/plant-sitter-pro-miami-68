@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, ClientProfiles, PlantSitter, JobPost, Rating
+from api.models import db, User, ClientProfiles, PlantSitter, JobPost, Rating, Message
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -21,6 +21,8 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+
 
 
 #---------------------endpoints for Users
@@ -94,7 +96,7 @@ def login():
         return jsonify({"access_token": access_token}), 200
     else:
         return jsonify({"error": "Invalid email or password"}), 401
-    
+   
 
 @api.route('/user/<int:id>', methods=['GET'])
 @jwt_required()
@@ -162,9 +164,7 @@ def delete_user(id):
 
 
 
-
-
-    
+   
 
 #---------------------endpoints for Plantsitter--------------------
 
@@ -221,9 +221,9 @@ def update_plant_sitter(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
-    
+   
 
-    
+   
 @api.route('/plant_sitter/<int:id>', methods=['GET'])
 @jwt_required()
 def get_plant_sitter(id):
@@ -257,8 +257,7 @@ def delete_plant_sitter(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
-    
-
+   
 
 
 
@@ -272,7 +271,7 @@ def delete_plant_sitter(id):
 # def create_client_profile():
 #     user_id = get_jwt_identity()
 #     data = request.get_json()
-    
+   
 #     zip_code = data.get('zip_code')
 #     if not zip_code:
 #         return jsonify({"error": "Zip code is required"}), 400
@@ -282,7 +281,7 @@ def delete_plant_sitter(id):
 #         new_profile.set_location_by_zip(zip_code)
 #         db.session.add(new_profile)
 #         db.session.commit()
-        
+       
 #         return jsonify(new_profile.serialize()), 201
 #     except ValueError as ve:
 #         return jsonify({"error": str(ve)}), 400
@@ -318,7 +317,7 @@ def delete_plant_sitter(id):
 #     except Exception as e:
 #         db.session.rollback()
 #         return jsonify({"error": str(e)}), 400
-    
+   
 
 # @api.route('/client_profiles/<int:id>', methods=['GET'])
 # @jwt_required()
@@ -344,7 +343,7 @@ def delete_plant_sitter(id):
 #     except Exception as e:
 #         db.session.rollback()
 #         return jsonify({"error": str(e)}), 400
-    
+   
 
 
 
@@ -364,7 +363,7 @@ def delete_plant_sitter(id):
 #         new_job = JobPost(user_id=user_id, **data)
 #         db.session.add(new_job)
 #         db.session.commit()
-        
+       
 #         return jsonify(new_job.serialize()), 201
 #     except Exception as e:
 #         db.session.rollback()
@@ -416,3 +415,48 @@ def delete_plant_sitter(id):
 #     except Exception as e:
 #         db.session.rollback()
 #         return jsonify({"error": str(e)}), 400
+
+
+
+
+
+# ---------------------------endpoints for messeages--------------------------------------
+
+@api.route('/messages/send', methods=['POST'])
+@jwt_required()
+def send_message():
+    data = request.get_json()
+    if not data or 'receiver_id' not in data or 'message_content' not in data:
+        return jsonify({'message': 'Missing data'}), 400
+
+    try:
+        user_id = get_jwt_identity()
+        new_message = Message(
+            sender_id=user_id,
+            receiver_id=data['receiver_id'],
+            message_content=data['message_content']
+        )
+        db.session.add(new_message)
+        db.session.commit()
+        return jsonify(new_message.serialize()), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({'message': 'Error sending message', 'error': str(e)}), 500
+
+@api.route('/messages', methods=['GET'])
+@jwt_required()
+def get_messages():
+    try:
+        user_id = get_jwt_identity()
+        client_id = request.args.get('client_id')
+
+        if client_id:
+            messages = Message.query.filter_by(sender_id=user_id, receiver_id=client_id).all()
+        else:
+            messages = Message.query.filter(
+                (Message.sender_id == user_id) | (Message.receiver_id == user_id)
+            ).all()
+
+        return jsonify([message.serialize() for message in messages]), 200
+    except Exception as e:
+        return jsonify({'message': 'Error retrieving messages', 'error': str(e)}), 500

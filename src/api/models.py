@@ -195,3 +195,24 @@ class JobPost(db.Model):
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at
         }
+
+class Message(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sender_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    receiver_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    message_content = db.Column(db.String(1000), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    status = db.Column(db.String(50), default='unread')  # e.g., unread, read
+
+    def __repr__(self):
+        return f'<Message {self.id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "sender_id": self.sender_id,
+            "receiver_id": self.receiver_id,
+            "message_content": self.message_content,
+            "timestamp": self.timestamp.isoformat(),
+            "status": self.status
+        }
