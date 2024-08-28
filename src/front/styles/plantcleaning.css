@@ -1,0 +1,44 @@
+.service-page-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    height: 100vh; /* Full height */
+    box-sizing: border-box;
+}
+
+.service-image-container {
+    flex: 1; /* Take up 50% of the width */
+    padding-right: 20px; /* Space between the image and description */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.service-description-container {
+    flex: 1; /* Take up 50% of the width */
+    padding-left: 20px; /* Space between the image and description */
+}
+
+.service-image {
+    width: 100%; /* Image takes full width of its container */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Cover the entire area */
+}
+
+.service-description-container h2 {
+    margin-bottom: 20px;
+    justify-content: center;
+
+}
+
+.service-description-container p {
+    font-size: 1.2rem;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.service-description-container button {
+    padding: 10px 20px;
+    font-size: 1rem;
+}
