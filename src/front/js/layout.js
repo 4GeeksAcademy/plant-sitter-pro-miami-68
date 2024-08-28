@@ -28,6 +28,12 @@ import { ViewJobs } from "./pages/viewJobs";
 import { HowItWorks } from "./pages/howItWorks";
 import { Blog } from "./pages/blog";
 
+import WateringService from "./pages/WateringService";
+import RepottingService from "./pages/RepottingService";
+import PruningService from "./pages/PruningService";
+import PestControlService from "./pages/PestControlService";
+import PlantCleaningService from "./pages/PlantCleaningService";
+
 
 
 //create your first component
@@ -64,6 +70,12 @@ const Layout = () => {
                         <Route element={<SignUp />} path="/signup" />
                         <Route element={<ViewJobs />} path="/view-jobs" />
                         <Route element={<Blog />} path="/blog" />
+                        <Route element={<WateringService />} path="/watering" />
+                        <Route element={<RepottingService />} path="/repotting" />
+                        <Route element={<PruningService />} path="/pruning" />
+                        <Route element={<PestControlService />} path="/pestcontrol" />
+                        <Route element={<PlantCleaningService />} path="/plantcleaning" />
+
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

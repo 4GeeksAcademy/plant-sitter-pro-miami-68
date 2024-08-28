@@ -12,52 +12,52 @@ const services = [
   {
     name: "Watering",
     image: watering,  
-    link: "/services/watering",
+    link: "/watering",
   },
   {
     name: "Re-Potting",
     image: repotting,  // Replace with the actual path to your image
-    link: "/services/repotting",
+    link: "/repotting",
   },
   {
     name: "Pruning",
     image: pruning,  // Replace with the actual path to your image
-    link: "/services/pruning",
+    link: "/pruning",
   },
   {
     name: "Pest Control",
     image: pestcontrol,  // Replace with the actual path to your image
-    link: "/services/pestcontrol",
+    link: "/pestcontrol",
   },
   {
     name: "Plant Cleaning",
     image: plantcleaning,  // Replace with the actual path to your image
-    link: "/services/plantcleaning",
+    link: "/plantcleaning",
   },
   {
     name: "Watering",
     image: watering,  
-    link: "/services/watering",
+    link: "/watering",
   },
   {
     name: "Re-Potting",
     image: repotting,  
-    link: "/services/repotting",
+    link: "/repotting",
   },
   {
     name: "Pruning",
     image: pruning,  
-    link: "/services/pruning",
+    link: "/pruning",
   },
   {
     name: "Pest Control",
     image: pestcontrol,  
-    link: "/services/pestcontrol",
+    link: "/pestcontrol",
   },
   {
     name: "Plant Cleaning",
     image: plantcleaning,  
-    link: "/services/plantcleaning",
+    link: "/plantcleaning",
   },
 ];
 
