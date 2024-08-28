@@ -31,14 +31,17 @@ def signup():
     email = data.get('email')
     password = data.get('password')
     phone = data.get('phone')
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
     address_line_1 = data.get('address_line_1')
     address_line_2 = data.get('address_line_2')
     city = data.get('city')
+    state = data.get('state')
     country = data.get('country', 'United States')
     zip_code = data.get('zip_code')
 
-    if not email or not password or not phone:
-        return jsonify({"error": "Email, password, and phone are required"}), 400
+    if not email or not password or not phone or not first_name or not last_name:
+        return jsonify({"error": "Email, password, phone, first name, and last name are required"}), 400
 
     if User.query.filter_by(email=email).first():
         return jsonify({"error": "Email already registered"}), 400
@@ -50,9 +53,12 @@ def signup():
         new_user = User(
             email=email,
             phone=phone,
+            first_name=first_name,
+            last_name=last_name,
             address_line_1=address_line_1,
             address_line_2=address_line_2,
             city=city,
+            state=state,
             country=country,
             zip_code=zip_code,
         )
@@ -118,9 +124,12 @@ def update_user(id):
 
     user.email = data.get('email', user.email)
     user.phone = data.get('phone', user.phone)
+    user.first_name = data.get('first_name', user.first_name)
+    user.last_name = data.get('last_name', user.last_name)
     user.address_line_1 = data.get('address_line_1', user.address_line_1)
     user.address_line_2 = data.get('address_line_2', user.address_line_2)
     user.city = data.get('city', user.city)
+    user.state = data.get('city', user.state)
     user.zip_code = data.get('zip_code', user.zip_code)
     user.country = data.get('country', user.country)
 
@@ -165,8 +174,6 @@ def delete_user(id):
 def create_plant_sitter():
     data = request.get_json()
     user_id = get_jwt_identity()
-    first_name = data.get('first_name')
-    last_name = data.get('last_name')
     profile_picture_url = data.get('profile_picture_url')
     bio = data.get('bio')
     professional_experience = data.get('professional_experience')
@@ -174,14 +181,9 @@ def create_plant_sitter():
     preferred_plants = data.get('preferred_plants')
     service_preferences = data.get('service_preferences')
 
-    if not all([first_name, last_name]):
-        return jsonify({"error": "First name and last name are required"}), 400
-
     try:
         new_sitter = PlantSitter(
             user_id=user_id,
-            first_name=first_name,
-            last_name=last_name,
             profile_picture_url=profile_picture_url,
             bio=bio,
             professional_experience=professional_experience,
@@ -206,8 +208,6 @@ def update_plant_sitter(id):
     if not plant_sitter:
         return jsonify({"error": "Plant sitter not found"}), 404
 
-    plant_sitter.first_name = data.get('first_name', plant_sitter.first_name)
-    plant_sitter.last_name = data.get('last_name', plant_sitter.last_name)
     plant_sitter.profile_picture_url = data.get('profile_picture_url', plant_sitter.profile_picture_url)
     plant_sitter.bio = data.get('bio', plant_sitter.bio)
     plant_sitter.professional_experience = data.get('professional_experience', plant_sitter.professional_experience)

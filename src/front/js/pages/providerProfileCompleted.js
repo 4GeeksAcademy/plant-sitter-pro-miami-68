@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import picture from "../../img/profilePicture.png";
 import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
+import client from "../../img/client.png";
 import unusual from "../../img/unusual.jpg";
 import carnivorous from "../../img/carnivorous.jpg";
 import usual from "../../img/usual.jpg";
@@ -21,7 +22,7 @@ export const ProviderProfileCompleted = () => {
             <div className="row container-fluid mt-4">
                 <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h1>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <img className="img-fluid" src={picture}/>
+                    <img className="img-fluid" src={client}/>
                     <div data-mdb-input-init className="form-outline form-white">
                         <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>Alex Hawthorne</strong></h1>
                         <h3 className="text-white mb-3 diphylleia-regular jobs"><strong>Gainesville, FL</strong></h3>
@@ -84,7 +85,7 @@ export const ProviderProfileCompleted = () => {
                 className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
-                        navigate('/')
+                        navigate('/view-jobs')
                     }
                 }
             >

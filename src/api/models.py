@@ -10,12 +10,15 @@ db = SQLAlchemy()
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     phone = db.Column(db.String(120), unique=True, nullable=False)
     password_hash = db.Column(db.String(256), nullable=False)
     address_line_1 = db.Column(db.String(255), nullable=True)
     address_line_2 = db.Column(db.String(255), nullable=True)
     city = db.Column(db.String(100), nullable=True)
+    state = db.Column(db.String(100), nullable=True)
     country = db.Column(db.String(50), default='United States')
     zip_code = db.Column(db.String(10), nullable=True)
     location = db.Column(db.String(255), nullable=True)  # Address from geolocation
@@ -53,18 +56,21 @@ class User(db.Model):
     def serialize(self):
         return {
             "id": self.id,
+            "first_name": self.first_name,
+            "last_name": self.last_name,
             "email": self.email,
             "phone": self.phone,
             "address_line_1": self.address_line_1,
             "address_line_2": self.address_line_2,
             "city": self.city,
+            "state": self.state,
             "zip_code": self.zip_code,
             "country": self.country,
             "location": self.location,
             "latitude": self.latitude,
             "longitude": self.longitude,
-            "created_at": self.created_at,
-            "updated_at": self.updated_at
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
         }
 
 class ClientProfiles(db.Model):
@@ -84,6 +90,8 @@ class ClientProfiles(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
+            "first_name": self.user.first_name if self.user else None,
+            "last_name": self.user.last_name if self.user else None,
             "my_plants": self.my_plants,
             "service_preferences": self.service_preferences,
             "location": self.user.location if self.user else None,
@@ -95,8 +103,6 @@ class PlantSitter(db.Model):
     __tablename__ = 'plant_sitters'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    first_name = db.Column(db.String(100), nullable=False)
-    last_name = db.Column(db.String(100), nullable=False)
     profile_picture_url = db.Column(db.String(255), nullable=True)
     bio = db.Column(db.Text, nullable=True)
     professional_experience = db.Column(db.Text, nullable=True)
@@ -115,8 +121,8 @@ class PlantSitter(db.Model):
         return {
             "id": self.id,
             "user_id": self.user_id,
-            "first_name": self.first_name,
-            "last_name": self.last_name,
+            "first_name": self.user.first_name if self.user else None,
+            "last_name": self.user.last_name if self.user else None,
             "profile_picture_url": self.profile_picture_url,
             "bio": self.bio,
             "professional_experience": self.professional_experience,
@@ -156,7 +162,6 @@ class Rating(db.Model):
         else:
             raise ValueError("Rating must be an integer between 1 and 5.")    
 
-
 class JobPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
@@ -188,5 +193,5 @@ class JobPost(db.Model):
             "client_profiles_id": self.client_profiles_id,
             "status": self.status,
             "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at
         }

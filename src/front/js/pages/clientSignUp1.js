@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
@@ -7,6 +7,13 @@ import plant from "../../img/plant.png";
 export const ClientSignUp1= () => {
 	// const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
+
+	useEffect(() => {
+        const token = sessionStorage.getItem("token");
+        if (token) {
+            navigate("/client-services1");
+        }
+    }, [navigate]);
 
 	return (
 		<div className="row d-flex">

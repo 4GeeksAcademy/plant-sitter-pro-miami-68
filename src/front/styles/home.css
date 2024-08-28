@@ -10,15 +10,40 @@
   border-bottom: 2px solid rgb(70, 108, 70);
 }
 
+.works {
+  border-top: 2px solid rgb(70, 108, 70);
+  /* padding: 20px;
+  margin: 30px; */
+}
+
+.blog-header {
+  font-size: 100px;;
+}
+
+.article {
+  width: 400px !important;
+  height: auto;
+  background-color: white;
+  border: 1px solid rgb(70, 108, 70);
+  border-radius: 25px;
+}
+
+.steps {
+  text-align: left;
+}
+
+.arrow {
+  height: 150px;
+  width: auto;
+}
+
 .client-services {
   flex-wrap: wrap;
-  height: 200px;
   margin-top: 40px;
 }
 
 .logo {
     height: 150px;
-
 }
 
 .diphylleia-regular {
@@ -76,8 +101,8 @@
 }
 
 .map {
-  height: 400px;
-  width: auto;
+  height: auto;
+  width: 700px;
   justify-content: center;
 }
 
@@ -241,47 +266,27 @@
   color: white;
 }
 
-
   /* * {box-sizing: border-box;} */
 
 /* Style the input container */
 /* .input-container {
-  display: flex;
-  width: 100%;
-  margin-bottom: 15px;
-} */
-
-/* Style the form icons */
-/* .icon {
-  padding: 10px;
-  background: dodgerblue;
-  color: white;
-  min-width: 50px;
-  text-align: center;
+  width: 700px;
+  margin-bottom: 5px;
 } */
 
 /* Style the input fields */
-/* .input-field {
-  width: 100%;
+.input-field {
+  width: 300px;
   padding: 10px;
-  outline: none;
+  outline: black;
+  margin: 5px auto;
 }
 
-.input-field:focus {
+.address {
+  margin: 15px auto;
+}
+
+/* .input-field:focus {
   border: 2px solid dodgerblue;
-} */
+} */ 
 
-/* Set a style for the submit button */
-/* .btn {
-  background-color: dodgerblue;
-  color: white;
-  padding: 15px 20px;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-  opacity: 0.9;
-}
-
-.btn:hover {
-  opacity: 1;
-} */

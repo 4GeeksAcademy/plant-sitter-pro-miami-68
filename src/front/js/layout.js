@@ -22,6 +22,11 @@ import { ClientSignUp2 } from "./pages/clientSignUp2";
 import { ClientServices1 } from "./pages/clientServices1";
 import { JobPost1 } from "./pages/jobPost1";
 import { JobPost2 } from "./pages/jobPost2";
+import {HowItWorks} from "./pages/howItWorks";
+import {Login} from "./component/login";
+import {SignUp} from "./component/SignUp";
+import {ViewJobs} from "./pages/viewJobs";
+import {Blog} from "./pages/blog";
 
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
@@ -45,6 +50,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
+                        <Route element={<HowItWorks/>} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
@@ -64,6 +70,10 @@ const Layout = () => {
                         <Route element={<PruningService />} path="/pruning" />
                         <Route element={<PestControlService />} path="/pestcontrol" />
                         <Route element={<PlantCleaningService />} path="/plantcleaning" />
+                        <Route element={<Login />} path="/login" />
+                        <Route element={<SignUp />} path="/signup" />
+                        <Route element={<ViewJobs />} path="/view-jobs" />
+                        <Route element={<Blog />} path="/blog" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

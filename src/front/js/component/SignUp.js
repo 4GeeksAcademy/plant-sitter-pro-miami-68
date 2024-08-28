@@ -1,11 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import plantPic from "../../img/plants-on-stand.jpg";
-import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
 
-export const ClientSignUp2= () => {
+export const SignUp = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,13 +19,6 @@ export const ClientSignUp2= () => {
     const { actions } = useContext(Context);
     const navigate = useNavigate();
 
-	useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (token) {
-            navigate("/client-services1");
-        }
-    }, [navigate]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -38,7 +29,7 @@ export const ClientSignUp2= () => {
 
         const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
         if (result.success) {
-            navigate('/client-services1');
+            navigate('/');
         } else {
             alert(result.error || "Sign-up failed. Please try again.");
         }

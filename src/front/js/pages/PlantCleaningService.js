@@ -24,7 +24,7 @@ const PlantCleaningService = () => {
         </p>
         <button
           className="btn btn-success mt-3"
-          onClick={() => navigate("/provider-signup1")}
+          onClick={() => navigate("/client-signup1")}
         >
           Sign Up to Schedule
         </button>
