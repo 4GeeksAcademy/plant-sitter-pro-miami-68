@@ -27,6 +27,8 @@ import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
 import { HowItWorks } from "./pages/howItWorks";
 import { Blog } from "./pages/blog";
+import AccountSettings from "./pages/account"
+import { PersonalInfo } from "./pages/PersonalInfo"
 
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
@@ -75,7 +77,8 @@ const Layout = () => {
                         <Route element={<PruningService />} path="/pruning" />
                         <Route element={<PestControlService />} path="/pestcontrol" />
                         <Route element={<PlantCleaningService />} path="/plantcleaning" />
-
+                        <Route element={<AccountSettings />} path="/account-settings" />
+                        <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Footer />

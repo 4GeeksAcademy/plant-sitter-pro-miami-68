@@ -98,10 +98,11 @@ def login():
         return jsonify({"error": "Invalid email or password"}), 401
    
 
-@api.route('/user/<int:id>', methods=['GET'])
+@api.route('/user', methods=['GET'])
 @jwt_required()
-def get_user(id):
-    user = User.query.get(id)
+def get_user():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
     if not user:
         return jsonify({"error": "User not found"}), 404
 
@@ -115,11 +116,12 @@ def get_all_users():
     return jsonify([user.serialize() for user in users]), 200
 
 
-@api.route('/user/<int:id>', methods=['PUT'])
+@api.route('/user', methods=['PUT'])
 @jwt_required()
-def update_user(id):
+def update_user():
+    user_id = get_jwt_identity()
     data = request.get_json()
-    user = User.query.get(id)
+    user = User.query.get(user_id)
 
     if not user:
         return jsonify({"error": "User not found"}), 404
@@ -131,7 +133,7 @@ def update_user(id):
     user.address_line_1 = data.get('address_line_1', user.address_line_1)
     user.address_line_2 = data.get('address_line_2', user.address_line_2)
     user.city = data.get('city', user.city)
-    user.state = data.get('city', user.state)
+    user.state = data.get('state', user.state)
     user.zip_code = data.get('zip_code', user.zip_code)
     user.country = data.get('country', user.country)
 
@@ -144,12 +146,13 @@ def update_user(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+    
 
-
-@api.route('/user/<int:id>', methods=['DELETE'])
+@api.route('/user', methods=['DELETE'])
 @jwt_required()
-def delete_user(id):
-    user = User.query.get(id)
+def delete_user():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
     if not user:
         return jsonify({"error": "User not found"}), 404
 

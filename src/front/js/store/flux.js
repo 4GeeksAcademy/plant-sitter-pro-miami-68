@@ -114,10 +114,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Get current user data
-            getUser: async (id) => {
+            getUser: async () => {
                 const store = getStore();
                 try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/user/${id}`, {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/user`, {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${store.token}`
@@ -138,18 +138,18 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Update user data
-            updateUser: async (id, email, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code, password = null) => {
+            updateUser: async (email, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code) => {
                 const store = getStore();
                 try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/user/${id}`, {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/user`, {
                         method: "PUT",
                         headers: {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${store.token}`
                         },
                         body: JSON.stringify({ 
-                            email, 
-                            phone, 
+                            email,
+                            phone,
                             first_name, 
                             last_name, 
                             address_line_1, 
@@ -158,7 +158,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                             state,
                             country, 
                             zip_code, 
-                            password 
                         })
                     });
                     
@@ -177,10 +176,10 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
             // Delete user
-            deleteUser: async (id) => {
+            deleteUser: async () => {
                 const store = getStore();
                 try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/user/${id}`, {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/user`, {
                         method: "DELETE",
                         headers: {
                             "Authorization": `Bearer ${store.token}`
