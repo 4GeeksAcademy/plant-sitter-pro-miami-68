@@ -17,11 +17,11 @@
 }
 
 .blog-header {
-  font-size: 100px;;
+  font-size: 60px;
 }
 
 .article {
-  width: 400px !important;
+  width: 300px !important;
   height: auto;
   background-color: white;
   border: 1px solid rgb(70, 108, 70);
