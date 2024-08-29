@@ -95,9 +95,9 @@ export const Navbar = () => {
                   <li>
                     <a
                       className="dropdown-item"
-                      onClick={() => navigate("/profile")}
+                      onClick={() => navigate("/account-settings")}
                     >
-                      Profile
+                      Account
                     </a>
                   </li>
                   <li>
