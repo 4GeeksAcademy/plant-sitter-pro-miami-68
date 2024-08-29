@@ -460,3 +460,11 @@ def get_messages():
         return jsonify([message.serialize() for message in messages]), 200
     except Exception as e:
         return jsonify({'message': 'Error retrieving messages', 'error': str(e)}), 500
+
+@api.route('/messages/send', methods=['POST'])
+def handle_message():
+    data = request.json
+    user_message = data.get('message', '').lower()
+    if 'hello' in user_message:
+        return jsonify({'message': 'Hello! How can I assist you today?'})
+    return jsonify({'message': 'Sorry, I did not understand that.'})

@@ -33,8 +33,7 @@ import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
-
-
+import Chat from './component/Chat'; // Make sure to import the Chat component
 
 //create your first component
 const Layout = () => {
@@ -78,6 +77,7 @@ const Layout = () => {
 
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
+                    <Chat />  {/* Added Chat component globally accessible */}
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>
