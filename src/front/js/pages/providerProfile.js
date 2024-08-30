@@ -27,39 +27,39 @@ export const ProviderProfile = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                <h3 className="diphylleia-regular text-white mb-4">Upload a profile picture</h3>                
-                <div className="profile-picture m-auto mb-4">
-                    <h1 className="upload-icon">
-                        <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
-                    </h1>
-                    <input 
-                        className="file-uploader"
-                        type="file"
-                        onChange={(e) => {
-                            const image = e.target.files[0];
-                            if (!image.type.includes('image')) {
-                                return alert('Only images are allowed!');
-                            }
-                        
-                            if (image.size > 10_000_000) {
-                                return alert('Maximum upload size is 10MB!');
-                            }
-                            
-                            if (image) {
-                                const fileReader = new FileReader();
-                                fileReader.readAsDataURL(image);
-                                
-                                fileReader.onload = (fileReaderEvent) => {
-                                    const profilePicture = document.querySelector('.profile-picture');
-                                    profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
-                                    const imagePreviewUrl = URL.createObjectURL(image);
-                                    setPicture(image);
+                    <h1 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h1>                
+                    <div className="profile-picture m-auto mb-4">
+                        <h1 className="upload-icon">
+                            <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
+                        </h1>
+                        <input 
+                            className="file-uploader"
+                            type="file"
+                            onChange={(e) => {
+                                const image = e.target.files[0];
+                                if (!image.type.includes('image')) {
+                                    return alert('Only images are allowed!');
                                 }
-                            }
-                        }}
-                        accept="image/*"
-                    />
-                </div>
+                            
+                                if (image.size > 10_000_000) {
+                                    return alert('Maximum upload size is 10MB!');
+                                }
+                                
+                                if (image) {
+                                    const fileReader = new FileReader();
+                                    fileReader.readAsDataURL(image);
+                                    
+                                    fileReader.onload = (fileReaderEvent) => {
+                                        const profilePicture = document.querySelector('.profile-picture');
+                                        profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
+                                        const imagePreviewUrl = URL.createObjectURL(image);
+                                        setPicture(image);
+                                    }
+                                }
+                            }}
+                            accept="image/*"
+                        />
+                    </div>
                     <div data-mdb-input-init className="form-outline form-white">
                         <input type="text" placeholder="First Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
                         <input type="text" placeholder="Last Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
@@ -68,6 +68,7 @@ export const ProviderProfile = () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
+                <h1 className="diphylleia-regular text-white mb-4"><strong>About you</strong></h1>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What should potential clients know about you?</strong></label>
                     <div className="input-group mb-3">
                         <textarea rows="5" className="form-control" placeholder="I've been a plant lover my whole life..." aria-label="With textarea"></textarea>
@@ -89,8 +90,8 @@ export const ProviderProfile = () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <label for="basic-url" className="form-label diphylleia-regular fs-4 text-white"><strong>What kinds of plants are you comfortable taking care of?</strong></label>
-                    <h5 className="mt-3 mb-4 text-white">Select all that apply</h5>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-4 text-white"><h1><strong>What kinds of plants are you comfortable taking care of?</strong></h1></label>
+                    <h5 className="mt-3 mb-2 text-white">Select all that apply</h5>
                     <div className="d-flex justify-content-center plant-types">
                         <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={usual}/>

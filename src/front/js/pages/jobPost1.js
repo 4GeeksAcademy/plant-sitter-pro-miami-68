@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +17,7 @@ import veggies from "../../img/veggies.jpg";
 export const JobPost1= () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
+    const [picture, setPicture] = useState();
 
 	return (
 		<div className="text-center m-2 mt-4">
@@ -28,8 +29,39 @@ export const JobPost1= () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h3 className="diphylleia-regular text-white">Upload a picture of yourself (or your plants) ⬇️</h3>
-                    <img className="img-fluid btn" src={picture}/>
+                    <h1 className="diphylleia-regular text-white"><strong>Upload a profile picture</strong></h1>
+                    <div className="profile-picture m-auto mt-4 mb-4">
+                        <h1 className="upload-icon">
+                            <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
+                        </h1>
+                        <input 
+                            className="file-uploader"
+                            type="file"
+                            onChange={(e) => {
+                                const image = e.target.files[0];
+                                if (!image.type.includes('image')) {
+                                    return alert('Only images are allowed!');
+                                }
+                            
+                                if (image.size > 10_000_000) {
+                                    return alert('Maximum upload size is 10MB!');
+                                }
+                                
+                                if (image) {
+                                    const fileReader = new FileReader();
+                                    fileReader.readAsDataURL(image);
+                                    
+                                    fileReader.onload = (fileReaderEvent) => {
+                                        const profilePicture = document.querySelector('.profile-picture');
+                                        profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
+                                        const imagePreviewUrl = URL.createObjectURL(image);
+                                        setPicture(image);
+                                    }
+                                }
+                            }}
+                            accept="image/*"
+                        />
+                    </div>
                     <div data-mdb-input-init className="form-outline form-white">
                         <input type="text" placeholder="First Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
                         <input type="text" placeholder="Last Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
@@ -38,7 +70,7 @@ export const JobPost1= () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white">Plant Types and Services</h1>
+                    <h1 className="diphylleia-regular text-white"><strong>Plant Types and Services</strong></h1>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white"><strong>You said that your plants include:</strong></label>
                     <div className="input-group mb-3">
                         <textarea rows="3" className="form-control" placeholder="Insert auto populated list of plant types selected on previous page" aria-label="With textarea"></textarea>
@@ -47,7 +79,6 @@ export const JobPost1= () => {
                     <div className="input-group mb-3">
                         <textarea rows="8" className="form-control" placeholder="Example: 'I have some potted hibiscus, citrus trees, and a small herb garden that need care outside. Inside, I have a ficus in the living room, monstera and several pothos in our Florida room, and there are English ivy in all of the bathrooms...'" aria-label="With textarea"></textarea>
                     </div>
-
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white"><strong>You said that you need the following services:</strong></label>
                     <div className="input-group mb-3">
                         <textarea rows="3" className="form-control" placeholder="Insert auto populated list of services selected on the previous page" aria-label="With textarea"></textarea>
@@ -56,17 +87,14 @@ export const JobPost1= () => {
                     <div className="input-group mb-3">
                         <textarea rows="8" className="form-control" placeholder="Examples: 'I need help watering while I am out of town' or 'I can't get rid of these pesty gnats coming out of my plants!'" aria-label="With textarea"></textarea>
                     </div>
-
-
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>Anything else you would like to share?</strong></label>
                     <div className="input-group justify-contents-center mb-3">
                         <textarea rows="5" className="form-control" placeholder="Example: 'I could really use some help deciding what plants will work best in my space. Some of my babies look really unhappy where they are right now." aria-label="With textarea">
                         </textarea>
                     </div>
-                    
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white">Duration</h1>
+                    <h1 className="diphylleia-regular text-white"><strong>Duration</strong></h1>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white"><strong>You are requesting care for the following dates:</strong></label>
                     <div className="input-group mb-3">
                         <textarea rows="3" className="form-control" placeholder="Insert auto populated calendar or list of dates from scheduler" aria-label="With textarea"></textarea>
