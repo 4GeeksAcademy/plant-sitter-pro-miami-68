@@ -7,7 +7,6 @@ import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
-// import { ProviderPlantTypes } from "./pages/providerPlantTypes";
 import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
 import { ProviderSignUp1 } from "./pages/providerSignUp1";
