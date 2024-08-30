@@ -52,28 +52,28 @@ export const ProviderProfileCompleted = () => {
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="diphylleia-regular text-white mb-5">I am comfortable taking care of the following types of plants:</h1>
-                    <div className="d-flex plant-types">
-                        <div className="justify-content-center">
+                    <div className="d-flex justify-content-center plant-types">
+                        <div className="selectPlants">
                             <img src={usual} className="plants img-fluid"/>            
                             <p className="text-white"><strong>Standard House Plants</strong></p>
                         </div>
-                        <div className="justify-content-center">
+                        <div className="selectPlants">
                             <img src={succulents} className="plants img-fluid"/>            
                             <p className="text-white"><strong>Succulents</strong></p>
                         </div>
-                        <div className="justify-content-center">
+                        <div className="selectPlants">
                             <img src={orchids} className="plants img-fluid"/>            
                             <p className="text-white"><strong>Orchids</strong></p>
                         </div>
-                        <div className="justify-content-center">
+                        <div className="selectPlants">
                             <img src={carnivorous} className="plants img-fluid"/>            
                             <p className="text-white"><strong>carnivorous</strong></p>
                         </div>
-                        <div className="justify-content-center">
+                        <div className="selectPlants">
                             <img src={unusual} className="plants img-fluid"/>            
                             <p className="text-white"><strong>Unusual / Rare</strong></p>
                         </div>
-                        <div className="justify-content-center">
+                        <div className="selectPlants">
                             <img src={outdoors} className="plants img-fluid"/>            
                             <p className="text-white"><strong>Outdoor Potted Plants</strong></p>
                         </div>
