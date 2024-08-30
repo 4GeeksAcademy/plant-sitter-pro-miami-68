@@ -1,26 +1,26 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import plantCleaningImage from '../../img/HomePageImages/Gemini.PlantCleaning.Service.Home.jpg'; // Path to the plant cleaning image
-import "../../styles/repottingservice.css";
+import repottingImage from "../../img/HomePageImages/Gemini.Repotting.Home.jpg"; // Path to the repotting image
+import "../../styles/repottingservice.css"
 
-const PlantCleaningService = () => {
+const RepottingService = () => {
   const navigate = useNavigate();
 
   return (
     <div className="service-page-container">
       <div className="service-image-container">
         <img
-          src={plantCleaningImage}
-          alt="Plant Cleaning Service"
+          src={repottingImage}
+          alt="Repotting Service"
           className="service-image"
         />
       </div>
       <div className="service-description-container">
-        <h2>Plant Cleaning Service</h2>
+        <h2>Repotting Service</h2>
         <p>
-          Keep your plants looking their best with our plant cleaning service.
-          We carefully clean the leaves and stems, removing dust and debris to
-          enhance your plant's ability to photosynthesize and grow.
+          Repotting is essential for maintaining the health and growth of your
+          plants. Our experts carefully transfer your plants to new pots,
+          ensuring the roots have ample space to grow and thrive.
         </p>
         <button
           className="btn btn-success mt-3"
@@ -33,4 +33,4 @@ const PlantCleaningService = () => {
   );
 };
 
-export default PlantCleaningService;
+export default RepottingService;
