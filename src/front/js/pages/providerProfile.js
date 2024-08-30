@@ -3,13 +3,13 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import plantoutlines from "../../img/plantoutlines.jpg";
-import picture from "../../img/profilePicture.png";
+import profileIcon from "../../img/profileIcon.png";
 import client from "../../img/client.png";
 import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
 import carnivorous from "../../img/carnivorous.jpg";
-import usual from "../../img/usual.jpg";
+import standard from "../../img/standard.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
@@ -28,8 +28,23 @@ export const ProviderProfile = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h3 className="diphylleia-regular text-white">Upload a profile picture ⬇️</h3>
-                    <img className="img-fluid btn" src={client}/>
+                <h3 className="diphylleia-regular text-white">Upload a profile picture</h3>
+                <img className="img-fluid profileIcon " src={profileIcon} alt="Profile Picture"/>
+                <div data-mdb-input-init className="form-outline form-white">
+                    <input 
+                        type="file" 
+                        id="profilePicUpload" 
+                        className="form-control form-control-lg mb-3 mt-3" 
+                        onChange={(e) => {
+                            const file = e.target.files[0];
+                            if (file) {
+                                const imagePreviewUrl = URL.createObjectURL(file);
+                                setPicture(imagePreviewUrl); // Assuming `setPicture` is a state setter for `picture`
+                            }
+                        }}
+                        accept="image/*"  // Restrict file input to image types
+                    />
+                </div>
                     <div data-mdb-input-init className="form-outline form-white">
                         <input type="text" placeholder="First Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
                         <input type="text" placeholder="Last Name" id="form3Examplea5" className="form-control form-control-lg mb-3" />
@@ -59,57 +74,40 @@ export const ProviderProfile = () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white">What kinds of plants are you comfortable taking care of?</h1>
-                    <h5 className="mt-4 mb-4 text-white">Select all that apply</h5>
-
-        {/* code from O'Neil for clickable images */}
-                    {/* <form action="/submit-url" method="post">
-                        <input type="image" src="path/to/your/image.png" alt="Submit" width="100" height="50"/>
-                    </form> */}
-
-                    {/* <input type="image" src="logg.png" name="saveForm" class="btTxt submit" id="saveForm" /> */}
-                    
-                    {/* <div style="position: absolute; left: 10px; top: 40px;"> 
-                        <img 
-                            src="logg.png" 
-                            width="114" 
-                            height="38" 
-                            onclick="DoSomething();"
-                        />
-                    </div> */}
-
-                    <div className="d-flex plant-types">
-                        <form action="/submit-url" method="post" className="justify-content-center">
-                            <input type="image"  alt="Submit" className="plants img-fluid" src={usual}/>
-                            <p className="text-white"><strong>Standard House Plants</strong></p>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-4 text-white"><strong>What kinds of plants are you comfortable taking care of?</strong></label>
+                    <h5 className="mt-3 mb-4 text-white">Select all that apply</h5>
+                    <div className="d-flex justify-content-center plant-types">
+                        <form action="/submit-url" method="post" className="selectPlants">
+                            <input type="image"  alt="Submit" className="plants img-fluid" src={standard}/>
+                            <p className="text-white plantLabel"><strong>Standard House Plants</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={succulents}/>
-                            <p className="text-white"><strong>Succulents</strong></p>
+                            <p className="text-white plantLabel"><strong>Succulents</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={orchids}/>
-                            <p className="text-white"><strong>Orchids</strong></p>
+                            <p className="text-white plantLabel"><strong>Orchids</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={carnivorous}/>
-                            <p className="text-white"><strong>Carnivorous</strong></p>
+                            <p className="text-white plantLabel"><strong>Carnivorous</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={unusual}/>
-                            <p className="text-white"><strong>Unusual / Rare</strong></p>
+                            <p className="text-white plantLabel"><strong>Unusual / Rare</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={landscape}/>
-                            <p className="text-white"><strong>Landscape</strong></p>
+                            <p className="text-white plantLabel"><strong>Landscape</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={outdoors}/>
-                            <p className="text-white"><strong>Outdoor Potted Plants</strong></p>
+                            <p className="text-white plantLabel"><strong>Outdoor Potted Plants</strong></p>
                         </form>
-                        <form action="/submit-url" method="post" className="justify-content-center">
+                        <form action="/submit-url" method="post" className="selectPlants">
                             <input type="image"  alt="Submit" className="plants img-fluid" src={veggies}/>
-                            <p className="text-white"><strong>Vegetable Gardens</strong></p>
+                            <p className="text-white plantLabel"><strong>Vegetable Gardens</strong></p>
                         </form>
                     </div>
                 </div>

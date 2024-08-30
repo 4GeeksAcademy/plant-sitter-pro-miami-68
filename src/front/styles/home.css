@@ -16,6 +16,11 @@
   margin: 30px; */
 }
 
+.profileIcon {
+  width: 70%;
+  height: auto;
+}
+
 .blog-header {
   font-size: 60px;
 }
@@ -74,11 +79,12 @@
 }
 
 .plants {
-  height: 250px;
-  width: auto;
+  /* width: 30%;
+  height: auto; */
   border-radius: 25px;
   border: 3px solid white;
   padding: 0;
+  /* margin: auto; */
 }
 
 .scheduler {
@@ -89,10 +95,20 @@
 
 .plant-types {
   flex-wrap: wrap;
-  justify-content:space-evenly;
+  /* justify-content:space-evenly; */
   background-color: rgb(70, 108, 70) !important;
   border-radius: 25px;
-  padding: 20px;
+  padding: 10px;
+}
+
+.selectPlants {
+  width: 50%;
+  height: auto;
+  padding: 5px;
+}
+
+.plantLabel {
+  text-wrap: wrap;
 }
 
 .divider {
