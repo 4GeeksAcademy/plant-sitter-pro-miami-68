@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +14,44 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 
+
+
 export const ProviderProfile = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
+    const [picture, setPicture] = useState();
+
+    // function upload() {
+    
+    //     const fileUploadInput = document.querySelector('.file-uploader');
+    //       // using index [0] to take the first file from the array
+    
+    //     if (!fileUploadInput.value) {
+    //     return;
+    //     }
+    
+    //     const image = fileUploadInput.files[0];
+    
+    //     // check if the file selected is not an image file
+    //     if (!image.type.includes('image')) {
+    //         return alert('Only images are allowed!');
+    //     }
+    
+    //     // check if size (in bytes) exceeds 10 MB
+    //     if (image.size > 10_000_000) {
+    //         return alert('Maximum upload size is 10MB!');
+    //     }
+    
+    //     const fileReader = new FileReader();
+    //     fileReader.readAsDataURL(image);
+        
+    //     fileReader.onload = (fileReaderEvent) => {
+    //       const profilePicture = document.querySelector('.profile-picture');
+    //       profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
+    //     }
+    
+    //     // next step --> upload image to the server (or the cloud)
+    // }
 
 	return (
 		<div className="text-center m-2 mt-4">
@@ -28,21 +63,37 @@ export const ProviderProfile = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                <h3 className="diphylleia-regular text-white">Upload a profile picture</h3>
-                <img className="img-fluid profileIcon " src={profileIcon} alt="Profile Picture"/>
-                <div data-mdb-input-init className="form-outline form-white">
+                <h3 className="diphylleia-regular text-white mb-4">Upload a profile picture</h3>                
+                <div className="profile-picture m-auto mb-4">
+                    <h1 className="upload-icon">
+                        <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
+                    </h1>
                     <input 
-                        type="file" 
-                        id="profilePicUpload" 
-                        className="form-control form-control-lg mb-3 mt-3" 
+                        className="file-uploader"
+                        type="file"
                         onChange={(e) => {
-                            const file = e.target.files[0];
-                            if (file) {
-                                const imagePreviewUrl = URL.createObjectURL(file);
-                                setPicture(imagePreviewUrl); // Assuming `setPicture` is a state setter for `picture`
+                            const image = e.target.files[0];
+                            if (!image.type.includes('image')) {
+                                return alert('Only images are allowed!');
+                            }
+                        
+                            if (image.size > 10_000_000) {
+                                return alert('Maximum upload size is 10MB!');
+                            }
+                            
+                            if (image) {
+                                const fileReader = new FileReader();
+                                fileReader.readAsDataURL(image);
+                                
+                                fileReader.onload = (fileReaderEvent) => {
+                                    const profilePicture = document.querySelector('.profile-picture');
+                                    profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
+                                    const imagePreviewUrl = URL.createObjectURL(image);
+                                    setPicture(image); // Assuming `setPicture` is a state setter for `picture`
+                                }
                             }
                         }}
-                        accept="image/*"  // Restrict file input to image types
+                        accept="image/*"
                     />
                 </div>
                     <div data-mdb-input-init className="form-outline form-white">
