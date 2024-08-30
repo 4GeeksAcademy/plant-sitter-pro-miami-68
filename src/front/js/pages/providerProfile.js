@@ -9,7 +9,7 @@ import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
 import carnivorous from "../../img/carnivorous.jpg";
-import standard from "../../img/standard.jpg";
+import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
@@ -78,7 +78,7 @@ export const ProviderProfile = () => {
                     <h5 className="mt-3 mb-4 text-white">Select all that apply</h5>
                     <div className="d-flex justify-content-center plant-types">
                         <form action="/submit-url" method="post" className="selectPlants">
-                            <input type="image"  alt="Submit" className="plants img-fluid" src={standard}/>
+                            <input type="image"  alt="Submit" className="plants img-fluid" src={usual}/>
                             <p className="text-white plantLabel"><strong>Standard House Plants</strong></p>
                         </form>
                         <form action="/submit-url" method="post" className="selectPlants">

@@ -107,6 +107,12 @@
   padding: 5px;
 }
 
+.selectPlantsClient {
+  width: 10%;
+  height: auto;
+  padding: 5px;
+}
+
 .plantLabel {
   text-wrap: wrap;
 }

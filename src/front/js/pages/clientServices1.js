@@ -37,36 +37,36 @@ export const ClientServices1 = () => {
                 <h3 className="diphylleia-regular mt-4"><strong>What kind of plants do you have that need care?</strong></h3>
                 <p className="fs-5">Don't worry - you can be more specific when you post a job</p>
                 <h5 className="mt-3 mb-4">Select all that apply</h5>
-                <div className="d-flex plant-types">
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                <div className="d-flex plant-types justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={usual}/>
                         <p className="text-white"><strong>Standard House Plants</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={succulents}/>
                         <p className="text-white"><strong>Succulents</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={orchids}/>
                         <p className="text-white"><strong>Orchids</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={carnivorous}/>
                         <p className="text-white"><strong>Carnivorous</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={unusual}/>
                         <p className="text-white"><strong>Unusual / Rare</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={landscape}/>
                         <p className="text-white"><strong>Landscape</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={outdoors}/>
                         <p className="text-white"><strong>Outdoor Potted Plants</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectPlantsClient">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={veggies}/>
                         <p className="text-white"><strong>Vegetable Gardens</strong></p>
                     </form>
