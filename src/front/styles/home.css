@@ -154,7 +154,13 @@
 }
 
 .selectPlantsClient {
-  width: 10%;
+  width: 12%;
+  height: auto;
+  padding: 5px;
+}
+
+.selectServices {
+  width: 15%;
   height: auto;
   padding: 5px;
 }
@@ -204,6 +210,10 @@
   height: 100%;
   width: auto;
 }
+
+/* input[type="text"] {
+  border:#ccc;
+} */
 
 .centered {
   position: relative;

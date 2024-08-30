@@ -74,24 +74,24 @@ export const ClientServices1 = () => {
                 <img className="divider m-auto" src={border}></img>
                 <h3 className="diphylleia-regular mt-4"><strong>What kind of services do you need?</strong></h3>
                 <h5 className="mt-3 mb-4">Select all that apply</h5>
-                <div className="d-flex plant-types">
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                <div className="d-flex justify-content-center plant-types">
+                    <form action="/submit-url" method="post" className="selectServices">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={watering}/>
                         <p className="text-white"><strong>Watering</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectServices">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={cleaning}/>
                         <p className="text-white"><strong>Cleaning</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectServices">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={pruning}/>
                         <p className="text-white"><strong>Pruning</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectServices">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={repotting}/>
                         <p className="text-white"><strong>Repotting</strong></p>
                     </form>
-                    <form action="/submit-url" method="post" className="justify-content-center">
+                    <form action="/submit-url" method="post" className="selectServices">
                         <input type="image"  alt="Submit" className="plants img-fluid" src={pestControl}/>
                         <p className="text-white"><strong>Pest control</strong></p>
                     </form>

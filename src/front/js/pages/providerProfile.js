@@ -2,9 +2,6 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import plantoutlines from "../../img/plantoutlines.jpg";
-import profileIcon from "../../img/profileIcon.png";
-import client from "../../img/client.png";
 import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
@@ -56,7 +53,7 @@ export const ProviderProfile = () => {
                                     const profilePicture = document.querySelector('.profile-picture');
                                     profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
                                     const imagePreviewUrl = URL.createObjectURL(image);
-                                    setPicture(image); // Assuming `setPicture` is a state setter for `picture`
+                                    setPicture(image);
                                 }
                             }
                         }}

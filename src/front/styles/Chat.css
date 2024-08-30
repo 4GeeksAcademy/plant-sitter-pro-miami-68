@@ -64,7 +64,7 @@
     border-top: 1px solid #ccc;
 }
 
-input[type="text"] {
+.chat-input {  /* changed from input [type="text"] because it removed the borders from all input fields in the app with type="text" */
     flex-grow: 1;
     padding: 8px;
     border: none;

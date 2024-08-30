@@ -58,6 +58,7 @@ function Chat() {
                         <input
                             type="text"
                             value={input}
+                            className="chat-input"
                             onChange={e => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
                             placeholder="Type a message..."

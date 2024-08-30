@@ -51,7 +51,7 @@ export const ProviderSignUp2= () => {
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6 mb-2 pb-2">
-                            <div data-mdb-input-init className="form-outline form-white">
+                            <div data-mdb-input-init>
                                 <input
                                     type="text"
                                     id="firstName"
@@ -63,7 +63,7 @@ export const ProviderSignUp2= () => {
                             </div>
                         </div>
                         <div className="col-md-6 mb-2 pb-2">
-                            <div data-mdb-input-init className="form-outline form-white">
+                            <div data-mdb-input-init>
                                 <input
                                     type="text"
                                     id="lastName"
@@ -77,7 +77,7 @@ export const ProviderSignUp2= () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init className="form-outline form-white">
+                        <div data-mdb-input-init>
                             <input
                                 type="text"
                                 id="addressLine1"
@@ -90,7 +90,7 @@ export const ProviderSignUp2= () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init className="form-outline form-white">
+                        <div data-mdb-input-init>
                             <input
                                 type="text"
                                 id="addressLine2"
@@ -104,7 +104,7 @@ export const ProviderSignUp2= () => {
 
                     <div className="row">
                         <div className="col-md-5 mb-2 pb-2">
-                            <div data-mdb-input-init className="form-outline form-white">
+                            <div data-mdb-input-init>
                                 <input
                                     type="text"
                                     id="city"
@@ -117,7 +117,7 @@ export const ProviderSignUp2= () => {
                         </div>
 
                         <div className="col-md-5 mb-2 pb-2">
-						<div data-mdb-input-init className="form-outline form-white">
+						<div data-mdb-input-init>
 							<input 
                                 type="text" 
                                 id="state" 
@@ -130,7 +130,7 @@ export const ProviderSignUp2= () => {
 					</div>
 
                         <div className="col-md-2 mb-2 pb-2">
-                            <div data-mdb-input-init className="form-outline form-white">
+                            <div data-mdb-input-init>
                                 <input
                                     type="text"
                                     id="zipCode"
@@ -145,7 +145,7 @@ export const ProviderSignUp2= () => {
 
                     <div className="mb-2 pb-2">
                         <fieldset disabled>
-                            <div data-mdb-input-init className="form-outline form-white">
+                            <div data-mdb-input-init>
                                 <input
                                     type="text"
                                     id="country"
@@ -159,7 +159,7 @@ export const ProviderSignUp2= () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init className="form-outline form-white">
+                        <div data-mdb-input-init>
                             <input
                                 type="tel"
                                 id="phone"
@@ -172,9 +172,9 @@ export const ProviderSignUp2= () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init className="form-outline form-white">
+                        <div data-mdb-input-init>
                             <input
-                                type="text"
+                                type="email"
                                 id="email"
                                 className="form-control form-control-lg"
                                 value={email}
@@ -185,7 +185,7 @@ export const ProviderSignUp2= () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init className="form-outline form-white">
+                        <div data-mdb-input-init>
                             <input
                                 type="password"
                                 id="password"
