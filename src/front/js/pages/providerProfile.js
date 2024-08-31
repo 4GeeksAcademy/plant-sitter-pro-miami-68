@@ -14,6 +14,7 @@ import veggies from "../../img/veggies.jpg";
 export const ProviderProfile = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [professionalExperience, setProfessionalExperience] = useState("");
     const [intro, setIntro] = useState("");
@@ -24,53 +25,61 @@ export const ProviderProfile = () => {
     const [servicePreferences, setServicePreferences] = useState([]);
 
     useEffect(() => {
-        if (!store.user) {
-            actions.getUser();
-        }
-    
-        if (!store.plantSitter) {
-            actions.getPlantSitter().then((res) => {
-                if (res.success) {
-                    setProfessionalExperience(res.data.professional_experience);
-                    setIntro(res.data.intro);
-                    setCurrentPlants(res.data.current_plants);
-                    setClientInfo(res.data.client_info);
-                    setExtraInfo(res.data.extra_info);
-                    setPreferredPlants(res.data.preferred_plants || []);
-                    setServicePreferences(res.data.service_preferences || []);
-                }
-            });
-        } else {
-            setProfessionalExperience(store.plantSitter.professional_experience);
-            setIntro(store.plantSitter.intro);
-            setCurrentPlants(store.plantSitter.current_plants);
-            setClientInfo(store.plantSitter.client_info);
-            setExtraInfo(store.plantSitter.extra_info);
-            setPreferredPlants(store.plantSitter.preferred_plants || []);
-            setServicePreferences(store.plantSitter.service_preferences || []);
-        }
-    }, [store.user, store.plantSitter, actions]);
+        const fetchData = async () => {
+            setLoading(true);
+            if (!store.user) {
+                await actions.getUser();
+            }
+
+            const res = await actions.getPlantSitter();
+            if (res.success && res.data) {
+                setProfessionalExperience(res.data.professional_experience);
+                setIntro(res.data.intro);
+                setCurrentPlants(res.data.current_plants);
+                setClientInfo(res.data.client_info);
+                setExtraInfo(res.data.extra_info);
+                setPreferredPlants(res.data.preferred_plants || []);
+                setServicePreferences(res.data.service_preferences || []);
+                setPicture(res.data.profile_picture_url);
+            }
+            setLoading(false);
+        };
+
+        fetchData();
+    }, []);
 
     const handlePlantSelection = (plant) => {
-        setPreferredPlants(prevState => 
-            prevState.includes(plant) 
-            ? prevState.filter(p => p !== plant) 
-            : [...prevState, plant]
+        setPreferredPlants(prevState =>
+            prevState.includes(plant)
+                ? prevState.filter(p => p !== plant)
+                : [...prevState, plant]
         );
     };
 
     const handleSubmit = () => {
+
         const profilePictureUrl = picture ? URL.createObjectURL(picture) : store.plantSitter?.profile_picture_url;
-    
-        actions.createOrUpdatePlantSitter(
+
+        const dataToSubmit = {
             profilePictureUrl,
             professionalExperience,
-            preferredPlants.length > 0 ? preferredPlants : store.plantSitter?.preferred_plants,  // Solo actualizar si hay cambios
-            servicePreferences.length > 0 ? servicePreferences : store.plantSitter?.service_preferences,  // Solo actualizar si hay cambios
+            preferredPlants: preferredPlants.length > 0 ? preferredPlants : store.plantSitter?.preferred_plants,
+            servicePreferences: servicePreferences.length > 0 ? servicePreferences : store.plantSitter?.service_preferences,
             intro,
             currentPlants,
             clientInfo,
-            extraInfo
+            extraInfo,
+        };
+
+        actions.createOrUpdatePlantSitter(
+            dataToSubmit.profilePictureUrl,
+            dataToSubmit.professionalExperience,
+            dataToSubmit.preferredPlants,
+            dataToSubmit.servicePreferences,
+            dataToSubmit.intro,
+            dataToSubmit.currentPlants,
+            dataToSubmit.clientInfo,
+            dataToSubmit.extraInfo
         ).then((res) => {
             if (res.success) {
                 navigate('/provider-profile-completed');
@@ -81,8 +90,12 @@ export const ProviderProfile = () => {
     };
 
     const getTextColorClass = (plant) => {
-        return preferredPlants.includes(plant) ? "text-success" : "text-white";
+        return preferredPlants.includes(plant) ? "text-warning" : "text-white";
     };
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <div className="text-center m-2 mt-4">
@@ -94,12 +107,19 @@ export const ProviderProfile = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h1>                
-                    <div className="profile-picture m-auto mb-4">
+                    <h1 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h1>
+                    <div
+                        className="profile-picture m-auto mb-4"
+                        style={{
+                            backgroundImage: `url(${picture || ''})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
+                    >
                         <h1 className="upload-icon">
                             <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
                         </h1>
-                        <input 
+                        <input
                             className="file-uploader"
                             type="file"
                             onChange={(e) => {
@@ -107,19 +127,17 @@ export const ProviderProfile = () => {
                                 if (!image.type.includes('image')) {
                                     return alert('Only images are allowed!');
                                 }
-                            
+
                                 if (image.size > 10_000_000) {
                                     return alert('Maximum upload size is 10MB!');
                                 }
-                                
+
                                 if (image) {
-                                    setPicture(image);
                                     const fileReader = new FileReader();
                                     fileReader.readAsDataURL(image);
-                                    
+
                                     fileReader.onload = (fileReaderEvent) => {
-                                        const profilePicture = document.querySelector('.profile-picture');
-                                        profilePicture.style.backgroundImage = `url(${fileReaderEvent.target.result})`;
+                                        setPicture(fileReaderEvent.target.result);
                                     }
                                 }
                             }}
@@ -193,7 +211,7 @@ export const ProviderProfile = () => {
                 </div>
             </div>
             <button
-                type="submit" 
+                type="submit"
                 className="btn mb-3 mt-3 col-2 rounded-pill"
                 onClick={handleSubmit}
             >

@@ -104,12 +104,12 @@ class PlantSitter(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     profile_picture_url = db.Column(db.String(255), nullable=True)
     professional_experience = db.Column(db.Text, nullable=True)
-    preferred_plants = db.Column(JSONB, nullable=True)  # List of plant types
-    service_preferences = db.Column(JSONB, nullable=True)  # Preferences on service
-    intro = db.Column(db.Text, nullable=True)  # Brief Intro
-    current_plants = db.Column(db.Text, nullable=True)  # Current plant ownership details
-    client_info = db.Column(db.Text, nullable=True)  # What clients should know
-    extra_info = db.Column(db.Text, nullable=True)  # Additional details
+    preferred_plants = db.Column(JSONB, nullable=True) 
+    service_preferences = db.Column(JSONB, nullable=True)
+    intro = db.Column(db.Text, nullable=True)
+    current_plants = db.Column(db.Text, nullable=True)
+    client_info = db.Column(db.Text, nullable=True)
+    extra_info = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 

@@ -349,7 +349,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//log out
 			logout: () => {
-				setStore({ token: null, user: null });
+				setStore({ token: null, user: null, plantSitter: null });
 				sessionStorage.removeItem('token');
 			}
 		}
