@@ -178,21 +178,25 @@ def create_plant_sitter():
     data = request.get_json()
     user_id = get_jwt_identity()
     profile_picture_url = data.get('profile_picture_url')
-    bio = data.get('bio')
     professional_experience = data.get('professional_experience')
-    additional_info = data.get('additional_info')
     preferred_plants = data.get('preferred_plants')
     service_preferences = data.get('service_preferences')
+    intro = data.get('intro')
+    current_plants = data.get('current_plants')
+    client_info = data.get('client_info')
+    extra_info = data.get('extra_info')
 
     try:
         new_sitter = PlantSitter(
             user_id=user_id,
             profile_picture_url=profile_picture_url,
-            bio=bio,
             professional_experience=professional_experience,
-            additional_info=additional_info,
             preferred_plants=preferred_plants,
-            service_preferences=service_preferences
+            service_preferences=service_preferences,
+            intro=intro,
+            current_plants=current_plants,
+            client_info=client_info,
+            extra_info=extra_info
         )
         db.session.add(new_sitter)
         db.session.commit()
@@ -202,21 +206,25 @@ def create_plant_sitter():
         return jsonify({"error": str(e)}), 400
 
 
-@api.route('/plant_sitter/<int:id>', methods=['PUT'])
+@api.route('/plant_sitter', methods=['PUT'])
 @jwt_required()
-def update_plant_sitter(id):
+def update_plant_sitter():
+    user_id = get_jwt_identity()
     data = request.get_json()
-    plant_sitter = PlantSitter.query.get(id)
+
+    plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
 
     if not plant_sitter:
         return jsonify({"error": "Plant sitter not found"}), 404
 
     plant_sitter.profile_picture_url = data.get('profile_picture_url', plant_sitter.profile_picture_url)
-    plant_sitter.bio = data.get('bio', plant_sitter.bio)
     plant_sitter.professional_experience = data.get('professional_experience', plant_sitter.professional_experience)
-    plant_sitter.additional_info = data.get('additional_info', plant_sitter.additional_info)
     plant_sitter.preferred_plants = data.get('preferred_plants', plant_sitter.preferred_plants)
     plant_sitter.service_preferences = data.get('service_preferences', plant_sitter.service_preferences)
+    plant_sitter.intro = data.get('intro', plant_sitter.intro)
+    plant_sitter.current_plants = data.get('current_plants', plant_sitter.current_plants)
+    plant_sitter.client_info = data.get('client_info', plant_sitter.client_info)
+    plant_sitter.extra_info = data.get('extra_info', plant_sitter.extra_info)
 
     try:
         db.session.commit()
@@ -224,18 +232,16 @@ def update_plant_sitter(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
-   
 
-   
-@api.route('/plant_sitter/<int:id>', methods=['GET'])
+
+@api.route('/plant_sitter', methods=['GET'])
 @jwt_required()
-def get_plant_sitter(id):
-    plant_sitter = PlantSitter.query.get(id)
-
+def get_plant_sitter_by_user():
+    user_id = get_jwt_identity()
+    plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
     if not plant_sitter:
         return jsonify({"error": "Plant sitter not found"}), 404
-
-    return jsonify({"plant_sitter": plant_sitter.serialize()}), 200
+    return jsonify(plant_sitter.serialize()), 200
 
 
 @api.route('/plant_sitters', methods=['GET'])

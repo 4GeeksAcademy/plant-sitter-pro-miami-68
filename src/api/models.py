@@ -98,17 +98,18 @@ class ClientProfiles(db.Model):
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),
         }
-
 class PlantSitter(db.Model):
     __tablename__ = 'plant_sitters'
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     profile_picture_url = db.Column(db.String(255), nullable=True)
-    bio = db.Column(db.Text, nullable=True)
     professional_experience = db.Column(db.Text, nullable=True)
-    additional_info = db.Column(db.Text, nullable=True)
     preferred_plants = db.Column(JSONB, nullable=True)  # List of plant types
     service_preferences = db.Column(JSONB, nullable=True)  # Preferences on service
+    intro = db.Column(db.Text, nullable=True)  # Brief Intro
+    current_plants = db.Column(db.Text, nullable=True)  # Current plant ownership details
+    client_info = db.Column(db.Text, nullable=True)  # What clients should know
+    extra_info = db.Column(db.Text, nullable=True)  # Additional details
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
@@ -124,11 +125,13 @@ class PlantSitter(db.Model):
             "first_name": self.user.first_name if self.user else None,
             "last_name": self.user.last_name if self.user else None,
             "profile_picture_url": self.profile_picture_url,
-            "bio": self.bio,
             "professional_experience": self.professional_experience,
-            "additional_info": self.additional_info,
             "preferred_plants": self.preferred_plants,
             "service_preferences": self.service_preferences,
+            "intro": self.intro,
+            "current_plants": self.current_plants,
+            "client_info": self.client_info,
+            "extra_info": self.extra_info,
             "location": self.user.location if self.user else None,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
