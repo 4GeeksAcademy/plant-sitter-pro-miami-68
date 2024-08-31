@@ -202,26 +202,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
 
-            // Create a new plant sitter
-            createPlantSitter: async (profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences) => {
+            // Create or update plant sitter
+            createOrUpdatePlantSitter: async (
+                profile_picture_url, 
+                professional_experience, 
+                preferred_plants, 
+                service_preferences,
+                intro,
+                current_plants,
+                client_info,
+                extra_info
+            ) => {
                 const store = getStore();
+                const token = sessionStorage.getItem("token");
+
                 try {
-                    const resp = await fetch(process.env.BACKEND_URL + "/api/plant_sitters", {
-                        method: "POST",
+                    const checkResp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter`, {
+                        method: "GET",
                         headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${store.token}`
-                        },
-                        body: JSON.stringify({
-                            profile_picture_url,
-                            bio,
-                            professional_experience,
-                            additional_info,
-                            preferred_plants,
-                            service_preferences
-                        })
+                            "Authorization": `Bearer ${token}`
+                        }
                     });
-                    
+
+                    let resp;
+                    const body = {
+                        profile_picture_url,
+                        professional_experience,
+                        preferred_plants,
+                        service_preferences,
+                        intro,
+                        current_plants,
+                        client_info,
+                        extra_info
+                    };
+
+                    if (checkResp.ok) {
+                        resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter`, {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`
+                            },
+                            body: JSON.stringify(body)
+                        });
+                    } else {
+                        resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitters`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${token}`
+                            },
+                            body: JSON.stringify(body)
+                        });
+                    }
+
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ plantSitter: data });
@@ -231,65 +265,36 @@ const getState = ({ getStore, getActions, setStore }) => {
                         return { success: false, error: errorData.error };
                     }
                 } catch (error) {
-                    console.log("Error creating plant sitter", error);
+                    console.error("Error creating/updating plant sitter:", error);
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },
 
-            // Update plant sitter data
-            updatePlantSitter: async (id, profile_picture_url, bio, professional_experience, additional_info, preferred_plants, service_preferences) => {
+            // Get a single plant sitter
+            getPlantSitter: async () => {
                 const store = getStore();
-                try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter/${id}`, {
-                        method: "PUT",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${store.token}`
-                        },
-                        body: JSON.stringify({
-                            profile_picture_url,
-                            bio,
-                            professional_experience,
-                            additional_info,
-                            preferred_plants,
-                            service_preferences
-                        })
-                    });
-                    
-                    if (resp.ok) {
-                        const data = await resp.json();
-                        setStore({ plantSitter: data.plant_sitter });
-                        return { success: true, data };
-                    } else {
-                        const errorData = await resp.json();
-                        return { success: false, error: errorData.error };
-                    }
-                } catch (error) {
-                    console.log("Error updating plant sitter", error);
-                    return { success: false, error: "An unexpected error occurred" };
-                }
-            },
+                const token = sessionStorage.getItem("token");
 
-            // Get a single plant sitter by ID
-            getPlantSitter: async (id) => {
-                const store = getStore();
                 try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter/${id}`, {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter`, {
                         method: "GET",
                         headers: {
-                            "Authorization": `Bearer ${store.token}`
+                            "Authorization": `Bearer ${token}`
                         }
                     });
+
                     if (resp.ok) {
                         const data = await resp.json();
-                        setStore({ plantSitter: data.plant_sitter });
+                        setStore({ plantSitter: data });
                         return { success: true, data };
+                    } else if (resp.status === 404) {
+                        return { success: false, error: "Plant sitter not found" };
                     } else {
                         const errorData = await resp.json();
-                        return { success: false, error: errorData.error };
+                        return { success: false, error: errorData.error || "Error fetching plant sitter" };
                     }
                 } catch (error) {
-                    console.log("Error fetching plant sitter", error);
+                    console.error("Error fetching plant sitter:", error);
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },
@@ -344,7 +349,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			//log out
 			logout: () => {
-				setStore({ token: null, user: null });
+				setStore({ token: null, user: null, plantSitter: null });
 				sessionStorage.removeItem('token');
 			}
 		}
