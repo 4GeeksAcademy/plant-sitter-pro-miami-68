@@ -57,7 +57,6 @@ export const ProviderProfile = () => {
     };
 
     const handleSubmit = () => {
-
         const profilePictureUrl = picture ? URL.createObjectURL(picture) : store.plantSitter?.profile_picture_url;
 
         const dataToSubmit = {
@@ -107,11 +106,11 @@ export const ProviderProfile = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h1>
+                    <h1 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h1>                
                     <div
                         className="profile-picture m-auto mb-4"
                         style={{
-                            backgroundImage: `url(${picture || ''})`,
+                            backgroundImage: picture ? `url(${picture})` : '',
                             backgroundSize: 'cover',
                             backgroundPosition: 'center'
                         }}
