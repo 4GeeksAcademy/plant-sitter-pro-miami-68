@@ -204,7 +204,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             // Create or update plant sitter
             createOrUpdatePlantSitter: async (
-                profile_picture_url, 
+                profile_picture, 
                 professional_experience, 
                 preferred_plants, 
                 service_preferences,
@@ -216,27 +216,23 @@ const getState = ({ getStore, getActions, setStore }) => {
                 const store = getStore();
                 const token = sessionStorage.getItem("token");
 
+                const body = {
+                    professional_experience,
+                    preferred_plants,
+                    service_preferences,
+                    intro,
+                    current_plants,
+                    client_info,
+                    extra_info
+                };
+
+                if (profile_picture) {
+                    body.profile_picture = profile_picture;
+                }
+
                 try {
-                    const checkResp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter`, {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `Bearer ${token}`
-                        }
-                    });
-
                     let resp;
-                    const body = {
-                        profile_picture_url,
-                        professional_experience,
-                        preferred_plants,
-                        service_preferences,
-                        intro,
-                        current_plants,
-                        client_info,
-                        extra_info
-                    };
-
-                    if (checkResp.ok) {
+                    if (store.plantSitter && store.plantSitter.id) {
                         resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter`, {
                             method: "PUT",
                             headers: {

@@ -6,6 +6,9 @@ from api.models import db, User, ClientProfiles, PlantSitter, JobPost, Rating, M
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 api = Blueprint('api', __name__)
 
@@ -177,7 +180,16 @@ def delete_user():
 def create_plant_sitter():
     data = request.get_json()
     user_id = get_jwt_identity()
-    profile_picture_url = data.get('profile_picture_url')
+    
+    profile_picture_base64 = data.get('profile_picture')
+    profile_picture_url = None
+    if profile_picture_base64:
+        try:
+            upload_result = cloudinary.uploader.upload(profile_picture_base64, folder="plant_sitter_profiles")
+            profile_picture_url = upload_result['secure_url']
+        except Exception as e:
+            return jsonify({"error": f"Image upload failed: {str(e)}"}), 500
+
     professional_experience = data.get('professional_experience')
     preferred_plants = data.get('preferred_plants')
     service_preferences = data.get('service_preferences')
@@ -203,8 +215,8 @@ def create_plant_sitter():
         return jsonify(new_sitter.serialize()), 201
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 400
-
+        return jsonify({"error": str(e)}), 500
+    
 
 @api.route('/plant_sitter', methods=['PUT'])
 @jwt_required()
@@ -217,7 +229,6 @@ def update_plant_sitter():
     if not plant_sitter:
         return jsonify({"error": "Plant sitter not found"}), 404
 
-    plant_sitter.profile_picture_url = data.get('profile_picture_url', plant_sitter.profile_picture_url)
     plant_sitter.professional_experience = data.get('professional_experience', plant_sitter.professional_experience)
     plant_sitter.preferred_plants = data.get('preferred_plants', plant_sitter.preferred_plants)
     plant_sitter.service_preferences = data.get('service_preferences', plant_sitter.service_preferences)
@@ -226,12 +237,20 @@ def update_plant_sitter():
     plant_sitter.client_info = data.get('client_info', plant_sitter.client_info)
     plant_sitter.extra_info = data.get('extra_info', plant_sitter.extra_info)
 
+    profile_picture_base64 = data.get('profile_picture')
+    if profile_picture_base64:
+        try:
+            upload_result = cloudinary.uploader.upload(profile_picture_base64, folder="plant_sitter_profiles")
+            plant_sitter.profile_picture_url = upload_result['secure_url']
+        except Exception as e:
+            return jsonify({"error": str(e)}), 500
+
     try:
         db.session.commit()
         return jsonify({"message": "Plant sitter updated successfully", "plant_sitter": plant_sitter.serialize()}), 200
     except Exception as e:
         db.session.rollback()
-        return jsonify({"error": str(e)}), 400
+        return jsonify({"error": str(e)}), 500
 
 
 @api.route('/plant_sitter', methods=['GET'])
