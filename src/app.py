@@ -11,6 +11,9 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # from models import Person
 
@@ -19,6 +22,15 @@ static_file_dir = os.path.join(os.path.dirname(
     os.path.realpath(__file__)), '../public/')
 app = Flask(__name__)
 app.url_map.strict_slashes = False
+
+
+# Cloudinary Configuration
+cloudinary.config( 
+  cloud_name = "djak0ztdw", 
+  api_key = "833786291381811", 
+  api_secret = "-pyQkI-AMOQ9DogF6hkTdp3lUrs", 
+  secure = True
+)
 
 # JWT setup to allow the app generate a token
 jwt = JWTManager(app)

@@ -47,23 +47,43 @@ export const ProviderServices = () => {
             client_info: store.plantSitter?.client_info,
             extra_info: store.plantSitter?.extra_info,
         };
-
-        actions.createOrUpdatePlantSitter(
-            plantSitterData.profile_picture_url,
-            plantSitterData.professional_experience,
-            plantSitterData.preferred_plants,
-            plantSitterData.service_preferences,
-            plantSitterData.intro,
-            plantSitterData.current_plants,
-            plantSitterData.client_info,
-            plantSitterData.extra_info
-        ).then((res) => {
-            if (res.success) {
-                navigate('/provider-profile');
-            } else {
-                console.error("Error updating/creating plant sitter:", res.error);
-            }
-        });
+    
+        if (store.plantSitter && store.plantSitter.id) {
+            actions.createOrUpdatePlantSitter(
+                plantSitterData.profile_picture_url,
+                plantSitterData.professional_experience,
+                plantSitterData.preferred_plants,
+                plantSitterData.service_preferences,
+                plantSitterData.intro,
+                plantSitterData.current_plants,
+                plantSitterData.client_info,
+                plantSitterData.extra_info
+            ).then((res) => {
+                if (res.success) {
+                    navigate('/provider-profile');
+                } else {
+                    console.error("Error updating plant sitter:", res.error);
+                }
+            });
+        } else {
+            actions.createOrUpdatePlantSitter(
+                plantSitterData.profile_picture_url,
+                plantSitterData.professional_experience,
+                plantSitterData.preferred_plants,
+                plantSitterData.service_preferences,
+                plantSitterData.intro,
+                plantSitterData.current_plants,
+                plantSitterData.client_info,
+                plantSitterData.extra_info,
+                true
+            ).then((res) => {
+                if (res.success) {
+                    navigate('/provider-profile');
+                } else {
+                    console.error("Error creating plant sitter:", res.error);
+                }
+            });
+        }
     };
 
     return (

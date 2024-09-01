@@ -57,10 +57,9 @@ export const ProviderProfile = () => {
     };
 
     const handleSubmit = () => {
-        const profilePictureUrl = picture ? URL.createObjectURL(picture) : store.plantSitter?.profile_picture_url;
 
         const dataToSubmit = {
-            profilePictureUrl,
+            profile_picture: picture,
             professionalExperience,
             preferredPlants: preferredPlants.length > 0 ? preferredPlants : store.plantSitter?.preferred_plants,
             servicePreferences: servicePreferences.length > 0 ? servicePreferences : store.plantSitter?.service_preferences,
@@ -71,7 +70,7 @@ export const ProviderProfile = () => {
         };
 
         actions.createOrUpdatePlantSitter(
-            dataToSubmit.profilePictureUrl,
+            dataToSubmit.profile_picture,
             dataToSubmit.professionalExperience,
             dataToSubmit.preferredPlants,
             dataToSubmit.servicePreferences,
