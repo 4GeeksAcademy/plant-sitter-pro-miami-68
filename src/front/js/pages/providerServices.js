@@ -104,7 +104,7 @@ export const ProviderServices = () => {
                     <span className="checkmark"></span>
                 </label>
             </div>
-            <div className="row justify-content-center topRow">
+            <div className="row justify-content-center">
                 <label className="checkbx col-5">
                     <img className="icon" src={repotting}/>
                     Repotting
@@ -116,7 +116,7 @@ export const ProviderServices = () => {
                     <span className="checkmark"></span>
                 </label>
             </div>
-            <div className="row justify-content-center topRow">
+            <div className="row justify-content-center">
                 <label className="checkbx col-5">
                     <img className="icon" src={pruning}/>
                     Pruning
@@ -128,7 +128,7 @@ export const ProviderServices = () => {
                     <span className="checkmark"></span>
                 </label>
             </div>
-            <div className="row justify-content-center topRow">
+            <div className="row justify-content-center">
                 <label className="checkbx col-5">
                     <img className="icon" src={pestControl}/>
                     Pest Control
@@ -140,7 +140,7 @@ export const ProviderServices = () => {
                     <span className="checkmark"></span>
                 </label>
             </div>
-            <div className="row justify-content-center topRow">
+            <div className="row justify-content-center">
                 <label className="checkbx col-5">
                     <img className="icon" src={cleaning}/>
                     Cleaning
