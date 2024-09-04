@@ -159,6 +159,22 @@
   padding: 5px;
 }
 
+.plantImageContainer {
+  position:relative;
+  display:inline-block;
+  text-align:center;
+  /* border:1px solid red; */
+}
+
+.editButton {
+  background: transparent;
+  position:absolute;
+  top:2px;
+  right:10px;
+  width:20%px;
+  height:30px;
+}
+
 .selectServices {
   width: 12%;
   height: auto;
@@ -184,6 +200,10 @@
   padding-left: 10px;
 }
 
+/* .fa-pencil {
+  background: transparent;
+} */
+
 .fa-leaf {
   color: rgb(70, 108, 70);
 }
@@ -202,6 +222,7 @@
   border: 1px solid white;
   border-radius: 25px;
   padding: 10px;
+  min-width: 100%;
 }
 
 .needs {

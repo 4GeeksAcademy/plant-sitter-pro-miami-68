@@ -23,6 +23,10 @@ export const ProviderProfile = () => {
     const [extraInfo, setExtraInfo] = useState("");
     const [preferredPlants, setPreferredPlants] = useState([]);
     const [servicePreferences, setServicePreferences] = useState([]);
+    const firstName = store.user?.first_name;
+    const lastName = store.user?.last_name;
+    const city = store.user?.city;
+    const state = store.user?.state;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -105,7 +109,7 @@ export const ProviderProfile = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h1>
+                    <h2 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h2>
                     <div
                         className="profile-picture m-auto mb-4"
                         style={{
@@ -143,14 +147,13 @@ export const ProviderProfile = () => {
                         />
                     </div>
                     <div data-mdb-input-init className="form-outline form-white">
-                        <input type="text" placeholder="First Name" className="form-control form-control-lg mb-3" value={store.user?.first_name} disabled />
-                        <input type="text" placeholder="Last Name" className="form-control form-control-lg mb-3" value={store.user?.last_name} disabled />
-                        <input type="text" placeholder="Your Location (City, State)" className="form-control form-control-lg mb-3" value={store.user?.location} disabled />
-                        <textarea rows="5" className="form-control form-control" placeholder="Brief Intro..." value={intro} onChange={(e) => setIntro(e.target.value)} aria-label="With textarea"></textarea>
+                        <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
+                        <h3>{city}, {state}</h3>
+                        <textarea rows="5" className="form-control form-control mt-4" placeholder="Brief Intro..." value={intro} onChange={(e) => setIntro(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white mb-4"><strong>About you</strong></h1>
+                    <h2 className="diphylleia-regular text-white mb-4"><strong>About you</strong></h2>
                     <label className="form-label diphylleia-regular fs-5 text-white"><strong>What should potential clients know about you?</strong></label>
                     <div className="input-group mb-3">
                         <textarea rows="5" className="form-control" placeholder="I've been a plant lover my whole life..." value={clientInfo} onChange={(e) => setClientInfo(e.target.value)} aria-label="With textarea"></textarea>
@@ -170,7 +173,7 @@ export const ProviderProfile = () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <label className="form-label diphylleia-regular fs-4 text-white"><h1><strong>What kinds of plants are you comfortable taking care of?</strong></h1></label>
+                    <label className="form-label diphylleia-regular fs-4 text-white"><h2><strong>What kinds of plants are you comfortable taking care of?</strong></h2></label>
                     <h5 className="mt-3 mb-2 text-white">Select all that apply</h5>
                     <div className="d-flex justify-content-center plant-types">
                         <div onClick={() => handlePlantSelection('standard')} className={`selectPlants ${preferredPlants.includes('standard') ? 'selected' : ''}`}>
