@@ -343,6 +343,31 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+
+            //refresh token
+            refreshAccessToken: async () => {
+                const store = getStore();
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/refresh`, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${store.token}`
+                        }
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        setStore({ token: data.access_token });
+                        sessionStorage.setItem("token", data.access_token);
+                    } else {
+                        console.error("Error refreshing token");
+                    }
+                } catch (error) {
+                    console.error("Error refreshing token:", error);
+                }
+            },
+
+
 			//log out
 			logout: () => {
 				setStore({ token: null, user: null, plantSitter: null });

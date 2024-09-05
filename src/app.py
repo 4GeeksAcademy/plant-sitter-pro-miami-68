@@ -11,6 +11,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+from datetime import timedelta
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -32,7 +33,10 @@ cloudinary.config(
   secure = True
 )
 
-# JWT setup to allow the app generate a token
+# JWT Configuration
+app.config['JWT_SECRET_KEY'] = 'your-secret-key'
+app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(days=7)
+app.config['JWT_REFRESH_TOKEN_EXPIRES'] = timedelta(days=30)
 jwt = JWTManager(app)
 
 # database condiguration

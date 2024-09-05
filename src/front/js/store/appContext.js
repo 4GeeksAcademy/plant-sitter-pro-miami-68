@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import getState from "./flux.js";
+import { jwtDecode } from "jwt-decode";
 
 // Don't change, here is where we initialize our context, by default it's just going to be null.
 export const Context = React.createContext(null);
@@ -29,7 +30,28 @@ const injectContext = PassedComponent => {
 			 * store, instead use actions, like this:
 			 **/
 			state.actions.getMessage(); // <---- calling this function from the flux.js actions
+			handleTokenRefresh();
 		}, []);
+
+		    // Function to handle the token refresh process
+			const handleTokenRefresh = () => {
+				const token = sessionStorage.getItem("token");
+				if (token) {
+				  const decodedToken = jwtDecode(token);
+				  const expirationTime = decodedToken.exp * 1000;
+		  
+				  const currentTime = Date.now();
+				  const timeLeft = expirationTime - currentTime;
+		  
+				  if (timeLeft > 0) {
+					setTimeout(() => {
+					  state.actions.refreshAccessToken();
+					}, timeLeft - 60000);
+				  } else {
+					state.actions.logout();
+				  }
+				}
+			  };
 
 		// The initial value for the context is not null anymore, but the current state of this component,
 		// the context will now have a getStore, getActions and setStore functions available, because they were declared

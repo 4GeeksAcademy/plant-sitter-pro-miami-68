@@ -5,7 +5,7 @@ from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db, User, ClientProfiles, PlantSitter, JobPost, Rating, Message
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, create_refresh_token
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -24,6 +24,16 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+
+
+#---------------------refresh token endpoint
+@api.route('/refresh', methods=['POST'])
+@jwt_required(refresh=True)
+def refresh_token():
+    current_user = get_jwt_identity()
+    new_access_token = create_access_token(identity=current_user)
+    return jsonify({"access_token": new_access_token}), 200
 
 
 
