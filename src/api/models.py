@@ -73,31 +73,7 @@ class User(db.Model):
             "updated_at": self.updated_at.isoformat()
         }
 
-class ClientProfiles(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    my_plants = db.Column(JSONB, nullable=True)
-    service_preferences = db.Column(JSONB, nullable=True)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
 
-    user = db.relationship('User', backref=db.backref('client_profiles', lazy=True))
-
-    def __repr__(self):
-        return f'<ClientProfile {self.id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "user_id": self.user_id,
-            "first_name": self.user.first_name if self.user else None,
-            "last_name": self.user.last_name if self.user else None,
-            "my_plants": self.my_plants,
-            "service_preferences": self.service_preferences,
-            "location": self.user.location if self.user else None,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat(),
-        }
 class PlantSitter(db.Model):
     __tablename__ = 'plant_sitters'
     id = db.Column(db.Integer, primary_key=True)
@@ -138,6 +114,46 @@ class PlantSitter(db.Model):
         }
     
 
+
+class JobPost(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    details = db.Column(db.String(200), nullable=False)
+    start_date = db.Column(db.DateTime, nullable=False)
+    end_date = db.Column(db.DateTime, nullable=False)
+    address = db.Column(db.String(200), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    service_preferences = db.Column(JSONB, nullable=True)
+    my_plants = db.Column(JSONB, nullable=True)
+    status = db.Column(db.String(50), default='open', nullable=False)
+    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+
+    user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
+
+    def __repr__(self):
+        return f'<JobPost {self.title} by User {self.user_id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "title": self.title,
+            "details": self.details,
+            "start_date": self.start_date.isoformat(),
+            "end_date": self.end_date.isoformat(),
+            "address": self.address,
+            "user_id": self.user_id,
+            "first_name": self.user.first_name if self.user else None,
+            "last_name": self.user.last_name if self.user else None,
+            "location": self.user.location if self.user else None,
+            "service_preferences": self.service_preferences,
+            "my_plants": self.my_plants, 
+            "status": self.status,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
+        }
+    
+
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
@@ -165,39 +181,6 @@ class Rating(db.Model):
         else:
             raise ValueError("Rating must be an integer between 1 and 5.")    
 
-class JobPost(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    details = db.Column(db.String(200), nullable=False)
-    start_date = db.Column(db.DateTime, nullable=False)
-    end_date = db.Column(db.DateTime, nullable=False)
-    address = db.Column(db.String(200), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    client_profiles_id = db.Column(db.Integer, db.ForeignKey('client_profiles.id'), nullable=False)
-    status = db.Column(db.String(50), default='open', nullable=False)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
-    updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-
-    user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
-    client_profile = db.relationship('ClientProfiles', backref='job_posts')
-
-    def __repr__(self):
-        return f'<JobPost {self.title} by User {self.user_id}>'
-
-    def serialize(self):
-        return {
-            "id": self.id,
-            "title": self.title,
-            "details": self.details,
-            "start_date": self.start_date.isoformat(),
-            "end_date": self.end_date.isoformat(),
-            "address": self.address,
-            "user_id": self.user_id,
-            "client_profiles_id": self.client_profiles_id,
-            "status": self.status,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at
-        }
 
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
