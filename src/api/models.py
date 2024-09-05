@@ -117,14 +117,19 @@ class PlantSitter(db.Model):
 
 class JobPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    details = db.Column(db.String(200), nullable=False)
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
     address = db.Column(db.String(200), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    profile_picture_url = db.Column(db.String(255), nullable=True)
     service_preferences = db.Column(JSONB, nullable=True)
     my_plants = db.Column(JSONB, nullable=True)
+    intro = db.Column(db.Text, nullable=True)
+    more_about_your_plants = db.Column(db.Text, nullable=True)
+    more_about_services = db.Column(db.Text, nullable=True)
+    extra_info = db.Column(db.Text, nullable=True)
+    job_description = db.Column(db.Text, nullable=True)
+    job_duration = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(50), default='open', nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
@@ -137,22 +142,27 @@ class JobPost(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "title": self.title,
-            "details": self.details,
             "start_date": self.start_date.isoformat(),
             "end_date": self.end_date.isoformat(),
             "address": self.address,
             "user_id": self.user_id,
             "first_name": self.user.first_name if self.user else None,
             "last_name": self.user.last_name if self.user else None,
-            "location": self.user.location if self.user else None,
+            "profile_picture_url": self.profile_picture_url,
             "service_preferences": self.service_preferences,
             "my_plants": self.my_plants, 
+            "intro": self.intro,
+            "more_about_your_plants": self.more_about_your_plants,
+            "more_about_services": self.more_about_services,
+            "extra_info": self.extra_info,
+            "job_description": self.job_description,
+            "job_duration": self.job_duration,
             "status": self.status,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
         }
-    
+
+
 
 class Rating(db.Model):
     id = db.Column(db.Integer, primary_key=True)
