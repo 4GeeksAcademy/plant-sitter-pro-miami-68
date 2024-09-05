@@ -175,6 +175,41 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //change Plant Sitter password
+            updatePassword: async (currentPassword, newPassword) => {
+                const store = getStore();
+                const token = sessionStorage.getItem("token");
+            
+                // Check if the token is available
+                if (!token) {
+                    return { success: false, error: "You are not logged in." };
+                }
+            
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        },
+                        body: JSON.stringify({
+                            current_password: currentPassword,
+                            new_password: newPassword
+                        })
+                    });
+            
+                    const result = await response.json();
+                    if (response.ok) {
+                        return { success: true };
+                    } else {
+                        return { success: false, error: result.error || "Unable to update password" };
+                    }
+                } catch (error) {
+                    console.error("Error updating password:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+            
             // Delete user
             deleteUser: async () => {
                 const store = getStore();
@@ -198,6 +233,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },
+
+
 
 
 

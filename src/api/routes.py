@@ -122,13 +122,14 @@ def get_all_users():
 @api.route('/user', methods=['PUT'])
 @jwt_required()
 def update_user():
-    user_id = get_jwt_identity()
-    data = request.get_json()
-    user = User.query.get(user_id)
+    user_id = get_jwt_identity()  # Get user ID from the JWT token
+    data = request.get_json()  # Get JSON data from the request
+    user = User.query.get(user_id)  # Retrieve the user from the database
 
     if not user:
         return jsonify({"error": "User not found"}), 404
 
+    # Update user details (email, phone, first name, last name, etc.)
     user.email = data.get('email', user.email)
     user.phone = data.get('phone', user.phone)
     user.first_name = data.get('first_name', user.first_name)
@@ -140,16 +141,24 @@ def update_user():
     user.zip_code = data.get('zip_code', user.zip_code)
     user.country = data.get('country', user.country)
 
-    if 'password' in data:
-        user.set_password(data['password'])
+    # Handle password update
+    current_password = data.get('current_password')  # Get the current password from the request
+    new_password = data.get('new_password')  # Get the new password from the request
+
+    if current_password and new_password:
+        # Check if the current password is correct
+        if not user.check_password(current_password):
+            return jsonify({"error": "Current password is incorrect"}), 400
+        # Set the new password
+        user.set_password(new_password)
 
     try:
-        db.session.commit()
+        db.session.commit()  # Save all changes to the database
         return jsonify({"message": "User updated successfully", "user": user.serialize()}), 200
     except Exception as e:
-        db.session.rollback()
+        db.session.rollback()  # Rollback in case of an error
         return jsonify({"error": str(e)}), 400
-    
+
 
 @api.route('/user', methods=['DELETE'])
 @jwt_required()
