@@ -153,27 +153,33 @@
   padding: 5px;
 }
 
+.selectPlantsCompleted {
+  width: 100%;
+  height: auto;
+  border-radius: 25px;
+}
+
 .selectPlantsClient {
   width: 12%;
   height: auto;
   padding: 5px;
 }
 
+.plantImageWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .plantImageContainer {
   position:relative;
   display:inline-block;
   text-align:center;
-  /* border:1px solid red; */
 }
 
-.editButton {
-  background: transparent;
-  position:absolute;
-  top:2px;
-  right:10px;
-  width:20%px;
+/* .editButton {
+  background-color:rgb(70, 108, 70);
   height:30px;
-}
+} */
 
 .selectServices {
   width: 12%;
@@ -363,6 +369,15 @@
 .btn{
   background-color: rgb(70, 108, 70);
   color: white;
+}
+
+.edit {
+  width:auto;
+  height:auto;
+  color: white;
+  margin: auto;
+  padding: auto;
+  background-color:rgb(70, 108, 70);
 }
 
   /* * {box-sizing: border-box;} */

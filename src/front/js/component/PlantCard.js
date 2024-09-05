@@ -31,83 +31,125 @@ export const PlantCard = () => {
         fetchData();
     }, []);
 
-    let plantList = [...preferredPlants]
-    console.log(preferredPlants);
-
-    // const plantListImages = (plantList.map((image, index) => {
-    //     if(image == standard) {return image = {usual}};
-    //     if(image == orchids) {return image = {orchids}};
-    //     if(image == succulents) {return image = {succulents}};
-    //     if(image == unusual) {return image = {unusual}};
-    //     if(image == carnivorous) {return image = {carnivorous}};
-    //     if(image == landscape) {return image = {landscape}};
-    //     if(image == outdoor) {return image = {outdoors}};
-    //     if(image == veggies) {return image = {veggies}};
-    // }));
-
-    // const arrayOfPlantPictures = [];
-
-    // if (preferredPlants.includes(standard)) {
-    //     const standard = {usual};
-    //     arrayOfPlantPictures.push(standard);
-    // }
-    // if (preferredPlants.includes(succulents)) {
-    //     const succulents = {succulents};
-    //     arrayOfPlantPictures.push(succulents);
-    // }
-    // if (preferredPlants.includes(orchids)) {
-    //     const orchids = {orchids};
-    //     arrayOfPlantPictures.push(orchids);
-    // }
-    // if (preferredPlants.includes(carnivorous)) {
-    //     const carnivorous = {carnivorous};
-    //     arrayOfPlantPictures.push(carnivorous);
-    // }
-    // if (preferredPlants.includes(unusual)) {
-    //     const unusual = {unusual};
-    //     arrayOfPlantPictures.push(unusual);
-    // }
-    // if (preferredPlants.includes(landscape)) {
-    //     const landscape = {landscape};
-    //     arrayOfPlantPictures.push(landscape);
-    // }
-    // if (preferredPlants.includes(outdoor)) {
-    //     const outdoor = {outdoors};
-    //     arrayOfPlantPictures.push(outdoor);
-    // }
-    // if (preferredPlants.includes(veggies)) {
-    //     const veggies = {veggies};
-    //     arrayOfPlantPictures.push(veggies);
-    // }
-
     if (loading) {
         return <div>Loading...</div>;
     }
 
     return (
-        <div className="container p-0">   
+        <div className="container plantImageWrapper p-0">   
             {preferredPlants.map((image, index) => {
-                
-                return (
-                    <div className="selectPlants" key={index}>
-                        <div className="plantImageContainer plants" >
-                            <button 
-                                className="btn editButton" 
-                                onClick={() => {
-                                    navigate("/provider-profile")
-                                }}
-                            >
-                                <i className="fas fa-pencil-alt"></i>
-                            </button>
-                            <img 
-                                src={image} 
-
-                                alt={`Picture of plant type ${image}`}
-                            />
+                if(image == "standard") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={usual}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
                         </div>
-                        <p className="text-white mb-0"><strong>{image}</strong></p>
-                    </div>
                     )
+                }
+                if(image == "outdoor") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={outdoors}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
+                if(image == "succulents") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={succulents}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
+                if(image == "orchids") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={orchids}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
+                if(image == "unusual") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={unusual}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
+                if(image == "carnivorous") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={carnivorous}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
+                if(image == "landscape") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={landscape}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
+                if(image == "veggies") {
+                    return (
+                        <div className="selectPlants" key={index}>
+                            <div className="plantImageContainer plants" >
+                                <img 
+                                    src={veggies}
+                                    className="selectPlantsCompleted"
+                                    alt={`Picture of plant type ${image}`}
+                                />
+                            </div>
+                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                        </div>
+                    )
+                }
                 })}
         </div>
     );
