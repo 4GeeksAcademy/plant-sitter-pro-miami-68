@@ -301,7 +301,60 @@ def delete_plant_sitter(id):
 
 #----------------------------endpoints for JobPost---------------------------------------
 
+@api.route('/job_posts', methods=['POST'])
+@jwt_required()
+def create_job_post():
+    data = request.form
+    user_id = get_jwt_identity()
+    
+    profile_picture_base64 = data.get('profile_picture')
+    profile_picture_url = None
+    if profile_picture_base64:
+        try:
+            upload_result = cloudinary.uploader.upload(profile_picture_base64, folder="job_posts_profiles")
+            profile_picture_url = upload_result['secure_url']
+        except Exception as e:
+            return jsonify({"error": f"Image upload failed: {str(e)}"}), 500
 
+    start_date = data.get('start_date')
+    end_date = data.get('end_date')
+    address = data.get('address')
+    service_preferences = data.get('service_preferences')
+    my_plants = data.get('my_plants')
+    intro = data.get('intro')
+    more_about_plants = data.get('more_about_plants')
+    more_about_services = data.get('more_about_services')
+    extra_info = data.get('extra_info')
+    job_duration = data.get('job_duration')
+
+    try:
+        new_job_post = JobPost(
+            user_id=user_id,
+            profile_picture_url=profile_picture_url,
+            start_date=start_date,
+            end_date=end_date,
+            address=address,
+            service_preferences=service_preferences,
+            my_plants=my_plants,
+            intro=intro,
+            more_about_your_plants=more_about_plants,
+            more_about_services=more_about_services,
+            extra_info=extra_info,
+            job_duration=job_duration
+        )
+        db.session.add(new_job_post)
+        db.session.commit()
+        return jsonify(new_job_post.serialize()), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+        
+
+@api.route('/job_posts', methods=['GET'])
+@jwt_required()
+def get_job_posts():
+    job_posts = JobPost.query.all()
+    return jsonify([post.serialize() for post in job_posts]), 200
 
 
 

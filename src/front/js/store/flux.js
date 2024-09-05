@@ -343,6 +343,54 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //save JobPost Details
+            setJobPostDetails: (details) => {
+                setStore({ jobPostDetails: details });
+            },
+
+            //Create JobPost
+            createJobPost: async (startDate, endDate, address, selectedServices, selectedPlants, intro, picture, moreAboutPlants, moreAboutServices, extraInfo, jobDuration) => {
+                const store = getStore();
+                const token = sessionStorage.getItem("token");
+            
+                const formData = new FormData();
+                formData.append("start_date", startDate);
+                formData.append("end_date", endDate);
+                formData.append("address", address);
+                formData.append("service_preferences", JSON.stringify(selectedServices));
+                formData.append("my_plants", JSON.stringify(selectedPlants));
+                formData.append("intro", intro);
+                formData.append("more_about_plants", moreAboutPlants);
+                formData.append("more_about_services", moreAboutServices);
+                formData.append("extra_info", extraInfo);
+                formData.append("job_duration", jobDuration);
+            
+                if (picture) {
+                    formData.append("profile_picture", picture);
+                }
+            
+                try {
+                    const resp = await fetch(process.env.BACKEND_URL + "/api/job_posts", {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: formData
+                    });
+            
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error creating job post:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
 
             //refresh token
             refreshAccessToken: async () => {
