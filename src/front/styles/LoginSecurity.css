@@ -1,0 +1,65 @@
+/* Centering the login-security form */
+.login-security {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
+}
+
+/* Styling the form heading */
+.login-security h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 24px;
+    color: #4A7C59; /* Your custom green color */
+}
+
+/* Form structure */
+.login-security form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Form labels */
+.login-security label {
+    font-weight: bold;
+    color: #4A7C59;
+    margin-bottom: 5px;
+}
+
+/* Input fields */
+.login-security input[type="password"] {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+/* Change border on focus */
+.login-security input[type="password"]:focus {
+    border-color: #4A7C59;
+    outline: none;
+}
+
+/* Form group structure */
+.form-group {
+    margin-bottom: 20px;
+}
+
+/* Submit button */
+.login-security button[type="submit"] {
+    padding: 12px 20px;
+    background-color: #4A7C59; /* Custom green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: ba;
+}
