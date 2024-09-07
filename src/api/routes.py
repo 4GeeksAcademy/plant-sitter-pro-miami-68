@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, ClientProfiles, PlantSitter, JobPost, Rating, Message
+from api.models import db, User, PlantSitter, JobPost, Rating, Message
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, create_refresh_token
@@ -28,6 +28,7 @@ def handle_hello():
 
 
 #---------------------refresh token endpoint
+
 @api.route('/refresh', methods=['POST'])
 @jwt_required(refresh=True)
 def refresh_token():
@@ -295,165 +296,82 @@ def delete_plant_sitter(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
-   
+    
 
 
+#----------------------------endpoints for JobPost---------------------------------------
 
+@api.route('/job_posts', methods=['POST'])
+@jwt_required()
+def create_job_post():
+    data = request.form
+    user_id = get_jwt_identity()
+    
+    profile_picture_base64 = data.get('profile_picture')
+    profile_picture_url = None
+    if profile_picture_base64:
+        try:
+            upload_result = cloudinary.uploader.upload(profile_picture_base64, folder="job_posts_profiles")
+            profile_picture_url = upload_result['secure_url']
+        except Exception as e:
+            return jsonify({"error": f"Image upload failed: {str(e)}"}), 500
 
+    address_line_1 = data.get('address_line_1')
+    address_line_2 = data.get('address_line_2')
+    city = data.get('city')
+    state = data.get('state')
+    country = data.get('country', 'United States')
+    zip_code = data.get('zip_code')
+    start_date = data.get('start_date')
+    end_date = data.get('end_date')
+    service_preferences = data.get('service_preferences')
+    my_plants = data.get('my_plants')
+    intro = data.get('intro')
+    more_about_plants = data.get('more_about_plants')
+    more_about_services = data.get('more_about_services')
+    extra_info = data.get('extra_info')
+    job_duration = data.get('job_duration')
 
+    try:
+        new_job_post = JobPost(
+            user_id=user_id,
+            profile_picture_url=profile_picture_url,
+            start_date=start_date,
+            end_date=end_date,
+            address_line_1=address_line_1,
+            address_line_2=address_line_2,
+            city=city,
+            state=state,
+            country=country,
+            zip_code=zip_code,
+            service_preferences=service_preferences,
+            my_plants=my_plants,
+            intro=intro,
+            more_about_your_plants=more_about_plants,
+            more_about_services=more_about_services,
+            extra_info=extra_info,
+            job_duration=job_duration
+        )
 
-# #---------------------endpoints for ClientProfiles--------------------
+        if zip_code:
+            new_job_post.set_location_by_zip(zip_code)
+        db.session.add(new_job_post)
+        db.session.commit()
+        return jsonify(new_job_post.serialize()), 201
 
-# @api.route('/client_profiles', methods=['POST'])
-# @jwt_required()
-# def create_client_profile():
-#     user_id = get_jwt_identity()
-#     data = request.get_json()
-   
-#     zip_code = data.get('zip_code')
-#     if not zip_code:
-#         return jsonify({"error": "Zip code is required"}), 400
+    except ValueError as geolocation_error:
+        return jsonify({"error": f"Geolocation failed: {str(geolocation_error)}"}), 400
 
-#     try:
-#         new_profile = ClientProfiles(user_id=user_id, **data)
-#         new_profile.set_location_by_zip(zip_code)
-#         db.session.add(new_profile)
-#         db.session.commit()
-       
-#         return jsonify(new_profile.serialize()), 201
-#     except ValueError as ve:
-#         return jsonify({"error": str(ve)}), 400
-#     except Exception as e:
-#         db.session.rollback()
-#         return jsonify({"error": str(e)}), 400
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+        
 
-
-# @api.route('/client_profiles/<int:id>', methods=['PUT'])
-# @jwt_required()
-# def update_client_profile(id):
-#     user_id = get_jwt_identity()
-#     profile = ClientProfiles.query.filter_by(id=id, user_id=user_id).first()
-
-#     if not profile:
-#         return jsonify({"error": "Profile not found"}), 404
-
-#     data = request.get_json()
-#     zip_code = data.get('zip_code')
-#     my_plants = data.get('my_plants')
-#     service_preferences = data.get('service_preferences')
-
-#     try:
-#         if zip_code:
-#             profile.set_location_by_zip(zip_code)
-#         if my_plants is not None:
-#             profile.my_plants = my_plants
-#         if service_preferences:
-#             profile.service_preferences = service_preferences
-
-#         db.session.commit()
-#         return jsonify({"message": "Profile updated successfully", "profile": profile.serialize()}), 200
-#     except Exception as e:
-#         db.session.rollback()
-#         return jsonify({"error": str(e)}), 400
-   
-
-# @api.route('/client_profiles/<int:id>', methods=['GET'])
-# @jwt_required()
-# def get_client_profile(id):
-#     user_id = get_jwt_identity()
-#     profile = ClientProfiles.query.filter_by(id=id, user_id=user_id).first()
-#     if not profile:
-#         return jsonify({"error": "Profile not found"}), 404
-#     return jsonify(profile.serialize()), 200
-
-
-# @api.route('/client_profiles/<int:id>', methods=['DELETE'])
-# @jwt_required()
-# def delete_client_profile(id):
-#     user_id = get_jwt_identity()
-#     profile = ClientProfiles.query.filter_by(id=id, user_id=user_id).first()
-#     if not profile:
-#         return jsonify({"error": "Profile not found"}), 404
-#     try:
-#         db.session.delete(profile)
-#         db.session.commit()
-#         return jsonify({"message": "Profile deleted"}), 200
-#     except Exception as e:
-#         db.session.rollback()
-#         return jsonify({"error": str(e)}), 400
-   
-
-
-
-
-
-
-
-
-# --------endpoints for jobposts--------------
-
-# @api.route('/job_posts', methods=['POST'])
-# @jwt_required()
-# def create_job_post():
-#     user_id = get_jwt_identity()
-#     data = request.get_json()
-#     try:
-#         new_job = JobPost(user_id=user_id, **data)
-#         db.session.add(new_job)
-#         db.session.commit()
-       
-#         return jsonify(new_job.serialize()), 201
-#     except Exception as e:
-#         db.session.rollback()
-#         return jsonify({"error": str(e)}), 400
-
-
-# @api.route('/job_posts/<int:id>', methods=['PUT'])
-# @jwt_required()
-# def update_job_post(id):
-#     user_id = get_jwt_identity()
-#     job_post = JobPost.query.filter_by(id=id, user_id=user_id).first()
-
-#     if not job_post:
-#         return jsonify({"error": "Job post not found"}), 404
-
-#     data = request.get_json()
-
-#     try:
-#         job_post.title = data.get('title', job_post.title)
-#         job_post.details = data.get('details', job_post.details)
-#         job_post.start_date = data.get('start_date', job_post.start_date)
-#         job_post.end_date = data.get('end_date', job_post.end_date)
-#         job_post.rate = data.get('rate', job_post.rate)
-#         job_post.address = data.get('address', job_post.address)
-#         job_post.status = data.get('status', job_post.status)
-
-#         db.session.commit()
-#         return jsonify({"message": "Job post updated successfully", "job_post": job_post.serialize()}), 200
-#     except Exception as e:
-#         db.session.rollback()
-#         return jsonify({"error": str(e)}), 400
-
-
-# @api.route('/job_posts/<int:id>', methods=['GET'])
-# @jwt_required()
-# def get_job_post(id):
-#     job_post = JobPost.query.get_or_404(id)
-#     return jsonify(job_post.serialize()), 200
-
-
-# @api.route('/job_posts/<int:id>', methods=['DELETE'])
-# @jwt_required()
-# def delete_job_post(id):
-#     job_post = JobPost.query.get_or_404(id)
-#     try:
-#         db.session.delete(job_post)
-#         db.session.commit()
-#         return jsonify({"message": "Job post deleted"}), 200
-#     except Exception as e:
-#         db.session.rollback()
-#         return jsonify({"error": str(e)}), 400
-
+@api.route('/job_posts', methods=['GET'])
+@jwt_required()
+def get_job_posts():
+    job_posts = JobPost.query.all()
+    return jsonify([post.serialize() for post in job_posts]), 200
 
 
 
