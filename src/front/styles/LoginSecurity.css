@@ -63,3 +63,43 @@
     cursor: pointer;
     transition: ba;
 }
+/* Container for the input and icon */
+.password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  /* Input field */
+  .password-wrapper input {
+    width: 100%;
+    padding-right: 40px; /* Space for the eye icon */
+    padding-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* Icon inside the input field */
+  .toggle-password-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #000000; /* Black color for the icon */
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Icon hover effect */
+  .toggle-password-icon:hover {
+    opacity: 1;
+  }
+  
+  /* Form group styling */
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
