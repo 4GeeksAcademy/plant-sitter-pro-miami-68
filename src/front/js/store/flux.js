@@ -348,15 +348,37 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({ jobPostDetails: details });
             },
 
-            //Create JobPost
-            createJobPost: async (startDate, endDate, address, selectedServices, selectedPlants, intro, picture, moreAboutPlants, moreAboutServices, extraInfo, jobDuration) => {
+            // Create JobPost
+            createJobPost: async (
+                startDate,
+                endDate,
+                addressLine1,
+                addressLine2,
+                city,
+                state,
+                zipCode,
+                country,
+                selectedServices,
+                selectedPlants,
+                intro,
+                picture,
+                moreAboutPlants,
+                moreAboutServices,
+                extraInfo,
+                jobDuration
+            ) => {
                 const store = getStore();
                 const token = sessionStorage.getItem("token");
-            
+
                 const formData = new FormData();
                 formData.append("start_date", startDate);
                 formData.append("end_date", endDate);
-                formData.append("address", address);
+                formData.append("address_line_1", addressLine1);
+                formData.append("address_line_2", addressLine2 || ""); // Optional field
+                formData.append("city", city);
+                formData.append("state", state);
+                formData.append("zip_code", zipCode);
+                formData.append("country", country || "United States"); // Default to 'United States'
                 formData.append("service_preferences", JSON.stringify(selectedServices));
                 formData.append("my_plants", JSON.stringify(selectedPlants));
                 formData.append("intro", intro);
@@ -364,11 +386,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("more_about_services", moreAboutServices);
                 formData.append("extra_info", extraInfo);
                 formData.append("job_duration", jobDuration);
-            
+
                 if (picture) {
                     formData.append("profile_picture", picture);
                 }
-            
+
                 try {
                     const resp = await fetch(process.env.BACKEND_URL + "/api/job_posts", {
                         method: "POST",
@@ -377,7 +399,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                         },
                         body: formData
                     });
-            
+
                     if (resp.ok) {
                         const data = await resp.json();
                         return { success: true, data };

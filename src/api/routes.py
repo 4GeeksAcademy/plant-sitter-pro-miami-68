@@ -316,9 +316,14 @@ def create_job_post():
         except Exception as e:
             return jsonify({"error": f"Image upload failed: {str(e)}"}), 500
 
+    address_line_1 = data.get('address_line_1')
+    address_line_2 = data.get('address_line_2')
+    city = data.get('city')
+    state = data.get('state')
+    country = data.get('country', 'United States')
+    zip_code = data.get('zip_code')
     start_date = data.get('start_date')
     end_date = data.get('end_date')
-    address = data.get('address')
     service_preferences = data.get('service_preferences')
     my_plants = data.get('my_plants')
     intro = data.get('intro')
@@ -333,7 +338,12 @@ def create_job_post():
             profile_picture_url=profile_picture_url,
             start_date=start_date,
             end_date=end_date,
-            address=address,
+            address_line_1=address_line_1,
+            address_line_2=address_line_2,
+            city=city,
+            state=state,
+            country=country,
+            zip_code=zip_code,
             service_preferences=service_preferences,
             my_plants=my_plants,
             intro=intro,
@@ -342,9 +352,16 @@ def create_job_post():
             extra_info=extra_info,
             job_duration=job_duration
         )
+
+        if zip_code:
+            new_job_post.set_location_by_zip(zip_code)
         db.session.add(new_job_post)
         db.session.commit()
         return jsonify(new_job_post.serialize()), 201
+
+    except ValueError as geolocation_error:
+        return jsonify({"error": f"Geolocation failed: {str(geolocation_error)}"}), 400
+
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500

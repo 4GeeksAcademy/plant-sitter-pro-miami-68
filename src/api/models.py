@@ -119,7 +119,15 @@ class JobPost(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     start_date = db.Column(db.DateTime, nullable=False)
     end_date = db.Column(db.DateTime, nullable=False)
-    address = db.Column(db.String(200), nullable=False)
+    address_line_1 = db.Column(db.String(255), nullable=True)
+    address_line_2 = db.Column(db.String(255), nullable=True)
+    city = db.Column(db.String(100), nullable=True)
+    state = db.Column(db.String(100), nullable=True)
+    country = db.Column(db.String(50), default='United States')
+    zip_code = db.Column(db.String(10), nullable=True)
+    location = db.Column(db.String(255), nullable=True)
+    latitude = db.Column(db.Float, nullable=True)
+    longitude = db.Column(db.Float, nullable=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     profile_picture_url = db.Column(db.String(255), nullable=True)
     service_preferences = db.Column(JSONB, nullable=True)
@@ -136,14 +144,36 @@ class JobPost(db.Model):
     user = db.relationship('User', backref=db.backref('job_posts', lazy=True))
 
     def __repr__(self):
-        return f'<JobPost {self.title} by User {self.user_id}>'
+        return f'<JobPost {self.id} by User {self.user_id}>'
+
+    def set_location_by_zip(self, zip_code):
+        geolocator = Nominatim(user_agent="JobPost_Geolocator")
+        try:
+            location = geolocator.geocode(zip_code, country_codes='US')
+            if location:
+                self.zip_code = zip_code
+                self.location = location.address
+                self.latitude = location.latitude
+                self.longitude = location.longitude
+            else:
+                raise ValueError("Could not find location for the provided zip code.")
+        except (GeocoderTimedOut, GeocoderQuotaExceeded) as e:
+            raise ValueError("Error occurred during geocoding request.") from e
 
     def serialize(self):
         return {
             "id": self.id,
             "start_date": self.start_date.isoformat(),
             "end_date": self.end_date.isoformat(),
-            "address": self.address,
+            "address_line_1": self.address_line_1,
+            "address_line_2": self.address_line_2,
+            "city": self.city,
+            "state": self.state,
+            "zip_code": self.zip_code,
+            "country": self.country,
+            "location": self.location,
+            "latitude": self.latitude,
+            "longitude": self.longitude,
             "user_id": self.user_id,
             "first_name": self.user.first_name if self.user else None,
             "last_name": self.user.last_name if self.user else None,

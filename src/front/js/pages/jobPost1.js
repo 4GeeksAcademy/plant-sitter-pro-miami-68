@@ -16,12 +16,21 @@ import pruning from "../../img/pruning.png";
 import repotting from "../../img/repotting.png";
 import pestControl from "../../img/pestControl.png";
 import border from "../../img/border.png";
+import plantoutlines from "../../img/plantoutlines.jpg";
+import client from "../../img/client.png";
+import picture from "../../img/profilePicture.png";
 
 export const JobPost1 = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    
     const [picture, setPicture] = useState(null);
-    const [location, setLocation] = useState("");
+    const [addressLine1, setAddressLine1] = useState("");
+    const [addressLine2, setAddressLine2] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [country, setCountry] = useState("United States");
     const [intro, setIntro] = useState("");
     const [moreAboutPlants, setMoreAboutPlants] = useState("");
     const [moreAboutServices, setMoreAboutServices] = useState("");
@@ -35,7 +44,12 @@ export const JobPost1 = () => {
         const result = await actions.createJobPost(
             formattedStartDate,
             formattedEndDate,
-            location,
+            addressLine1,
+            addressLine2,
+            city,
+            state,
+            zipCode,
+            country,
             store.jobPostDetails.selectedServices,
             store.jobPostDetails.selectedPlants,
             intro,
@@ -109,10 +123,45 @@ export const JobPost1 = () => {
                         />
                         <input 
                             type="text" 
-                            value={location} 
-                            onChange={(e) => setLocation(e.target.value)} 
+                            value={addressLine1} 
+                            onChange={(e) => setAddressLine1(e.target.value)} 
                             className="form-control form-control-lg mb-3" 
-                            placeholder="Your Location (City, State)" 
+                            placeholder="Address Line 1" 
+                        />
+                        <input 
+                            type="text" 
+                            value={addressLine2} 
+                            onChange={(e) => setAddressLine2(e.target.value)} 
+                            className="form-control form-control-lg mb-3" 
+                            placeholder="Address Line 2" 
+                        />
+                        <input 
+                            type="text" 
+                            value={city} 
+                            onChange={(e) => setCity(e.target.value)} 
+                            className="form-control form-control-lg mb-3" 
+                            placeholder="City" 
+                        />
+                        <input 
+                            type="text" 
+                            value={state} 
+                            onChange={(e) => setState(e.target.value)} 
+                            className="form-control form-control-lg mb-3" 
+                            placeholder="State" 
+                        />
+                        <input 
+                            type="text" 
+                            value={zipCode} 
+                            onChange={(e) => setZipCode(e.target.value)} 
+                            className="form-control form-control-lg mb-3" 
+                            placeholder="Zip Code" 
+                        />
+                            <input 
+                            type="text" 
+                            value={country} 
+                            readOnly 
+                            className="form-control form-control-lg mb-3" 
+                            placeholder="Country"
                         />
                         <textarea 
                             rows="5" 
