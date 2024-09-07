@@ -28,6 +28,7 @@ import { HowItWorks } from "./pages/howItWorks";
 import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
+import PersonalSecurity from "./pages/loginsecurity"
 
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
@@ -35,6 +36,8 @@ import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
 import Chat from './component/Chat'; // Make sure to import the Chat component
+
+
 
 //create your first component
 const Layout = () => {
@@ -77,6 +80,7 @@ const Layout = () => {
                         <Route element={<PlantCleaningService />} path="/plantcleaning" />
                         <Route element={<AccountSettings />} path="/account-settings" />
                         <Route element={<PersonalInfo />} path="/personal-info" />
+                        <Route element={<PersonalSecurity />} path="/login-security" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}
