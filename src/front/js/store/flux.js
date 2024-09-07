@@ -5,6 +5,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			privateData: null,
 			users: [],
 			plantSitters: [],
+            jobPostDetails: [],
 			message: null,
 			demo: [
 				{

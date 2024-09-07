@@ -36,6 +36,8 @@ export const JobPost1 = () => {
     const [moreAboutServices, setMoreAboutServices] = useState("");
     const [extraInfo, setExtraInfo] = useState("");
     const [jobDuration, setJobDuration] = useState("");
+    const firstName = store.user?.first_name;
+    const lastName = store.user?.last_name;
 
     const handleSubmit = async () => {
         const formattedStartDate = new Date(store.jobPostDetails.startDate).toISOString();
@@ -94,7 +96,7 @@ export const JobPost1 = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white"><strong>Upload a profile picture</strong></h1>
+                    <h2 className="diphylleia-regular text-white"><strong>Upload a profile picture</strong></h2>
                     <div className="profile-picture m-auto mt-4 mb-4">
                         <h1 className="upload-icon">
                             <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
@@ -107,20 +109,8 @@ export const JobPost1 = () => {
                         />
                     </div>
                     <div data-mdb-input-init className="form-outline form-white">
-                        <input 
-                            type="text" 
-                            value={store.user?.first_name} 
-                            readOnly 
-                            className="form-control form-control-lg mb-3" 
-                            placeholder="First Name"
-                        />
-                        <input 
-                            type="text" 
-                            value={store.user?.last_name} 
-                            readOnly 
-                            className="form-control form-control-lg mb-3" 
-                            placeholder="Last Name"
-                        />
+                        <h2 className="diphylleia-regular mb-4"><strong>{firstName} {lastName}</strong></h2>
+                        <h2 className="mb-2 fs-4">Job Location:</h2>
                         <input 
                             type="text" 
                             value={addressLine1} 
@@ -163,6 +153,7 @@ export const JobPost1 = () => {
                             className="form-control form-control-lg mb-3" 
                             placeholder="Country"
                         />
+                        <h2 className="mb-2 fs-4">About you:</h2>
                         <textarea 
                             rows="5" 
                             value={intro} 
@@ -174,7 +165,7 @@ export const JobPost1 = () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white"><strong>Plant Types and Services</strong></h1>
+                    <h2 className="diphylleia-regular text-white"><strong>Plant Types and Services</strong></h2>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
                         <strong>You said that your plants include:</strong>
                     </label>
@@ -182,7 +173,7 @@ export const JobPost1 = () => {
                         <textarea 
                             rows="3" 
                             className="form-control" 
-                            value={store.jobPostDetails.selectedPlants.join(", ")}
+                            value={store.jobPostDetails.selectedPlants}
                             readOnly 
                             aria-label="With textarea"
                         ></textarea>
@@ -207,7 +198,7 @@ export const JobPost1 = () => {
                         <textarea 
                             rows="3" 
                             className="form-control" 
-                            value={store.jobPostDetails.selectedServices.join(", ")}
+                            value={store.jobPostDetails.selectedServices}
                             readOnly 
                             aria-label="With textarea"
                         ></textarea>
@@ -240,7 +231,7 @@ export const JobPost1 = () => {
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white"><strong>Duration</strong></h1>
+                    <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
                         <strong>You are requesting care for the following dates:</strong>
                     </label>
@@ -254,7 +245,7 @@ export const JobPost1 = () => {
                         ></textarea>
                     </div>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white">
-                        <strong>What else should potential plant sitters know about this job?</strong>
+                        <strong>What else should potential plant sitters know about the duration?</strong>
                     </label>
                     <div className="input-group mb-3">
                         <textarea 
@@ -262,7 +253,7 @@ export const JobPost1 = () => {
                             value={jobDuration} 
                             onChange={(e) => setJobDuration(e.target.value)} 
                             className="form-control" 
-                            placeholder="Tell us more about the job duration..." 
+                            placeholder="Example: 'It's possible that I could be out of town for longer than the dates listed...'" 
                             aria-label="With textarea"
                         ></textarea>
                     </div>
