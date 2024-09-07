@@ -25,6 +25,7 @@
   opacity: 1;
   height: 250px;
   width: 250px;
+  border-radius: 25px;
   position: relative;
   overflow: hidden;
 

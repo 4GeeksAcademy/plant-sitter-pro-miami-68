@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import { PlantCard } from "../component/PlantCard";
+import { ServiceCard } from "../component/ServiceCard";
 
 export const ProviderProfileCompleted = () => {
 	const { store, actions } = useContext(Context);
@@ -66,10 +67,18 @@ export const ProviderProfileCompleted = () => {
                         <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
                         <h3>{city}, {state}</h3>
                     </div>
-                    <img className="profile-picture m-auto" src={picture}/>
+                    <img 
+                        className="profile-picture m-auto" 
+                        style={{
+                            maxHeight: '250px'
+                        }}
+                        src={picture}
+                    />
                     <div data-mdb-input-init className="form-outline form-white">
                         <p className="fs-4 mt-4 text-white description">{intro}</p>
                     </div>
+                    <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>I can provide the following services:</strong></h3>
+                    <ServiceCard/>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
@@ -95,43 +104,6 @@ export const ProviderProfileCompleted = () => {
                     <h2 className="diphylleia-regular text-white mb-3"><strong>I am comfortable caring for:</strong></h2>
                     <div className="d-flex justify-content-center">
                         <PlantCard />
-
-                        {/* <div>{preferredPlants}</div>
-
-
-                        <div id="slectedPlants" className="d-flex justify-content-center plant-types">
-                            <ul className="selectPlants">
-                                {store.contacts.map(contact => {
-                                    return <ContactCard key={contact.id} contact={contact}/>
-                                })}
-                            </ul>
-                        </div> */}
-
-
-                        {/* <div className="selectPlants">
-                            <img src={usual} className="plants img-fluid"/>            
-                            <p className="text-white"><strong>Standard House Plants</strong></p>
-                        </div>
-                        <div className="selectPlants">
-                            <img src={succulents} className="plants img-fluid"/>            
-                            <p className="text-white"><strong>Succulents</strong></p>
-                        </div>
-                        <div className="selectPlants">
-                            <img src={orchids} className="plants img-fluid"/>            
-                            <p className="text-white"><strong>Orchids</strong></p>
-                        </div>
-                        <div className="selectPlants">
-                            <img src={carnivorous} className="plants img-fluid"/>            
-                            <p className="text-white"><strong>carnivorous</strong></p>
-                        </div>
-                        <div className="selectPlants">
-                            <img src={unusual} className="plants img-fluid"/>            
-                            <p className="text-white"><strong>Unusual / Rare</strong></p>
-                        </div>
-                        <div className="selectPlants">
-                            <img src={outdoors} className="plants img-fluid"/>            
-                            <p className="text-white"><strong>Outdoor Potted Plants</strong></p>
-                        </div> */}
                     </div>
                 </div>
             </div>
