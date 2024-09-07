@@ -374,11 +374,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("start_date", startDate);
                 formData.append("end_date", endDate);
                 formData.append("address_line_1", addressLine1);
-                formData.append("address_line_2", addressLine2 || ""); // Optional field
+                formData.append("address_line_2", addressLine2 || "");
                 formData.append("city", city);
                 formData.append("state", state);
                 formData.append("zip_code", zipCode);
-                formData.append("country", country || "United States"); // Default to 'United States'
+                formData.append("country", country || "United States");
                 formData.append("service_preferences", JSON.stringify(selectedServices));
                 formData.append("my_plants", JSON.stringify(selectedPlants));
                 formData.append("intro", intro);

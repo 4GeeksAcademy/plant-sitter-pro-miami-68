@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect  } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import DatePicker from "react-datepicker";
@@ -28,6 +28,17 @@ export const ClientServices1 = () => {
 
     const [selectedPlants, setSelectedPlants] = useState([]);
     const [selectedServices, setSelectedServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            if (!store.user) {
+                await actions.getUser();
+            }
+            setLoading(false);
+        };
+        fetchUserData();
+    }, []);
 
     const handlePlantSelection = (plant) => {
         setSelectedPlants((prevPlants) =>
@@ -43,6 +54,10 @@ export const ClientServices1 = () => {
                 ? prevServices.filter((s) => s !== service)
                 : [...prevServices, service]
         );
+    };
+
+    const getTextColorClass = (item, selectedItems) => {
+        return selectedItems.includes(item) ? "text-warning" : "text-white";
     };
 
     const handleNext = () => {
@@ -96,7 +111,7 @@ export const ClientServices1 = () => {
                             onClick={() => handlePlantSelection(plant.label)}
                         >
                             <img className="plants img-fluid" src={plant.src} alt={plant.label} />
-                            <p className="text-white"><strong>{plant.label}</strong></p>
+                            <p className={`plantLabel ${getTextColorClass(plant.label, selectedPlants)}`}><strong>{plant.label}</strong></p>
                         </div>
                     ))}
                 </div>
@@ -116,7 +131,7 @@ export const ClientServices1 = () => {
                             onClick={() => handleServiceSelection(service.label)}
                         >
                             <img className="plants img-fluid" src={service.src} alt={service.label} />
-                            <p className="text-white"><strong>{service.label}</strong></p>
+                            <p className={`serviceLabel ${getTextColorClass(service.label, selectedServices)}`}><strong>{service.label}</strong></p>
                         </div>
                     ))}
                 </div>
