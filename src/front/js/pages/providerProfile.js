@@ -10,6 +10,7 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
+import { ServiceCard } from "../component/ServiceCard"
 
 export const ProviderProfile = () => {
     const { store, actions } = useContext(Context);
@@ -151,6 +152,8 @@ export const ProviderProfile = () => {
                         <h3>{city}, {state}</h3>
                         <textarea rows="5" className="form-control form-control mt-4" placeholder="Brief Intro..." value={intro} onChange={(e) => setIntro(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
+                    <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>You said that you are comfortable providing the following services:</strong></h3>
+                    <ServiceCard/>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About you</strong></h2>
