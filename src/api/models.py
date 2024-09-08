@@ -26,6 +26,7 @@ class User(db.Model):
     longitude = db.Column(db.Float, nullable=True)  # Longitude for geolocation
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    is_verified = db.Column(db.Boolean, default=False)  # verification for email
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -38,6 +39,12 @@ class User(db.Model):
 
     def generate_token(self):
         return create_access_token(identity=self.id)
+    
+    @staticmethod
+    def generate_verification_token(email):
+        """Generates a secure email verification token."""
+        serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
     
     def set_location_by_zip(self, zip_code):
         geolocator = Nominatim(user_agent="Plant_Sitter_Pro")

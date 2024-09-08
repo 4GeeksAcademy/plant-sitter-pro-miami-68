@@ -9,6 +9,13 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_tok
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from flask_mail import Message
+from api.models import db, User
+from flask import current_app as app
+from flask import jsonify
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
+from utils import generate_verification_token
+
 
 api = Blueprint('api', __name__)
 
@@ -42,7 +49,19 @@ def refresh_token():
 #---------------------endpoints for Users
 
 @api.route('/signup', methods=['POST'])
+# Function to send the verification email
+def send_verification_email(user_email, token):
+    verify_url = f"{app.config['FRONTEND_URL']}/verify/{token}"
+    msg = Message(
+        'Verify Your Email',
+        sender='noreply@example.com',
+        recipients=[user_email]
+    )
+    msg.body = f'Please click the link to verify your email: {verify_url}'
+    mail.send(msg)
 def signup():
+    token = generate_verification_token(email)
+    send_verification_email(email, token)
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
@@ -77,8 +96,11 @@ def signup():
             state=state,
             country=country,
             zip_code=zip_code,
+            is_verified=False,
         )
         new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
 
         if zip_code:
             new_user.set_location_by_zip(zip_code)
@@ -86,13 +108,38 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
         access_token = new_user.generate_token()
+        token = generate_verification_token(new_user.email)
+        send_verification_email(new_user.email, token)
         return jsonify({
-            "message": "User registered successfully",
+            "message": "User registered successfully. Please check your email for verification",
             "access_token": access_token
         }), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+
+
+@api.route('/verify/<token>', methods=['GET'])
+def verify_email(token):
+    try:
+        serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+        email = serializer.loads(token, salt=app.config['SECURITY_PASSWORD_SALT'], max_age=3600)  # Token valid for 1 hour
+    except SignatureExpired:
+        return jsonify({"error": "The verification link has expired"}), 400
+    except BadSignature:
+        return jsonify({"error": "Invalid verification token"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    if user.is_verified:
+        return jsonify({"message": "User is already verified"}), 200
+
+    user.is_verified = True
+    db.session.commit()
+
+    return jsonify({"message": "Email verified successfully"}), 200
 
 
 @api.route('/login', methods=['POST'])
