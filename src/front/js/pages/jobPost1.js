@@ -79,12 +79,16 @@ export const JobPost1 = () => {
             return alert('Maximum upload size is 10MB!');
         }
 
-        const reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onloadend = () => {
-            setPicture(reader.result);
-        };
+        if (image) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(image);
+
+            fileReader.onload = (fileReaderEvent) => {
+                setPicture(fileReaderEvent.target.result);
+            }
+        }
     };
+
 
     return (
         <div className="text-center m-2 mt-4">
@@ -97,7 +101,14 @@ export const JobPost1 = () => {
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Upload a profile picture</strong></h2>
-                    <div className="profile-picture m-auto mt-4 mb-4">
+                    <div
+                        className="profile-picture m-auto mb-4"
+                        style={{
+                            backgroundImage: picture ? `url(${picture})` : '',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
+                    >
                         <h1 className="upload-icon">
                             <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
                         </h1>
