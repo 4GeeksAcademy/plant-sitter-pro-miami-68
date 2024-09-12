@@ -80,13 +80,13 @@ export const ClientServices1 = () => {
                     <div className="m-auto bg-white rounded p-2 calendar">
                         <p className="fs-4 m-0"><strong>Select dates</strong></p>
                         <div className="d-flex justify-content-center">
-                            <div>
+                            <div className="m-2">
                                 <h5>Start Date</h5>
-                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                                <DatePicker className="text-center" selected={startDate} onChange={(date) => setStartDate(date)} />
                             </div>
-                            <div>
+                            <div className="m-2">
                                 <h5>End Date</h5>
-                                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                                <DatePicker className="text-center" selected={endDate} onChange={(date) => setEndDate(date)} />
                             </div>
                         </div>
                     </div>

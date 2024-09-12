@@ -181,6 +181,27 @@
   text-align:center;
 }
 
+.dates {
+  display: flex;
+  justify-content:center;
+  background-color: white;
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.dateWrapper {
+  background-color: rgb(70, 108, 70);
+  position:relative;
+  display:inline-block;
+  text-align:center;
+  border-radius: 10px;
+  border: 2px solid white;
+  padding: 8px 20px;
+  margin: 10px;
+}
+
 /* .editButton {
   background-color:rgb(70, 108, 70);
   height:30px;

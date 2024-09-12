@@ -9,20 +9,18 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 
-export const PlantCard = () => {
+export const JobPlants = () => {
     const { store, actions } = useContext(Context);
-    const [preferredPlants, setPreferredPlants] = useState([]);
     const [loading, setLoading] = useState(true);
+    const chosenPlants = [store.jobPostDetails.selectedPlants];
+    const chosenPlantsArray = chosenPlants[0];
+
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             if (!store.user) {
                 await actions.getUser();
-            }
-            const res = await actions.getPlantSitter();
-            if (res.success && res.data) {
-                setPreferredPlants(res.data.preferred_plants || []);
             }
             setLoading(false);
         };
@@ -35,8 +33,8 @@ export const PlantCard = () => {
 
     return (
         <div className="container plantImageWrapper p-0">   
-            {preferredPlants.map((image, index) => {
-                if(image == "standard") {
+            {chosenPlantsArray.map((image, index) => {
+                if(image == "Standard House Plants") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -50,7 +48,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "outdoor") {
+                if(image == "Outdoor Potted Plants") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -64,7 +62,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "succulents") {
+                if(image == "Succulents") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -78,7 +76,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "orchids") {
+                if(image == "Orchids") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -92,7 +90,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "unusual") {
+                if(image == "Unusual / Rare") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -106,7 +104,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "carnivorous") {
+                if(image == "Carnivorous") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -120,7 +118,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "landscape") {
+                if(image == "Landscape") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
@@ -134,7 +132,7 @@ export const PlantCard = () => {
                         </div>
                     )
                 }
-                if(image == "veggies") {
+                if(image == "Vegetable Gardens") {
                     return (
                         <div className="selectPlants" key={index}>
                             <div className="plantImageContainer plants" >
