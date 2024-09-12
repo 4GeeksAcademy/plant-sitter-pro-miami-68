@@ -383,6 +383,16 @@ def get_job_posts():
     return jsonify([post.serialize() for post in job_posts]), 200
 
 
+@api.route('/job_posts/<int:job_post_id>', methods=['GET'])
+@jwt_required()
+def get_job_post(job_post_id):
+    user_id = get_jwt_identity()
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    if not job_post:
+        return jsonify({"error": "Job post not found"}), 404
+    return jsonify(job_post.serialize()), 200
+
+
 
 
 # ---------------------------endpoints for messeages--------------------------------------
