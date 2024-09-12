@@ -1,10 +1,7 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import plantoutlines from "../../img/plantoutlines.jpg";
-import client from "../../img/client.png";
-import picture from "../../img/profilePicture.png";
 import succulents from "../../img/succulents.jpg";
 import orchids from "../../img/orchids.jpg";
 import unusual from "../../img/unusual.jpg";
@@ -23,6 +20,23 @@ import calendar from "../../img/calendar.png"
 export const JobPost2= () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    // const picture = store.jobPostDetails.picture;
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            if (!store.user) {
+                await actions.getUser();
+            }
+            setLoading(false);
+        };
+        fetchData();
+    }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
 
 	return (
 		<div className="text-center m-2 mt-4">

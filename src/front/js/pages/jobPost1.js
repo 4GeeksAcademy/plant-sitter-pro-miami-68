@@ -2,23 +2,9 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import succulents from "../../img/succulents.jpg";
-import orchids from "../../img/orchids.jpg";
-import unusual from "../../img/unusual.jpg";
-import carnivorous from "../../img/carnivorous.jpg";
-import usual from "../../img/usual.jpg";
-import landscape from "../../img/landscape.jpg";
-import outdoors from "../../img/outdoors.jpg";
-import veggies from "../../img/veggies.jpg";
-import watering from "../../img/watering.png";
-import cleaning from "../../img/cleaning.png";
-import pruning from "../../img/pruning.png";
-import repotting from "../../img/repotting.png";
-import pestControl from "../../img/pestControl.png";
-import border from "../../img/border.png";
-import plantoutlines from "../../img/plantoutlines.jpg";
-import client from "../../img/client.png";
-import picture from "../../img/profilePicture.png";
+import { JobPlants } from "../component/JobPlants";
+import { JobServices } from "../component/JobServices";
+import { JobDates } from "../component/JobDates";
 
 export const JobPost1 = () => {
     const { store, actions } = useContext(Context);
@@ -100,7 +86,7 @@ export const JobPost1 = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white"><strong>Upload a profile picture</strong></h2>
+                    <h2 className="diphylleia-regular text-white mb-3"><strong>Upload a profile picture</strong></h2>
                     <div
                         className="profile-picture m-auto mb-4"
                         style={{
@@ -174,20 +160,19 @@ export const JobPost1 = () => {
                             aria-label="With textarea"
                         ></textarea>
                     </div>
+                    <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
+                        <strong>You said that you need help with:</strong>
+                    </label>
+                    <JobServices />
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white"><strong>Plant Types and Services</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
+                    <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
                         <strong>You said that your plants include:</strong>
                     </label>
-                    <div className="input-group mb-3">
-                        <textarea 
-                            rows="3" 
-                            className="form-control" 
-                            value={store.jobPostDetails.selectedPlants}
-                            readOnly 
-                            aria-label="With textarea"
-                        ></textarea>
+                    <div className="d-flex justify-content-center">
+                        <JobPlants />
                     </div>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
                         <strong>Tell us more about your plants and their needs here:</strong>
@@ -199,18 +184,6 @@ export const JobPost1 = () => {
                             onChange={(e) => setMoreAboutPlants(e.target.value)} 
                             className="form-control" 
                             placeholder="Tell us more about your plants..." 
-                            aria-label="With textarea"
-                        ></textarea>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
-                        <strong>You said that you need the following services:</strong>
-                    </label>
-                    <div className="input-group mb-3">
-                        <textarea 
-                            rows="3" 
-                            className="form-control" 
-                            value={store.jobPostDetails.selectedServices}
-                            readOnly 
                             aria-label="With textarea"
                         ></textarea>
                     </div>
@@ -243,18 +216,10 @@ export const JobPost1 = () => {
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white">
                         <strong>You are requesting care for the following dates:</strong>
                     </label>
-                    <div className="input-group mb-3">
-                        <textarea 
-                            rows="3" 
-                            className="form-control" 
-                            value={`Start: ${store.jobPostDetails.startDate?.toLocaleDateString()}, End: ${store.jobPostDetails.endDate?.toLocaleDateString()}`} // Mostrar fechas seleccionadas
-                            readOnly 
-                            aria-label="With textarea"
-                        ></textarea>
-                    </div>
+                    <JobDates />
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white">
                         <strong>What else should potential plant sitters know about the duration?</strong>
                     </label>
