@@ -237,10 +237,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
-
-
-
-
             // Create or update plant sitter
             createOrUpdatePlantSitter: async (
                 profile_picture, 

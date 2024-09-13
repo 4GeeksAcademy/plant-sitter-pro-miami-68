@@ -9,7 +9,7 @@ import { JobDates } from "../component/JobDates";
 export const JobPost1 = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
-    
+    const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");

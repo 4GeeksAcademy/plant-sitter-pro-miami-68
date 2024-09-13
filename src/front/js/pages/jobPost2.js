@@ -2,19 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import succulents from "../../img/succulents.jpg";
-import orchids from "../../img/orchids.jpg";
-import unusual from "../../img/unusual.jpg";
-import carnivorous from "../../img/carnivorous.jpg";
-import usual from "../../img/usual.jpg";
-import landscape from "../../img/landscape.jpg";
-import outdoors from "../../img/outdoors.jpg";
-import veggies from "../../img/veggies.jpg";
-import watering from "../../img/watering.png";
-import cleaning from "../../img/cleaning.png";
-import pruning from "../../img/pruning.png";
-import repotting from "../../img/repotting.png";
-import pestControl from "../../img/pestControl.png";
 import calendar from "../../img/calendar.png"
 import { JobPlants } from "../component/JobPlants";
 import { JobServices } from "../component/JobServices";
@@ -23,7 +10,22 @@ export const JobPost2= () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
-    const picture = store.jobPostDetails.picture;
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [picture, setPicture] = useState(null);
+    const [addressLine1, setAddressLine1] = useState("");
+    const [addressLine2, setAddressLine2] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const [zipCode, setZipCode] = useState("");
+    const [country, setCountry] = useState("United States");
+    const [intro, setIntro] = useState("");
+    const [moreAboutPlants, setMoreAboutPlants] = useState("");
+    const [moreAboutServices, setMoreAboutServices] = useState("");
+    const [extraInfo, setExtraInfo] = useState("");
+    const [jobDuration, setJobDuration] = useState("");
+    const firstName = store.user?.first_name;
+    const lastName = store.user?.last_name;
 
     useEffect(() => {
         const fetchData = async () => {
@@ -31,8 +33,27 @@ export const JobPost2= () => {
             if (!store.user) {
                 await actions.getUser();
             }
+
+            const res = await actions.getJobPostById();
+            if (res.success && res.data) {
+                setStartDate(res.data.startDate);
+                setEndDate(res.data.endDate);
+                setAddressLine1(res.data.addressLine1);
+                setAddressLine2(res.data.addressLine2);
+                setCity(res.data.city);
+                setState(res.data.state);
+                setZipCode(res.data.zipCode);
+                setCountry(res.data.country);
+                setIntro(res.data.intro);
+                setPicture(res.data.profile_picture_url);
+                setMoreAboutPlants(res.data.moreAboutPlants);
+                setMoreAboutServices(res.data.moreAboutServices);
+                setExtraInfo(res.data.extraInfo);
+                setJobDuration(res.data.jobDuration);
+            }
             setLoading(false);
         };
+
         fetchData();
     }, []);
 
@@ -46,21 +67,17 @@ export const JobPost2= () => {
                 <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About Me</strong></h2>
-                    <div
-                        className="profile-picture m-auto mb-4"
+                    <img 
+                        className="m-auto" 
                         style={{
-                            backgroundImage: picture ? `url(${picture})` : '',
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center'
+                            maxHeight: '250px'
                         }}
-                    >
-                        <img className="img-fluid" src={picture}/>
-                    </div>
-                    
+                        src={picture}
+                    />
                     <div data-mdb-input-init className="form-outline form-white">
-                        <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>Rose McIntosh</strong></h1>
-                        <h3 className="text-white mb-3 diphylleia-regular jobs"><strong>Nashville, TN</strong></h3>
-                        <p className="fs-4 mt-4 text-white description">I could use some help taking care of my plants while I'm out of town next month for work.</p>
+                        <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
+                        <h3 className="text-white mb-3 diphylleia-regular jobs"><strong>{city}, {state}</strong></h3>
+                        <p className="fs-4 mt-4 text-white description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
                         <JobServices />
@@ -74,15 +91,15 @@ export const JobPost2= () => {
                         </div>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>About my plants and their needs:</strong></label>
                         <div className="input-group mb-1">
-                            <p className="fs-4 text-white description">I have some potted hibiscus, citrus trees, and a small herb garden that need care outside. Inside, I have a ficus in the living room, monstera and several pothos in our Florida room, and there are English ivy in all of the bathrooms...</p>
+                            <p className="fs-4 text-white description">{moreAboutPlants}</p>
                         </div>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>More about what I need:</strong></label>
                         <div className="input-group mb-1">
-                            <p className="fs-4 text-white description">I can't get rid of these pesty gnats coming out of my plants!</p>
+                            <p className="fs-4 text-white description">{moreAboutServices}</p>
                         </div>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>Also...</strong></label>
                         <div className="input-group mb-1">
-                            <p className="fs-4 text-white description">I could really use some help deciding what plants will work best in my space. Some of my babies look really unhappy where they are right now.</p>
+                            <p className="fs-4 text-white description">{extraInfo}</p>
                         </div>
                     </div>
                     <div className="col bckgrnd rounded p-3 m-2">
@@ -91,9 +108,9 @@ export const JobPost2= () => {
                         <div className="mt-3 mb-3">
                             <img src={calendar} className="plants img-fluid"/>  
                         </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job:</strong></label>
+                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
                         <div className="input-group mb-2">
-                            <p className="fs-4 text-white description">I have a lot of plants! It's a big job, but I will leave all of the instructions that you need.</p>
+                            <p className="fs-4 text-white description">{jobDuration}</p>
                         </div>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Lastly...</strong></label>
                         <div className="input-group mb-3">
