@@ -49,7 +49,7 @@ export const JobPost1 = () => {
         );
         
         if (result.success) {
-            navigate('/job-post2');
+            navigate(`/job-post-preview/${result.data.id}`);
         } else {
             alert("Error creating job post");
         }

@@ -67,7 +67,7 @@ export const ClientServices1 = () => {
             selectedPlants,
             selectedServices,
         });
-        navigate('/job-post1');
+        navigate('/job-post');
     };
 
     return (
