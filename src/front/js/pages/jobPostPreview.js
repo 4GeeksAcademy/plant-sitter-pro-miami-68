@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import calendar from "../../img/calendar.png"
 import { JobPlants } from "../component/JobPlants";
 import { JobServices } from "../component/JobServices";
+
 
 export const JobPost2= () => {
 	const { store, actions } = useContext(Context);
@@ -26,6 +28,7 @@ export const JobPost2= () => {
     const [jobDuration, setJobDuration] = useState("");
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
+    const { job_post_id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -34,7 +37,7 @@ export const JobPost2= () => {
                 await actions.getUser();
             }
 
-            const res = await actions.getJobPostById();
+            const res = await actions.getJobPostById(job_post_id);
             if (res.success && res.data) {
                 setStartDate(res.data.startDate);
                 setEndDate(res.data.endDate);
