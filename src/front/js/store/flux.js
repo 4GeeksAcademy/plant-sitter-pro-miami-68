@@ -475,6 +475,31 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
+            // Fetch all job posts for the current user
+            getJobPosts: async () => {
+                const token = sessionStorage.getItem("token");
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching job posts:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+
             //refresh token
             refreshAccessToken: async () => {
                 const store = getStore();
