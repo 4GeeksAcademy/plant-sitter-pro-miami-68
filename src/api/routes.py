@@ -9,6 +9,17 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_tok
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from api.models import db, User
+from flask import current_app as app
+from flask import jsonify
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
+# from utils import generate_verification_token
+from api.send_email import send_email
+import os
+from api.utils import generate_sitemap, APIException
+from datetime import timedelta
+from .send_email import send_email
+from api.decodetoken import decode_token, decode_reset_token
 
 api = Blueprint('api', __name__)
 
@@ -93,6 +104,60 @@ def signup():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+    
+#reset password feature
+@api.route('/reset_password', methods=['POST'])
+def reset_password():
+    data = request.get_json()
+    token = data.get('token')
+    new_password = data.get('new_password')
+
+    user_id = decode_reset_token(token)
+
+    if isinstance(user_id, tuple):  # If it's an error response
+        return user_id
+
+    user = User.query.get(user_id)
+
+    try:
+        # Decode the JWT to get the user ID
+        decoded_token = decode_token(token)
+        user_id = decoded_token['sub']  # The 'sub' field contains the user identity
+    except Exception as e:
+        return jsonify({"error": "Invalid or expired token"}), 400
+
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    # Set the new password and commit the change
+    user.set_password(new_password)
+    db.session.commit()
+    
+    return jsonify({"message": "Password has been reset successfully"}), 200
+
+@api.route('/forgot_password', methods=['POST'])
+def forgot_password():
+    data = request.get_json()
+    email = data.get('email')
+    
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"error": "No user found with that email address"}), 404
+    
+    # Create a token with an expiration time, e.g., 10 minutes
+    token = create_access_token(identity=user.id, expires_delta=timedelta(minutes=10))
+    
+    reset_link = f"{os.getenv('FRONTEND_URL')}/enternewpassword?token={token}"
+    email_body = f"Click here to reset your password: {reset_link}"
+    send_email(user.email, email_body, "Password Reset Request")
+    
+    return jsonify({"message": "Password reset email sent"}), 200
 
 
 @api.route('/login', methods=['POST'])
