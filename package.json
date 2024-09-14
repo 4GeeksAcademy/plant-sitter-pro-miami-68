@@ -79,6 +79,7 @@
 		"flask": "^0.2.10",
 		"jwt-decode": "^4.0.0",
 		"mail": "^0.2.3",
+		"mailgun-js": "^0.22.0",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
 		"react-datepicker": "^7.3.0",

@@ -36,8 +36,9 @@ import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
 import Chat from './component/Chat'; // Make sure to import the Chat component
-
-
+import { AccountVerification } from "./pages/AccountVerification";
+import { EnterNewPassword } from "./pages/EnterNewPassword";
+import { ForgotPassword } from "./pages/ForgotPassword";
 
 //create your first component
 const Layout = () => {
@@ -82,6 +83,9 @@ const Layout = () => {
                         <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<PersonalSecurity />} path="/login-security" />
                         <Route element={<h1>Not found!</h1>} />
+                        <Route element={<AccountVerification />} path="/verification" />
+                        <Route element={<ForgotPassword />} path="/forgot_password" />
+                        <Route element={<EnterNewPassword />} path="/new_password" />
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}
                     <Footer />

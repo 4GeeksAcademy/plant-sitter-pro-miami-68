@@ -15,7 +15,7 @@ from datetime import timedelta
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from flask_mail import Mail
+
 
 # from models import Person
 
@@ -91,15 +91,6 @@ def serve_any_other_file(path):
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
+ with app.app_context():
     PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=True)
-
-
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'  # Replace with your SMTP server
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'your-email@gmail.com'  # Your email
-app.config['MAIL_PASSWORD'] = 'your-password'  # Your email password
-app.config['MAIL_DEFAULT_SENDER'] = 'your-email@gmail.com'  # Default sender email
-
-mail = Mail(app)
