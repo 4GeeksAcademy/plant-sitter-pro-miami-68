@@ -24,7 +24,6 @@ export const JobPost2= () => {
     const [intro, setIntro] = useState("");
     const [moreAboutPlants, setMoreAboutPlants] = useState("");
     const [moreAboutServices, setMoreAboutServices] = useState("");
-    const [extraInfo, setExtraInfo] = useState("");
     const [jobDuration, setJobDuration] = useState("");
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
@@ -49,10 +48,9 @@ export const JobPost2= () => {
                 setCountry(res.data.country);
                 setIntro(res.data.intro);
                 setPicture(res.data.profile_picture_url);
-                setMoreAboutPlants(res.data.moreAboutPlants);
-                setMoreAboutServices(res.data.moreAboutServices);
-                setExtraInfo(res.data.extraInfo);
-                setJobDuration(res.data.jobDuration);
+                setMoreAboutPlants(res.data.more_about_your_plants);
+                setMoreAboutServices(res.data.more_about_services);
+                setJobDuration(res.data. job_duration);
             }
             setLoading(false);
         };
@@ -100,10 +98,6 @@ export const JobPost2= () => {
                         <div className="input-group mb-1">
                             <p className="fs-4 text-white description">{moreAboutServices}</p>
                         </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>Also...</strong></label>
-                        <div className="input-group mb-1">
-                            <p className="fs-4 text-white description">{extraInfo}</p>
-                        </div>
                     </div>
                     <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
@@ -114,10 +108,6 @@ export const JobPost2= () => {
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
                         <div className="input-group mb-2">
                             <p className="fs-4 text-white description">{jobDuration}</p>
-                        </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Lastly...</strong></label>
-                        <div className="input-group mb-3">
-                            <p className="fs-4 text-white description">There is a chance that my trip could be extended for a week.</p>
                         </div>
                     </div>
             </div>

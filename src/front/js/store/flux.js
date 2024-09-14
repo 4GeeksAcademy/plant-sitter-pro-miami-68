@@ -399,7 +399,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 picture,
                 moreAboutPlants,
                 moreAboutServices,
-                extraInfo,
                 jobDuration
             ) => {
                 const store = getStore();
@@ -419,7 +418,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("intro", intro);
                 formData.append("more_about_plants", moreAboutPlants);
                 formData.append("more_about_services", moreAboutServices);
-                formData.append("extra_info", extraInfo);
                 formData.append("job_duration", jobDuration);
 
                 if (picture) {
