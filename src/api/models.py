@@ -192,32 +192,32 @@ class JobPost(db.Model):
 
 
 
-class Rating(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
-    rating_value = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+# class Rating(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
+#     rating_value = db.Column(db.Integer, nullable=False)
+#     review = db.Column(db.Text, nullable=True)
+#     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
-    plant_sitter = db.relationship('PlantSitter', backref=db.backref('ratings', lazy=True))
+#     plant_sitter = db.relationship('PlantSitter', backref=db.backref('ratings', lazy=True))
 
-    def __repr__(self):
-        return f'<Rating {self.rating_value} for Sitter {self.sitter_id}>'
+#     def __repr__(self):
+#         return f'<Rating {self.rating_value} for Sitter {self.sitter_id}>'
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "sitter_id": self.sitter_id,
-            "rating_value": self.rating_value,
-            "review": self.review,
-            "created_at": self.created_at.isoformat()
-        }
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "sitter_id": self.sitter_id,
+#             "rating_value": self.rating_value,
+#             "review": self.review,
+#             "created_at": self.created_at.isoformat()
+#         }
     
-    def set_rating(self, value):
-        if 1 <= value <= 5:
-            self.rating_value = value
-        else:
-            raise ValueError("Rating must be an integer between 1 and 5.")    
+#     def set_rating(self, value):
+#         if 1 <= value <= 5:
+#             self.rating_value = value
+#         else:
+#             raise ValueError("Rating must be an integer between 1 and 5.")    
 
 
 class Message(db.Model):
@@ -239,4 +239,22 @@ class Message(db.Model):
             "message_content": self.message_content,
             "timestamp": self.timestamp.isoformat(),
             "status": self.status
+        }
+    
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    plantsitter_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String(500))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'plantsitter_id': self.plantsitter_id,
+            'user_id': self.user_id,
+            'score': self.score,
+            'comment': self.comment,
+            'timestamp': self.timestamp.isoformat()
         }

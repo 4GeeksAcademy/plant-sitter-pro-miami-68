@@ -36,6 +36,8 @@ import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
 import Chat from './component/Chat'; // Make sure to import the Chat component
+import { PlantSitterProfile } from './pages/PlantSitterProfile';
+
 
 
 
@@ -81,6 +83,7 @@ const Layout = () => {
                         <Route element={<AccountSettings />} path="/account-settings" />
                         <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<PersonalSecurity />} path="/login-security" />
+                        <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}
