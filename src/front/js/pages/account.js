@@ -64,7 +64,7 @@ const settingsOptions = [
     { title: 'Login & security', description: 'Update your password and secure your account', link: '/login-security' },
     { title: 'Payments & payouts', description: 'Review your payments, payouts and update your payment methods', link: '/payments-payouts' },
     { title: 'Plant Sitter Profile or Become a Plant Sitter', description: 'Check your profile as a Plant Sitter or Become a Plant Sitter', link: '/provider-profile' },
-    { title: 'Hire a Plant Sitter or Your Job Posts', description: 'Hire a Plant Sitter or Check Job Posts', link: '/job-post1' }
+    { title: 'Hire a Plant Sitter or Your Job Posts', description: 'Hire a Plant Sitter or Check Job Posts', link: '/job-posts' }
 ];
 
 export default AccountSettings;
