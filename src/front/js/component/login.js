@@ -70,7 +70,7 @@ export const Login = () => {
                 </div>
                 <div className="text-center">
     <p>Don't have an account? <a href="/signup"><u>Sign up</u></a></p>
-    <p><a href="/forgotpassword"><u>Forgot Password?</u></a></p>
+    <p><a href="/forgot_password"><u>Forgot Password?</u></a></p>
                 </div>
 
                 <div className="text-center">

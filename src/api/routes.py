@@ -105,37 +105,34 @@ def signup():
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
     
-#reset password feature
+#reset password feature within user account
 @api.route('/reset_password', methods=['POST'])
 def reset_password():
     data = request.get_json()
     token = data.get('token')
     new_password = data.get('new_password')
 
-    user_id = decode_reset_token(token)
-
-    if isinstance(user_id, tuple):  # If it's an error response
-        return user_id
-
-    user = User.query.get(user_id)
-
     try:
-        # Decode the JWT to get the user ID
+        # Decode the JWT token to get the user ID
         decoded_token = decode_token(token)
         user_id = decoded_token['sub']  # The 'sub' field contains the user identity
     except Exception as e:
         return jsonify({"error": "Invalid or expired token"}), 400
 
+    # Fetch the user using the decoded user ID
     user = User.query.get(user_id)
     
     if not user:
         return jsonify({"error": "User not found"}), 404
 
     # Set the new password and commit the change
-    user.set_password(new_password)
-    db.session.commit()
-    
-    return jsonify({"message": "Password has been reset successfully"}), 200
+    try:
+        user.set_password(new_password)
+        db.session.commit()
+        return jsonify({"message": "Password has been reset successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f"Failed to reset password: {str(e)}"}), 500
 
 @api.route('/forgot_password', methods=['POST'])
 def forgot_password():
@@ -148,7 +145,7 @@ def forgot_password():
     user = User.query.filter_by(email=email).first()
     
     if not user:
-        return jsonify({"error": "No user found with that email address"}), 404
+        return jsonify({"error": "If your email is associated with an account, you will receive a password reset email."}), 200
     
     # Create a token with an expiration time, e.g., 10 minutes
     token = create_access_token(identity=user.id, expires_delta=timedelta(minutes=10))
@@ -157,8 +154,31 @@ def forgot_password():
     email_body = f"Click here to reset your password: {reset_link}"
     send_email(user.email, email_body, "Password Reset Request")
     
-    return jsonify({"message": "Password reset email sent"}), 200
+    return jsonify({"message": "If your email is associated with an account, you will receive a password reset email."}), 200
 
+@api.route('/api/verify/<token>', methods=['GET'])
+def verify_email(token):
+    try:
+        # Decode the token to get the user ID
+        decoded_token = decode_token(token)
+        user_id = decoded_token['sub']  # The 'sub' field contains the user ID
+
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+
+        # Check if user is already verified
+        if user.is_verified:
+            return jsonify({"message": "Account is already verified"}), 200
+
+        # Set the user as verified
+        user.is_verified = True
+        db.session.commit()
+
+        return jsonify({"message": "Your account has been verified successfully."}), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Verification failed: {str(e)}"}), 400
 
 @api.route('/login', methods=['POST'])
 def login():
