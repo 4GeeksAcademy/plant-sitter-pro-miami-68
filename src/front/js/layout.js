@@ -4,7 +4,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+// import { Demo } from "./pages/demo";
+import { ContactUs } from "./pages/contactUs";
 import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
 import { ProviderMapPage } from "./pages/providerMapPage";
@@ -55,7 +56,8 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
+                        {/* <Route element={<Demo />} path="/demo" /> */}
+                        <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<HowItWorks/>} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />

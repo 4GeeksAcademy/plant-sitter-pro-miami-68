@@ -32,21 +32,16 @@ export const JobPostsList = () => {
 
     return (
         <div className="container mt-5">
-            <h2>Your Job Posts</h2>
+            <h1 className="diphylleia-regular mb-4 text-center"><strong>Your Job Posts</strong></h1 >
             <div className="row">
                 {jobPosts.map((post) => (
                     <div className="col-md-4 mb-4" key={post.id} onClick={() => handleViewJobPost(post.id)}>
                         <div className="card" style={{backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%"}}>
                             <img 
-                                src={post.profile_picture_url} 
+                                src={post.profile_picture_url || noImage} 
                                 alt="Job Profile Picture" 
                                 className="card-img-top" 
                                 style={{ borderRadius: "25px", width: "90%", height: "375px", objectFit: "cover", margin: "auto", marginTop: "20px" }}
-                                onError={event => {
-                                    event.target.src = `${noImage}`
-                                    event.onerror = null
-                                    }
-                                }
                             />
                             <div className="card-body">
                                 <h3 className="card-title text-white diphylleia-regular fs-2">

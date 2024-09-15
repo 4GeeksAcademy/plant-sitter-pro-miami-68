@@ -44,7 +44,10 @@ export const Navbar = () => {
               aria-labelledby="dropdownMenuButton1"
             >
               <li>
-                <a className="dropdown-item" onClick={() => navigate("/")}>
+                <a className="dropdown-item" 
+                  href="#"
+                  onClick={() => navigate("/")}
+                >
                   Home
                 </a>
               </li>
@@ -57,7 +60,7 @@ export const Navbar = () => {
                   How it Works
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a
                   className="dropdown-item"
                   onClick={() => navigate("/client-map")}
@@ -72,7 +75,7 @@ export const Navbar = () => {
                 >
                   Become a Plant Sitter
                 </a>
-              </li>
+              </li> */}
               <li>
                 <a
                   className="dropdown-item"
@@ -83,7 +86,10 @@ export const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" href="#">
+                <a className="dropdown-item" 
+                  href="#"
+                  onClick={() => navigate("/contact-us")}
+                >
                   Contact Us
                 </a>
               </li>
@@ -95,13 +101,17 @@ export const Navbar = () => {
                   <li>
                     <a
                       className="dropdown-item"
+                      href="#"
                       onClick={() => navigate("/account-settings")}
                     >
                       Account
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" onClick={handleLogout}>
+                    <a className="dropdown-item" 
+                      href="#"
+                      onClick={handleLogout}
+                    >
                       Log Out
                     </a>
                   </li>

@@ -1,17 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import wilting from "../../img/wilting.png";
-import helping from "../../img/helping.png";
-import arrow from "../../img/arrow.png";
-import houseplants from "../../img/houseplants2.jpg";
-import PlantSitterCarousel from "../component/PlantSitterCard";
-import ServicesCarousel from "../component/ServicesCarousel";
-import watering from "../../img/watering.png";
-import cleaning from "../../img/cleaning.png";
-import pruning from "../../img/pruning.png";
-import repotting from "../../img/repotting.png";
-import pestControl from "../../img/pestControl.png";
 import border from "../../img/border.png";
 import { useNavigate } from "react-router-dom";
 

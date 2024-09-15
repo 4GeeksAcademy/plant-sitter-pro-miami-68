@@ -15,9 +15,12 @@ export const Home = () => {
 			<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
 		</div>
 		<div className="carousel-container">
-        <PlantSitterCarousel />
-		<ServicesCarousel />
-      </div>
+			<h3 className="diphylleia-regular text-center mb-2"><strong>Meet Our Plant Sitters</strong></h3>
+			<PlantSitterCarousel />
+			<h3 className="diphylleia-regular text-center mt-2 mb-2"><strong>Learn More About the Services We Provide</strong></h3>
+			<ServicesCarousel />
+			<h3 className="diphylleia-regular text-center mt-2"><strong>Get Started</strong></h3>
+		</div>
 			{/* <p>
 				<img className="homePageImages" src={houseplants} />
 			</p> */}

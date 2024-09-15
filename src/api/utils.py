@@ -33,9 +33,7 @@ def generate_sitemap(app):
     links_html = "".join(["<li><a href='" + y + "'>" + y + "</a></li>" for y in links])
     return """
         <div style="text-align: center;">
-        <img style="max-height: 80px" src='https://storage.googleapis.com/breathecode/boilerplates/rigo-baby.jpeg' />
-        <h1>Rigo welcomes you to your API!!</h1>
+        <img style="max-height: 200px; border: 2px solid black; border-radius: 10px;" src="https://images.pexels.com/photos/5706224/pexels-photo-5706224.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" />
+        <h1>Welcome to the Plant Sitter Pro API</h1>
         <p>API HOST: <script>document.write('<input style="padding: 5px; width: 300px" type="text" value="'+window.location.href+'" />');</script></p>
-        <p>Start working on your project by following the <a href="https://start.4geeksacademy.com/starters/full-stack" target="_blank">Quick Start</a></p>
-        <p>Remember to specify a real endpoint path like: </p>
         <ul style="text-align: left;">"""+links_html+"</ul></div>"
