@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { Context } from "../store/appContext";
+import noImage from "../../img/noImage.png";
 
 export const JobPostsList = () => {
     const { store, actions } = useContext(Context);
@@ -31,30 +32,30 @@ export const JobPostsList = () => {
 
     return (
         <div className="container mt-5">
-            <h2>Your Job Posts</h2>
+            <h1 className="diphylleia-regular mb-4 text-center"><strong>Your Job Posts</strong></h1 >
             <div className="row">
                 {jobPosts.map((post) => (
                     <div className="col-md-4 mb-4" key={post.id} onClick={() => handleViewJobPost(post.id)}>
-                        <div className="card">
+                        <div className="card" style={{backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%"}}>
                             <img 
-                                src={post.profile_picture_url} 
-                                alt="Job Profile" 
+                                src={post.profile_picture_url || noImage} 
+                                alt="Job Profile Picture" 
                                 className="card-img-top" 
-                                style={{ width: "375px", height: "375px", objectFit: "cover", margin: "auto" }}
+                                style={{ borderRadius: "25px", width: "90%", height: "375px", objectFit: "cover", margin: "auto", marginTop: "20px" }}
                             />
                             <div className="card-body">
-                                <h5 className="card-title">
-                                    {post.first_name} {post.last_name}
-                                </h5>
-                                <p className="card-text">
+                                <h3 className="card-title text-white diphylleia-regular fs-2">
+                                    <strong>{post.first_name} {post.last_name}</strong>
+                                </h3>
+                                {/* <div className="card-text text-white fs-5">
                                     <strong>Address:</strong> {post.address_line_1 || 'No Address'}, {post.address_line_2 || ''}
-                                </p>
-                                <p className="card-text">
-                                    <strong>Job Area:</strong> {post.location || 'Location not provided'}
-                                </p>
-                                <p className="card-text">
-                                    <strong>Duration:</strong> {formatDate(post.start_date)} - {formatDate(post.end_date)}
-                                </p>
+                                </div> */}
+                                <div className="card-text text-white fs-5">
+                                    <strong>Job Address:</strong> {post.location || 'Location not provided'}
+                                </div>
+                                <div className="card-text text-white fs-5">
+                                    <strong>Dates:</strong> {formatDate(post.start_date)} - {formatDate(post.end_date)}
+                                </div>
                             </div>
                         </div>
                     </div>
