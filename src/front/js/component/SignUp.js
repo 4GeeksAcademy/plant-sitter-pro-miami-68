@@ -38,7 +38,12 @@ export const SignUp = () => {
     return (
         <div className="row justify-content-center">
             <div className="col-lg-6 bg-indigo">
-                <h1 className="fw-normal mb-5 mt-5 diphylleia-regular jobs">Create an account</h1>
+                <h1 className="fw-normal mb-1 mt-4 diphylleia-regular jobs">Create an account</h1>
+                
+                <div className="text-center mt-2 mb-4">
+                    <p>Already have an account? <a href="/login"><u>Log in</u></a></p>
+                </div>
+
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6 mb-2 pb-2">
@@ -210,10 +215,6 @@ export const SignUp = () => {
                         </button>
                     </div>
                 </form>
-
-                <div className="text-center">
-                    <p>Already have an account? <a href="/login"><u>Log in</u></a></p>
-                </div>
             </div>
         </div>
     );

@@ -4,7 +4,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+// import { Demo } from "./pages/demo";
+import { ContactUs } from "./pages/contactUs";
 import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
 import { ProviderMapPage } from "./pages/providerMapPage";
@@ -29,7 +30,7 @@ import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
 import PersonalSecurity from "./pages/loginsecurity"
-
+import {JobPostsList} from "./pages/JobPostsList"
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
@@ -37,7 +38,7 @@ import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
 import Chat from './component/Chat'; // Make sure to import the Chat component
 import { PlantSitterProfile } from './pages/PlantSitterProfile';
-
+import Chat from './component/Chat';
 
 
 
@@ -56,7 +57,8 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
+                        {/* <Route element={<Demo />} path="/demo" /> */}
+                        <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<HowItWorks/>} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
@@ -84,6 +86,7 @@ const Layout = () => {
                         <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<PersonalSecurity />} path="/login-security" />
                         <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
+                        <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}

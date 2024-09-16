@@ -338,7 +338,6 @@ def create_job_post():
     intro = data.get('intro')
     more_about_plants = data.get('more_about_plants')
     more_about_services = data.get('more_about_services')
-    extra_info = data.get('extra_info')
     job_duration = data.get('job_duration')
 
     try:
@@ -358,7 +357,6 @@ def create_job_post():
             intro=intro,
             more_about_your_plants=more_about_plants,
             more_about_services=more_about_services,
-            extra_info=extra_info,
             job_duration=job_duration
         )
 

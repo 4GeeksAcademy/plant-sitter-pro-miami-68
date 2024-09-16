@@ -52,15 +52,15 @@ export const ProviderProfileCompleted = () => {
                 <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
                 
                 <div className="container row mb-2">   
-                        <button 
-                            className="edit editButton" 
-                            onClick={() => {
-                                navigate("/provider-profile")
-                            }}
-                        >
-                            Edit <i className="fas fa-pencil-alt"></i>
-                        </button>
-                    </div> 
+                    <button 
+                        className="edit editButton" 
+                        onClick={() => {
+                            navigate("/provider-profile")
+                        }}
+                    >
+                        Edit <i className="fas fa-pencil-alt"></i>
+                    </button>
+                </div> 
 
                 <div className="col bckgrnd rounded p-3 m-2">
                     <div data-mdb-input-init className="form-outline form-white">

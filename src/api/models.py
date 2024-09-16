@@ -135,7 +135,6 @@ class JobPost(db.Model):
     intro = db.Column(db.Text, nullable=True)
     more_about_your_plants = db.Column(db.Text, nullable=True)
     more_about_services = db.Column(db.Text, nullable=True)
-    extra_info = db.Column(db.Text, nullable=True)
     job_duration = db.Column(db.String(100), nullable=True)
     status = db.Column(db.String(50), default='open', nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
@@ -183,7 +182,6 @@ class JobPost(db.Model):
             "intro": self.intro,
             "more_about_your_plants": self.more_about_your_plants,
             "more_about_services": self.more_about_services,
-            "extra_info": self.extra_info,
             "job_duration": self.job_duration,
             "status": self.status,
             "created_at": self.created_at.isoformat(),

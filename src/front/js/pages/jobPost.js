@@ -20,7 +20,7 @@ export const JobPost1 = () => {
     const [intro, setIntro] = useState("");
     const [moreAboutPlants, setMoreAboutPlants] = useState("");
     const [moreAboutServices, setMoreAboutServices] = useState("");
-    const [extraInfo, setExtraInfo] = useState("");
+    // const [extraInfo, setExtraInfo] = useState("");
     const [jobDuration, setJobDuration] = useState("");
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
@@ -44,7 +44,6 @@ export const JobPost1 = () => {
             picture,
             moreAboutPlants,
             moreAboutServices,
-            extraInfo,
             jobDuration
         );
         
@@ -197,19 +196,6 @@ export const JobPost1 = () => {
                             onChange={(e) => setMoreAboutServices(e.target.value)} 
                             className="form-control" 
                             placeholder="Examples: 'I need help watering while I am out of town'..." 
-                            aria-label="With textarea"
-                        ></textarea>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
-                        <strong>Anything else you would like to share?</strong>
-                    </label>
-                    <div className="input-group justify-contents-center mb-3">
-                        <textarea 
-                            rows="5" 
-                            value={extraInfo} 
-                            onChange={(e) => setExtraInfo(e.target.value)} 
-                            className="form-control" 
-                            placeholder="Example: 'I could really use some help deciding what plants will work best...'" 
                             aria-label="With textarea"
                         ></textarea>
                     </div>
