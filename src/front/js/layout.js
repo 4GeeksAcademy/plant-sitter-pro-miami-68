@@ -31,12 +31,13 @@ import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
 import PersonalSecurity from "./pages/loginsecurity"
 import {JobPostsList} from "./pages/JobPostsList"
-
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
+import Chat from './component/Chat'; // Make sure to import the Chat component
+import { PlantSitterProfile } from './pages/PlantSitterProfile';
 import Chat from './component/Chat';
 
 
@@ -84,6 +85,7 @@ const Layout = () => {
                         <Route element={<AccountSettings />} path="/account-settings" />
                         <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<PersonalSecurity />} path="/login-security" />
+                        <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
