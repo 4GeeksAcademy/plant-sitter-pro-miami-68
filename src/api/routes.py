@@ -167,7 +167,7 @@ def reset_password():
 
 #forgot password feature
 
-@api.route('/forgot_password', methods=['POST'])
+@api.route('/forgot-password', methods=['POST'])
 def forgot_password():
     data = request.get_json()
     email = data.get('email')

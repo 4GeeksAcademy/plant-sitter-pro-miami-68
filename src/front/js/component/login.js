@@ -86,7 +86,7 @@ export const Login = () => {
               <u>Sign up</u>
             </a>
             <p>
-              <a href="/forgot_password">
+              <a href="/forgot-password">
                 <u>Forgot Password?</u>
               </a>
             </p>

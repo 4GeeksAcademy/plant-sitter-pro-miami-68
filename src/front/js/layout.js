@@ -90,8 +90,8 @@ const Layout = () => {
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<AccountVerification />} path="/verification" />
-                        <Route element={<ForgotPassword />} path="/forgot_password" />
-                        <Route element={<EnterNewPassword />} path="/new_password" />
+                        <Route element={<ForgotPassword />} path="/forgot-password" />
+                        <Route element={<EnterNewPassword />} path="/enternewpassword" />
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}
                     <Footer />
