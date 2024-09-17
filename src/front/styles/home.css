@@ -6,9 +6,9 @@
     on that page only (the ones not reused in other pages).
 */
 
-/* body, html {
-  height: 100%;
-} */
+.lp-headers {
+  font-size: 4em;
+}
 
 /* The hero image */
 .hero-image {
@@ -37,8 +37,8 @@ color: black;
 
 .landing-page {
   width: 100%;
-  border-bottom-right-radius: 70px;
-  border-bottom-left-radius: 70px;
+  border-bottom-right-radius: 120px;
+  border-bottom-left-radius: 120px;
 }
 
 .contact-us {

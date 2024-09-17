@@ -18,11 +18,10 @@ export const Home = () => {
 				<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
 			</div> */}
 			<div class="hero-image">
-				<img className="landing-page" src={landing}/>
+				<img className="landing-page" src={landing} />
 				<div class="hero-text">
-					<h1 className="diphylleia-regular"><strong>Connecting plant owners</strong></h1>
-					<h1 className="diphylleia-regular">with plant caretakers</h1>
-					<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
+					<h1 className="diphylleia-regular lp-headers">Connecting plant owners</h1>
+					<h1 className="diphylleia-regular lp-headers">with plant caretakers</h1>
 				</div>
 			</div>
 			{/* <img className="landing-page" src={landing}/> */}
@@ -33,7 +32,7 @@ export const Home = () => {
 				<ServicesCarousel />
 			</div>
 			<div className="container-fluid mt-5 text-center">
-				<button 
+				<button
 					className="btn text-center mt-2"
 					onClick={() => navigate("/how-it-works")}
 				>

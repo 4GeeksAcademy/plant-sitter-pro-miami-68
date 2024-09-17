@@ -44,7 +44,7 @@ export const Navbar = () => {
               aria-labelledby="dropdownMenuButton1"
             >
               <li>
-                <a className="dropdown-item" 
+                <a className="dropdown-item"
                   href="#"
                   onClick={() => navigate("/")}
                 >
@@ -86,7 +86,7 @@ export const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a className="dropdown-item" 
+                <a className="dropdown-item"
                   href="#"
                   onClick={() => navigate("/contact-us")}
                 >
@@ -108,7 +108,7 @@ export const Navbar = () => {
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" 
+                    <a className="dropdown-item"
                       href="#"
                       onClick={handleLogout}
                     >
