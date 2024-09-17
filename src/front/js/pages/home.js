@@ -4,6 +4,8 @@ import "../../styles/home.css";
 import PlantSitterCarousel from "../component/PlantSitterCard";
 import ServicesCarousel from "../component/ServicesCarousel";
 import { useNavigate } from "react-router-dom";
+import landing from "../../img/landing-page.jpg";
+import logo2 from "../../img/Logo2.png";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -11,10 +13,19 @@ export const Home = () => {
 
 	return (
 		<>
-			<div className="text-center mt-5">
+			{/* <div className="text-center mt-5">
 				<h1 className="diphylleia-regular">Find Expert Help for Your Plants Anytime, Anywhere</h1>
 				<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
+			</div> */}
+			<div class="hero-image">
+				<img className="landing-page" src={landing}/>
+				<div class="hero-text">
+					<h1 className="diphylleia-regular"><strong>Connecting plant owners</strong></h1>
+					<h1 className="diphylleia-regular">with plant caretakers</h1>
+					<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
+				</div>
 			</div>
+			{/* <img className="landing-page" src={landing}/> */}
 			<div className="carousel-container">
 				<h3 className="diphylleia-regular text-center mb-2"><strong>Meet Our Plant Sitters</strong></h3>
 				<PlantSitterCarousel />

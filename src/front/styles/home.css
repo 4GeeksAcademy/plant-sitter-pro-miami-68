@@ -6,6 +6,41 @@
     on that page only (the ones not reused in other pages).
 */
 
+/* body, html {
+  height: 100%;
+} */
+
+/* The hero image */
+.hero-image {
+/* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+background-image: url("../img/landing-page.jpg");
+
+/* Set a specific height */
+height: 10%;
+
+/* Position and center the image to scale nicely on all screens */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+text-align: left;
+position: absolute;
+top: 10%;
+left: 2%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+.landing-page {
+  width: 100%;
+  border-bottom-right-radius: 70px;
+  border-bottom-left-radius: 70px;
+}
+
 .contact-us {
   text-decoration: none !important;
   color: white !important;
