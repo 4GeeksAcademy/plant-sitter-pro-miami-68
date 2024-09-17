@@ -7,7 +7,7 @@
 */
 
 .lp-headers {
-  font-size: 4em;
+  font-size: 3.5vw;
 }
 
 /* The hero image */
@@ -31,6 +31,7 @@ text-align: left;
 position: absolute;
 top: 10%;
 left: 2%;
+width: 60%;
 /* transform: translate(-50%, -50%); */
 color: black;
 }
