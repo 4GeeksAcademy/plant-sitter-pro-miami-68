@@ -456,7 +456,6 @@ def create_job_post():
     intro = data.get('intro')
     more_about_plants = data.get('more_about_plants')
     more_about_services = data.get('more_about_services')
-    extra_info = data.get('extra_info')
     job_duration = data.get('job_duration')
 
     try:
@@ -476,7 +475,6 @@ def create_job_post():
             intro=intro,
             more_about_your_plants=more_about_plants,
             more_about_services=more_about_services,
-            extra_info=extra_info,
             job_duration=job_duration
         )
 
@@ -499,6 +497,16 @@ def create_job_post():
 def get_job_posts():
     job_posts = JobPost.query.all()
     return jsonify([post.serialize() for post in job_posts]), 200
+
+
+@api.route('/job_posts/<int:job_post_id>', methods=['GET'])
+@jwt_required()
+def get_job_post(job_post_id):
+    user_id = get_jwt_identity()
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    if not job_post:
+        return jsonify({"error": "Job post not found"}), 404
+    return jsonify(job_post.serialize()), 200
 
 
 
@@ -551,3 +559,52 @@ def handle_message():
     if 'hello' in user_message:
         return jsonify({'message': 'Hello! How can I assist you today?'})
     return jsonify({'message': 'Sorry, I did not understand that.'})
+
+
+#--------------------------Ratings
+
+@api.route('/plantsitters/<int:plantsitter_id>/ratings', methods=['POST'])
+@jwt_required()
+def submit_rating(plantsitter_id):
+    user_id = get_jwt_identity()
+    data = request.get_json()
+    score = data.get('score')
+    comment = data.get('comment', '')
+
+    if not score or not (1 <= score <= 5):
+        return jsonify({'msg': 'Score must be an integer between 1 and 5'}), 400
+
+    # Check if the PlantSitter exists
+    plantsitter = User.query.get(plantsitter_id)
+    if not plantsitter:
+        return jsonify({'msg': 'PlantSitter not found'}), 404
+
+    # Create a new rating
+    rating = Rating(
+        plantsitter_id=plantsitter_id,
+        user_id=user_id,
+        score=score,
+        comment=comment
+    )
+
+    db.session.add(rating)
+    db.session.commit()
+
+    return jsonify({'msg': 'Rating submitted successfully'}), 201
+
+
+@api.route('/plantsitters/<int:plantsitter_id>/ratings', methods=['GET'])
+def get_ratings(plantsitter_id):
+    ratings = Rating.query.filter_by(plantsitter_id=plantsitter_id).all()
+    serialized_ratings = [rating.serialize() for rating in ratings]
+
+    # Calculate average score
+    if ratings:
+        average_score = sum(r.score for r in ratings) / len(ratings)
+    else:
+        average_score = None
+
+    return jsonify({
+        'ratings': serialized_ratings,
+        'average_score': average_score
+    }), 200

@@ -3,10 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import wilting from "../../img/wilting.png";
 import helping from "../../img/helping.png";
-import arrow from "../../img/arrow.png";
-import houseplants from "../../img/houseplants2.jpg";
-import PlantSitterCarousel from "../component/PlantSitterCard";
-import ServicesCarousel from "../component/ServicesCarousel";
+import border from "../../img/border.png";
 import { useNavigate } from "react-router-dom";
 
 export const HowItWorks = () => {
@@ -15,8 +12,9 @@ export const HowItWorks = () => {
 
 	return (
 		<div className="text-center mt-5">
-            <h1 className="diphylleia-regular mb-4"><strong>How it Works</strong></h1>
-            <h2 className="diphylleia-regular col-9 m-auto mb-5 mt-5"><strong>We connect people who need help taking 
+            <h1 className="diphylleia-regular mb-2"><strong>How it Works</strong></h1>
+            <img className="divider m-auto" src={border}></img>
+            <h2 className="diphylleia-regular col-9 m-auto mb-5 mt-1"><strong>We connect people who need help taking 
                 care of their plants with people who have green thumbs</strong>
             </h2>
             <div className="row container-fluid">

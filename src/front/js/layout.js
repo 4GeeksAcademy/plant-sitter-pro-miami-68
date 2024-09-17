@@ -4,7 +4,8 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+// import { Demo } from "./pages/demo";
+import { ContactUs } from "./pages/contactUs";
 import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
 import { ProviderMapPage } from "./pages/providerMapPage";
@@ -19,8 +20,8 @@ import { ClientMapPage } from "./pages/clientMapPage";
 import { ClientSignUp1 } from "./pages/clientSignUp1";
 import { ClientSignUp2 } from "./pages/clientSignUp2";
 import { ClientServices1 } from "./pages/clientServices1";
-import { JobPost1 } from "./pages/jobPost1";
-import { JobPost2 } from "./pages/jobPost2";
+import { JobPost1 } from "./pages/jobPost";
+import { JobPost2 } from "./pages/jobPostPreview";
 import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
@@ -29,13 +30,15 @@ import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
 import PersonalSecurity from "./pages/loginsecurity"
-
+import {JobPostsList} from "./pages/JobPostsList"
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
-import Chat from './component/Chat'; // Make sure to import the Chat component
+import Chat from './component/Chat';
+import { PlantSitterProfile } from './pages/PlantSitterProfile';
+
 import { AccountVerification } from "./pages/AccountVerification";
 import { EnterNewPassword } from "./pages/EnterNewPassword";
 import { ForgotPassword } from "./pages/ForgotPassword";
@@ -55,13 +58,14 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        <Route element={<Demo />} path="/demo" />
+                        {/* <Route element={<Demo />} path="/demo" /> */}
+                        <Route element={<ContactUs />} path="/contact-us" />
                         <Route element={<HowItWorks/>} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
-                        <Route element={<JobPost1 />} path="/job-post1" />
-                        <Route element={<JobPost2 />} path="/job-post2" />
+                        <Route element={<JobPost1 />} path="/job-post" />
+                        <Route element={<JobPost2 />} path="/job-post-preview/:job_post_id" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
@@ -82,6 +86,8 @@ const Layout = () => {
                         <Route element={<AccountSettings />} path="/account-settings" />
                         <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<PersonalSecurity />} path="/login-security" />
+                        <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
+                        <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<AccountVerification />} path="/verification" />
                         <Route element={<ForgotPassword />} path="/forgot_password" />

@@ -2,28 +2,14 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import succulents from "../../img/succulents.jpg";
-import orchids from "../../img/orchids.jpg";
-import unusual from "../../img/unusual.jpg";
-import carnivorous from "../../img/carnivorous.jpg";
-import usual from "../../img/usual.jpg";
-import landscape from "../../img/landscape.jpg";
-import outdoors from "../../img/outdoors.jpg";
-import veggies from "../../img/veggies.jpg";
-import watering from "../../img/watering.png";
-import cleaning from "../../img/cleaning.png";
-import pruning from "../../img/pruning.png";
-import repotting from "../../img/repotting.png";
-import pestControl from "../../img/pestControl.png";
-import border from "../../img/border.png";
-import plantoutlines from "../../img/plantoutlines.jpg";
-import client from "../../img/client.png";
-import picture from "../../img/profilePicture.png";
+import { JobPlants } from "../component/JobPlants";
+import { JobServices } from "../component/JobServices";
+import { JobDates } from "../component/JobDates";
 
 export const JobPost1 = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
-    
+    const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
@@ -34,8 +20,10 @@ export const JobPost1 = () => {
     const [intro, setIntro] = useState("");
     const [moreAboutPlants, setMoreAboutPlants] = useState("");
     const [moreAboutServices, setMoreAboutServices] = useState("");
-    const [extraInfo, setExtraInfo] = useState("");
+    // const [extraInfo, setExtraInfo] = useState("");
     const [jobDuration, setJobDuration] = useState("");
+    const firstName = store.user?.first_name;
+    const lastName = store.user?.last_name;
 
     const handleSubmit = async () => {
         const formattedStartDate = new Date(store.jobPostDetails.startDate).toISOString();
@@ -56,12 +44,11 @@ export const JobPost1 = () => {
             picture,
             moreAboutPlants,
             moreAboutServices,
-            extraInfo,
             jobDuration
         );
         
         if (result.success) {
-            navigate('/job-post2');
+            navigate(`/job-post-preview/${result.data.id}`);
         } else {
             alert("Error creating job post");
         }
@@ -77,12 +64,16 @@ export const JobPost1 = () => {
             return alert('Maximum upload size is 10MB!');
         }
 
-        const reader = new FileReader();
-        reader.readAsDataURL(image);
-        reader.onloadend = () => {
-            setPicture(reader.result);
-        };
+        if (image) {
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(image);
+
+            fileReader.onload = (fileReaderEvent) => {
+                setPicture(fileReaderEvent.target.result);
+            }
+        }
     };
+
 
     return (
         <div className="text-center m-2 mt-4">
@@ -94,8 +85,15 @@ export const JobPost1 = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white"><strong>Upload a profile picture</strong></h1>
-                    <div className="profile-picture m-auto mt-4 mb-4">
+                    <h2 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h2>
+                    <div
+                        className="profile-picture m-auto mb-4"
+                        style={{
+                            backgroundImage: picture ? `url(${picture})` : '',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
+                        }}
+                    >
                         <h1 className="upload-icon">
                             <i className="fa fa-plus fa-2x" aria-hidden="true"></i>
                         </h1>
@@ -107,20 +105,8 @@ export const JobPost1 = () => {
                         />
                     </div>
                     <div data-mdb-input-init className="form-outline form-white">
-                        <input 
-                            type="text" 
-                            value={store.user?.first_name} 
-                            readOnly 
-                            className="form-control form-control-lg mb-3" 
-                            placeholder="First Name"
-                        />
-                        <input 
-                            type="text" 
-                            value={store.user?.last_name} 
-                            readOnly 
-                            className="form-control form-control-lg mb-3" 
-                            placeholder="Last Name"
-                        />
+                        <h2 className="diphylleia-regular mb-4"><strong>{firstName} {lastName}</strong></h2>
+                        <h2 className="mb-2 fs-4">Job Location:</h2>
                         <input 
                             type="text" 
                             value={addressLine1} 
@@ -163,6 +149,7 @@ export const JobPost1 = () => {
                             className="form-control form-control-lg mb-3" 
                             placeholder="Country"
                         />
+                        <h2 className="mb-2 fs-4">About you:</h2>
                         <textarea 
                             rows="5" 
                             value={intro} 
@@ -172,20 +159,19 @@ export const JobPost1 = () => {
                             aria-label="With textarea"
                         ></textarea>
                     </div>
+                    <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
+                        <strong>You said that you need help with:</strong>
+                    </label>
+                    <JobServices />
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white"><strong>Plant Types and Services</strong></h1>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
+                    <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
                         <strong>You said that your plants include:</strong>
                     </label>
-                    <div className="input-group mb-3">
-                        <textarea 
-                            rows="3" 
-                            className="form-control" 
-                            value={store.jobPostDetails.selectedPlants.join(", ")}
-                            readOnly 
-                            aria-label="With textarea"
-                        ></textarea>
+                    <div className="d-flex justify-content-center">
+                        <JobPlants />
                     </div>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
                         <strong>Tell us more about your plants and their needs here:</strong>
@@ -197,18 +183,6 @@ export const JobPost1 = () => {
                             onChange={(e) => setMoreAboutPlants(e.target.value)} 
                             className="form-control" 
                             placeholder="Tell us more about your plants..." 
-                            aria-label="With textarea"
-                        ></textarea>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
-                        <strong>You said that you need the following services:</strong>
-                    </label>
-                    <div className="input-group mb-3">
-                        <textarea 
-                            rows="3" 
-                            className="form-control" 
-                            value={store.jobPostDetails.selectedServices.join(", ")}
-                            readOnly 
                             aria-label="With textarea"
                         ></textarea>
                     </div>
@@ -225,36 +199,15 @@ export const JobPost1 = () => {
                             aria-label="With textarea"
                         ></textarea>
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
-                        <strong>Anything else you would like to share?</strong>
-                    </label>
-                    <div className="input-group justify-contents-center mb-3">
-                        <textarea 
-                            rows="5" 
-                            value={extraInfo} 
-                            onChange={(e) => setExtraInfo(e.target.value)} 
-                            className="form-control" 
-                            placeholder="Example: 'I could really use some help deciding what plants will work best...'" 
-                            aria-label="With textarea"
-                        ></textarea>
-                    </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h1 className="diphylleia-regular text-white"><strong>Duration</strong></h1>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-4 text-white">
+                    <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white">
                         <strong>You are requesting care for the following dates:</strong>
                     </label>
-                    <div className="input-group mb-3">
-                        <textarea 
-                            rows="3" 
-                            className="form-control" 
-                            value={`Start: ${store.jobPostDetails.startDate?.toLocaleDateString()}, End: ${store.jobPostDetails.endDate?.toLocaleDateString()}`} // Mostrar fechas seleccionadas
-                            readOnly 
-                            aria-label="With textarea"
-                        ></textarea>
-                    </div>
+                    <JobDates />
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white">
-                        <strong>What else should potential plant sitters know about this job?</strong>
+                        <strong>What else should potential plant sitters know about the duration?</strong>
                     </label>
                     <div className="input-group mb-3">
                         <textarea 
@@ -262,7 +215,7 @@ export const JobPost1 = () => {
                             value={jobDuration} 
                             onChange={(e) => setJobDuration(e.target.value)} 
                             className="form-control" 
-                            placeholder="Tell us more about the job duration..." 
+                            placeholder="Example: 'It's possible that I could be out of town for longer than the dates listed...'" 
                             aria-label="With textarea"
                         ></textarea>
                     </div>

@@ -5,6 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			privateData: null,
 			users: [],
 			plantSitters: [],
+            jobPostDetails: [],
+            jobPost: null,  
 			message: null,
 			demo: [
 				{
@@ -275,10 +277,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
-
-
-
-
             // Create or update plant sitter
             createOrUpdatePlantSitter: async (
                 profile_picture, 
@@ -441,7 +439,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 picture,
                 moreAboutPlants,
                 moreAboutServices,
-                extraInfo,
                 jobDuration
             ) => {
                 const store = getStore();
@@ -461,7 +458,6 @@ const getState = ({ getStore, getActions, setStore }) => {
                 formData.append("intro", intro);
                 formData.append("more_about_plants", moreAboutPlants);
                 formData.append("more_about_services", moreAboutServices);
-                formData.append("extra_info", extraInfo);
                 formData.append("job_duration", jobDuration);
 
                 if (picture) {
@@ -486,6 +482,57 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                 } catch (error) {
                     console.error("Error creating job post:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+
+            // Fetch a specific job post by ID
+            getJobPostById: async (job_post_id) => {
+                const token = sessionStorage.getItem("token");
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${job_post_id}`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        setStore({ jobPost: data });
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching job post:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+
+            // Fetch all job posts for the current user
+            getJobPosts: async () => {
+                const token = sessionStorage.getItem("token");
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching job posts:", error);
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },

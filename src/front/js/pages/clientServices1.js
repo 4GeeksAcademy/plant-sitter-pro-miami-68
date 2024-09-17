@@ -67,7 +67,7 @@ export const ClientServices1 = () => {
             selectedPlants,
             selectedServices,
         });
-        navigate('/job-post1');
+        navigate('/job-post');
     };
 
     return (
@@ -77,16 +77,16 @@ export const ClientServices1 = () => {
             <h3 className="diphylleia-regular mt-1"><strong>How frequently do you want help?</strong></h3>
             <div className="d-flex row client-services">
                 <div className="col scheduler">
-                    <div className="centered">
-                        <strong>Select dates</strong>
-                        <div className="d-flex justify-content-around">
-                            <div>
+                    <div className="m-auto bg-white rounded p-2 calendar">
+                        <p className="fs-4 m-0"><strong>Select dates</strong></p>
+                        <div className="d-flex justify-content-center">
+                            <div className="m-2">
                                 <h5>Start Date</h5>
-                                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                                <DatePicker className="text-center" selected={startDate} onChange={(date) => setStartDate(date)} />
                             </div>
-                            <div>
+                            <div className="m-2">
                                 <h5>End Date</h5>
-                                <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} />
+                                <DatePicker className="text-center" selected={endDate} onChange={(date) => setEndDate(date)} />
                             </div>
                         </div>
                     </div>
