@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect  } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import DatePicker from "react-datepicker";
@@ -31,13 +31,26 @@ export const ClientServices1 = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            if (!store.user) {
-                await actions.getUser();
+        const fetchData = async () => {
+            setLoading(true);
+
+            if (store.jobPostDetails.id) {
+                const res = await actions.getJobPostById(store.jobPostDetails.id);
+                if (res.success && res.data) {
+                    setStartDate(new Date(res.data.start_date));
+                    setEndDate(new Date(res.data.end_date));
+                    setSelectedPlants(JSON.parse(res.data.my_plants));
+                    setSelectedServices(JSON.parse(res.data.service_preferences));
+                }
+            } else {
+                if (!store.user) {
+                    await actions.getUser();
+                }
             }
             setLoading(false);
         };
-        fetchUserData();
+
+        fetchData();
     }, []);
 
     const handlePlantSelection = (plant) => {
@@ -67,7 +80,12 @@ export const ClientServices1 = () => {
             selectedPlants,
             selectedServices,
         });
-        navigate('/job-post');
+    
+        if (store.jobPostDetails.id) {
+            navigate(`/job-post/${store.jobPostDetails.id}`);
+        } else {
+            navigate('/job-post');
+        }
     };
 
     return (

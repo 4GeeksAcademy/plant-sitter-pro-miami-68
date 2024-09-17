@@ -447,6 +447,71 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
+            //Update JobPost
+            updateJobPost: async (
+                jobPostId,
+                startDate,
+                endDate,
+                addressLine1,
+                addressLine2,
+                city,
+                state,
+                zipCode,
+                country,
+                selectedServices,
+                selectedPlants,
+                intro,
+                picture,
+                moreAboutPlants,
+                moreAboutServices,
+                jobDuration
+            ) => {
+                const store = getStore();
+                const token = sessionStorage.getItem("token");
+            
+                const formData = new FormData();
+                formData.append("start_date", startDate);
+                formData.append("end_date", endDate);
+                formData.append("address_line_1", addressLine1);
+                formData.append("address_line_2", addressLine2 || "");
+                formData.append("city", city);
+                formData.append("state", state);
+                formData.append("zip_code", zipCode);
+                formData.append("country", country || "United States");
+                formData.append("service_preferences", JSON.stringify(selectedServices));
+                formData.append("my_plants", JSON.stringify(selectedPlants));
+                formData.append("intro", intro);
+                formData.append("more_about_plants", moreAboutPlants);
+                formData.append("more_about_services", moreAboutServices);
+                formData.append("job_duration", jobDuration);
+            
+                if (picture) {
+                    formData.append("profile_picture", picture);
+                }
+            
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${jobPostId}`, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        },
+                        body: formData
+                    });
+            
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error updating job post:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+
             // Fetch a specific job post by ID
             getJobPostById: async (job_post_id) => {
                 const token = sessionStorage.getItem("token");
