@@ -5,6 +5,7 @@ import PlantSitterCarousel from "../component/PlantSitterCard";
 import ServicesCarousel from "../component/ServicesCarousel";
 import { useNavigate } from "react-router-dom";
 import landing from "../../img/landing-page.jpg";
+import landing2 from "../../img/landing-page2.png";
 import logo2 from "../../img/Logo2.png";
 
 export const Home = () => {
@@ -18,9 +19,9 @@ export const Home = () => {
 				<h5>Whether you're away or need assistance, connect with trusted plant care professionals near you.</h5>
 			</div> */}
 			<div class="hero-image">
-				<img className="landing-page" src={landing} />
+				<img className="landing-page" src={landing2} />
 				<div class="hero-text">
-					<h1 className="diphylleia-regular lp-headers">Connecting plant owners</h1>
+					<h1 className="diphylleia-regular lp-headers">We connect plant owners</h1>
 					<h1 className="diphylleia-regular lp-headers">with plant caretakers</h1>
 				</div>
 			</div>

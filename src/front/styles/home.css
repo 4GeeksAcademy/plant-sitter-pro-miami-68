@@ -37,8 +37,7 @@ color: black;
 
 .landing-page {
   width: 100%;
-  border-bottom-right-radius: 120px;
-  border-bottom-left-radius: 120px;
+  padding-right: -25px;
 }
 
 .contact-us {
