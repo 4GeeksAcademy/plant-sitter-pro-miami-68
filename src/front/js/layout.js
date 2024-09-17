@@ -39,8 +39,9 @@ import PlantCleaningService from "./pages/PlantCleaningService";
 import Chat from './component/Chat';
 import { PlantSitterProfile } from './pages/PlantSitterProfile';
 
-
-
+import { AccountVerification } from "./pages/AccountVerification";
+import { EnterNewPassword } from "./pages/EnterNewPassword";
+import { ForgotPassword } from "./pages/ForgotPassword";
 
 //create your first component
 const Layout = () => {
@@ -88,6 +89,9 @@ const Layout = () => {
                         <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
+                        <Route element={<AccountVerification />} path="/verification" />
+                        <Route element={<ForgotPassword />} path="/forgot-password" />
+                        <Route element={<EnterNewPassword />} path="/enternewpassword" />
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}
                     <Footer />

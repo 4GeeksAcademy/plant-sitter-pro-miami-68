@@ -90,6 +90,46 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //E-mail verification
+            verifyEmail: async (token) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/verify/${token}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    const data = await resp.json();
+                    if (resp.ok) {
+                        return { success: true, data };
+                    } else {
+                        return { success: false, error: data.error };
+                    }
+                } catch (error) {
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },        
+            
+            resetPassword: async (token, new_password) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/reset_password`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ token, new_password })
+                    });
+                    const data = await resp.json();
+                    if (resp.ok) {
+                        return { success: true, data };
+                    } else {
+                        return { success: false, error: data.error };
+                    }
+                } catch (error) {
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
             // Log in an existing user
             login: async (email, password) => {
                 try {

@@ -1,0 +1,26 @@
+/* verify.css */
+
+.verify-email-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(to right, #4CAF50, #2E7D32); /* Plant-inspired green gradient */
+    color: white;
+}
+
+.verify-message {
+    font-size: 2rem;
+    font-family: 'Diphylleia', sans-serif; /* Assuming you're using this font based on your project */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    animation: glow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+    from {
+        text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #FFD700, 0 0 40px #FFD700;
+    }
+    to {
+        text-shadow: 0 0 20px #fff, 0 0 30px #FFD700, 0 0 40px #FFD700, 0 0 50px #FFD700;
+    }
+}
