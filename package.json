@@ -82,6 +82,7 @@
 		"mailgun-js": "^0.22.0",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
+		"react-bootstrap": "^2.10.4",
 		"react-datepicker": "^7.3.0",
 		"react-dom": "^16.8.4",
 		"react-polyfills": "0.0.1",

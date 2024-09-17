@@ -96,12 +96,17 @@ export const Navbar = () => {
                     <a
                       className="dropdown-item"
                       onClick={() => navigate("/account-settings")}
+                      style={{ cursor: "pointer" }}
                     >
                       Account
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" onClick={handleLogout}>
+                    <a
+                      className="dropdown-item"
+                      onClick={handleLogout}
+                      style={{ cursor: "pointer" }}
+                    >
                       Log Out
                     </a>
                   </li>
