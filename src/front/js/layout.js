@@ -30,7 +30,7 @@ import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
 import PersonalSecurity from "./pages/loginsecurity"
-import {JobPostsList} from "./pages/JobPostsList"
+import { JobPostsList } from "./pages/JobPostsList"
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
@@ -49,7 +49,7 @@ const Layout = () => {
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
     return (
         <div>
@@ -60,7 +60,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         {/* <Route element={<Demo />} path="/demo" /> */}
                         <Route element={<ContactUs />} path="/contact-us" />
-                        <Route element={<HowItWorks/>} path="/how-it-works" />
+                        <Route element={<HowItWorks />} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
@@ -90,8 +90,8 @@ const Layout = () => {
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<AccountVerification />} path="/verification" />
-                        <Route element={<ForgotPassword />} path="/forgot-password" />
-                        <Route element={<EnterNewPassword />} path="/enternewpassword" />
+                        {/* <Route element={<ForgotPassword />} path="/forgot-password" /> */}
+                        {/* <Route element={<EnterNewPassword />} path="/enternewpassword" /> */}
                     </Routes>
                     <Chat />  {/* Added Chat component globally accessible */}
                     <Footer />
