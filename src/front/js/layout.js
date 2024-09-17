@@ -36,9 +36,9 @@ import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
-import Chat from './component/Chat'; // Make sure to import the Chat component
-import { PlantSitterProfile } from './pages/PlantSitterProfile';
 import Chat from './component/Chat';
+import { PlantSitterProfile } from './pages/PlantSitterProfile';
+
 
 
 
