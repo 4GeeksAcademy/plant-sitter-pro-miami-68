@@ -9,7 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_tok
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from flask_mail import Message
+# from flask_mail import Message
 from api.models import db, User
 from flask import current_app as app
 from flask import jsonify
