@@ -19,7 +19,7 @@ export const Navbar = () => {
 
   return (
     <nav className="navbar navbar-light bg-white">
-      <div className="container">
+      <div className="container navbar-banner">
         <img
           className="logo"
           src={logo2}
@@ -27,7 +27,7 @@ export const Navbar = () => {
           onClick={handleLogoClick}
           style={{ cursor: "pointer" }}
         />
-        <h1 className="diphylleia-regular title">Plant Sitter Pro</h1>
+        {/* <h1 className="diphylleia-regular title">Plant Sitter Pro</h1> */}
         <div className="ml-auto">
           <div className="dropdown">
             <button
