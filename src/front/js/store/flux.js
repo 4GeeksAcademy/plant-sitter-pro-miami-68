@@ -50,8 +50,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-
-
             // Sign up a new user
             signup: async (email, password, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code) => {
                 try {

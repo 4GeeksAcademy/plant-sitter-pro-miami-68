@@ -19,4 +19,5 @@ def send_email(recipient, body, subject):
             smg.set_content(body)            
             server.send_message(smg) 
     except smtplib.SMTPException as e:
-        raise Exception(f"failed to send email: {str(e)} ")
+        # raise Exception(f"failed to send email: {str(e)} ")
+        return
