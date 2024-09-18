@@ -6,6 +6,75 @@
     on that page only (the ones not reused in other pages).
 */
 
+.lp-headers {
+  font-size: 4vw;
+}
+
+.landing-page {
+  width: 100%;
+  padding-right: -25px;
+}
+
+.sitter-pics {
+  height: 250px;
+  width: auto;
+  margin: auto;
+}
+
+/* The hero image */
+.hero-image {
+/* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+background-image: url("../img/landing-page.jpg");
+
+/* Set a specific height */
+height: 10%;
+
+/* Position and center the image to scale nicely on all screens */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+text-align: left;
+position: absolute;
+top: 10%;
+left: 2%;
+width: 60%;
+max-height: 100%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+.caretaker-text {
+text-align: right;
+position: absolute;
+top: 5%;
+right: 4%;
+width: 68%;
+max-height: 100%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+.owner-text {
+text-align: left;
+position: absolute;
+top: 5%;
+left: 4%;
+width: 68%;
+max-height: 100%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+.for-owners {
+border-top-right-radius: 100px;
+border-bottom-left-radius: 100px;
+}
+
 .contact-us {
   text-decoration: none !important;
   color: white !important;
@@ -29,6 +98,13 @@
 
 .navbar {
   border-bottom: 2px solid rgb(70, 108, 70);
+}
+
+.navbar-banner {
+  margin-left: 20px;
+  margin-right: 40px;
+  max-width: 100%;
+  /* padding: 5px 100px; */
 }
 
 .works {
@@ -116,7 +192,7 @@
 }
 
 .logo {
-    height: 150px;
+    height: 120px;
 }
 
 .diphylleia-regular {
