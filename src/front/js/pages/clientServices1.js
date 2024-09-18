@@ -75,16 +75,18 @@ export const ClientServices1 = () => {
 
     const handleNext = () => {
         actions.setJobPostDetails({
+            id: store.jobPostDetails.id,
             startDate,
             endDate,
             selectedPlants,
             selectedServices,
         });
-    
+
+        // Navigate to either JobPostUpdate or JobPost1 based on the presence of a job post ID
         if (store.jobPostDetails.id) {
-            navigate(`/job-post/${store.jobPostDetails.id}`);
+            navigate(`/job-post-update/${store.jobPostDetails.id}`); // Navigate to update component
         } else {
-            navigate('/job-post');
+            navigate('/job-post'); // Navigate to create component
         }
     };
 

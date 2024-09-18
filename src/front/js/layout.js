@@ -4,7 +4,6 @@ import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 
 import { Home } from "./pages/home";
-// import { Demo } from "./pages/demo";
 import { ContactUs } from "./pages/contactUs";
 import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
@@ -22,33 +21,28 @@ import { ClientSignUp2 } from "./pages/clientSignUp2";
 import { ClientServices1 } from "./pages/clientServices1";
 import { JobPost1 } from "./pages/jobPost";
 import { JobPost2 } from "./pages/jobPostPreview";
+import { JobPostUpdate } from "./pages/jobPostUpdate";
 import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
 import { HowItWorks } from "./pages/howItWorks";
 import { Blog } from "./pages/blog";
-import AccountSettings from "./pages/account"
-import { PersonalInfo } from "./pages/PersonalInfo"
-import PersonalSecurity from "./pages/loginsecurity"
-import {JobPostsList} from "./pages/JobPostsList"
+import AccountSettings from "./pages/account";
+import { PersonalInfo } from "./pages/PersonalInfo";
+import PersonalSecurity from "./pages/loginsecurity";
+import { JobPostsList } from "./pages/JobPostsList";
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
-import Chat from './component/Chat';
-import { PlantSitterProfile } from './pages/PlantSitterProfile';
+import Chat from "./component/Chat";
+import { PlantSitterProfile } from "./pages/PlantSitterProfile";
 
-
-
-
-//create your first component
 const Layout = () => {
-    //the basename is used when your project is published in a subdirectory and not in the root of the domain
-    // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
     return (
         <div>
@@ -57,13 +51,13 @@ const Layout = () => {
                     <Navbar />
                     <Routes>
                         <Route element={<Home />} path="/" />
-                        {/* <Route element={<Demo />} path="/demo" /> */}
                         <Route element={<ContactUs />} path="/contact-us" />
-                        <Route element={<HowItWorks/>} path="/how-it-works" />
+                        <Route element={<HowItWorks />} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
                         <Route element={<JobPost1 />} path="/job-post" />
+                        <Route element={<JobPostUpdate />} path="/job-post-update/:job_post_id" />
                         <Route element={<JobPost2 />} path="/job-post-preview/:job_post_id" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
@@ -89,7 +83,7 @@ const Layout = () => {
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>
-                    <Chat />  {/* Added Chat component globally accessible */}
+                    <Chat />
                     <Footer />
                 </ScrollToTop>
             </BrowserRouter>
