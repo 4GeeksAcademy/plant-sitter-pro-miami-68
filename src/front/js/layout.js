@@ -30,7 +30,7 @@ import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
 import PersonalSecurity from "./pages/loginsecurity"
-import PaymentsPayouts from "./pages/payments-payouts" // Added PaymentsPayouts component
+import PaymentsPayouts from "./pages/payments-payouts"
 import { JobPostsList } from "./pages/JobPostsList"
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
