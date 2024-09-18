@@ -567,7 +567,7 @@ def handle_message():
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
-@api('/create-payment-intent', methods=['POST'])
+@api.route('/create-payment-intent', methods=['POST'])
 def create_payment_intent():
     try:
         data = request.get_json()
