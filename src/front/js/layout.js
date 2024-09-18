@@ -30,7 +30,7 @@ import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account"
 import { PersonalInfo } from "./pages/PersonalInfo"
 import PersonalSecurity from "./pages/loginsecurity"
-import {JobPostsList} from "./pages/JobPostsList"
+import { JobPostsList } from "./pages/JobPostsList"
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
@@ -38,10 +38,10 @@ import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
 import Chat from './component/Chat';
 import { PlantSitterProfile } from './pages/PlantSitterProfile';
-
 import { AccountVerification } from "./pages/AccountVerification";
 import { EnterNewPassword } from "./pages/EnterNewPassword";
 import { ForgotPassword } from "./pages/ForgotPassword";
+import { ViewSitters } from "./pages/viewSitters";
 
 //create your first component
 const Layout = () => {
@@ -49,7 +49,7 @@ const Layout = () => {
     // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
     const basename = process.env.BASENAME || "";
 
-    if(!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL/ >;
+    if (!process.env.BACKEND_URL || process.env.BACKEND_URL == "") return <BackendURL />;
 
     return (
         <div>
@@ -60,7 +60,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
                         {/* <Route element={<Demo />} path="/demo" /> */}
                         <Route element={<ContactUs />} path="/contact-us" />
-                        <Route element={<HowItWorks/>} path="/how-it-works" />
+                        <Route element={<HowItWorks />} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
@@ -70,6 +70,7 @@ const Layout = () => {
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
                         <Route element={<ClientMapPage />} path="/client-map" />
+                        <Route element={<ViewSitters />} path="/view-sitters" />
                         <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
                         <Route element={<ClientSignUp1 />} path="/client-signup1" />
                         <Route element={<ProviderSignUp2 />} path="/provider-signup2" />

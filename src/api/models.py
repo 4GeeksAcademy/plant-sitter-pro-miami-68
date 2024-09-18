@@ -77,7 +77,8 @@ class User(db.Model):
             "latitude": self.latitude,
             "longitude": self.longitude,
             "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at.isoformat(),
+            "is_verified": self.is_verified,
         }
 
 
