@@ -46,7 +46,7 @@ export const JobPostUpdate = () => {
         };
 
         fetchJobPost();
-    }, [job_post_id, actions]);
+    }, []);
 
     const handleSubmit = async () => {
         const formattedStartDate = new Date(store.jobPostDetails.startDate).toISOString();

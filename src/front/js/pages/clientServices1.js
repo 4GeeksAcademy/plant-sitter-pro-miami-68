@@ -82,11 +82,10 @@ export const ClientServices1 = () => {
             selectedServices,
         });
 
-        // Navigate to either JobPostUpdate or JobPost1 based on the presence of a job post ID
         if (store.jobPostDetails.id) {
-            navigate(`/job-post-update/${store.jobPostDetails.id}`); // Navigate to update component
+            navigate(`/job-post-update/${store.jobPostDetails.id}`);
         } else {
-            navigate('/job-post'); // Navigate to create component
+            navigate('/job-post');
         }
     };
 

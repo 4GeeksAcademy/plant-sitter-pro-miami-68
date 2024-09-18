@@ -17,8 +17,6 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
-// import { JobPlants } from "../component/JobPlants";
-// import { JobServices } from "../component/JobServices";
 
 
 export const JobPost2= () => {
@@ -45,6 +43,7 @@ export const JobPost2= () => {
     const { job_post_id } = useParams();
 
     useEffect(() => {
+
         const fetchData = async () => {
             setLoading(true);
             if (!store.user) {

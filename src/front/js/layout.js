@@ -21,7 +21,7 @@ import { ClientSignUp2 } from "./pages/clientSignUp2";
 import { ClientServices1 } from "./pages/clientServices1";
 import { JobPost1 } from "./pages/jobPost";
 import { JobPost2 } from "./pages/jobPostPreview";
-import { JobPostUpdate } from "./pages/jobPostUpdate";
+import { JobPostUpdate } from "./pages/JobPostUpdate";
 import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";

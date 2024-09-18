@@ -20,7 +20,6 @@ export const JobPost1 = () => {
     const [intro, setIntro] = useState("");
     const [moreAboutPlants, setMoreAboutPlants] = useState("");
     const [moreAboutServices, setMoreAboutServices] = useState("");
-    // const [extraInfo, setExtraInfo] = useState("");
     const [jobDuration, setJobDuration] = useState("");
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
