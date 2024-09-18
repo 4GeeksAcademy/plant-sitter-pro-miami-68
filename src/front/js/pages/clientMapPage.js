@@ -13,11 +13,10 @@ export const ClientMapPage = () => {
     return (
         <div className="text-center m-5">
             <h1 className="diphylleia-regular">Where are you located?</h1>
-            <form action="/action_page.php">
+            <form>
                 <div className="row container address mt-4 w-50">
-                    <input placeholder="   ZIP code" type="text" id="zipcode" className="input-field rounded" />
+                    <input placeholder=" ZIP code" type="text" id="zipcode" className="input-field rounded" />
                 </div>
-                {/* <img className="map" src={map}/> */}
                 <p></p>
             </form>
             <button
@@ -25,7 +24,7 @@ export const ClientMapPage = () => {
                 className="btn btn-success mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
-                        navigate('/client-signup1')
+                        navigate('/view-sitters')
                     }
                 }
             >

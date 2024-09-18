@@ -1,11 +1,9 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import plantPic from "../../img/plants-on-stand.jpg";
-import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
 
-export const ClientSignUp2= () => {
+export const ClientSignUp2 = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,7 +19,7 @@ export const ClientSignUp2= () => {
     const { actions } = useContext(Context);
     const navigate = useNavigate();
 
-	useEffect(() => {
+    useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (token) {
             navigate("/client-services1");
@@ -47,7 +45,12 @@ export const ClientSignUp2= () => {
     return (
         <div className="row justify-content-center">
             <div className="col-lg-6 bg-indigo">
-                <h1 className="fw-normal mb-5 mt-5 diphylleia-regular jobs">Create an account</h1>
+                <h1 className="fw-normal mt-5 diphylleia-regular jobs">Create an account</h1>
+
+                <div className="text-center mb-5">
+                    <p>Already have an account? <a href="/login"><u>Log in</u></a></p>
+                </div>
+
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6 mb-2 pb-2">
@@ -117,17 +120,17 @@ export const ClientSignUp2= () => {
                         </div>
 
                         <div className="col-md-5 mb-2 pb-2">
-						<div data-mdb-input-init className="form-outline form-white">
-							<input 
-                                type="text" 
-                                id="state" 
-                                className="form-control form-control-lg"
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                            />
-							<label className="form-label" for="state">State</label>
-						</div>
-					</div>
+                            <div data-mdb-input-init className="form-outline form-white">
+                                <input
+                                    type="text"
+                                    id="state"
+                                    className="form-control form-control-lg"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                                <label className="form-label" for="state">State</label>
+                            </div>
+                        </div>
 
                         <div className="col-md-2 mb-2 pb-2">
                             <div data-mdb-input-init className="form-outline form-white">
@@ -220,9 +223,6 @@ export const ClientSignUp2= () => {
                     </div>
                 </form>
 
-                <div className="text-center">
-                    <p>Already have an account? <a href="/login"><u>Log in</u></a></p>
-                </div>
             </div>
         </div>
     );
