@@ -21,6 +21,7 @@ from api.utils import generate_sitemap, APIException
 from datetime import timedelta
 from .send_email import send_email
 from api.decodetoken import decode_token, decode_reset_token
+import stripe
 
 api = Blueprint('api', __name__)
 
@@ -510,7 +511,6 @@ def get_job_post(job_post_id):
 
 
 
-
 # ---------------------------endpoints for messeages--------------------------------------
 
 @api.route('/messages/send', methods=['POST'])
@@ -561,6 +561,28 @@ def handle_message():
     return jsonify({'message': 'Sorry, I did not understand that.'})
 
 
+
+
+#---------------------for Stripe payments and payouts
+
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+
+@api('/create-payment-intent', methods=['POST'])
+def create_payment_intent():
+    try:
+        data = request.get_json()
+        intent = stripe.PaymentIntent.create(
+            amount=data['amount'],  # amount in cents
+            currency='usd',
+            metadata={'integration_check': 'accept_a_payment'},
+        )
+        return jsonify({
+            'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+
 #--------------------------Ratings
 
 @api.route('/plantsitters/<int:plantsitter_id>/ratings', methods=['POST'])
@@ -608,3 +630,4 @@ def get_ratings(plantsitter_id):
         'ratings': serialized_ratings,
         'average_score': average_score
     }), 200
+
