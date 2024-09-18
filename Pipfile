@@ -20,7 +20,11 @@ flask-admin = "*"
 typing-extensions = "*"
 flask-jwt-extended = "*"
 geopy = "*"
+<<<<<<< HEAD
 flask-mail = "*"
+=======
+stripe = "*"
+>>>>>>> 7273b7b533c1767c1a234dd3cd74783738af622a
 
 [requires]
 python_version = "3.10"
