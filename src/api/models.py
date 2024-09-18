@@ -26,7 +26,7 @@ class User(db.Model):
     longitude = db.Column(db.Float, nullable=True)  # Longitude for geolocation
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
-    # is_verified = db.Column(db.Boolean, default=False)  # verification for email
+    is_verified = db.Column(db.Boolean, default=False)  # verification for email
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -78,7 +78,7 @@ class User(db.Model):
             "longitude": self.longitude,
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat(),
-            # "is_verified": self.is_verified,
+            "is_verified": self.is_verified,
         }
 
 

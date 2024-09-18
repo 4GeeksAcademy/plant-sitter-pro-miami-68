@@ -101,7 +101,7 @@ def signup():
             state=state,
             country=country,
             zip_code=zip_code,
-            # is_verified=False,
+            is_verified=False,
         )
         new_user.set_password(password)
         db.session.add(new_user)
