@@ -39,13 +39,20 @@ const CheckoutForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement />
-            <button disabled={!stripe || processing || succeeded}>
-                {processing ? 'Processing...' : 'Pay'}
+        <form onSubmit={handleSubmit} className="mt-3">
+            <div className="form-group">
+                <label htmlFor="card-element">Credit or Debit Card</label>
+                <CardElement id="card-element" className="form-control" />
+            </div>
+            <button
+                type="submit"
+                disabled={!stripe || processing || succeeded}
+                className="btn btn-primary mt-3"
+            >
+                {processing ? 'Processing...' : 'Pay Now'}
             </button>
-            {error && <div>{error}</div>}
-            {succeeded && <div>Payment succeeded!</div>}
+            {error && <div className="alert alert-danger mt-3">{error}</div>}
+            {succeeded && <div className="alert alert-success mt-3">Payment succeeded!</div>}
         </form>
     );
 };
