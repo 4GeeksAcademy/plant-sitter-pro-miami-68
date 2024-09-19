@@ -1,53 +1,53 @@
 const getState = ({ getStore, getActions, setStore }) => {
-	return {
-		store: {
-			token: sessionStorage.getItem("token") || null,
-			privateData: null,
-			users: [],
-			plantSitters: [],
+    return {
+        store: {
+            token: sessionStorage.getItem("token") || null,
+            privateData: null,
+            users: [],
+            plantSitters: [],
             jobPostDetails: [],
-            jobPost: null,  
-			message: null,
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
-		},
-		actions: {
-			getMessage: async () => {
-				try{
-					// fetching data from the backend
-					const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
-					const data = await resp.json()
-					setStore({ message: data.message })
-					// don't forget to return something, that is how the async resolves
-					return data;
-				}catch(error){
-					console.log("Error loading message from backend", error)
-				}
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
+            jobPost: null,
+            message: null,
+            demo: [
+                {
+                    title: "FIRST",
+                    background: "white",
+                    initial: "white"
+                },
+                {
+                    title: "SECOND",
+                    background: "white",
+                    initial: "white"
+                }
+            ]
+        },
+        actions: {
+            getMessage: async () => {
+                try {
+                    // fetching data from the backend
+                    const resp = await fetch(process.env.BACKEND_URL + "/api/hello")
+                    const data = await resp.json()
+                    setStore({ message: data.message })
+                    // don't forget to return something, that is how the async resolves
+                    return data;
+                } catch (error) {
+                    console.log("Error loading message from backend", error)
+                }
+            },
+            changeColor: (index, color) => {
+                //get the store
+                const store = getStore();
 
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
+                //we have to loop the entire demo array to look for the respective index
+                //and change its color
+                const demo = store.demo.map((elm, i) => {
+                    if (i === index) elm.background = color;
+                    return elm;
+                });
 
-				//reset the global store
-				setStore({ demo: demo });
-			},
+                //reset the global store
+                setStore({ demo: demo });
+            },
 
 
             // Sign up a new user
@@ -58,21 +58,21 @@ const getState = ({ getStore, getActions, setStore }) => {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        body: JSON.stringify({ 
-                            email, 
-                            password, 
-                            phone, 
-                            first_name, 
-                            last_name, 
-                            address_line_1, 
-                            address_line_2, 
-                            city, 
+                        body: JSON.stringify({
+                            email,
+                            password,
+                            phone,
+                            first_name,
+                            last_name,
+                            address_line_1,
+                            address_line_2,
+                            city,
                             state,
-                            country, 
-                            zip_code 
+                            country,
+                            zip_code
                         })
                     });
-                    
+
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ token: data.access_token });
@@ -106,8 +106,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 } catch (error) {
                     return { success: false, error: "An unexpected error occurred" };
                 }
-            },        
-            
+            },
+
             resetPassword: async (token, new_password) => {
                 try {
                     const resp = await fetch(`${process.env.BACKEND_URL}/reset_password`, {
@@ -128,6 +128,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+
+            logToken: (access_token) => {
+                setStore({ token: access_token });
+                sessionStorage.setItem("token", access_token);
+            },
             // Log in an existing user
             login: async (email, password) => {
                 try {
@@ -140,8 +145,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                     });
                     if (resp.ok) {
                         const data = await resp.json();
-                        setStore({ token: data.access_token });
-                        sessionStorage.setItem("token", data.access_token);
+
+                        getActions().logToken(data.access_token)
+
                         return { success: true, data };
                     } else {
                         const errorData = await resp.json();
@@ -187,20 +193,20 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Content-Type": "application/json",
                             "Authorization": `Bearer ${store.token}`
                         },
-                        body: JSON.stringify({ 
+                        body: JSON.stringify({
                             email,
                             phone,
-                            first_name, 
-                            last_name, 
-                            address_line_1, 
-                            address_line_2, 
-                            city, 
+                            first_name,
+                            last_name,
+                            address_line_1,
+                            address_line_2,
+                            city,
                             state,
-                            country, 
-                            zip_code, 
+                            country,
+                            zip_code,
                         })
                     });
-                    
+
                     if (resp.ok) {
                         const data = await resp.json();
                         setStore({ user: data.user });
@@ -219,12 +225,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             updatePassword: async (currentPassword, newPassword) => {
                 const store = getStore();
                 const token = sessionStorage.getItem("token");
-            
+
                 // Check if the token is available
                 if (!token) {
                     return { success: false, error: "You are not logged in." };
                 }
-            
+
                 try {
                     const response = await fetch(`${process.env.BACKEND_URL}/api/user`, {
                         method: "PUT",
@@ -237,7 +243,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                             new_password: newPassword
                         })
                     });
-            
+
                     const result = await response.json();
                     if (response.ok) {
                         return { success: true };
@@ -249,7 +255,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },
-            
+
             // Delete user
             deleteUser: async () => {
                 const store = getStore();
@@ -277,9 +283,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 
             // Create or update plant sitter
             createOrUpdatePlantSitter: async (
-                profile_picture, 
-                professional_experience, 
-                preferred_plants, 
+                profile_picture,
+                professional_experience,
+                preferred_plants,
                 service_preferences,
                 intro,
                 current_plants,
@@ -630,13 +636,13 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
-			//log out
-			logout: () => {
-				setStore({ token: null, user: null, plantSitter: null });
-				sessionStorage.removeItem('token');
-			}
-		}
-	};
+            //log out
+            logout: () => {
+                setStore({ token: null, user: null, plantSitter: null });
+                sessionStorage.removeItem('token');
+            }
+        }
+    };
 }
 
 export default getState;

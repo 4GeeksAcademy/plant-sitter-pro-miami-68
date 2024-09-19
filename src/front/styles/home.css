@@ -70,9 +70,15 @@ max-height: 100%;
 color: black;
 }
 
+
 .for-owners {
 border-top-right-radius: 100px;
 border-bottom-left-radius: 100px;
+}
+
+.for-sitters {
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px;
 }
 
 .contact-us {

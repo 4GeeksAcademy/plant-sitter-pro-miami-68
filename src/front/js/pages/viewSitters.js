@@ -1,5 +1,6 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext } from "react";
 import { Context } from "../store/appContext";
+
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import client from "../../img/client.png";
@@ -7,15 +8,15 @@ import profilepic from "../../img/profilePicture.png";
 import clientSignUp from "../../img/client-sign-up.png";
 
 export const ViewSitters = () => {
-	// const { store, actions } = useContext(Context);
+	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const token = sessionStorage.getItem("token");
-		if (token) {
-			navigate("/client-services1");
-		}
-	}, [navigate]);
+	// 	useEffect(() => {
+	// 		const token = sessionStorage.getItem("token");
+	// 		if (token) {
+	// 			navigate("/client-services1");
+	// 		}
+	// 	}, [navigate]);
 
 	return (
 		<div className="row d-flex">
@@ -34,16 +35,17 @@ export const ViewSitters = () => {
 				<div className="owner-text row">
 					<div className="col-5"></div>
 					<div className="col-7">
-						<h3 className="diphylleia-regular" style={{ fontSize: "3vw" }}><strong>Take comfort in knowing</strong></h3>
-						<h3 className="diphylleia-regular" style={{ fontSize: "3vw" }}><strong>Our service is...</strong></h3>
+						<h3 className="diphylleia-regular" style={{ fontSize: "3vw" }}><strong>Take comfort knowing that</strong></h3>
+						<h3 className="diphylleia-regular" style={{ fontSize: "3vw" }}><strong>our service is...</strong></h3>
 						<h4 className="diphylleia-regular mt-4" style={{ fontSize: "2vw" }}><strong>✔️ Safe</strong></h4>
 						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿 Find and hire vetted, qualitifed help near you.</p>
 						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿 Background checks completed for all plant sitters.</p>
 						<h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}><strong>✔️ Affordable</strong></h4>
-						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿Something here about pricing.</p>
+						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿Pay only $5/month to post unlimited jobs.</p>
+						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿Choose your own rate per job.</p>
 						<h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}><strong>✔️ Convenient</strong></h4>
 						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿 Cancel any time.</p>
-						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿 Use only the services you need, when you need them.</p>
+						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿 Hire only the help you need, when you need it.</p>
 					</div>
 				</div>
 			</div>
@@ -62,7 +64,7 @@ export const ViewSitters = () => {
 						className="diphylleia-regular text-center"
 						style={{ fontSize: "2vw" }}
 					>
-						<strong>Sign Up Now</strong>
+						<strong>Subscribe Now</strong>
 					</h3>
 				</button>
 			</div>
