@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+
 import { Context } from "../store/appContext";
 
 export const AccountVerification = () => {
@@ -8,6 +9,7 @@ export const AccountVerification = () => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
     const [verified, setVerified] = useState(false);
+
     const {store, actions} = useContext(Context)
     useEffect(() => {
         const verifyAccount = async () => {
@@ -37,6 +39,7 @@ export const AccountVerification = () => {
                 setLoading(false);
             }
         };
+
 
         verifyAccount();
     }, []);
