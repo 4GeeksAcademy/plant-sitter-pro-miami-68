@@ -576,6 +576,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
+            clearJobPostId: async () => {
+                setStore({jobPostDetails: null})
+            },
+
+
             // Fetch all job posts for the current user
             getJobPosts: async () => {
                 const token = sessionStorage.getItem("token");

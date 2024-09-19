@@ -20,11 +20,12 @@ export const ClientMapPage = () => {
                 <p></p>
             </form>
             <button
-                type="submit"
+                type="button"
                 className="btn btn-success mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
                         navigate('/view-sitters')
+                        actions.clearJobPostId();
                     }
                 }
             >
