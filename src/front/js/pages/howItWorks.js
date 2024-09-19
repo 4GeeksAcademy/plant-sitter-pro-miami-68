@@ -26,6 +26,7 @@ export const HowItWorks = () => {
                             className="btn col-12 rounded-pill mt-4"
                             onClick={
                                 () => {
+                                    actions.clearJobPostId();
                                     navigate('/client-map')
                                 }
                             }

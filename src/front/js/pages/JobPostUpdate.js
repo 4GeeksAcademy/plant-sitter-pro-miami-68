@@ -1,14 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { JobPlants } from "../component/JobPlants";
-import { JobServices } from "../component/JobServices";
+import { JobServices } from "../component/JobServices"; 
 import { JobDates } from "../component/JobDates";
 
-export const JobPost1 = () => {
+export const JobPostUpdate = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const { job_post_id } = useParams();
+
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [addressLine1, setAddressLine1] = useState("");
@@ -21,35 +23,61 @@ export const JobPost1 = () => {
     const [moreAboutPlants, setMoreAboutPlants] = useState("");
     const [moreAboutServices, setMoreAboutServices] = useState("");
     const [jobDuration, setJobDuration] = useState("");
-    const firstName = store.user?.first_name;
-    const lastName = store.user?.last_name;
+
+    useEffect(() => {
+        const fetchJobPost = async () => {
+            if (job_post_id) {
+                const res = await actions.getJobPostById(job_post_id);
+                if (res.success && res.data) {
+                    setAddressLine1(res.data.address_line_1);
+                    setAddressLine2(res.data.address_line_2);
+                    setCity(res.data.city);
+                    setState(res.data.state);
+                    setZipCode(res.data.zip_code);
+                    setCountry(res.data.country);
+                    setIntro(res.data.intro);
+                    setPicture(res.data.profile_picture_url);
+                    setMoreAboutPlants(res.data.more_about_your_plants);
+                    setMoreAboutServices(res.data.more_about_services);
+                    setJobDuration(res.data.job_duration);
+                }
+            }
+            setLoading(false);
+        };
+
+        fetchJobPost();
+    }, []);
 
     const handleSubmit = async () => {
         const formattedStartDate = new Date(store.jobPostDetails.startDate).toISOString();
         const formattedEndDate = new Date(store.jobPostDetails.endDate).toISOString();
-    
-        const result = await actions.createJobPost(
-            formattedStartDate,
-            formattedEndDate,
-            addressLine1,
-            addressLine2,
-            city,
-            state,
-            zipCode,
-            country,
-            store.jobPostDetails.selectedServices,
-            store.jobPostDetails.selectedPlants,
-            intro,
-            picture,
-            moreAboutPlants,
-            moreAboutServices,
-            jobDuration
-        );
-        
-        if (result.success) {
-            navigate(`/job-post-preview/${result.data.id}`);
+
+        if (job_post_id) {
+            const result = await actions.updateJobPost(
+                job_post_id,
+                formattedStartDate,
+                formattedEndDate,
+                addressLine1,
+                addressLine2,
+                city,
+                state,
+                zipCode,
+                country,
+                store.jobPostDetails.selectedServices,
+                store.jobPostDetails.selectedPlants,
+                intro,
+                picture,
+                moreAboutPlants,
+                moreAboutServices,
+                jobDuration
+            );
+            if (result.success) {
+                navigate(`/job-post-preview/${job_post_id}`);
+            } else {
+                alert("Error updating job post");
+            }
         } else {
-            alert("Error creating job post");
+            alert("No job post ID provided.");
         }
     };
 
@@ -73,18 +101,17 @@ export const JobPost1 = () => {
         }
     };
 
-
-    return (
+    return loading ? <div>Loading...</div> : (
         <div className="text-center m-2 mt-4">
-            <h1 className="mb-4">Ready to post a job?</h1>
+            <h1 className="mb-4">Update your job post</h1>
             <div className="row">
                 <h3 className="diphylleia-regular m-auto col-8">
-                    Tell us more about the plants that you have, the care that you need, and a little about yourself so that our plant sitters can get to know you and your needs.
+                    Update the details of your job post to ensure our plant sitters know what you need.
                 </h3>
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h2>
+                    <h2 className="diphylleia-regular text-white mb-4"><strong>Update your profile picture</strong></h2>
                     <div
                         className="profile-picture m-auto mb-4"
                         style={{
@@ -104,7 +131,6 @@ export const JobPost1 = () => {
                         />
                     </div>
                     <div data-mdb-input-init className="form-outline form-white">
-                        <h2 className="diphylleia-regular mb-4"><strong>{firstName} {lastName}</strong></h2>
                         <h2 className="mb-2 fs-4">Job Location:</h2>
                         <input 
                             type="text" 
@@ -141,7 +167,7 @@ export const JobPost1 = () => {
                             className="form-control form-control-lg mb-3" 
                             placeholder="Zip Code" 
                         />
-                            <input 
+                        <input 
                             type="text" 
                             value={country} 
                             readOnly 
@@ -159,21 +185,21 @@ export const JobPost1 = () => {
                         ></textarea>
                     </div>
                     <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
-                        <strong>You said that you need help with:</strong>
+                    <label className="form-label diphylleia-regular fs-4 mt-2 text-white">
+                        <strong>Services you need:</strong>
                     </label>
                     <JobServices />
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
-                        <strong>You said that your plants include:</strong>
+                    <label className="form-label diphylleia-regular fs-4 mt-2 text-white">
+                        <strong>Types of plants you have:</strong>
                     </label>
                     <div className="d-flex justify-content-center">
                         <JobPlants />
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
-                        <strong>Tell us more about your plants and their needs here:</strong>
+                    <label className="form-label diphylleia-regular fs-5 mt-3 text-white">
+                        <strong>More about your plants:</strong>
                     </label>
                     <div className="input-group mb-3">
                         <textarea 
@@ -185,8 +211,8 @@ export const JobPost1 = () => {
                             aria-label="With textarea"
                         ></textarea>
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
-                        <strong>Tell us more about what you need help with:</strong>
+                    <label className="form-label diphylleia-regular fs-5 mt-3 text-white">
+                        <strong>More about the services you need:</strong>
                     </label>
                     <div className="input-group mb-3">
                         <textarea 
@@ -201,12 +227,12 @@ export const JobPost1 = () => {
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white">
-                        <strong>You are requesting care for the following dates:</strong>
+                    <label className="form-label diphylleia-regular fs-5 mt-2 text-white">
+                        <strong>Requested care dates:</strong>
                     </label>
                     <JobDates />
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white">
-                        <strong>What else should potential plant sitters know about the duration?</strong>
+                    <label className="form-label diphylleia-regular fs-5 text-white">
+                        <strong>Additional information about the duration:</strong>
                     </label>
                     <div className="input-group mb-3">
                         <textarea 
@@ -225,7 +251,7 @@ export const JobPost1 = () => {
                 className="btn mb-3 mt-3 col-2 rounded-pill"
                 onClick={handleSubmit}
             >
-                Submit
+                Update Job Post
             </button>
         </div>
     );

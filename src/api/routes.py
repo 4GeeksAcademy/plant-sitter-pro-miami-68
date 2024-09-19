@@ -493,7 +493,57 @@ def create_job_post():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
+
+
+@api.route('/job_posts/<int:job_post_id>', methods=['PUT'])
+@jwt_required()
+def update_job_post(job_post_id):
+    data = request.form
+    user_id = get_jwt_identity()
+
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    if not job_post:
+        return jsonify({"error": "Job post not found"}), 404
+
+    profile_picture_base64 = data.get('profile_picture')
+    if profile_picture_base64:
+        try:
+            upload_result = cloudinary.uploader.upload(profile_picture_base64, folder="job_posts_profiles")
+            job_post.profile_picture_url = upload_result['secure_url']
+        except Exception as e:
+            return jsonify({"error": f"Image upload failed: {str(e)}"}), 500
+
+    job_post.address_line_1 = data.get('address_line_1', job_post.address_line_1)
+    job_post.address_line_2 = data.get('address_line_2', job_post.address_line_2)
+    job_post.city = data.get('city', job_post.city)
+    job_post.state = data.get('state', job_post.state)
+    job_post.country = data.get('country', job_post.country)
+    job_post.zip_code = data.get('zip_code', job_post.zip_code)
+    job_post.start_date = data.get('start_date', job_post.start_date)
+    job_post.end_date = data.get('end_date', job_post.end_date)
+    job_post.service_preferences = data.get('service_preferences', job_post.service_preferences)
+    job_post.my_plants = data.get('my_plants', job_post.my_plants)
+    job_post.intro = data.get('intro', job_post.intro)
+    job_post.more_about_your_plants = data.get('more_about_plants', job_post.more_about_your_plants)
+    job_post.more_about_services = data.get('more_about_services', job_post.more_about_services)
+    job_post.job_duration = data.get('job_duration', job_post.job_duration)
+
+    new_zip_code = data.get('zip_code')
+    if new_zip_code and new_zip_code != job_post.zip_code:
+        try:
+            job_post.set_location_by_zip(new_zip_code)
+        except ValueError as geolocation_error:
+            return jsonify({"error": f"Geolocation failed: {str(geolocation_error)}"}), 400
+
+    try:
+        db.session.commit()
+        return jsonify(job_post.serialize()), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
         
+
 
 @api.route('/job_posts', methods=['GET'])
 @jwt_required()

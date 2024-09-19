@@ -17,8 +17,6 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
-// import { JobPlants } from "../component/JobPlants";
-// import { JobServices } from "../component/JobServices";
 
 
 export const JobPost2= () => {
@@ -45,6 +43,7 @@ export const JobPost2= () => {
     const { job_post_id } = useParams();
 
     useEffect(() => {
+
         const fetchData = async () => {
             setLoading(true);
             if (!store.user) {
@@ -88,14 +87,15 @@ export const JobPost2= () => {
                 <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
                 
                 <div className="container row mb-2">   
-                    <button 
-                        className="edit editButton" 
-                        onClick={() => {
-                            navigate("/client-services1")
-                        }}
-                    >
-                        Edit <i className="fas fa-pencil-alt"></i>
-                    </button>
+                <button 
+                    className="edit editButton" 
+                    onClick={() => {
+                        actions.setJobPostDetails({ id: job_post_id });
+                        navigate("/client-services1");
+                    }}
+                >
+                    Edit <i className="fas fa-pencil-alt"></i>
+                </button>
                 </div> 
 
                 <div className="col bckgrnd rounded p-3 m-2">
