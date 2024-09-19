@@ -11,13 +11,6 @@ export const ViewSitters = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
 
-	// 	useEffect(() => {
-	// 		const token = sessionStorage.getItem("token");
-	// 		if (token) {
-	// 			navigate("/client-services1");
-	// 		}
-	// 	}, [navigate]);
-
 	return (
 		<div className="row d-flex">
 			<h1 className="mb-5 mt-5 diphylleia-regular jobs"><strong>There are __ Plant Sitters near you!</strong></h1>

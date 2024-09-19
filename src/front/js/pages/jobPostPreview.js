@@ -84,7 +84,7 @@ export const JobPost2= () => {
 	return (
 		<div className="text-center m-2 mt-4">
             <div className="row container-fluid mt-4">
-                <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
+                <h1 className="mb-2 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
                 
                 <div className="container row mb-2">   
                 <button 
@@ -103,7 +103,8 @@ export const JobPost2= () => {
                     <img 
                         className="m-auto" 
                         style={{
-                            maxHeight: '250px'
+                            maxHeight: '250px',
+                            borderRadius: '25px',
                         }}
                         src={picture}
                     />
