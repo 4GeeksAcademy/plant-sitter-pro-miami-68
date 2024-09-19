@@ -52,7 +52,7 @@ export const ViewSitters = () => {
 
 			<div className="container mt-5 col-3">
 				<button
-					type="submit"
+					type="button"
 					className="btn col-12 rounded-pill mt-2"
 					onClick={
 						() => {
