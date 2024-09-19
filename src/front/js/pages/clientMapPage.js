@@ -25,7 +25,6 @@ export const ClientMapPage = () => {
                 onClick={
                     () => {
                         navigate('/view-sitters')
-                        actions.clearJobPostId();
                     }
                 }
             >

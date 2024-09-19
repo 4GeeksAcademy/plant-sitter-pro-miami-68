@@ -73,15 +73,15 @@ export const ClientServices1 = () => {
         return selectedItems.includes(item) ? "text-warning" : "text-white";
     };
 
-    const handleNext = () => {
-        actions.setJobPostDetails({
-            id: store.jobPostDetails.id,
+    const handleNext = async () => {
+        await actions.setJobPostDetails({
+            id: store.jobPostDetails.id || null,
             startDate,
             endDate,
             selectedPlants,
             selectedServices,
         });
-
+    
         if (store.jobPostDetails.id) {
             navigate(`/job-post-update/${store.jobPostDetails.id}`);
         } else {

@@ -50,6 +50,12 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
+            logToken: (access_token) => {
+                setStore({ token: access_token });
+                sessionStorage.setItem("token", access_token);
+            },
+
+
             // Sign up a new user
             signup: async (email, password, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code) => {
                 try {
@@ -75,8 +81,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     if (resp.ok) {
                         const data = await resp.json();
-                        setStore({ token: data.access_token });
-                        sessionStorage.setItem("token", data.access_token);
+                        getActions().logToken(data.access_token)
                         return { success: true, data };
                     } else {
                         const errorData = await resp.json();
@@ -129,10 +134,6 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
-            logToken: (access_token) => {
-                setStore({ token: access_token });
-                sessionStorage.setItem("token", access_token);
-            },
             // Log in an existing user
             login: async (email, password) => {
                 try {

@@ -42,6 +42,7 @@ export const Home = () => {
 										className="btn col-12 rounded-pill mt-2"
 										onClick={
 											() => {
+												actions.clearJobPostId();
 												navigate('/client-map')
 											}
 										}
@@ -107,6 +108,7 @@ export const Home = () => {
 								className="btn col-12 rounded-pill mt-2"
 								onClick={
 									() => {
+										actions.clearJobPostId();
 										navigate('/client-map')
 									}
 								}
