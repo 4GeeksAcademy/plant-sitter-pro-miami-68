@@ -13,11 +13,13 @@ export const ProviderMapPage = () => {
     return (
         <div className="text-center m-5">
             <h1 className="diphylleia-regular">Where would you like to work?</h1>
+            <div className="text-center mb-1">
+                <p>Already have an account? <a href="/login"><u>Log in</u></a> to skip</p>
+            </div>
             <form action="/action_page.php">
                 <div className="row container address mt-4 w-50">
                     <input placeholder="   ZIP code" type="text" id="zipcode" className="input-field rounded" />
                 </div>
-                {/* <img className="map" src={map}/> */}
                 <p></p>
             </form>
             <div className="mt-4">
@@ -27,11 +29,11 @@ export const ProviderMapPage = () => {
                 <label for="customRange2" className="form-label mb-3">Miles</label>
             </div>
             <button
-                type="submit"
+                type="button"
                 className="btn btn-success mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
-                        navigate('/provider-signup1')
+                        navigate('/view-jobs')
                     }
                 }
             >

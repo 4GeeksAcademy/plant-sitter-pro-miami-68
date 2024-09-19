@@ -41,6 +41,9 @@ import { AccountVerification } from "./pages/AccountVerification";
 import { EnterNewPassword } from "./pages/EnterNewPassword";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { ViewSitters } from "./pages/viewSitters";
+import { Cancel } from "./pages/cancel";
+import { ProviderLandingPage } from "./pages/providerLandingPage";
+import { ClientLandingPage } from "./pages/clientLandingPage";
 
 //create your first component
 const Layout = () => {
@@ -89,6 +92,9 @@ const Layout = () => {
                         <Route element={<AccountVerification />} path="/verification" />
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<EnterNewPassword />} path="/enternewpassword" />
+                        <Route element={<Cancel />} path="/cancel" />
+                        <Route element={<ProviderLandingPage />} path="/provider-landing" />
+                        <Route element={<ClientLandingPage />} path="/client-landing" />
                     </Routes>
                     <Chat />
                     <Footer />
