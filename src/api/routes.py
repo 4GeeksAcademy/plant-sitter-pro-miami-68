@@ -119,7 +119,7 @@ def signup():
         access_token = create_access_token(identity=new_user.id, expires_delta=timedelta(minutes=10))
 
         # Prepare the verification email with the access token
-        verification_link = f"{os.getenv('FRONTEND_URL')}/accountverification/{access_token}"
+        verification_link = f"{os.getenv('FRONTEND_URL')}/verification?token={access_token}"
         email_body = f"Please verify your account by clicking the link: {verification_link}"
         
         # Send the verification email
@@ -189,8 +189,10 @@ def forgot_password():
     
     return jsonify({"message": "If your email is associated with an account, you will receive a password reset email."}), 200
 
-@api.route('/api/verify/<token>', methods=['GET'])
-def verify_email(token):
+@api.route('/verify', methods=['GET'])
+def verify_email():
+    token=request.args.get("token")
+    print("something",token) 
     try:
         # Decode the token to get the user ID
         decoded_token = decode_token(token)
