@@ -20,12 +20,8 @@ export const ClientSignUp1 = () => {
 			<div className="col-lg-4 mt-5 bg-indigo m-auto">
 				<div className="mb-2 pb-2 d-flex justify-content-center">
 					<div className="subscription">
-						<p className="m-auto diphylleia-regular fs-3"><strong>Subscribe Now to Continue</strong></p>
-						<strong>$5.00/yr.</strong>
-						<p className="mb-0">✔️ Find and hire qualitifed help near you</p>
-						<p className="mt-0 mb-0">✔️ Background checks completed for all sitters</p>
-						<p className="mt-0 mb-0">✔️ Cancel anytime</p>
-						<img className="plant" src={plant} />
+						<p className="m-auto diphylleia-regular mt-3 fs-3"><strong>Payment Page Goes Here</strong></p>
+						<img className="plant mt-3 mb-3" src={plant} />
 						<div className="d-flex justify-content-center">
 							<button
 								type="submit"
@@ -36,11 +32,12 @@ export const ClientSignUp1 = () => {
 									}
 								}
 							>
-								Sign me up!
+								Process Payment
 							</button>
 						</div>
 					</div>
 				</div>
+				<p className="fs-2 text-center">Include Success Page?</p>
 			</div>
 		</div>
 	);
