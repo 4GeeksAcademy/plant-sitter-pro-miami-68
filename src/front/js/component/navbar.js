@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import logo2 from "../../img/Logo2.png";
 import "../../styles/navbar.css"
+import { Link, animateScroll as scroll } from "react-scroll";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
@@ -28,7 +29,6 @@ export const Navbar = () => {
           onClick={handleLogoClick}
           style={{ cursor: "pointer" }}
         />
-        {/* <h1 className="diphylleia-regular title">Plant Sitter Pro</h1> */}
         <div className="ml-auto">
           <div className="dropdown">
             <button
@@ -52,31 +52,18 @@ export const Navbar = () => {
                   Home
                 </a>
               </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  onClick={() => navigate("/how-it-works")}
+              <li className="scrollLink" style={{ paddingLeft: "15px", paddingTop: "5px", paddingBottom: "5px" }}>
+                <Link
+                  activeClass="active"
+                  to="how-it-works"
+                  spy={true}
+                  smooth={true}
+                  offset={-70}
+                  duration={500}
                 >
                   How it Works
-                </a>
+                </Link>
               </li>
-              {/* <li>
-                <a
-                  className="dropdown-item"
-                  onClick={() => navigate("/client-map")}
-                >
-                  Hire a Plant Sitter
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  onClick={() => navigate("/provider-map")}
-                >
-                  Become a Plant Sitter
-                </a>
-              </li> */}
               <li>
                 <a
                   className="dropdown-item"
@@ -142,6 +129,6 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </nav >
   );
 };

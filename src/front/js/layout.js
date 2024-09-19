@@ -25,7 +25,6 @@ import { JobPostUpdate } from "./pages/JobPostUpdate";
 import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
-import { HowItWorks } from "./pages/howItWorks";
 import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account";
 import { PersonalInfo } from "./pages/PersonalInfo";
@@ -57,7 +56,6 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<ContactUs />} path="/contact-us" />
-                        <Route element={<HowItWorks />} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
