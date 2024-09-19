@@ -191,8 +191,9 @@ def forgot_password():
 
 @api.route('/verify', methods=['GET'])
 def verify_email():
-    token = request.args.get("token")
-    print("something", token)
+    token=request.args.get("token")
+    print("something",token) 
+
     try:
         # Decode the token to get the user ID
         decoded_token = decode_token(token)

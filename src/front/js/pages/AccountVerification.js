@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
+
 import { Context } from "../store/appContext";
 
 export const AccountVerification = () => {
@@ -8,27 +9,26 @@ export const AccountVerification = () => {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(true);
     const [verified, setVerified] = useState(false);
-    const { store, actions } = useContext(Context);
 
+    const {store, actions} = useContext(Context)
     useEffect(() => {
         const verifyAccount = async () => {
             try {
-                const token = searchParams.get("token");
-                const response = await fetch(`${process.env.BACKEND_URL}/api/verify?token=${token}`, {
-                    headers: {
-                        "Content-Type": "application/json"
+                const token = searchParams.get("token")
+                const response = await fetch(`${process.env.BACKEND_URL}/api/verify?token=${token}`,{
+                    headers:{
+                        "Content-Type":"application/json"
                     }
                 });
                 const result = await response.json();
-
-                console.log(response, result, token);
+                console.log(response,result,token)
 
                 if (response.ok) {
                     setVerified(true);
                     setMessage("Your email has been verified successfully.");
-                    actions.logToken(token);
+                    actions.logToken(token)
                     setTimeout(() => {
-                        navigate("/account");  // Redirect to account page after 5 seconds
+                        navigate("/account-settings");  // Redirect to account page after 5 seconds
                     }, 5000);
                 } else {
                     setMessage(result.error || "There was a problem verifying your email.");
@@ -40,6 +40,7 @@ export const AccountVerification = () => {
             }
         };
 
+
         verifyAccount();
     }, []);
 
@@ -49,7 +50,7 @@ export const AccountVerification = () => {
             {verified && (
                 <>
                     <p>You will be redirected to your account shortly.</p>
-                    <button className="btn btn-primary mt-4" onClick={() => navigate("/account")}>
+                    <button className="btn btn-primary mt-4" onClick={() => navigate("/account-settings")}>
                         Go to Account Page Now
                     </button>
                 </>

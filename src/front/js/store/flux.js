@@ -128,11 +128,11 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
-            logToken: (acess_token) => {
+
+            logToken: (access_token) => {
                 setStore({ token: access_token });
                 sessionStorage.setItem("token", access_token);
             },
-
             // Log in an existing user
             login: async (email, password) => {
                 try {
@@ -145,9 +145,9 @@ const getState = ({ getStore, getActions, setStore }) => {
                     });
                     if (resp.ok) {
                         const data = await resp.json();
-                        getActions().logToken(data.access_token);
-                        // setStore({ token: data.access_token });
-                        // sessionStorage.setItem("token", data.access_token);
+
+                        getActions().logToken(data.access_token)
+
                         return { success: true, data };
                     } else {
                         const errorData = await resp.json();
