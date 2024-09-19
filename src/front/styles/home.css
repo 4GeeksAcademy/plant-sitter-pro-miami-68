@@ -6,6 +6,31 @@
     on that page only (the ones not reused in other pages).
 */
 
+.upload-job {
+  border: 2px solid darkgrey;
+  border-radius: 15%;
+  width: 200px;
+  height: 200px;
+  opacity: 100;
+  transition: opacity 0.3s ease;
+  color: #ccc;
+  background-color: rgb(238, 238, 238);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #bbb;
+}
+
+.plus-sign {
+  position: relative;
+  top: 25%;
+  left: 25%;
+}
+
+.upload-job:hover {
+  background-color: rgb(251, 251, 243);
+  color:rgb(70, 108, 70);
+  cursor: pointer;
+}
+
 .scrollLink:hover {
   background-color: rgb(238, 238, 238);
 }
