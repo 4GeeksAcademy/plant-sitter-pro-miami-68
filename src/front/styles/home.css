@@ -6,6 +6,10 @@
     on that page only (the ones not reused in other pages).
 */
 
+.scrollLink:hover {
+  background-color: rgb(238, 238, 238);
+}
+
 .lp-headers {
   font-size: 4vw;
 }

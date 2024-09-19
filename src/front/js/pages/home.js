@@ -100,7 +100,7 @@ export const Home = () => {
 
 					<div className="row d-flex">
 						<div className="col-7">
-							<h1 className="diphylleia-regular lp-headers"><strong>How it works</strong></h1>
+							<h1 className="diphylleia-regular lp-headers" id="how-it-works"><strong>How it works</strong></h1>
 						</div>
 						<div className="container col-3">
 							<button
