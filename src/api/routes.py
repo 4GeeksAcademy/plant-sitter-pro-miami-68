@@ -14,7 +14,6 @@ from api.models import db, User
 from flask import current_app as app
 from flask import jsonify
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
-# from utils import generate_verification_token
 from api.send_email import send_email
 import os
 from api.utils import generate_sitemap, APIException
@@ -54,17 +53,6 @@ def refresh_token():
 #---------------------endpoints for Users
 
 @api.route('/signup', methods=['POST'])
-# Function to send the verification email
-# def send_verification_email(user_email, token):
-#     verify_url = f"{app.config['FRONTEND_URL']}/verify/{token}"
-#     msg = Message(
-#         'Verify Your Email',
-#         sender='noreply@example.com',
-#         recipients=[user_email]
-#     )
-#     msg.body = f'Please click the link to verify your email: {verify_url}'
-#     mail.send(msg)
-
 def signup():
     data = request.get_json()
     email = data.get('email')

@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
 
 export const SignUp = () => {
     const [firstName, setFirstName] = useState("");
@@ -19,6 +20,7 @@ export const SignUp = () => {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const { actions } = useContext(Context);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
 
     const handleSubmit = async (e) => {
@@ -133,7 +135,8 @@ export const SignUp = () => {
                                     value={state}
                                     onChange={(e) => setState(e.target.value)}
                                 /> */}
-                                <select className="form-select form-select-lg mb-2" aria-label="Default select example" for="state">
+                                <select className="form-select form-select-lg mb-2" aria-label="Default select example" for="state" value={state}
+                                    onChange={(e) => setState(e.target.value)}>
                                     <option value="AL">Alabama</option>
                                     <option value="AK">Alaska</option>
                                     <option value="AZ">Arizona</option>
@@ -292,6 +295,17 @@ export const SignUp = () => {
                     </div>
                 </form>
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Account Verification</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>An email has been sent for you to verify the account.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        OK
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
