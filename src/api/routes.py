@@ -9,6 +9,18 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_tok
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from flask_mail import Message
+from api.models import db, User
+from flask import current_app as app
+from flask import jsonify
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
+# from utils import generate_verification_token
+from api.send_email import send_email
+import os
+from api.utils import generate_sitemap, APIException
+from datetime import timedelta
+from .send_email import send_email
+from api.decodetoken import decode_token, decode_reset_token
 
 api = Blueprint('api', __name__)
 
@@ -42,6 +54,17 @@ def refresh_token():
 #---------------------endpoints for Users
 
 @api.route('/signup', methods=['POST'])
+# Function to send the verification email
+# def send_verification_email(user_email, token):
+#     verify_url = f"{app.config['FRONTEND_URL']}/verify/{token}"
+#     msg = Message(
+#         'Verify Your Email',
+#         sender='noreply@example.com',
+#         recipients=[user_email]
+#     )
+#     msg.body = f'Please click the link to verify your email: {verify_url}'
+#     mail.send(msg)
+
 def signup():
     data = request.get_json()
     email = data.get('email')
@@ -66,6 +89,7 @@ def signup():
         return jsonify({"error": "Phone number already registered"}), 400
 
     try:
+        # Create new user
         new_user = User(
             email=email,
             phone=phone,
@@ -77,23 +101,117 @@ def signup():
             state=state,
             country=country,
             zip_code=zip_code,
+            is_verified=False,
         )
         new_user.set_password(password)
+        db.session.add(new_user)
+        db.session.commit()
 
+        # Set location if zip code is provided
         if zip_code:
             new_user.set_location_by_zip(zip_code)
 
+        # Commit the changes to the database
         db.session.add(new_user)
         db.session.commit()
-        access_token = new_user.generate_token()
+
+        # Generate a JWT access token for email verification (expires in 10 minutes)
+        access_token = create_access_token(identity=new_user.id, expires_delta=timedelta(minutes=10))
+
+        # Prepare the verification email with the access token
+        verification_link = f"{os.getenv('FRONTEND_URL')}/accountverification/{access_token}"
+        email_body = f"Please verify your account by clicking the link: {verification_link}"
+        
+        # Send the verification email
+        send_email(new_user.email, email_body, "Verification Email for Plant Sitter")
+
+        # Return a successful response
         return jsonify({
-            "message": "User registered successfully",
+            "message": "User registered successfully. Please check your email for verification.",
             "access_token": access_token
         }), 201
+
     except Exception as e:
-        db.session.rollback()
+        db.session.rollback()  # Rollback the transaction in case of any error
         return jsonify({"error": str(e)}), 400
 
+#reset password feature
+@api.route('/reset_password', methods=['POST'])
+def reset_password():
+    data = request.get_json()
+    token = data.get('token')
+    new_password = data.get('new_password')
+
+    try:
+        # Decode the JWT token to get the user ID
+        decoded_token = decode_token(token)
+        user_id = decoded_token['sub']  # The 'sub' field contains the user identity
+    except Exception as e:
+        return jsonify({"error": "Invalid or expired token"}), 400
+
+    # Fetch the user using the decoded user ID
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({"error": "User not found"}), 404
+
+    # Set the new password and commit the change
+    try:
+        user.set_password(new_password)
+        db.session.commit()
+        return jsonify({"message": "Password has been reset successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f"Failed to reset password: {str(e)}"}), 500
+
+
+#forgot password feature
+
+@api.route('/forgot-password', methods=['POST'])
+def forgot_password():
+    data = request.get_json()
+    email = data.get('email')
+    
+    if not email:
+        return jsonify({"error": "Email is required"}), 400
+
+    user = User.query.filter_by(email=email).first()
+    
+    if not user:
+        return jsonify({"error": "If your email is associated with an account, you will receive a password reset email."}), 200
+    
+    # Create a token with an expiration time, e.g., 10 minutes
+    token = create_access_token(identity=user.id, expires_delta=timedelta(minutes=10))
+    
+    reset_link = f"{os.getenv('FRONTEND_URL')}/enternewpassword?token={token}"
+    email_body = f"Click here to reset your password: {reset_link}"
+    send_email(user.email, email_body, "Password Reset Request")
+    
+    return jsonify({"message": "If your email is associated with an account, you will receive a password reset email."}), 200
+
+@api.route('/api/verify/<token>', methods=['GET'])
+def verify_email(token):
+    try:
+        # Decode the token to get the user ID
+        decoded_token = decode_token(token)
+        user_id = decoded_token['sub']  # The 'sub' field contains the user ID
+
+        user = User.query.get(user_id)
+        if not user:
+            return jsonify({"error": "User not found"}), 404
+
+        # Check if user is already verified
+        if user.is_verified:
+            return jsonify({"message": "Account is already verified"}), 200
+
+        # Set the user as verified
+        user.is_verified = True
+        db.session.commit()
+
+        return jsonify({"message": "Your account has been verified successfully."}), 200
+
+    except Exception as e:
+        return jsonify({"error": f"Verification failed: {str(e)}"}), 400
 
 @api.route('/login', methods=['POST'])
 def login():

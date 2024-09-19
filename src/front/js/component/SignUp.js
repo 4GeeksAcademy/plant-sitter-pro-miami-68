@@ -8,6 +8,7 @@ export const SignUp = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
@@ -26,15 +27,20 @@ export const SignUp = () => {
             alert("You must accept the terms and conditions.");
             return;
         }
-
-        const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
-        if (result.success) {
-            navigate('/');
+    
+        if (password === confirmPassword) {
+            const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
+         if (result.success) {
+             navigate('/');
+         } else {
+             alert(result.error || "Sign-up failed. Please try again.");
+         } 
         } else {
-            alert(result.error || "Sign-up failed. Please try again.");
+            alert("Passwords Do Not MATCHH!!");
         }
+        
     };
-
+    
     return (
         <div className="row justify-content-center">
             <div className="col-lg-6 bg-indigo">
@@ -188,6 +194,18 @@ export const SignUp = () => {
                                 className="form-control form-control-lg"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                            />
+                            <label className="form-label" htmlFor="password">Password</label>
+                        </div>
+                    </div>
+                    <div className="mb-2 pb-2">
+                        <div data-mdb-input-init className="form-outline form-white">
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                className="form-control form-control-lg"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
                             />
                             <label className="form-label" htmlFor="password">Password</label>
                         </div>

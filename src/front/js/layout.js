@@ -36,9 +36,14 @@ import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
 import PestControlService from "./pages/PestControlService";
 import PlantCleaningService from "./pages/PlantCleaningService";
-import Chat from "./component/Chat";
-import { PlantSitterProfile } from "./pages/PlantSitterProfile";
+import Chat from './component/Chat';
+import { PlantSitterProfile } from './pages/PlantSitterProfile';
+import { AccountVerification } from "./pages/AccountVerification";
+import { EnterNewPassword } from "./pages/EnterNewPassword";
+import { ForgotPassword } from "./pages/ForgotPassword";
+import { ViewSitters } from "./pages/viewSitters";
 
+//create your first component
 const Layout = () => {
     const basename = process.env.BASENAME || "";
 
@@ -63,6 +68,7 @@ const Layout = () => {
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
                         <Route element={<ProviderMapPage />} path="/provider-map" />
                         <Route element={<ClientMapPage />} path="/client-map" />
+                        <Route element={<ViewSitters />} path="/view-sitters" />
                         <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
                         <Route element={<ClientSignUp1 />} path="/client-signup1" />
                         <Route element={<ProviderSignUp2 />} path="/provider-signup2" />
@@ -82,6 +88,9 @@ const Layout = () => {
                         <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
+                        <Route element={<AccountVerification />} path="/verification" />
+                        <Route element={<ForgotPassword />} path="/forgot-password" />
+                        <Route element={<EnterNewPassword />} path="/enternewpassword" />
                     </Routes>
                     <Chat />
                     <Footer />

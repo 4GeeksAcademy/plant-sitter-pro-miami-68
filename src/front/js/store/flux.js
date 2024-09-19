@@ -50,8 +50,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 
-
-
             // Sign up a new user
             signup: async (email, password, phone, first_name, last_name, address_line_1, address_line_2, city, state, country, zip_code) => {
                 try {
@@ -86,6 +84,46 @@ const getState = ({ getStore, getActions, setStore }) => {
                     }
                 } catch (error) {
                     console.log("Error signing up", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+            //E-mail verification
+            verifyEmail: async (token) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/verify/${token}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    const data = await resp.json();
+                    if (resp.ok) {
+                        return { success: true, data };
+                    } else {
+                        return { success: false, error: data.error };
+                    }
+                } catch (error) {
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },        
+            
+            resetPassword: async (token, new_password) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/reset_password`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ token, new_password })
+                    });
+                    const data = await resp.json();
+                    if (resp.ok) {
+                        return { success: true, data };
+                    } else {
+                        return { success: false, error: data.error };
+                    }
+                } catch (error) {
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },
