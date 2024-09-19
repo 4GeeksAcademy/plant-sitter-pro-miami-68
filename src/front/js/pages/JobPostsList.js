@@ -13,12 +13,14 @@ export const JobPostsList = () => {
             const res = await actions.getJobPosts();
             if (res.success) {
                 setJobPosts(res.data);
+                //actions.clearJobPostId();
             } else {
                 alert("Error fetching job posts.");
             }
         };
         fetchJobPosts();
     }, []);
+
 
     const handleViewJobPost = (jobPostId) => {
         navigate(`/job-post-preview/${jobPostId}`);
