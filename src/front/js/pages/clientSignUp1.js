@@ -24,7 +24,7 @@ export const ClientSignUp1 = () => {
 						<img className="plant mt-3 mb-3" src={plant} />
 						<div className="d-flex justify-content-center">
 							<button
-								type="submit"
+								type="button"
 								className="btn btn-success mb-5 col-6 rounded-pill"
 								onClick={
 									() => {

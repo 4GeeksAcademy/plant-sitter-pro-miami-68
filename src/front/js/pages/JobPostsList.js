@@ -20,6 +20,7 @@ export const JobPostsList = () => {
         fetchJobPosts();
     }, []);
 
+
     const handleViewJobPost = (jobPostId) => {
         navigate(`/job-post-preview/${jobPostId}`);
     };
@@ -36,11 +37,11 @@ export const JobPostsList = () => {
             <div className="row">
                 {jobPosts.map((post) => (
                     <div className="col-md-4 mb-4" key={post.id} onClick={() => handleViewJobPost(post.id)}>
-                        <div className="card" style={{backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%"}}>
-                            <img 
-                                src={post.profile_picture_url || noImage} 
-                                alt="Job Profile Picture" 
-                                className="card-img-top" 
+                        <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%" }}>
+                            <img
+                                src={post.profile_picture_url || noImage}
+                                alt="Job Profile Picture"
+                                className="card-img-top"
                                 style={{ borderRadius: "25px", width: "90%", height: "375px", objectFit: "cover", margin: "auto", marginTop: "20px" }}
                             />
                             <div className="card-body">
@@ -60,6 +61,13 @@ export const JobPostsList = () => {
                         </div>
                     </div>
                 ))}
+                <div
+                    className="upload-job"
+                    onClick={() => navigate("/client-services1")}
+                    style={{ marginTop: "10%", marginLeft: "40px" }}
+                >
+                    <i className="fa fa-plus fa-6x plus-sign"></i>
+                </div>
             </div>
         </div>
     );
