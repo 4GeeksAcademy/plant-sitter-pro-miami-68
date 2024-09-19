@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import "../../styles/enternewpassword.css"
 
 export const EnterNewPassword = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -35,7 +36,7 @@ export const EnterNewPassword = () => {
 
     return (
         <div>
-            <style>{`
+            {/* <style>{`
                 .new-password-container {
                     width: 100%;
                     max-width: 500px;
@@ -100,7 +101,7 @@ export const EnterNewPassword = () => {
                     border-radius: 5px;
                     font-size: 14px;
                 }
-            `}</style>
+            `}</style> */}
 
             <div className="new-password-container">
                 <h1 className="new-password-header">Enter New Password</h1>
