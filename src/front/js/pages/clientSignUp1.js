@@ -11,7 +11,7 @@ export const ClientSignUp1 = () => {
 	useEffect(() => {
 		const token = sessionStorage.getItem("token");
 		if (token) {
-			navigate("/client-services1");
+			navigate("/client-signup1");
 		}
 	}, [navigate]);
 
