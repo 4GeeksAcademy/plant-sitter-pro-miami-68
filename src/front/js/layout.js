@@ -25,7 +25,6 @@ import { JobPostUpdate } from "./pages/JobPostUpdate";
 import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
-import { HowItWorks } from "./pages/howItWorks";
 import { Blog } from "./pages/blog";
 import AccountSettings from "./pages/account";
 import { PersonalInfo } from "./pages/PersonalInfo";
@@ -42,6 +41,9 @@ import { AccountVerification } from "./pages/AccountVerification";
 import { EnterNewPassword } from "./pages/EnterNewPassword";
 import { ForgotPassword } from "./pages/ForgotPassword";
 import { ViewSitters } from "./pages/viewSitters";
+import { Cancel } from "./pages/cancel";
+import { ProviderLandingPage } from "./pages/providerLandingPage";
+import { ClientLandingPage } from "./pages/clientLandingPage";
 
 //create your first component
 const Layout = () => {
@@ -57,7 +59,6 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<ContactUs />} path="/contact-us" />
-                        <Route element={<HowItWorks />} path="/how-it-works" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<ProviderServices />} path="/provider-services" />
                         <Route element={<ClientServices1 />} path="/client-services1" />
@@ -91,6 +92,9 @@ const Layout = () => {
                         <Route element={<AccountVerification />} path="/verification" />
                         <Route element={<ForgotPassword />} path="/forgot-password" />
                         <Route element={<EnterNewPassword />} path="/enternewpassword" />
+                        <Route element={<Cancel />} path="/cancel" />
+                        <Route element={<ProviderLandingPage />} path="/provider-landing" />
+                        <Route element={<ClientLandingPage />} path="/client-landing" />
                     </Routes>
                     <Chat />
                     <Footer />

@@ -41,7 +41,7 @@ export const ViewSitters = () => {
 						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿 Find and hire vetted, qualitifed help near you.</p>
 						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿 Background checks completed for all plant sitters.</p>
 						<h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}><strong>✔️ Affordable</strong></h4>
-						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿Pay only $5/month to post unlimited jobs.</p>
+						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿Pay only $__ /month to post unlimited jobs.</p>
 						<p className="mb-4" style={{ fontSize: "1.5vw" }}>🌿Choose your own rate per job.</p>
 						<h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}><strong>✔️ Convenient</strong></h4>
 						<p className="mb-0" style={{ fontSize: "1.5vw" }}>🌿 Cancel any time.</p>
@@ -52,7 +52,7 @@ export const ViewSitters = () => {
 
 			<div className="container mt-5 col-3">
 				<button
-					type="submit"
+					type="button"
 					className="btn col-12 rounded-pill mt-2"
 					onClick={
 						() => {
