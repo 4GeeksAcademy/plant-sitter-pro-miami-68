@@ -38,7 +38,7 @@ export const Home = () => {
 								<h4 style={{ fontSize: "1.5vw" }}>🌿Love plants, but kill them?</h4>
 								<div className="container text-start">
 									<button
-										type="submit"
+										type="button"
 										className="btn col-12 rounded-pill mt-2"
 										onClick={
 											() => {
@@ -66,7 +66,7 @@ export const Home = () => {
 								<h4 style={{ fontSize: "1.5vw" }}>🌿Experienced with plant care?</h4>
 								<div className="container text-start">
 									<button
-										type="submit"
+										type="button"
 										className="btn col-12 rounded-pill mt-2"
 										onClick={
 											() => {
@@ -103,7 +103,7 @@ export const Home = () => {
 						</div>
 						<div className="container col-3">
 							<button
-								type="submit"
+								type="button"
 								className="btn col-12 rounded-pill mt-2"
 								onClick={
 									() => {
@@ -151,7 +151,7 @@ export const Home = () => {
 					<div className="row d-flex">
 						<div className="container col-3">
 							<button
-								type="submit"
+								type="button"
 								className="btn col-12 rounded-pill mt-2"
 								onClick={
 									() => {
