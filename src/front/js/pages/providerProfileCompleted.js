@@ -51,17 +51,6 @@ export const ProviderProfileCompleted = () => {
             <div className="row container-fluid mt-4">
                 <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
 
-                <div className="container row mb-2">
-                    <button
-                        className="edit editButton"
-                        onClick={() => {
-                            navigate("/provider-profile")
-                        }}
-                    >
-                        Edit <i className="fas fa-pencil-alt"></i>
-                    </button>
-                </div>
-
                 <div className="col bckgrnd rounded p-3 m-2">
                     <div data-mdb-input-init className="form-outline form-white">
                         <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
@@ -109,17 +98,32 @@ export const ProviderProfileCompleted = () => {
                     </div>
                 </div>
             </div>
-            <button
-                type="submit"
-                className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                onClick={
-                    () => {
-                        navigate('/provider-landing')
-                    }
-                }
+
+            <div
+                className="container-fluid row mb-2"
             >
-                Publish My Profile
-            </button>
+                <div className="col-4"></div>
+                <button
+                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                    onClick={() => {
+                        navigate("/provider-profile")
+                    }}
+                >
+                    Edit <i className="fas fa-pencil-alt"></i>
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                    onClick={
+                        () => {
+                            navigate('/provider-landing')
+                        }
+                    }
+                >
+                    Publish My Profile
+                </button>
+                <div className="col-4"></div>
+            </div>
         </div>
     );
 };
