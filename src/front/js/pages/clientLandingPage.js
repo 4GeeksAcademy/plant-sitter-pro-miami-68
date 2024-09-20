@@ -116,9 +116,37 @@ export const ClientLandingPage = () => {
                                 className="edit-profile"
                                 onClick={() => navigate('/client-services1')}
                             >
-                                <i className="fa-solid fa-pencil" />
+                                <i className="fa fa-plus fa-2x" />
                             </div>
                         </div>
+                        <input
+                            className="file-uploader"
+                            type="file"
+                            onChange={(e) => {
+                                const image = e.target.files[0];
+                                if (!image.type.includes('image')) {
+                                    return alert('Only images are allowed!');
+                                }
+
+                                if (image.size > 10_000_000) {
+                                    return alert('Maximum upload size is 10MB!');
+                                }
+
+                                if (image) {
+                                    const fileReader = new FileReader();
+                                    fileReader.readAsDataURL(image);
+
+                                    fileReader.onload = (fileReaderEvent) => {
+                                        setPicture(fileReaderEvent.target.result);
+                                    }
+                                }
+                            }}
+                            accept="image/*"
+                        />
+                    
+                        
+                        
+                      
                     </div>
                     <div className="col text-end">
                         <h4 className="diphylleia-regular mb-0"><strong>Subscriber Since</strong></h4>

@@ -19,9 +19,9 @@ import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 
 
-export const JobPost2= () => {
-	const { store, actions } = useContext(Context);
-	const navigate = useNavigate();
+export const JobPost2 = () => {
+    const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -64,7 +64,7 @@ export const JobPost2= () => {
                 setPicture(res.data.profile_picture_url);
                 setMoreAboutPlants(res.data.more_about_your_plants);
                 setMoreAboutServices(res.data.more_about_services);
-                setJobDuration(res.data. job_duration);
+                setJobDuration(res.data.job_duration);
                 setJobServices(JSON.parse(res.data.service_preferences));
                 setJobPlants(JSON.parse(res.data.my_plants));
             }
@@ -81,12 +81,12 @@ export const JobPost2= () => {
     console.log(jobServices);
     console.log(jobPlants);
 
-	return (
-		<div className="text-center m-2 mt-4">
+    return (
+        <div className="text-center m-2 mt-4">
             <div className="row container-fluid mt-4">
                 <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
-                
-                <div className="container row mb-2">   
+
+                {/* <div className="container row mb-2">   
                 <button 
                     className="edit editButton" 
                     onClick={() => {
@@ -96,17 +96,19 @@ export const JobPost2= () => {
                 >
                     Edit <i className="fas fa-pencil-alt"></i>
                 </button>
-                </div> 
+                </div>  */}
 
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About Me</strong></h2>
-                    <img 
-                        className="m-auto" 
+                    <div
+                        className="profile-picture m-auto mb-4"
                         style={{
-                            maxHeight: '250px'
+                            backgroundImage: picture ? `url(${picture})` : '',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
                         }}
-                        src={picture}
-                    />
+                    >
+                    </div>
                     <div data-mdb-input-init className="form-outline form-white">
                         <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
                         <h3 className="text-white mb-3 diphylleia-regular jobs"><strong>{city}, {state}</strong></h3>
@@ -115,13 +117,13 @@ export const JobPost2= () => {
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
                         {/* <JobServices /> */}
 
-                        <div className="container plantImageWrapper p-0">   
+                        <div className="container plantImageWrapper p-0">
                             {jobServices.map((image, index) => {
-                                if(image == "Watering") {
+                                if (image == "Watering") {
                                     return (
                                         <div className="selectPlants" key={index}>
                                             <div className="plantImageContainer plants" >
-                                                <img 
+                                                <img
                                                     src={watering}
                                                     className="selectPlantsCompleted"
                                                     alt={`Picture of plant type ${image}`}
@@ -131,11 +133,11 @@ export const JobPost2= () => {
                                         </div>
                                     )
                                 }
-                                if(image == "Cleaning") {
+                                if (image == "Cleaning") {
                                     return (
                                         <div className="selectPlants" key={index}>
                                             <div className="plantImageContainer plants" >
-                                                <img 
+                                                <img
                                                     src={cleaning}
                                                     className="selectPlantsCompleted"
                                                     alt={`Picture of plant type ${image}`}
@@ -145,11 +147,11 @@ export const JobPost2= () => {
                                         </div>
                                     )
                                 }
-                                if(image == "Pruning") {
+                                if (image == "Pruning") {
                                     return (
                                         <div className="selectPlants" key={index}>
                                             <div className="plantImageContainer plants" >
-                                                <img 
+                                                <img
                                                     src={pruning}
                                                     className="selectPlantsCompleted"
                                                     alt={`Picture of plant type ${image}`}
@@ -159,11 +161,11 @@ export const JobPost2= () => {
                                         </div>
                                     )
                                 }
-                                if(image == "Repotting") {
+                                if (image == "Repotting") {
                                     return (
                                         <div className="selectPlants" key={index}>
                                             <div className="plantImageContainer plants" >
-                                                <img 
+                                                <img
                                                     src={repotting}
                                                     className="selectPlantsCompleted"
                                                     alt={`Picture of plant type ${image}`}
@@ -173,11 +175,11 @@ export const JobPost2= () => {
                                         </div>
                                     )
                                 }
-                                if(image == "Pest Control") {
+                                if (image == "Pest Control") {
                                     return (
                                         <div className="selectPlants" key={index}>
                                             <div className="plantImageContainer plants" >
-                                                <img 
+                                                <img
                                                     src={pestControl}
                                                     className="selectPlantsCompleted"
                                                     alt={`Picture of plant type ${image}`}
@@ -187,157 +189,185 @@ export const JobPost2= () => {
                                         </div>
                                     )
                                 }
-                                })}
+                            })}
                         </div>
 
                     </div>
                 </div>
-                    <div className="col bckgrnd rounded p-3 m-2">
-                        <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
-                        <div className="d-flex justify-content-center">
-                            {/* <JobPlants /> */}
+                <div className="col bckgrnd rounded p-3 m-2">
+                    <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
+                    <div className="d-flex justify-content-center">
+                        {/* <JobPlants /> */}
 
-                            <div className="container plantImageWrapper p-0">   
-                                {jobPlants.map((image, index) => {
-                                    if(image == "Standard House Plants") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={usual}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                        <div className="container plantImageWrapper p-0">
+                            {jobPlants.map((image, index) => {
+                                if (image == "Standard House Plants") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={usual}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Outdoor Potted Plants") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={outdoors}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Outdoor Potted Plants") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={outdoors}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Succulents") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={succulents}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Succulents") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={succulents}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Orchids") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={orchids}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Orchids") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={orchids}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Unusual / Rare") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={unusual}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Unusual / Rare") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={unusual}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Carnivorous") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={carnivorous}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Carnivorous") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={carnivorous}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Landscape") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={landscape}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Landscape") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={landscape}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    if(image == "Vegetable Gardens") {
-                                        return (
-                                            <div className="selectPlants" key={index}>
-                                                <div className="plantImageContainer plants" >
-                                                    <img 
-                                                        src={veggies}
-                                                        className="selectPlantsCompleted"
-                                                        alt={`Picture of plant type ${image}`}
-                                                    />
-                                                </div>
-                                                <p className="text-white mb-0"><strong>{image}</strong></p>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                                if (image == "Vegetable Gardens") {
+                                    return (
+                                        <div className="selectPlants" key={index}>
+                                            <div className="plantImageContainer plants" >
+                                                <img
+                                                    src={veggies}
+                                                    className="selectPlantsCompleted"
+                                                    alt={`Picture of plant type ${image}`}
+                                                />
                                             </div>
-                                        )
-                                    }
-                                    })}
-                            </div>
+                                            <p className="text-white mb-0"><strong>{image}</strong></p>
+                                        </div>
+                                    )
+                                }
+                            })}
+                        </div>
 
-                        </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>About my plants and their needs:</strong></label>
-                        <div className="input-group mb-1">
-                            <p className="fs-4 text-white description">{moreAboutPlants}</p>
-                        </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>More about what I need:</strong></label>
-                        <div className="input-group mb-1">
-                            <p className="fs-4 text-white description">{moreAboutServices}</p>
-                        </div>
                     </div>
-                    <div className="col bckgrnd rounded p-3 m-2">
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>About my plants and their needs:</strong></label>
+                    <div className="input-group mb-1">
+                        <p className="fs-4 text-white description">{moreAboutPlants}</p>
+                    </div>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>More about what I need:</strong></label>
+                    <div className="input-group mb-1">
+                        <p className="fs-4 text-white description">{moreAboutServices}</p>
+                    </div>
+                </div>
+                <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help on these dates:</strong></label>
-                        <div className="mt-3 mb-3">
-                            <img src={calendar} className="plants img-fluid"/>  
-                        </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
-                        <div className="input-group mb-2">
-                            <p className="fs-4 text-white description">{jobDuration}</p>
-                        </div>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help on these dates:</strong></label>
+                    <div className="mt-3 mb-3">
+                        <img src={calendar} className="plants img-fluid" />
                     </div>
+                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
+                    <div className="input-group mb-2">
+                        <p className="fs-4 text-white description">{jobDuration}</p>
+                    </div>
+                </div>
             </div>
-            <button
+
+            <div
+                className="container-fluid row mb-2"
+            >
+                <div className="col-4"></div>
+                <button
+                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                    onClick={() => {
+                        actions.setJobPostDetails({ id: job_post_id });
+                        navigate("/client-services1");
+                    }}
+                >
+                    Edit <i className="fas fa-pencil-alt"></i>
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                    onClick={
+                        () => {
+                            navigate('/job-posts')
+                        }
+                    }
+                >
+                    Publish
+                </button>
+                <div className="col-4"></div>
+            </div>
+
+            {/* <button
                 type="submit" 
                 className="btn mb-3 mt-3 col-2 rounded-pill"
                 onClick={
@@ -347,7 +377,7 @@ export const JobPost2= () => {
                 }
             >
                 Submit
-            </button>
+            </button> */}
         </div>
-	);
+    );
 };
