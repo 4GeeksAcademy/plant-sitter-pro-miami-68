@@ -5,11 +5,12 @@ import plantPic from "../../img/plants-on-stand.jpg";
 import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
 
-export const ProviderSignUp2= () => {
+export const ProviderSignUp2 = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
@@ -21,7 +22,7 @@ export const ProviderSignUp2= () => {
     const { actions } = useContext(Context);
     const navigate = useNavigate();
 
-	useEffect(() => {
+    useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (token) {
             navigate("/provider-services");
@@ -29,6 +30,7 @@ export const ProviderSignUp2= () => {
     }, [navigate]);
 
     const handleSubmit = async (e) => {
+        if (e.type === "keydown" && e.key !== "Enter") return
         e.preventDefault();
 
         if (!termsAccepted) {
@@ -36,12 +38,14 @@ export const ProviderSignUp2= () => {
             return;
         }
 
-        const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
-        if (result.success) {
-            navigate('/provider-services');
-        } else {
-            alert(result.error || "Sign-up failed. Please try again.");
-        }
+        if (password === confirmPassword) {
+            const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
+            if (result.success) {
+                navigate('/provider-services');
+            } else {
+                alert(result.error || "Sign-up failed. Please try again.");
+            }
+        };
     };
 
     return (
@@ -117,17 +121,17 @@ export const ProviderSignUp2= () => {
                         </div>
 
                         <div className="col-md-5 mb-2 pb-2">
-						<div data-mdb-input-init>
-							<input 
-                                type="text" 
-                                id="state" 
-                                className="form-control form-control-lg"
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                            />
-							<label className="form-label" for="state">State</label>
-						</div>
-					</div>
+                            <div data-mdb-input-init>
+                                <input
+                                    type="text"
+                                    id="state"
+                                    className="form-control form-control-lg"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                                <label className="form-label" for="state">State</label>
+                            </div>
+                        </div>
 
                         <div className="col-md-2 mb-2 pb-2">
                             <div data-mdb-input-init>
@@ -194,6 +198,18 @@ export const ProviderSignUp2= () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <label className="form-label" htmlFor="password">Password</label>
+                        </div>
+                    </div>
+                    <div className="mb-2 pb-2">
+                        <div data-mdb-input-init className="form-outline form-white">
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                className="form-control form-control-lg"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            <label className="form-label" htmlFor="password">Confirm Password</label>
                         </div>
                     </div>
 

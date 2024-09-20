@@ -24,6 +24,7 @@ export const SignUp = () => {
 
 
     const handleSubmit = async (e) => {
+        if (e.type === "keydown" && e.key !== "Enter") return
         e.preventDefault();
 
         if (!termsAccepted) {

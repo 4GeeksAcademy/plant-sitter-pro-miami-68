@@ -38,6 +38,7 @@ export const ForgotPassword = () => {
 	};
 
 	async function handleSubmit(event) {
+		if (e.type === "keydown" && e.key !== "Enter") return
 		event.preventDefault();
 		if (!hasToken) {
 			// No token, this means the user is in the "Reset Password" stage

@@ -21,6 +21,7 @@ const LoginSecurity = () => {
   };
 
   const handleSubmit = async (e) => {
+    if (e.type === "keydown" && e.key !== "Enter") return
     e.preventDefault();
     
     // Simple password validation
