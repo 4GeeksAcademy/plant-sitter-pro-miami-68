@@ -13,7 +13,7 @@ export const Login = () => {
   const handleLogin = async () => {
     const response = await actions.login(email, password);
     if (response.success) {
-      navigate("/");
+      navigate("/account-settings");
     } else {
       setError(response.error);
     }
@@ -22,10 +22,15 @@ export const Login = () => {
   return (
     <div className="row justify-content-center">
       <div className="col-lg-6 bg-indigo">
-        <h1 className="fw-normal mb-5 mt-5 diphylleia-regular jobs">
+        <h1 className="fw-normal mt-5 diphylleia-regular jobs">
           Log in to your account
         </h1>
-
+        <p className="text-center mt-2 mb-5">
+          Don't have an account?{" "}
+          <a href="/signup">
+            <u>Sign up</u>
+          </a>
+        </p>
         <div className="mb-2">
           <div data-mdb-input-init className="form-outline form-white">
             <input
@@ -73,7 +78,7 @@ export const Login = () => {
         <div className="d-flex justify-content-center">
           <button
             type="button"
-            className="btn btn-success mb-5 col-5 rounded-pill"
+            className="btn btn-success mb-3 col-5 rounded-pill"
             onClick={handleLogin}
           >
             Log In
@@ -81,15 +86,9 @@ export const Login = () => {
         </div>
         <div className="text-center">
           <p>
-            Don't have an account?{" "}
-            <a href="/signup">
-              <u>Sign up</u>
+            <a href="/forgot-password">
+              <u>Forgot Password?</u>
             </a>
-            <p>
-              <a href="/forgot-password">
-                <u>Forgot Password?</u>
-              </a>
-            </p>
           </p>
         </div>
       </div>

@@ -38,10 +38,11 @@ export const Home = () => {
 								<h4 style={{ fontSize: "1.5vw" }}>🌿Love plants, but kill them?</h4>
 								<div className="container text-start">
 									<button
-										type="submit"
+										type="button"
 										className="btn col-12 rounded-pill mt-2"
 										onClick={
 											() => {
+												actions.clearJobPostId();
 												navigate('/client-map')
 											}
 										}
@@ -66,7 +67,7 @@ export const Home = () => {
 								<h4 style={{ fontSize: "1.5vw" }}>🌿Experienced with plant care?</h4>
 								<div className="container text-start">
 									<button
-										type="submit"
+										type="button"
 										className="btn col-12 rounded-pill mt-2"
 										onClick={
 											() => {
@@ -99,14 +100,15 @@ export const Home = () => {
 
 					<div className="row d-flex">
 						<div className="col-7">
-							<h1 className="diphylleia-regular lp-headers"><strong>How it works</strong></h1>
+							<h1 className="diphylleia-regular lp-headers" id="how-it-works"><strong>How it works</strong></h1>
 						</div>
 						<div className="container col-3">
 							<button
-								type="submit"
+								type="button"
 								className="btn col-12 rounded-pill mt-2"
 								onClick={
 									() => {
+										actions.clearJobPostId();
 										navigate('/client-map')
 									}
 								}
@@ -127,7 +129,7 @@ export const Home = () => {
 					<h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}><strong>2. Sign up for an account and tell us about your needs 🌿 </strong></h4>
 					<p className="mb-4" style={{ fontSize: "1.5vw" }}>Share what kind of help you need and when you need it.</p>
 					<h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}><strong>3. Post jobs and secure the plant care services that you need 🌿 </strong></h4>
-					<p className="mb-4" style={{ fontSize: "1.5vw" }}>Chat directly with plant sitters near you and choose who to hire.</p>
+					<p className="mb-4" style={{ fontSize: "1.5vw" }}>Plant sitters apply to jobs that you post and you choose who to hire.</p>
 
 				</div>
 			</div>
@@ -151,7 +153,7 @@ export const Home = () => {
 					<div className="row d-flex">
 						<div className="container col-3">
 							<button
-								type="submit"
+								type="button"
 								className="btn col-12 rounded-pill mt-2"
 								onClick={
 									() => {

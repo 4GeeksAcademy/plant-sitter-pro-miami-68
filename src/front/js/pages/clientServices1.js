@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect  } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import DatePicker from "react-datepicker";
@@ -31,13 +31,26 @@ export const ClientServices1 = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchUserData = async () => {
-            if (!store.user) {
-                await actions.getUser();
+        const fetchData = async () => {
+            setLoading(true);
+
+            if (store.jobPostDetails.id) {
+                const res = await actions.getJobPostById(store.jobPostDetails.id);
+                if (res.success && res.data) {
+                    setStartDate(new Date(res.data.start_date));
+                    setEndDate(new Date(res.data.end_date));
+                    setSelectedPlants(JSON.parse(res.data.my_plants));
+                    setSelectedServices(JSON.parse(res.data.service_preferences));
+                }
+            } else {
+                if (!store.user) {
+                    await actions.getUser();
+                }
             }
             setLoading(false);
         };
-        fetchUserData();
+
+        fetchData();
     }, []);
 
     const handlePlantSelection = (plant) => {
@@ -60,21 +73,27 @@ export const ClientServices1 = () => {
         return selectedItems.includes(item) ? "text-warning" : "text-white";
     };
 
-    const handleNext = () => {
-        actions.setJobPostDetails({
+    const handleNext = async () => {
+        await actions.setJobPostDetails({
+            id: store.jobPostDetails.id || null,
             startDate,
             endDate,
             selectedPlants,
             selectedServices,
         });
-        navigate('/job-post');
+
+        if (store.jobPostDetails.id) {
+            navigate(`/job-post-update/${store.jobPostDetails.id}`);
+        } else {
+            navigate('/job-post');
+        }
     };
 
     return (
         <div className="text-center m-5">
             <h1 className="diphylleia-regular">Welcome {store.user?.first_name}!</h1>
             <img className="divider" src={border} alt="divider" />
-            <h3 className="diphylleia-regular mt-1"><strong>How frequently do you want help?</strong></h3>
+            <h3 className="diphylleia-regular mt-1"><strong>When do you need help?</strong></h3>
             <div className="d-flex row client-services">
                 <div className="col scheduler">
                     <div className="m-auto bg-white rounded p-2 calendar">

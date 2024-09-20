@@ -14,7 +14,6 @@ from api.models import db, User
 from flask import current_app as app
 from flask import jsonify
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired, BadSignature
-# from utils import generate_verification_token
 from api.send_email import send_email
 import os
 from api.utils import generate_sitemap, APIException
@@ -55,17 +54,6 @@ def refresh_token():
 #---------------------endpoints for Users
 
 @api.route('/signup', methods=['POST'])
-# Function to send the verification email
-# def send_verification_email(user_email, token):
-#     verify_url = f"{app.config['FRONTEND_URL']}/verify/{token}"
-#     msg = Message(
-#         'Verify Your Email',
-#         sender='noreply@example.com',
-#         recipients=[user_email]
-#     )
-#     msg.body = f'Please click the link to verify your email: {verify_url}'
-#     mail.send(msg)
-
 def signup():
     data = request.get_json()
     email = data.get('email')
@@ -120,7 +108,7 @@ def signup():
         access_token = create_access_token(identity=new_user.id, expires_delta=timedelta(minutes=10))
 
         # Prepare the verification email with the access token
-        verification_link = f"{os.getenv('FRONTEND_URL')}/accountverification/{access_token}"
+        verification_link = f"{os.getenv('FRONTEND_URL')}/verification?token={access_token}"
         email_body = f"Please verify your account by clicking the link: {verification_link}"
         
         # Send the verification email
@@ -190,8 +178,11 @@ def forgot_password():
     
     return jsonify({"message": "If your email is associated with an account, you will receive a password reset email."}), 200
 
-@api.route('/api/verify/<token>', methods=['GET'])
-def verify_email(token):
+@api.route('/verify', methods=['GET'])
+def verify_email():
+    token=request.args.get("token")
+    print("something",token) 
+
     try:
         # Decode the token to get the user ID
         decoded_token = decode_token(token)
@@ -491,7 +482,57 @@ def create_job_post():
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
+
+
+
+@api.route('/job_posts/<int:job_post_id>', methods=['PUT'])
+@jwt_required()
+def update_job_post(job_post_id):
+    data = request.form
+    user_id = get_jwt_identity()
+
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    if not job_post:
+        return jsonify({"error": "Job post not found"}), 404
+
+    profile_picture_base64 = data.get('profile_picture')
+    if profile_picture_base64:
+        try:
+            upload_result = cloudinary.uploader.upload(profile_picture_base64, folder="job_posts_profiles")
+            job_post.profile_picture_url = upload_result['secure_url']
+        except Exception as e:
+            return jsonify({"error": f"Image upload failed: {str(e)}"}), 500
+
+    job_post.address_line_1 = data.get('address_line_1', job_post.address_line_1)
+    job_post.address_line_2 = data.get('address_line_2', job_post.address_line_2)
+    job_post.city = data.get('city', job_post.city)
+    job_post.state = data.get('state', job_post.state)
+    job_post.country = data.get('country', job_post.country)
+    job_post.zip_code = data.get('zip_code', job_post.zip_code)
+    job_post.start_date = data.get('start_date', job_post.start_date)
+    job_post.end_date = data.get('end_date', job_post.end_date)
+    job_post.service_preferences = data.get('service_preferences', job_post.service_preferences)
+    job_post.my_plants = data.get('my_plants', job_post.my_plants)
+    job_post.intro = data.get('intro', job_post.intro)
+    job_post.more_about_your_plants = data.get('more_about_plants', job_post.more_about_your_plants)
+    job_post.more_about_services = data.get('more_about_services', job_post.more_about_services)
+    job_post.job_duration = data.get('job_duration', job_post.job_duration)
+
+    new_zip_code = data.get('zip_code')
+    if new_zip_code and new_zip_code != job_post.zip_code:
+        try:
+            job_post.set_location_by_zip(new_zip_code)
+        except ValueError as geolocation_error:
+            return jsonify({"error": f"Geolocation failed: {str(geolocation_error)}"}), 400
+
+    try:
+        db.session.commit()
+        return jsonify(job_post.serialize()), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
         
+
 
 @api.route('/job_posts', methods=['GET'])
 @jwt_required()
