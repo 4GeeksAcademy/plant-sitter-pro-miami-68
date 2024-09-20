@@ -2,14 +2,16 @@ import React from "react";
 
 const Payouts = () => {
   const handlePayout = async () => {
+    const token = sessionStorage.getItem("token");
     // Example call to your backend to trigger a payout
     const response = await fetch(process.env.BACKEND_URL + "/api/payout", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify({
-        providerId: "provider_stripe_account_id", // Replace with actual Stripe Account ID
+        // providerId: "provider_stripe_account_id", // Replace with actual Stripe Account ID
         amount: 5000, // Payout amount in cents
       }),
     });
