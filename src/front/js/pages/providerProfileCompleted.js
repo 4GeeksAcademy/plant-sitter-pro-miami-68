@@ -6,8 +6,8 @@ import { PlantCard } from "../component/PlantCard";
 import { ServiceCard } from "../component/ServiceCard";
 
 export const ProviderProfileCompleted = () => {
-	const { store, actions } = useContext(Context);
-	const navigate = useNavigate();
+    const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [professionalExperience, setProfessionalExperience] = useState("");
@@ -46,29 +46,29 @@ export const ProviderProfileCompleted = () => {
         fetchData();
     }, []);
 
-	return (
-		<div className="text-center m-2">
+    return (
+        <div className="text-center m-2">
             <div className="row container-fluid mt-4">
                 <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
-                
-                <div className="container row mb-2">   
-                    <button 
-                        className="edit editButton" 
+
+                <div className="container row mb-2">
+                    <button
+                        className="edit editButton"
                         onClick={() => {
                             navigate("/provider-profile")
                         }}
                     >
                         Edit <i className="fas fa-pencil-alt"></i>
                     </button>
-                </div> 
+                </div>
 
                 <div className="col bckgrnd rounded p-3 m-2">
                     <div data-mdb-input-init className="form-outline form-white">
                         <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
                         <h3>{city}, {state}</h3>
                     </div>
-                    <img 
-                        className="profile-picture m-auto" 
+                    <img
+                        className="profile-picture m-auto"
                         style={{
                             maxHeight: '250px'
                         }}
@@ -78,7 +78,7 @@ export const ProviderProfileCompleted = () => {
                         <p className="fs-4 mt-4 text-white description">{intro}</p>
                     </div>
                     <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>I can provide the following services:</strong></h3>
-                    <ServiceCard/>
+                    <ServiceCard />
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
@@ -108,16 +108,16 @@ export const ProviderProfileCompleted = () => {
                 </div>
             </div>
             <button
-                type="submit" 
+                type="submit"
                 className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
                 onClick={
                     () => {
-                        navigate('/view-jobs')
+                        navigate('/provider-landing')
                     }
                 }
             >
                 Next
             </button>
         </div>
-	);
+    );
 };

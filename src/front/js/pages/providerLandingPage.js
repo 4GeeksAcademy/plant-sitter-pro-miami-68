@@ -6,8 +6,8 @@ import { PlantCard } from "../component/PlantCard";
 import { ServiceCard } from "../component/ServiceCard";
 
 export const ProviderLandingPage = () => {
-	const { store, actions } = useContext(Context);
-	const navigate = useNavigate();
+    const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [professionalExperience, setProfessionalExperience] = useState("");
@@ -46,12 +46,20 @@ export const ProviderLandingPage = () => {
         fetchData();
     }, []);
 
-	return (
-		<div className="text-center m-2">
+    return (
+        <div className="text-center m-2">
             <div className="row container-fluid mt-4">
-                <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
-                
-                <div className="container row mb-2">   
+                <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is the Plant Sitter Landing Page.</strong></h2>
+                <div
+                    className="pt-5"
+                    style={{ border: "1px solid black", borderRadius: "10px", width: "200px", height: "200px" }}
+                >
+                    <p>Jobs Applied to</p>
+                    <p>Notification</p>
+                </div>
+
+
+                {/* <div className="container row mb-2">   
                     <button 
                         className="edit editButton" 
                         onClick={() => {
@@ -60,8 +68,8 @@ export const ProviderLandingPage = () => {
                     >
                         Edit <i className="fas fa-pencil-alt"></i>
                     </button>
-                </div> 
-
+                </div>  */}
+                {/* 
                 <div className="col bckgrnd rounded p-3 m-2">
                     <div data-mdb-input-init className="form-outline form-white">
                         <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
@@ -117,7 +125,8 @@ export const ProviderLandingPage = () => {
                 }
             >
                 Next
-            </button>
+            </button> */}
+            </div>
         </div>
-	);
+    );
 };
