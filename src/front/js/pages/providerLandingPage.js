@@ -47,85 +47,62 @@ export const ProviderLandingPage = () => {
     }, []);
 
     return (
-        <div className="text-center m-2">
+        <div className="container-fluid">
+            <div
+                className="row mb-4 mt-4"
+                style={{ marginLeft: "30px" }}
+            >
+                <div className="profile-container row">
+                    <div className="col">
+                        <div
+                            className="landing-profile ml-3"
+                            style={{
+                                backgroundImage: picture ? `url(${picture})` : '',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center'
+                            }}
+                            onClick={() => navigate('/provider-profile')}
+                        >
+                        </div>
+                    <div className="middle">
+                        <div className="edit-profile">
+                            <i className="fa-solid fa-pencil" />
+                        </div>
+                    </div>
+                    </div>
+                    <div className="col text-end">
+                        <h4 className="diphylleia-regular mb-0"><strong>Plant Sitter Since</strong></h4>
+                        <h4 className="diphylleia-regular mt-0">October 2024</h4>
+                    </div>
+                </div>
+                <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
+                <h3>{city}, {state}</h3>
+            </div>
+
             <div className="row container-fluid mt-4">
-                <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is the Plant Sitter Landing Page.</strong></h2>
+                <h2 className="mb-3 mt-3 diphylleia-regular">
+                    <strong>Your Options</strong>
+                </h2>
+                {/* Insert component showing jobs within search radius */}
                 <div
-                    className="pt-5"
+                    className="pt-5 text-center"
                     style={{ border: "1px solid black", borderRadius: "10px", width: "200px", height: "200px" }}
                 >
-                    <p>Jobs Applied to</p>
-                    <p>Notification</p>
+                    <p>Component Showing</p>
+                    <p>Jobs in Search Radius</p>
                 </div>
 
-
-                {/* <div className="container row mb-2">   
-                    <button 
-                        className="edit editButton" 
-                        onClick={() => {
-                            navigate("/provider-profile")
-                        }}
-                    >
-                        Edit <i className="fas fa-pencil-alt"></i>
-                    </button>
-                </div>  */}
-                {/* 
-                <div className="col bckgrnd rounded p-3 m-2">
-                    <div data-mdb-input-init className="form-outline form-white">
-                        <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
-                        <h3>{city}, {state}</h3>
-                    </div>
-                    <img 
-                        className="profile-picture m-auto" 
-                        style={{
-                            maxHeight: '250px'
-                        }}
-                        src={picture}
-                    />
-                    <div data-mdb-input-init className="form-outline form-white">
-                        <p className="fs-4 mt-4 text-white description">{intro}</p>
-                    </div>
-                    <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>I can provide the following services:</strong></h3>
-                    <ServiceCard/>
+                <h2 className="mb-3 mt-3 diphylleia-regular">
+                    <strong>Your Jobs</strong>
+                </h2>
+                {/* Insert component showing jobs */}
+                <div
+                    className="pt-3 text-center"
+                    style={{ border: "1px solid black", borderRadius: "10px", width: "200px", height: "200px" }}
+                >
+                    <p>Component Showing</p>
+                    <p>Jobs applied to & upcoming jobs (differently colored / in different colums)</p>
                 </div>
-                <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
-                    <div className="input-group mb-3">
-                        <p className="fs-4 text-white description">{clientInfo}</p>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My plants:</strong></label>
-                    <div className="input-group mb-3">
-                        <p className="fs-4 text-white description">{currentPlants}</p>
-                    </div>
-
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My background and experience:</strong></label>
-                    <div className="input-group mb-3">
-                        <p className="fs-4 text-white description">{professionalExperience}</p>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things I'd like to share:</strong></label>
-                    <div className="input-group justify-contents-center mb-3">
-                        <p className="fs-4 text-white description">{extraInfo}</p>
-                    </div>
-                </div>
-                <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-3"><strong>I am comfortable caring for:</strong></h2>
-                    <div className="d-flex justify-content-center">
-                        <PlantCard />
-                    </div>
-                </div>
-            </div>
-            <button
-                type="submit" 
-                className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                onClick={
-                    () => {
-                        navigate('/view-jobs')
-                    }
-                }
-            >
-                Next
-            </button> */}
             </div>
         </div>
     );

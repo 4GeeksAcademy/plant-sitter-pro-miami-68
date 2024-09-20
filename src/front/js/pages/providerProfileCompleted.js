@@ -67,13 +67,15 @@ export const ProviderProfileCompleted = () => {
                         <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
                         <h3>{city}, {state}</h3>
                     </div>
-                    <img
-                        className="profile-picture m-auto"
+                    <div
+                        className="profile-picture m-auto mb-4"
                         style={{
-                            maxHeight: '250px'
+                            backgroundImage: picture ? `url(${picture})` : '',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center'
                         }}
-                        src={picture}
-                    />
+                    >
+                    </div>
                     <div data-mdb-input-init className="form-outline form-white">
                         <p className="fs-4 mt-4 text-white description">{intro}</p>
                     </div>
@@ -116,7 +118,7 @@ export const ProviderProfileCompleted = () => {
                     }
                 }
             >
-                Next
+                Publish My Profile
             </button>
         </div>
     );
