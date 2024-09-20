@@ -9,8 +9,7 @@ import { Single } from "./pages/single";
 import { ProviderProfile } from "./pages/providerProfile";
 import { ProviderMapPage } from "./pages/providerMapPage";
 import injectContext from "./store/appContext";
-import { ProviderSignUp1 } from "./pages/providerSignUp1";
-import { ProviderSignUp2 } from "./pages/providerSignUp2";
+import { ProviderSignUp } from "./pages/providerSignUp";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { ProviderServices } from "./pages/providerServices";
@@ -70,9 +69,8 @@ const Layout = () => {
                         <Route element={<ProviderMapPage />} path="/provider-map" />
                         <Route element={<ClientMapPage />} path="/client-map" />
                         <Route element={<ViewSitters />} path="/view-sitters" />
-                        <Route element={<ProviderSignUp1 />} path="/provider-signup1" />
                         <Route element={<ClientSignUp1 />} path="/client-signup1" />
-                        <Route element={<ProviderSignUp2 />} path="/provider-signup2" />
+                        <Route element={<ProviderSignUp />} path="/provider-signup" />
                         <Route element={<ClientSignUp2 />} path="/client-signup2" />
                         <Route element={<Login />} path="/login" />
                         <Route element={<SignUp />} path="/signup" />

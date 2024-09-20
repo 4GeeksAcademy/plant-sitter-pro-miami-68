@@ -23,7 +23,7 @@ export const ClientSignUp2 = () => {
     useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (token) {
-            navigate("/client-services1");
+            navigate("/client-signup2");
         }
     }, [navigate]);
 
