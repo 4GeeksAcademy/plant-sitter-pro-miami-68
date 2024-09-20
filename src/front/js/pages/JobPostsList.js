@@ -14,7 +14,7 @@ export const JobPostsList = () => {
             if (res.success) {
                 setJobPosts(res.data);
             } else {
-                alert("Error fetching job posts.");
+                alert("Error fetching job posts");
             }
         };
         fetchJobPosts();
