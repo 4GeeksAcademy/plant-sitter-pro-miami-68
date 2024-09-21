@@ -20,7 +20,7 @@ import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
 
 
-export const JobPost2 = () => {
+export const ActiveJobPosts = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);

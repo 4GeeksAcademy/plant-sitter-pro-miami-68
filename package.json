@@ -76,6 +76,8 @@
 		"@fortawesome/fontawesome-free": "^6.6.0",
 		"@fortawesome/free-solid-svg-icons": "^6.6.0",
 		"@fortawesome/react-fontawesome": "^0.2.2",
+		"@stripe/react-stripe-js": "^2.8.0",
+		"@stripe/stripe-js": "^4.5.0",
 		"bootstrap": "^5.3.3",
 		"flask": "^0.2.10",
 		"jwt-decode": "^4.0.0",
@@ -89,6 +91,7 @@
 		"react-polyfills": "0.0.1",
 		"react-rating-stars-component": "^2.2.0",
 		"react-router-dom": "^6.3.0",
-		"react-scroll": "^1.9.0"
+		"react-scroll": "^1.9.0",
+		"stripe": "^16.12.0"
 	}
 }

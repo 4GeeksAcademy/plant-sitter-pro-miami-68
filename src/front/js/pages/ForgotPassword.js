@@ -1,41 +1,41 @@
-import React, { useState, useEffect, useContext } from "react";
-import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
-import { Modal } from 'react-bootstrap'; // Make sure to install react-bootstrap
-import "../../styles/forgotpassword.css"; // Link to your CSS file
+// import React, { useState, useEffect, useContext } from "react";
+// import { Context } from "../store/appContext";
+// import { useNavigate } from "react-router-dom";
+// import { Modal } from 'react-bootstrap'; // Make sure to install react-bootstrap
+// import "../../styles/forgotpassword.css"; // Link to your CSS file
 
-export const ForgotPassword = () => {
-	const { store } = useContext(Context);
-	const [hasToken, setHasToken] = useState(false);
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [confirmPassword, setConfirmPassword] = useState('');
-	const [error, setErrMsg] = useState('');
-	const [message, setMessage] = useState("");
-	const [showModal, setShowModal] = useState(false);
+// export const ForgotPassword = () => {
+// 	const { store } = useContext(Context);
+// 	const [hasToken, setHasToken] = useState(false);
+// 	const [email, setEmail] = useState('');
+// 	const [password, setPassword] = useState('');
+// 	const [confirmPassword, setConfirmPassword] = useState('');
+// 	const [error, setErrMsg] = useState('');
+// 	const [message, setMessage] = useState("");
+// 	const [showModal, setShowModal] = useState(false);
 
-	const navigate = useNavigate();
-	const token = store.token;
+// 	const navigate = useNavigate();
+// 	const token = store.token;
 
-	useEffect(() => {
-		if (token) {
-			setHasToken(true);
-		}
-	}, [token]);
+// 	useEffect(() => {
+// 		if (token) {
+// 			setHasToken(true);
+// 		}
+// 	}, [token]);
 
-	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+// 	const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-	function validateEmail(email) {
-		return emailRegex.test(email);
-	}
+// 	function validateEmail(email) {
+// 		return emailRegex.test(email);
+// 	}
 
-	const handleEmailChange = (event) => {
-		const enteredEmail = event.target.value;
-		setEmail(enteredEmail);
-		if (validateEmail(enteredEmail)) {
-			setErrMsg("");
-		}
-	};
+// 	const handleEmailChange = (event) => {
+// 		const enteredEmail = event.target.value;
+// 		setEmail(enteredEmail);
+// 		if (validateEmail(enteredEmail)) {
+// 			setErrMsg("");
+// 		}
+// 	};
 
 	async function handleSubmit(event) {
 		if (e.type === "keydown" && e.key !== "Enter") return;
@@ -96,59 +96,59 @@ export const ForgotPassword = () => {
 		}
 	}
 
-	return (
-		<>
-			<form onSubmit={handleSubmit} className="forgot-password-container">
-				<h2 className="forgot-password-header">{!hasToken ? "Reset Password" : "Change Password"}</h2>
-				{!hasToken ? (
-					<div className="forgot-password-form-group">
-						<label htmlFor="email" className="forgot-password-label">Email</label>
-						<input
-							type="email"
-							className="forgot-password-input"
-							placeholder="Enter your email"
-							onChange={handleEmailChange}
-							required
-						/>
-					</div>
-				) : (
-					<>
-						<div className="forgot-password-form-group">
-							<label htmlFor="password" className="forgot-password-label">New Password</label>
-							<input
-								type="password"
-								className="forgot-password-input"
-								placeholder="New Password"
-								onChange={(e) => setPassword(e.target.value)}
-								required
-							/>
-						</div>
-						<div className="forgot-password-form-group">
-							<label htmlFor="confirmPassword" className="forgot-password-label">Confirm New Password</label>
-							<input
-								type="password"
-								className="forgot-password-input"
-								placeholder="Confirm New Password"
-								onChange={(e) => setConfirmPassword(e.target.value)}
-								required
-							/>
-						</div>
-					</>
-				)}
-				{error && <div className="forgot-password-error">{error}</div>}
-				<div style={{ textAlign: 'center' }}>
-					<button type="submit" className="forgot-password-button">Submit</button>
-				</div>
-			</form>
+// 	return (
+// 		<>
+// 			<form onSubmit={handleSubmit} className="forgot-password-container">
+// 				<h2 className="forgot-password-header">{!hasToken ? "Reset Password" : "Change Password"}</h2>
+// 				{!hasToken ? (
+// 					<div className="forgot-password-form-group">
+// 						<label htmlFor="email" className="forgot-password-label">Email</label>
+// 						<input
+// 							type="email"
+// 							className="forgot-password-input"
+// 							placeholder="Enter your email"
+// 							onChange={handleEmailChange}
+// 							required
+// 						/>
+// 					</div>
+// 				) : (
+// 					<>
+// 						<div className="forgot-password-form-group">
+// 							<label htmlFor="password" className="forgot-password-label">New Password</label>
+// 							<input
+// 								type="password"
+// 								className="forgot-password-input"
+// 								placeholder="New Password"
+// 								onChange={(e) => setPassword(e.target.value)}
+// 								required
+// 							/>
+// 						</div>
+// 						<div className="forgot-password-form-group">
+// 							<label htmlFor="confirmPassword" className="forgot-password-label">Confirm New Password</label>
+// 							<input
+// 								type="password"
+// 								className="forgot-password-input"
+// 								placeholder="Confirm New Password"
+// 								onChange={(e) => setConfirmPassword(e.target.value)}
+// 								required
+// 							/>
+// 						</div>
+// 					</>
+// 				)}
+// 				{error && <div className="forgot-password-error">{error}</div>}
+// 				<div style={{ textAlign: 'center' }}>
+// 					<button type="submit" className="forgot-password-button">Submit</button>
+// 				</div>
+// 			</form>
 
-			<Modal show={showModal} onHide={() => setShowModal(false)}>
-				<Modal.Header closeButton className="modal-header">
-					<Modal.Title>Email Sent</Modal.Title>
-				</Modal.Header>
-				<Modal.Body className="modal-body">
-					{message}
-				</Modal.Body>
-			</Modal>
-		</>
-	);
-};
+// 			<Modal show={showModal} onHide={() => setShowModal(false)}>
+// 				<Modal.Header closeButton className="modal-header">
+// 					<Modal.Title>Email Sent</Modal.Title>
+// 				</Modal.Header>
+// 				<Modal.Body className="modal-body">
+// 					{message}
+// 				</Modal.Body>
+// 			</Modal>
+// 		</>
+// 	);
+// };

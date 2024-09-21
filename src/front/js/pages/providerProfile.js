@@ -152,8 +152,17 @@ export const ProviderProfile = () => {
                         <h3>{city}, {state}</h3>
                         <textarea rows="5" className="form-control form-control mt-4" placeholder="Brief Intro..." value={intro} onChange={(e) => setIntro(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
-                    <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>You said that you are comfortable providing the following services:</strong></h3>
-                    <ServiceCard/>
+                    <div className="row m-auto mt-3">
+                        <h3 className="diphylleia-regular text-white col-11 p-0"><strong>You said that you are comfortable providing the following services:</strong></h3>
+                        <i
+                            className="fa-solid fa-pencil col-1 m-auto btn"
+                            style={{ fontSize: "20px" }}
+                            onClick={() => navigate('/provider-services')}
+                        />
+                    </div>
+                    <div className="mt-4">
+                        <ServiceCard />
+                    </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About you</strong></h2>
