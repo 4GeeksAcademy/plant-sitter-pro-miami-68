@@ -608,7 +608,7 @@ def handle_message():
 
 stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
 
-@api.route('/api/create-payment-intent', methods=['POST'])
+@api.route('/create-payment-intent', methods=['POST'])
 def create_payment_intent():
     try:
         data = request.get_json()
@@ -623,7 +623,7 @@ def create_payment_intent():
     except Exception as e:
         return jsonify(error=str(e)), 403
 
-@api.route('/api/payout', methods=['POST'])
+@api.route('/payout', methods=['POST'])
 @jwt_required() 
 def create_payout():
     try:
