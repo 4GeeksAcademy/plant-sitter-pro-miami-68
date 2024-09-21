@@ -44,6 +44,7 @@ import { ViewSitters } from "./pages/viewSitters";
 import { Cancel } from "./pages/cancel";
 import { ProviderLandingPage } from "./pages/providerLandingPage";
 import { ClientLandingPage } from "./pages/clientLandingPage";
+import { ActiveJobPosts } from "./pages/activeJobPost";
 
 //create your first component
 const Layout = () => {
@@ -95,6 +96,7 @@ const Layout = () => {
                         <Route element={<Cancel />} path="/cancel" />
                         <Route element={<ProviderLandingPage />} path="/provider-landing" />
                         <Route element={<ClientLandingPage />} path="/client-landing" />
+                        <Route element={<ActiveJobPosts />} path="/active-job-posts/:id" />
                     </Routes>
                     <Chat />
                     <Footer />

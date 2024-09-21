@@ -91,6 +91,7 @@
 		"react-polyfills": "0.0.1",
 		"react-rating-stars-component": "^2.2.0",
 		"react-router-dom": "^6.3.0",
-		"react-scroll": "^1.9.0"
+		"react-scroll": "^1.9.0",
+		"stripe": "^16.12.0"
 	}
 }
