@@ -25,10 +25,11 @@ import { SignUp } from "./component/SignUp";
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
 import { Blog } from "./pages/blog";
-import AccountSettings from "./pages/account";
-import { PersonalInfo } from "./pages/PersonalInfo";
-import PersonalSecurity from "./pages/loginsecurity";
-import { JobPostsList } from "./pages/JobPostsList";
+import AccountSettings from "./pages/account"
+import { PersonalInfo } from "./pages/PersonalInfo"
+import PersonalSecurity from "./pages/loginsecurity"
+import PaymentsPayouts from "./pages/payments-payouts"
+import { JobPostsList } from "./pages/JobPostsList"
 import WateringService from "./pages/WateringService";
 import RepottingService from "./pages/RepottingService";
 import PruningService from "./pages/PruningService";
@@ -84,6 +85,7 @@ const Layout = () => {
                         <Route element={<AccountSettings />} path="/account-settings" />
                         <Route element={<PersonalInfo />} path="/personal-info" />
                         <Route element={<PersonalSecurity />} path="/login-security" />
+                        <Route element={<PaymentsPayouts />} path="/payments-payouts" />
                         <Route element={<PlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
