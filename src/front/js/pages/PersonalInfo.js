@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import './../../styles/PersonalInfo.css';
+import '../../styles/handleSubmit.css';
 
 export const PersonalInfo = () => {
     const { store, actions } = useContext(Context);
@@ -58,7 +59,6 @@ export const PersonalInfo = () => {
     };
 
     const handleSubmit = async (e) => {
-        if (e.type === "keydown" && e.key !== "Enter") return
         e.preventDefault();
         const { email, phone, first_name, last_name, address_line_1, address_line_2, city, state, zip_code } = formData;
         const result = await actions.updateUser(email, phone, first_name, last_name, address_line_1, address_line_2, city, state, formData.country, zip_code);

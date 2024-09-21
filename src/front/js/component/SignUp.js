@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
+import "../../styles/handleSubmit.css"
 
 export const SignUp = () => {
     const [firstName, setFirstName] = useState("");

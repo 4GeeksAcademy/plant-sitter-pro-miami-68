@@ -38,7 +38,7 @@ export const ForgotPassword = () => {
 	};
 
 	async function handleSubmit(event) {
-		if (e.type === "keydown" && e.key !== "Enter") return
+		if (e.type === "keydown" && e.key !== "Enter") return;
 		event.preventDefault();
 		if (!hasToken) {
 			// No token, this means the user is in the "Reset Password" stage
@@ -86,7 +86,7 @@ export const ForgotPassword = () => {
 				const data = await response.json();
 				if (response.ok) {
 					alert("Password successfully changed.");
-					navigate('/');
+					navigate('/account-settings');
 				} else {
 					setErrMsg(data.message || "Something went wrong.");
 				}

@@ -59,6 +59,31 @@ const services = [
     image: plantcleaning,  
     link: "/plantcleaning",
   },
+  {
+    name: "Watering",
+    image: watering,  
+    link: "/watering",
+  },
+  {
+    name: "Re-Potting",
+    image: repotting,  // Replace with the actual path to your image
+    link: "/repotting",
+  },
+  {
+    name: "Pruning",
+    image: pruning,  // Replace with the actual path to your image
+    link: "/pruning",
+  },
+  {
+    name: "Pest Control",
+    image: pestcontrol,  // Replace with the actual path to your image
+    link: "/pestcontrol",
+  },
+  {
+    name: "Plant Cleaning",
+    image: plantcleaning,  // Replace with the actual path to your image
+    link: "/plantcleaning",
+  },
 ];
 
 const ServicesCarousel = () => {

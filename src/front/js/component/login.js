@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
+import "../../styles/handleSubmit.css"
 
 export const Login = () => {
   const { actions } = useContext(Context);
@@ -19,8 +20,14 @@ export const Login = () => {
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleLogin();
+    }
+  };
+
   return (
-    <div className="row justify-content-center">
+    <div className="row justify-content-center" onKeyDown={handleKeyDown}>
       <div className="col-lg-6 bg-indigo">
         <h1 className="fw-normal mt-5 diphylleia-regular jobs">
           Log in to your account
@@ -80,6 +87,7 @@ export const Login = () => {
             type="button"
             className="btn btn-success mb-3 col-5 rounded-pill"
             onClick={handleLogin}
+            onKeyDown={handleKeyDown}
           >
             Log In
           </button>
