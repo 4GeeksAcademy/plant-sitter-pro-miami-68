@@ -84,7 +84,7 @@ export const ClientLandingPage = () => {
     console.log(jobPosts);
 
     const handleViewJobPost = (jobPostId) => {
-        navigate(`/job-post-preview/${jobPostId}`);
+        navigate(`/active-job-posts/${jobPostId}`);
     };
 
     const formatDate = (dateString) => {

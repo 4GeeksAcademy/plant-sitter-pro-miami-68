@@ -17,9 +17,10 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
+import { JobDates } from "../component/JobDates";
 
 
-export const JobPost2 = () => {
+export const ActiveJobPosts = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -52,13 +53,13 @@ export const JobPost2 = () => {
 
             const res = await actions.getJobPostById(job_post_id);
             if (res.success && res.data) {
-                setStartDate(res.data.startDate);
-                setEndDate(res.data.endDate);
-                setAddressLine1(res.data.addressLine1);
-                setAddressLine2(res.data.addressLine2);
+                setStartDate(res.data.start_date);
+                setEndDate(res.data.end_date);
+                setAddressLine1(res.data.address_line_1);
+                setAddressLine2(res.data.address_line_2);
                 setCity(res.data.city);
                 setState(res.data.state);
-                setZipCode(res.data.zipCode);
+                setZipCode(res.data.zip_code);
                 setCountry(res.data.country);
                 setIntro(res.data.intro);
                 setPicture(res.data.profile_picture_url);
@@ -82,24 +83,14 @@ export const JobPost2 = () => {
     console.log(jobPlants);
 
     return (
-        <div className="text-center m-2 mt-4">
-            <div className="row container-fluid mt-4">
-                <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
-
-                {/* <div className="container row mb-2">   
-                <button 
-                    className="edit editButton" 
-                    onClick={() => {
-                        actions.setJobPostDetails({ id: job_post_id });
-                        navigate("/client-services1");
-                    }}
-                >
-                    Edit <i className="fas fa-pencil-alt"></i>
-                </button>
-                </div>  */}
-
+        <div
+            className="text-center d-grid mt-4"
+            style={{ minWidth: '100%', justifyContent: 'center' }}
+        >
+            <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
+            <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-4"><strong>About Me</strong></h2>
+                    <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
                     <div
                         className="profile-picture m-auto mb-4"
                         style={{
@@ -110,9 +101,13 @@ export const JobPost2 = () => {
                     >
                     </div>
                     <div data-mdb-input-init className="form-outline form-white">
-                        <h1 className="text-white mb-3 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
-                        <h3 className="text-white mb-3 diphylleia-regular jobs"><strong>{city}, {state}</strong></h3>
-                        <p className="fs-4 mt-4 text-white description">{intro}</p>
+                        <h2 className="diphylleia-regular text-white mb-4"><strong>Plant Owner</strong></h2>
+                        <p className="fs-3">🌿</p>
+                        <h3 className="text-white diphylleia-regular mt-1 mb-3 jobs">Job Location</h3>
+                        <h3 className="text-white">{addressLine1}</h3>
+                        <h3 className="text-white">{addressLine2}</h3>
+                        <h3 className="text-white mb-5 jobs">{city}, {state} {zipCode}</h3>
+                        <p className="fs-4 mt-4 bg-white text-black description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
                         {/* <JobServices /> */}
@@ -199,7 +194,6 @@ export const JobPost2 = () => {
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
                     <div className="d-flex justify-content-center">
                         {/* <JobPlants /> */}
-
                         <div className="container plantImageWrapper p-0">
                             {jobPlants.map((image, index) => {
                                 if (image == "Standard House Plants") {
@@ -316,30 +310,42 @@ export const JobPost2 = () => {
                                 }
                             })}
                         </div>
-
                     </div>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>About my plants and their needs:</strong></label>
                     <div className="input-group mb-1">
-                        <p className="fs-4 text-white description">{moreAboutPlants}</p>
+                        <p className="fs-4 bg-white text-black description">{moreAboutPlants}</p>
                     </div>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>More about what I need:</strong></label>
                     <div className="input-group mb-1">
-                        <p className="fs-4 text-white description">{moreAboutServices}</p>
+                        <p className="fs-4 bg-white text-black  description">{moreAboutServices}</p>
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help on these dates:</strong></label>
-                    <div className="mt-3 mb-3">
-                        <img src={calendar} className="plants img-fluid" />
-                    </div>
+                    <JobDates />
                     <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
                     <div className="input-group mb-2">
-                        <p className="fs-4 text-white description">{jobDuration}</p>
+                        <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
+                    <div className="w-100">
+                        <i
+                            className="fa-regular fa-message btn"
+                            style={{ position: "absolute", right: "100px", fontSize: "80px" }}
+                            title="This is where you will communicate with applicants"
+                        // onClick={() => /*insert navigate link*/}
+                        />
+                    </div>
+                    <button
+                        title="This will be active for applicants"
+                        className="apply-now"
+                        type="button"
+                    // onClick={() => /*insert navigate link*/}
+                    >
+                        <strong>Apply Now</strong>
+                    </button>
                 </div>
             </div>
-
             <div
                 className="container-fluid row mb-2"
             >
