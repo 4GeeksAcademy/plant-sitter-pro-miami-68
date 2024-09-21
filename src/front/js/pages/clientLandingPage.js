@@ -100,7 +100,7 @@ export const ClientLandingPage = () => {
                 style={{ marginLeft: "30px" }}
             >
                 <div className="profile-container row">
-                    <div className="col">
+                    {/* <div className="col-3">
                         <div
                             className="landing-profile ml-3"
                             style={{
@@ -112,7 +112,7 @@ export const ClientLandingPage = () => {
                         >
                         </div>
                         <div className="middle">
-                            <div 
+                            <div
                                 className="edit-profile"
                                 onClick={() => navigate('/client-services1')}
                             >
@@ -143,17 +143,13 @@ export const ClientLandingPage = () => {
                             }}
                             accept="image/*"
                         />
-                    
-                        
-                        
-                      
-                    </div>
+                    </div> */}
+                <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
                     <div className="col text-end">
                         <h4 className="diphylleia-regular mb-0"><strong>Subscriber Since</strong></h4>
                         <h4 className="diphylleia-regular mt-0">October 2024</h4>
                     </div>
                 </div>
-                <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
             </div>
 
             <div className="row container-fluid mt-4">

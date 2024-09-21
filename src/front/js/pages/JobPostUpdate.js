@@ -10,7 +10,6 @@ export const JobPostUpdate = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const { job_post_id } = useParams();
-
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [addressLine1, setAddressLine1] = useState("");
