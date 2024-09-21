@@ -14,7 +14,7 @@ export const JobPostsList = () => {
             if (res.success) {
                 setJobPosts(res.data);
             } else {
-                alert("Error fetching job posts.");
+                alert("Error fetching job posts");
             }
         };
         fetchJobPosts();
@@ -36,7 +36,7 @@ export const JobPostsList = () => {
             <h1 className="diphylleia-regular mb-4 text-center"><strong>Your Job Posts</strong></h1 >
             <div className="row">
                 {jobPosts.map((post) => (
-                    <div className="col-md-4 mb-4" key={post.id} onClick={() => handleViewJobPost(post.id)}>
+                    <div className="col-md-4 mb-4 job-cards" key={post.id} onClick={() => handleViewJobPost(post.id)}>
                         <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%" }}>
                             <img
                                 src={post.profile_picture_url || noImage}
@@ -48,9 +48,6 @@ export const JobPostsList = () => {
                                 <h3 className="card-title text-white diphylleia-regular fs-2">
                                     <strong>{post.first_name} {post.last_name}</strong>
                                 </h3>
-                                {/* <div className="card-text text-white fs-5">
-                                    <strong>Address:</strong> {post.address_line_1 || 'No Address'}, {post.address_line_2 || ''}
-                                </div> */}
                                 <div className="card-text text-white fs-5">
                                     <strong>Job Address:</strong> {post.location || 'Location not provided'}
                                 </div>
