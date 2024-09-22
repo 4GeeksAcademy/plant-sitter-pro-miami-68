@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
+import noImage from "../../img/noImage.png"
 
 export const ClientLandingPage = () => {
     const { store, actions } = useContext(Context);
