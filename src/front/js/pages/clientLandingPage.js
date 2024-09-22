@@ -19,19 +19,22 @@ export const ClientLandingPage = () => {
         const fetchData = async () => {
             setLoading(true);
             if (!store.user) {
+                await actions.getUser();
+            }
+
+            if (store.user) {
                 const result = await actions.getUser();
                     if (result.success && result.data) {
                         setCity(result.data.city);
                         setState(result.data.state);
                     }
-            }
-
-            const res = await actions.getJobPosts();
-            if (res.success && res.data) {
-                setJobPosts(res.data);
-                setPicture(res.data.profile_picture_url);
-            } else {
-                alert("Error fetching job posts");
+                const res = await actions.getJobPosts();
+                    if (res.success && res.data) {
+                        setJobPosts(res.data);
+                        setPicture(res.data.profile_picture_url);
+                    } else {
+                        alert("Error fetching job posts");
+                    }
             }
 
             setLoading(false);
@@ -63,7 +66,7 @@ export const ClientLandingPage = () => {
                 style={{ marginLeft: "30px" }}
             >
                 <div className="profile-container row">
-                    <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
+                    <h1 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h1>
                     <h2 className="diphylleia-regular"><strong>{city}, {state}</strong></h2>
                     <div className="col text-end">
                         <h4 className="diphylleia-regular mb-0"><strong>Subscriber Since</strong></h4>
