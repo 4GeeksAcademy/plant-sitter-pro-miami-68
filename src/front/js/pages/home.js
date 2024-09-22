@@ -19,9 +19,9 @@ export const Home = () => {
 
 	return (
 		<>
-			<div class="hero-image">
+			<div className="hero-image">
 				<img className="landing-page" src={landing2} />
-				<div class="hero-text">
+				<div className="hero-text">
 					<h1 className="diphylleia-regular lp-headers">We connect plant owners</h1>
 					<h1 className="diphylleia-regular lp-headers">with plant caretakers</h1>
 					<div className="text-center mt-5">
@@ -94,9 +94,9 @@ export const Home = () => {
 				<ServicesCarousel />
 			</div>
 
-			<div class="hero-image mt-5">
+			<div className="hero-image mt-5">
 				<img className="landing-page for-owners" src={forOwners} />
-				<div class="owner-text">
+				<div className="owner-text">
 
 					<div className="row d-flex">
 						<div className="col-7">
@@ -146,9 +146,9 @@ export const Home = () => {
 			{/* <div className="carousel-container mt-2 mb-2">
 				<PlantSitterCarousel />
 			</div> */}
-			<div class="hero-image mt-5">
+			<div className="hero-image mt-5">
 				<img className="landing-page" src={howitworks} />
-				<div class="caretaker-text">
+				<div className="caretaker-text">
 
 					<div className="row d-flex">
 						<div className="container col-3">

@@ -52,6 +52,8 @@ export const ClientServices1 = () => {
             setLoading(false);
         };
 
+        navigate('/client-services1');
+
         fetchData();
     }, []);
 

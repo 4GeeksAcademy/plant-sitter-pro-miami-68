@@ -150,29 +150,38 @@ export const ProviderProfile = () => {
                     <div data-mdb-input-init className="form-outline form-white">
                         <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
                         <h3>{city}, {state}</h3>
-                        <textarea rows="5" className="form-control form-control mt-4" placeholder="Brief Intro..." value={intro} onChange={(e) => setIntro(e.target.value)} aria-label="With textarea"></textarea>
+                        <textarea rows="5" className="form-control form-control mt-4" placeholder="Brief Intro..." value={intro || ""} onChange={(e) => setIntro(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
-                    <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>You said that you are comfortable providing the following services:</strong></h3>
-                    <ServiceCard/>
+                    <div className="row m-auto mt-3">
+                        <h3 className="diphylleia-regular text-white col-11 p-0"><strong>You said that you are comfortable providing the following services:</strong></h3>
+                        <i
+                            className="fa-solid fa-pencil col-1 m-auto btn"
+                            style={{ fontSize: "20px" }}
+                            onClick={() => navigate('/provider-services')}
+                        />
+                    </div>
+                    <div className="mt-4">
+                        <ServiceCard />
+                    </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white mb-4"><strong>About you</strong></h2>
                     <label className="form-label diphylleia-regular fs-5 text-white"><strong>What should potential clients know about you?</strong></label>
                     <div className="input-group mb-3">
-                        <textarea rows="5" className="form-control" placeholder="I've been a plant lover my whole life..." value={clientInfo} onChange={(e) => setClientInfo(e.target.value)} aria-label="With textarea"></textarea>
+                        <textarea rows="5" className="form-control" placeholder="I've been a plant lover my whole life..." value={clientInfo || ""} onChange={(e) => setClientInfo(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
                     <label className="form-label diphylleia-regular fs-5 text-white"><strong>Do you currently own any plants?</strong></label>
                     <div className="input-group mb-3">
-                        <textarea rows="5" className="form-control" placeholder="My apartment is basically a greenhouse..." value={currentPlants} onChange={(e) => setCurrentPlants(e.target.value)} aria-label="With textarea"></textarea>
+                        <textarea rows="5" className="form-control" placeholder="My apartment is basically a greenhouse..." value={currentPlants || ""} onChange={(e) => setCurrentPlants(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
 
                     <label className="form-label diphylleia-regular fs-5 text-white"><strong>Do you have any professional plant care experience?</strong></label>
                     <div className="input-group mb-3">
-                        <textarea rows="5" className="form-control" placeholder="I worked at a garden nursery for a couple of years..." value={professionalExperience} onChange={(e) => setProfessionalExperience(e.target.value)} aria-label="With textarea"></textarea>
+                        <textarea rows="5" className="form-control" placeholder="I worked at a garden nursery for a couple of years..." value={professionalExperience || ""} onChange={(e) => setProfessionalExperience(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
                     <label className="form-label diphylleia-regular fs-5 text-white"><strong>Anything else you would like to share?</strong></label>
                     <div className="input-group justify-contents-center mb-3">
-                        <textarea rows="5" className="form-control" placeholder="Examples: 'I can help you decide what plants work best for your space', or 'I'm an expert at organic pest control'..." value={extraInfo} onChange={(e) => setExtraInfo(e.target.value)} aria-label="With textarea"></textarea>
+                        <textarea rows="5" className="form-control" placeholder="Examples: 'I can help you decide what plants work best for your space', or 'I'm an expert at organic pest control'..." value={extraInfo || ""} onChange={(e) => setExtraInfo(e.target.value)} aria-label="With textarea"></textarea>
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">

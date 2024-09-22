@@ -5,7 +5,7 @@ import plantPic from "../../img/plants-on-stand.jpg";
 import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
 
-export const ProviderSignUp2= () => {
+export const ProviderSignUp = () => {
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -21,7 +21,7 @@ export const ProviderSignUp2= () => {
     const { actions } = useContext(Context);
     const navigate = useNavigate();
 
-	useEffect(() => {
+    useEffect(() => {
         const token = sessionStorage.getItem("token");
         if (token) {
             navigate("/provider-services");
@@ -59,7 +59,7 @@ export const ProviderSignUp2= () => {
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="firstName">First Name</label>
+                                <label className="form-label">First Name</label>
                             </div>
                         </div>
                         <div className="col-md-6 mb-2 pb-2">
@@ -71,7 +71,7 @@ export const ProviderSignUp2= () => {
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="lastName">Last Name</label>
+                                <label className="form-label">Last Name</label>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@ export const ProviderSignUp2= () => {
                                 value={addressLine1}
                                 onChange={(e) => setAddressLine1(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="addressLine1">Address Line 1</label>
+                            <label className="form-label">Address Line 1</label>
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@ export const ProviderSignUp2= () => {
                                 value={addressLine2}
                                 onChange={(e) => setAddressLine2(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="addressLine2">Address Line 2</label>
+                            <label className="form-label">Address Line 2</label>
                         </div>
                     </div>
 
@@ -112,22 +112,22 @@ export const ProviderSignUp2= () => {
                                     value={city}
                                     onChange={(e) => setCity(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="city">City</label>
+                                <label className="form-label">City</label>
                             </div>
                         </div>
 
                         <div className="col-md-5 mb-2 pb-2">
-						<div data-mdb-input-init>
-							<input 
-                                type="text" 
-                                id="state" 
-                                className="form-control form-control-lg"
-                                value={state}
-                                onChange={(e) => setState(e.target.value)}
-                            />
-							<label className="form-label" for="state">State</label>
-						</div>
-					</div>
+                            <div data-mdb-input-init>
+                                <input
+                                    type="text"
+                                    id="state"
+                                    className="form-control form-control-lg"
+                                    value={state}
+                                    onChange={(e) => setState(e.target.value)}
+                                />
+                                <label className="form-label">State</label>
+                            </div>
+                        </div>
 
                         <div className="col-md-2 mb-2 pb-2">
                             <div data-mdb-input-init>
@@ -138,7 +138,7 @@ export const ProviderSignUp2= () => {
                                     value={zipCode}
                                     onChange={(e) => setZipCode(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="zipCode">ZIP Code</label>
+                                <label className="form-label">ZIP Code</label>
                             </div>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ export const ProviderSignUp2= () => {
                                     placeholder="Currently only available in the United States"
                                     value={country}
                                 />
-                                <label className="form-label" htmlFor="country">Country</label>
+                                <label className="form-label">Country</label>
                             </div>
                         </fieldset>
                     </div>
@@ -167,7 +167,7 @@ export const ProviderSignUp2= () => {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="phone">Phone Number</label>
+                            <label className="form-label">Phone Number</label>
                         </div>
                     </div>
 
@@ -180,7 +180,7 @@ export const ProviderSignUp2= () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="email">Email</label>
+                            <label className="form-label">Email</label>
                         </div>
                     </div>
 
@@ -193,7 +193,7 @@ export const ProviderSignUp2= () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="password">Password</label>
+                            <label className="form-label">Password</label>
                         </div>
                     </div>
 
@@ -205,7 +205,7 @@ export const ProviderSignUp2= () => {
                             onChange={(e) => setTermsAccepted(e.target.checked)}
                             id="terms"
                         />
-                        <label className="form-check-label" htmlFor="terms">
+                        <label className="form-check-label">
                             I do accept the <a href="#!" className=""><u>Terms and Conditions</u></a> of your site.
                         </label>
                     </div>

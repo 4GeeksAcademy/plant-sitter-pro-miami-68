@@ -10,7 +10,6 @@ export const JobPostUpdate = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const { job_post_id } = useParams();
-
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [addressLine1, setAddressLine1] = useState("");
@@ -103,7 +102,7 @@ export const JobPostUpdate = () => {
 
     return loading ? <div>Loading...</div> : (
         <div className="text-center m-2 mt-4">
-            <h1 className="mb-4">Update your job post</h1>
+            <h1 className="mb-4">Edit your job post</h1>
             <div className="row">
                 <h3 className="diphylleia-regular m-auto col-8">
                     Update the details of your job post to ensure our plant sitters know what you need.

@@ -61,11 +61,11 @@ const AccountSettings = () => {
 
 const settingsOptions = [
     { title: 'Personal info', description: 'Provide personal details and how we can reach you', link: '/personal-info' },
-    { title: 'Login & security', description: 'Update your password and secure your account', link: '/login-security' },
-    { title: 'Payments & payouts', description: 'Review your payments, payouts and update your payment methods', link: '/payments-payouts' },
-    { title: 'Plant Sitter Profile or Become a Plant Sitter', description: 'Check your profile as a Plant Sitter or Become a Plant Sitter', link: '/provider-profile' },
-    { title: 'Hire a Plant Sitter or Your Job Posts', description: 'Hire a Plant Sitter or Check Job Posts', link: '/job-posts' },
-    { title: 'Cancel Your Subscription', description: 'Resubscribe at any time', link: '/cancel' }
+    { title: 'Login & Security', description: 'Update your password and secure your account', link: '/login-security' },
+    { title: 'Payment History', description: 'Review your payments and update your payment method', link: '/payments-payouts' },
+    { title: 'Plant Sitters - See Your Jobs', description: "See upcoming jobs, past jobs, and jobs you've applied to", link: '/provider-landing' },
+    { title: 'Plant Owners - See Your Job Posts', description: 'See past and present jobs post', link: '/client-landing' },
+    { title: 'Manage Subscription', description: 'Cancel, Renew, or Update Your Subscription Here', link: '/cancel' }
 ];
 
 export default AccountSettings;

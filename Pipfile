@@ -21,6 +21,7 @@ typing-extensions = "*"
 flask-jwt-extended = "*"
 geopy = "*"
 flask-mail = "*"
+stripe = "==3.0.0"
 
 [requires]
 python_version = "3.10"

@@ -20,7 +20,7 @@ import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
 
 
-export const JobPost2 = () => {
+export const PublishedJobPosts = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -85,7 +85,7 @@ export const JobPost2 = () => {
     return (
         <div
             className="text-center d-grid mt-4"
-            style={{ minWidth: '100%', justifyContent: 'center' }}
+            // style={{ minWidth: '100%', justifyContent: 'center' }}
         >
             <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
@@ -110,7 +110,6 @@ export const JobPost2 = () => {
                         <p className="fs-4 mt-4 bg-white text-black description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
                         <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
-                        {/* <JobServices /> */}
 
                         <div className="container plantImageWrapper p-0">
                             {jobServices.map((image, index) => {
@@ -193,7 +192,6 @@ export const JobPost2 = () => {
                     <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
                     <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
                     <div className="d-flex justify-content-center">
-                        {/* <JobPlants /> */}
                         <div className="container plantImageWrapper p-0">
                             {jobPlants.map((image, index) => {
                                 if (image == "Standard House Plants") {

@@ -19,6 +19,11 @@
   -webkit-text-stroke-color: #bbb;
 }
 
+.job-cards:hover {
+  background-color: rgb(251, 251, 243);
+  cursor: pointer;
+}
+
 .plus-sign {
   position: relative;
   top: 25%;
@@ -168,6 +173,58 @@ border-bottom-left-radius: 100px;
   background-repeat: no-repeat;
   background-size: cover;
   box-shadow: 0 8px 6px -6px black;
+}
+
+.profile-container {
+  position: relative;
+  width: 100%;
+}
+
+.landing-profile {
+  align-items: start;
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  border: 3px solid green;
+  position: relative;
+  overflow: hidden;
+  /* default image */
+  background: url('https://qph.cf2.quoracdn.net/main-qimg-f32f85d21d59a5540948c3bfbce52e68');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity with box */
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.profile-container:hover .landing-profile {
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.profile-container:hover .middle {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 120px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.edit-profile {
+  background-color: none;
+  color: green;
+  font-size: 50px;
 }
 
 .profile-picture:hover .upload-icon {
@@ -334,11 +391,6 @@ border-bottom-left-radius: 100px;
   margin: 10px;
 }
 
-/* .editButton {
-  background-color:rgb(70, 108, 70);
-  height:30px;
-} */
-
 .selectServices {
   width: 12%;
   height: auto;
@@ -382,11 +434,22 @@ border-bottom-left-radius: 100px;
   text-align: center;
 }
 
+.apply-now {
+  margin-top: 100%;
+  width: 200px;
+  height: auto;
+  color: black;
+  border-radius:25px;
+  border: 3px solid white;
+  background-color: orange;
+}
+
 .description {
   border: 1px solid white;
-  border-radius: 25px;
+  border-radius: 5px;
   padding: 10px;
   min-width: 100%;
+  min-height: 200px;
 }
 
 .needs {
@@ -564,3 +627,8 @@ border-bottom-left-radius: 100px;
   color: white;
   margin: 3px;
 }
+
+/* .footer {
+  position: relative;
+  bottom: 0;
+} */

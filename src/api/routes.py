@@ -9,7 +9,7 @@ from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_tok
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-from flask_mail import Message
+# from flask_mail import Message
 from api.models import db, User
 from flask import current_app as app
 from flask import jsonify
@@ -21,6 +21,7 @@ from datetime import timedelta
 from .send_email import send_email
 from api.decodetoken import decode_token, decode_reset_token
 from geopy.distance import geodesic
+import stripe
 
 api = Blueprint('api', __name__)
 
@@ -592,7 +593,6 @@ def get_job_post(job_post_id):
 
 
 
-
 # ---------------------------endpoints for messeages--------------------------------------
 
 @api.route('/messages/send', methods=['POST'])
@@ -643,6 +643,51 @@ def handle_message():
     return jsonify({'message': 'Sorry, I did not understand that.'})
 
 
+
+
+#---------------------for Stripe payments and payouts
+
+stripe.api_key = os.getenv('STRIPE_SECRET_KEY')
+
+@api.route('/create-payment-intent', methods=['POST'])
+def create_payment_intent():
+    try:
+        data = request.get_json()
+        intent = stripe.PaymentIntent.create(
+            amount=data['amount'],  # amount in cents
+            currency='usd',
+            metadata={'integration_check': 'accept_a_payment'},
+        )
+        return jsonify({
+            'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return jsonify(error=str(e)), 403
+
+@api.route('/payout', methods=['POST'])
+@jwt_required() 
+def create_payout():
+    try:
+        data = request.get_json()
+
+        # Create a transfer to the connected account
+        payout = stripe.Payout.create(
+            amount=data['amount'],  # amount in cents
+            currency='usd',
+            stripe_account=data['providerId']  # Stripe Account ID of the provider
+        )
+
+        return jsonify({
+            'success': True,
+            'payoutId': payout.id
+        })
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 403
+
 #--------------------------Ratings
 
 @api.route('/plantsitters/<int:plantsitter_id>/ratings', methods=['POST'])
@@ -690,3 +735,4 @@ def get_ratings(plantsitter_id):
         'ratings': serialized_ratings,
         'average_score': average_score
     }), 200
+
