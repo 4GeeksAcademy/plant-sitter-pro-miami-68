@@ -423,6 +423,52 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //Search Plant Sitter using zipcode
+            searchSitters: async (zipCode) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/search-sitters`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ zip_code: zipCode }),
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        setStore({ sitters: data.data });
+                        return { success: true };
+                    } else {
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error searching sitters:", error);
+                    return { success: false };
+                }
+            },
+
+            //get plantsitter by id
+            getPlantSitterById: async (id) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter/${id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        return { success: true, data };
+                    } else {
+                        console.error("Failed to fetch plant sitter by ID");
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error fetching plant sitter:", error);
+                    return { success: false };
+                }
+            },
+
+
             //save JobPost Details
             setJobPostDetails: (details) => {
                 setStore({ jobPostDetails: details });
