@@ -20,7 +20,6 @@ export const JobPostsList = () => {
         fetchJobPosts();
     }, []);
 
-
     const handleViewJobPost = (jobPostId) => {
         navigate(`/job-post-preview/${jobPostId}`);
     };

@@ -30,7 +30,7 @@ export const ViewSitters = () => {
 				<img className="sitter-pics" src={profilepic} />
 			</div>
 
-			<div class="hero-image mt-5">
+			<div className="hero-image mt-5">
 				<img className="landing-page for-owners" src={clientSignUp} />
 				<div className="owner-text row">
 					<div className="col-5"></div>

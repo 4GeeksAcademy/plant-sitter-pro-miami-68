@@ -160,20 +160,20 @@ export const JobPost1 = () => {
                         ></textarea>
                     </div>
                     <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
+                    <label className="form-label diphylleia-regular fs-4 mt-2 text-white">
                         <strong>You said that you need help with:</strong>
                     </label>
                     <JobServices />
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-4 mt-2 text-white">
+                    <label className="form-label diphylleia-regular fs-4 mt-2 text-white">
                         <strong>You said that your plants include:</strong>
                     </label>
                     <div className="d-flex justify-content-center">
                         <JobPlants />
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
+                    <label className="form-label diphylleia-regular fs-5 mt-3 text-white">
                         <strong>Tell us more about your plants and their needs here:</strong>
                     </label>
                     <div className="input-group mb-3">
@@ -186,7 +186,7 @@ export const JobPost1 = () => {
                             aria-label="With textarea"
                         ></textarea>
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white">
+                    <label className="form-label diphylleia-regular fs-5 mt-3 text-white">
                         <strong>Tell us more about what you need help with:</strong>
                     </label>
                     <div className="input-group mb-3">
@@ -202,11 +202,11 @@ export const JobPost1 = () => {
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white">
+                    <label className="form-label diphylleia-regular fs-5 mt-2 text-white">
                         <strong>You are requesting care for the following dates:</strong>
                     </label>
                     <JobDates />
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white">
+                    <label className="form-label diphylleia-regular fs-5 text-white">
                         <strong>What else should potential plant sitters know about the duration?</strong>
                     </label>
                     <div className="input-group mb-3">

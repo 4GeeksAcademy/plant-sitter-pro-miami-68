@@ -109,7 +109,7 @@ export const PersonalInfo = () => {
                 </div>
                 <div className="form-group">
                     <label>State</label>
-                    <select className="form-select form-select-lg mb-2" aria-label="Default select example" for="state" value={formData.state}
+                    <select className="form-select form-select-lg mb-2" aria-label="Default select example" value={formData.state}
                         name= "state" onChange={handleChange}>
                         <option value="AL">Alabama</option>
                         <option value="AK">Alaska</option>

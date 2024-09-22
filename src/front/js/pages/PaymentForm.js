@@ -7,6 +7,10 @@ const PaymentForm = () => {
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [amount, setAmount] = useState(''); // State for payment amount
+
+  // Nav pill state
+  const [activeTab, setActiveTab] = useState("makePayments"); // Default is "makePayments"
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,6 +23,14 @@ const PaymentForm = () => {
 
     setPaymentProcessing(true);
 
+    // Validate the amount
+    const numericAmount = parseFloat(amount);
+    if (isNaN(numericAmount) || numericAmount <= 0) {
+      setError("Please enter a valid payment amount.");
+      setPaymentProcessing(false);
+      return;
+    }
+
     // Call your backend to create a PaymentIntent
     try {
       const response = await fetch(
@@ -28,7 +40,7 @@ const PaymentForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ amount: 5000 }), // amount in cents (e.g., $50.00)
+          body: JSON.stringify({ amount: numericAmount * 100 }), // Convert to cents
         }
       );
 
@@ -61,14 +73,67 @@ const PaymentForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit" disabled={paymentProcessing || !stripe}>
-        {paymentProcessing ? "Processing..." : "Pay"}
-      </button>
-      {error && <div style={{ color: "red" }}>{error}</div>}
-      {success && <div style={{ color: "green" }}>Payment successful!</div>}
-    </form>
+    <div>
+      {/* Nav Pills */}
+      <ul className="nav nav-pills">
+        <li className="nav-item">
+          <button
+            className={`nav-link ${activeTab === "makePayments" ? "active" : ""}`}
+            onClick={() => setActiveTab("makePayments")}
+          >
+            To Make Payments
+          </button>
+        </li>
+        <li className="nav-item">
+          <button
+            className={`nav-link ${activeTab === "payouts" ? "active" : ""}`}
+            onClick={() => setActiveTab("payouts")}
+          >
+            Payouts for Plant Sitters
+          </button>
+        </li>
+      </ul>
+
+      <div className="tab-content mt-4">
+        {/* "To Make Payments" Tab */}
+        {activeTab === "makePayments" && (
+          <div>
+            <h3>Make a Payment</h3>
+            <form onSubmit={handleSubmit}>
+              <div>
+                <label>
+                  Payment Amount (USD):
+                  <input
+                    type="number"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    min="1"
+                    step="0.01"
+                    placeholder="Enter amount"
+                    required
+                  />
+                </label>
+              </div>
+              <CardElement />
+              <button type="submit" disabled={paymentProcessing || !stripe}>
+                {paymentProcessing ? "Processing..." : "Pay"}
+              </button>
+              {error && <div style={{ color: "red" }}>{error}</div>}
+              {success && <div style={{ color: "green" }}>Payment successful!</div>}
+            </form>
+          </div>
+        )}
+
+        {/* "Payouts for Plant Sitters" Tab */}
+        {activeTab === "payouts" && (
+          <div>
+            <h3>Payouts for Plant Sitters</h3>
+            <p>Instructions on how to manage payouts for plant sitters will go here.</p>
+            {/* You can add the relevant payout form or instructions here */}
+          </div>
+        )}
+      </div>
+    </div>
   );
 };
 

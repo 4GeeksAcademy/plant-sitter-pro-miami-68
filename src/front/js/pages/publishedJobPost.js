@@ -20,7 +20,7 @@ import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
 
 
-export const ActiveJobPosts = () => {
+export const PublishedJobPosts = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -85,7 +85,7 @@ export const ActiveJobPosts = () => {
     return (
         <div
             className="text-center d-grid mt-4"
-            style={{ minWidth: '100%', justifyContent: 'center' }}
+            // style={{ minWidth: '100%', justifyContent: 'center' }}
         >
             <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
@@ -109,8 +109,7 @@ export const ActiveJobPosts = () => {
                         <h3 className="text-white mb-5 jobs">{city}, {state} {zipCode}</h3>
                         <p className="fs-4 mt-4 bg-white text-black description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
-                        {/* <JobServices /> */}
+                        <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
 
                         <div className="container plantImageWrapper p-0">
                             {jobServices.map((image, index) => {
@@ -191,9 +190,8 @@ export const ActiveJobPosts = () => {
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
+                    <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
                     <div className="d-flex justify-content-center">
-                        {/* <JobPlants /> */}
                         <div className="container plantImageWrapper p-0">
                             {jobPlants.map((image, index) => {
                                 if (image == "Standard House Plants") {
@@ -311,20 +309,20 @@ export const ActiveJobPosts = () => {
                             })}
                         </div>
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>About my plants and their needs:</strong></label>
+                    <label className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>About my plants and their needs:</strong></label>
                     <div className="input-group mb-1">
                         <p className="fs-4 bg-white text-black description">{moreAboutPlants}</p>
                     </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>More about what I need:</strong></label>
+                    <label className="form-label diphylleia-regular fs-5 mt-3 text-white"><strong>More about what I need:</strong></label>
                     <div className="input-group mb-1">
                         <p className="fs-4 bg-white text-black  description">{moreAboutServices}</p>
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help on these dates:</strong></label>
+                    <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help on these dates:</strong></label>
                     <JobDates />
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
+                    <label className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
                     <div className="input-group mb-2">
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
