@@ -39,7 +39,7 @@ import Chat from './component/Chat';
 import { PlantSitterProfile } from './pages/PlantSitterProfile';
 import { AccountVerification } from "./pages/AccountVerification";
 import { EnterNewPassword } from "./pages/EnterNewPassword";
-import { ForgotPassword } from "./pages/ForgotPassword";
+// import { ForgotPassword } from "./pages/ForgotPassword";
 import { ViewSitters } from "./pages/viewSitters";
 import { Cancel } from "./pages/cancel";
 import { ProviderLandingPage } from "./pages/providerLandingPage";
@@ -91,12 +91,12 @@ const Layout = () => {
                         <Route element={<JobPostsList />} path="/job-posts" />
                         <Route element={<h1>Not found!</h1>} />
                         <Route element={<AccountVerification />} path="/verification" />
-                        <Route element={<ForgotPassword />} path="/forgot-password" />
+                        {/* <Route element={<ForgotPassword />} path="/forgot-password" /> */}
                         <Route element={<EnterNewPassword />} path="/enternewpassword" />
                         <Route element={<Cancel />} path="/cancel" />
                         <Route element={<ProviderLandingPage />} path="/provider-landing" />
                         <Route element={<ClientLandingPage />} path="/client-landing" />
-                        <Route element={<ActiveJobPosts />} path="/active-job-posts/:id" />
+                        <Route element={<ActiveJobPosts />} path="/active-job-posts/:job_post_id" />
                     </Routes>
                     <Chat />
                     <Footer />

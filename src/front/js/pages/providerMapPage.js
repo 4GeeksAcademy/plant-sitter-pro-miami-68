@@ -26,7 +26,7 @@ export const ProviderMapPage = () => {
                 <h3 className="diphylleia-regular"><strong>How far are you willing to travel?</strong></h3>
                 <input placeholder="   Ex: 15" type="number" id="zipcode" className="input-field rounded" name="zipcode" />
                 <p className="m-0"></p>
-                <label for="customRange2" className="form-label mb-3">Miles</label>
+                <label className="form-label mb-3">Miles</label>
             </div>
             <button
                 type="button"
