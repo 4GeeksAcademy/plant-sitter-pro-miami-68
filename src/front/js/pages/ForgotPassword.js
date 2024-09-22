@@ -38,7 +38,7 @@
  	};
 
 	async function handleSubmit(event) {
-		if (e.type === "keydown" && e.key !== "Enter") return;
+		if (event.type === "keydown" && e.key !== "Enter") return;
 		event.preventDefault();
 		if (!hasToken) {
 			// No token, this means the user is in the "Reset Password" stage
@@ -137,7 +137,7 @@
  				)}
  				{error && <div className="forgot-password-error">{error}</div>}
  				<div style={{ textAlign: 'center' }}>
- 					<button type="submit" className="forgot-password-button">Submit</button>
+ 					<button type="submit" className="forgot-password-button" >Submit</button>
  				</div>
  			</form>
 

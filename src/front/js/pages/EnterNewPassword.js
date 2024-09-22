@@ -12,7 +12,7 @@ export const EnterNewPassword = () => {
     const navigate = useNavigate();
 
     const handleSubmit = async () => {
-        if (e.type === "keydown" && e.key !== "Enter") return
+        // if (e.type === "keydown" && e.key !== "Enter") return
         if (newPassword === confirmNewPassword) {
             const response = await fetch(`${process.env.BACKEND_URL}/api/reset_password`, {
                 method: "POST",
