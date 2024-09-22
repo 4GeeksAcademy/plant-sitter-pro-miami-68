@@ -47,7 +47,7 @@ export const ClientLandingPage = () => {
     console.log(jobPosts);
 
     const handleViewJobPost = (jobPostId) => {
-        navigate(`/active-job-posts/${jobPostId}`);
+        navigate(`/published-job-posts/${jobPostId}`);
     };
 
     const formatDate = (dateString) => {
@@ -98,6 +98,13 @@ export const ClientLandingPage = () => {
                             </div>
                         </div>
                     ))}
+                    <div
+                        className="upload-job"
+                        onClick={() => navigate("/client-services1")}
+                        style={{ marginTop: "10%", marginLeft: "40px" }}
+                    >
+                        <i className="fa fa-plus fa-6x plus-sign"></i>
+                    </div>
                 </div>
             </div>
         </div>
