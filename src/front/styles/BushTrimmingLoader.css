@@ -1,0 +1,67 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f8ff;
+}
+
+.loading-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.bush {
+    width: 100px;
+    height: 60px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+    left: 25px;
+}
+
+.scissors {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    left: 30px;
+    top: -20px;
+    animation: trimming 1.5s infinite;
+}
+
+.blade {
+    position: absolute;
+    width: 40px;
+    height: 10px;
+    background-color: silver;
+    border-radius: 5px;
+}
+
+.blade-left {
+    transform: rotate(45deg);
+    left: 0;
+}
+
+.blade-right {
+    transform: rotate(-45deg);
+    right: 0;
+}
+
+.hand {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: #f5cba7;
+    border-radius: 50%;
+    left: 45px;
+    top: -40px;
+}
+
+@keyframes trimming {
+    0% { transform: rotate(0deg); }
+    50% { transform: rotate(-20deg); }
+    100% { transform: rotate(0deg); }
+}

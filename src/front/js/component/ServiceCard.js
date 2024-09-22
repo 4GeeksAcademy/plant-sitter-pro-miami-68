@@ -6,6 +6,7 @@ import cleaning from "../../img/cleaning.png";
 import pruning from "../../img/pruning.png";
 import repotting from "../../img/repotting.png";
 import pestControl from "../../img/pestControl.png";
+import BushTrimmingLoader from './BushTrimmingLoader';
 
 export const ServiceCard = () => {
     const { store, actions } = useContext(Context);
@@ -29,7 +30,7 @@ export const ServiceCard = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader />;
     }
 
     console.log(servicePreferences);

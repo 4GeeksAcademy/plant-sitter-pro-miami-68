@@ -8,6 +8,7 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
+import BushTrimmingLoader from './BushTrimmingLoader';
 
 export const PlantCard = () => {
     const { store, actions } = useContext(Context);
@@ -30,7 +31,7 @@ export const PlantCard = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader />;
     }
 
     return (
