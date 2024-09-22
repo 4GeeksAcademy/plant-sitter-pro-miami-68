@@ -1,18 +1,12 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { useNavigate } from "react-router-dom";
 import noImage from "../../img/noImage.png";
 import clientSignUp from "../../img/client-sign-up.png";
 
 export const ViewJobs = () => {
     const { store } = useContext(Context);
-    const navigate = useNavigate();
     const jobPosts = store.jobPosts || [];
-
-    const handleViewJobPost = (jobPostId) => {
-        navigate(`/job-post-preview/${jobPostId}`);
-    };
 
     return (
         <div className="row d-flex">
@@ -25,8 +19,7 @@ export const ViewJobs = () => {
                     jobPosts.map((jobPost) => (
                         <div 
                             key={jobPost.id} 
-                            className="col-md-4 mb-4" 
-                            onClick={() => handleViewJobPost(jobPost.id)}
+                            className="col-md-4 mb-4"
                         >
                             <div 
                                 className="card" 

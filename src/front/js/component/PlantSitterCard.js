@@ -1,16 +1,9 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import profilepic from "../../img/profilePicture.png";
 
 const PlantSitterCard = ({ sitter }) => {
-    const navigate = useNavigate();
-
-    const handleViewProfile = () => {
-        navigate(`/plantsitter/${sitter.id}`);
-    };
-
     return (
-        <div className="col-md-4 mb-4" onClick={handleViewProfile}>
+        <div className="col-md-4 mb-4">
             <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%" }}>
                 <img
                     src={sitter.profile_picture_url || profilepic}
