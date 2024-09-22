@@ -634,27 +634,48 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
-            // Fetch all job posts for the current user
-            getJobPosts: async () => {
-                const token = sessionStorage.getItem("token");
-                try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts`, {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `Bearer ${token}`,
-                        },
-                    });
+            // // Fetch all job posts
+            // getJobPosts: async () => {
+            //     const token = sessionStorage.getItem("token");
+            //     try {
+            //         const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts`, {
+            //             method: "GET",
+            //             headers: {
+            //                 "Authorization": `Bearer ${token}`,
+            //             },
+            //         });
 
-                    if (resp.ok) {
-                        const data = await resp.json();
+            //         if (resp.ok) {
+            //             const data = await resp.json();
+            //             return { success: true, data };
+            //         } else {
+            //             const errorData = await resp.json();
+            //             return { success: false, error: errorData.error };
+            //         }
+            //     } catch (error) {
+            //         console.error("Error fetching job posts:", error);
+            //         return { success: false, error: "An unexpected error occurred" };
+            //     }
+            // },
+
+            //Fetch all job posts for the current user
+            getUserJobPosts: async () => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/job_posts/user`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Ensure token is sent
+                        }
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
                         return { success: true, data };
                     } else {
-                        const errorData = await resp.json();
-                        return { success: false, error: errorData.error };
+                        return { success: false, message: data.message };
                     }
                 } catch (error) {
                     console.error("Error fetching job posts:", error);
-                    return { success: false, error: "An unexpected error occurred" };
+                    return { success: false, message: "Error fetching job posts." };
                 }
             },
 
