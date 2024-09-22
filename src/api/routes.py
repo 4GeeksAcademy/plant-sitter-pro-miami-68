@@ -400,6 +400,17 @@ def get_all_plant_sitters():
     return jsonify({"plant_sitters": [s.serialize() for s in plant_sitters]}), 200
 
 
+@api.route('/plant_sitter/<int:id>', methods=['GET'])
+@jwt_required()
+def get_plant_sitter_by_id(id):
+    plant_sitter = PlantSitter.query.get(id)
+
+    if not plant_sitter:
+        return jsonify({"error": "Plant sitter not found"}), 404
+
+    return jsonify(plant_sitter.serialize()), 200
+
+
 @api.route('/plant_sitter/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_plant_sitter(id):

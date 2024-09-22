@@ -446,6 +446,28 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //get plantsitter by id
+            getPlantSitterById: async (id) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter/${id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        return { success: true, data };
+                    } else {
+                        console.error("Failed to fetch plant sitter by ID");
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error fetching plant sitter:", error);
+                    return { success: false };
+                }
+            },
+
 
             //save JobPost Details
             setJobPostDetails: (details) => {

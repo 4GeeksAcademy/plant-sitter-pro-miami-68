@@ -1,20 +1,37 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import profilepic from "../../img/profilePicture.png";
 
 const PlantSitterCard = ({ sitter }) => {
+    const navigate = useNavigate();
+
+    const handleViewProfile = () => {
+        navigate(`/plantsitter/${sitter.id}`);
+    };
+
     return (
-        <div className="col-md-4 mb-4">
-            <div className="card">
+        <div className="col-md-4 mb-4" onClick={handleViewProfile}>
+            <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "15px", minHeight: "100%" }}>
                 <img
                     src={sitter.profile_picture_url || profilepic}
-                    alt="Plant Sitter"
+                    alt={`${sitter.first_name} ${sitter.last_name}`}
                     className="card-img-top"
+                    style={{
+                        borderRadius: "25px",
+                        width: "90%",
+                        height: "375px",
+                        objectFit: "cover",
+                        margin: "auto",
+                        marginTop: "20px"
+                    }}
                 />
                 <div className="card-body">
-                    <h3 className="card-title">
-                        {sitter.first_name} {sitter.last_name}
+                    <h3 className="card-title text-white diphylleia-regular fs-2">
+                        <strong>{sitter.first_name} {sitter.last_name}</strong>
                     </h3>
-                    <p className="card-text">{sitter.location}</p>
+                    <div className="card-text text-white fs-5">
+                        <strong>Location:</strong> {sitter.location || 'Location not provided'}
+                    </div>
                 </div>
             </div>
         </div>

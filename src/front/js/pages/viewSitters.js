@@ -22,7 +22,9 @@ export const ViewSitters = () => {
                         <PlantSitterCard key={sitter.id} sitter={sitter} />
                     ))
                 ) : (
-                    <p>No sitters found near your location.</p>
+                    <div className="d-flex justify-content-center align-items-center" style={{ height: "100px" }}>
+                        <p>No sitters found near your location...</p>
+                    </div>
                 )}
             </div>
 
