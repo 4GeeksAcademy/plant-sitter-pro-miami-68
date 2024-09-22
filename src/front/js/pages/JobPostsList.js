@@ -10,7 +10,7 @@ export const JobPostsList = () => {
 
     useEffect(() => {
         const fetchJobPosts = async () => {
-            const res = await actions.getJobPosts();
+            const res = await actions.getUserJobPosts();
             if (res.success) {
                 setJobPosts(res.data);
             } else {
