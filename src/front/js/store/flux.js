@@ -664,7 +664,7 @@ const getState = ({ getStore, getActions, setStore }) => {
                     const res = await fetch(`${process.env.BACKEND_URL}/api/job_posts/user`, {
                         method: 'GET',
                         headers: {
-                            'Authorization': `Bearer ${sessionStorage.getItem('token')}` // Ensure token is sent
+                            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
                         }
                     });
                     const data = await res.json();
