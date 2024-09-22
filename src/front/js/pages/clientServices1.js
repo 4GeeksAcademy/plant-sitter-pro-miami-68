@@ -32,6 +32,7 @@ export const ClientServices1 = () => {
     const [detailsUpdated, setDetailsUpdated] = useState(false);
 
     useEffect(() => {
+        
         const fetchData = async () => {
             setLoading(true);
 

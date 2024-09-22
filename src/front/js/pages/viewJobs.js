@@ -61,7 +61,7 @@ export const ViewJobs = () => {
 					className="btn col-12 rounded-pill mt-2"
 					onClick={
 						() => {
-							navigate('/client-signup1')
+							navigate('/provider-signup1')
 						}
 					}
 				>

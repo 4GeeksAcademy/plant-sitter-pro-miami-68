@@ -20,6 +20,7 @@ from api.utils import generate_sitemap, APIException
 from datetime import timedelta
 from .send_email import send_email
 from api.decodetoken import decode_token, decode_reset_token
+from geopy.distance import geodesic
 
 api = Blueprint('api', __name__)
 
@@ -414,6 +415,35 @@ def delete_plant_sitter(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+    
+
+
+@api.route('/search-sitters', methods=['POST'])
+def search_sitters():
+    data = request.get_json()
+    user_zip_code = data.get("zip_code")
+    
+    if not user_zip_code:
+        return jsonify({"success": False, "message": "ZIP code is required"}), 400
+
+    user = User.query.filter_by(zip_code=user_zip_code).first()
+    if not user or not user.latitude or not user.longitude:
+        return jsonify({"success": False, "message": "Invalid ZIP code"}), 400
+
+    user_location = (user.latitude, user.longitude)
+    radius_miles = 15
+
+    sitters_within_radius = []
+    sitters = PlantSitter.query.all()
+
+    for sitter in sitters:
+        if sitter.user.latitude and sitter.user.longitude:
+            sitter_location = (sitter.user.latitude, sitter.user.longitude)
+            distance = geodesic(user_location, sitter_location).miles
+            if distance <= radius_miles:
+                sitters_within_radius.append(sitter)
+
+    return jsonify({"success": True, "data": [sitter.serialize() for sitter in sitters_within_radius]})
     
 
 

@@ -15,7 +15,7 @@ export const ProviderSignUp1 = () => {
 	useEffect(() => {
 		const token = sessionStorage.getItem("token");
 		if (token) {
-			navigate("/client-services1");
+			navigate("/provider-services");
 		}
 	}, [navigate]);
 
@@ -34,7 +34,7 @@ export const ProviderSignUp1 = () => {
 					className="btn col-12 rounded-pill mt-2"
 					onClick={
 						() => {
-							navigate('/client-signup1')
+							navigate('/provider-signup2')
 						}
 					}
 				>

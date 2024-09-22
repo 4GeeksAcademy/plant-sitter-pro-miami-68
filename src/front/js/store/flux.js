@@ -423,6 +423,30 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //Search Plant Sitter using zipcode
+            searchSitters: async (zipCode) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/search-sitters`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ zip_code: zipCode }),
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        setStore({ sitters: data.data });
+                        return { success: true };
+                    } else {
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error searching sitters:", error);
+                    return { success: false };
+                }
+            },
+
+
             //save JobPost Details
             setJobPostDetails: (details) => {
                 setStore({ jobPostDetails: details });
