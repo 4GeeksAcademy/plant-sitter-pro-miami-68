@@ -155,6 +155,7 @@ export const ClientSignUp2 = () => {
                                     className="form-control"
                                     placeholder="Currently only available in the United States"
                                     value={country}
+                                    readOnly
                                 />
                                 <label className="form-label">Country</label>
                             </div>
