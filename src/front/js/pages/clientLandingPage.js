@@ -28,7 +28,7 @@ export const ClientLandingPage = () => {
                         setCity(result.data.city);
                         setState(result.data.state);
                     }
-                const res = await actions.getJobPosts();
+                    const res = await actions.getUserJobPosts();
                     if (res.success && res.data) {
                         setJobPosts(res.data);
                         setPicture(res.data.profile_picture_url);
