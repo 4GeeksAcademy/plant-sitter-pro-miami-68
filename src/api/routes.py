@@ -538,8 +538,7 @@ def update_job_post(job_post_id):
 @jwt_required()
 def get_job_posts():
     job_posts = JobPost.query.all()
-    return jsonify([post.serialize() for post in job_posts]), 200
-
+    return jsonify({"job_posts": [post.serialize() for post in job_posts]}), 200
 
 @api.route('/job_posts/<int:job_post_id>', methods=['GET'])
 @jwt_required()
