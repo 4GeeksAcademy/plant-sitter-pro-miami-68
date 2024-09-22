@@ -33,6 +33,7 @@ export const PlantSitterProfile = () => {
 
     // Handle form submission for rating
     const handleSubmit = e => {
+        if (e.type === "keydown" && e.key !== "Enter") return
         e.preventDefault();
         const token = sessionStorage.getItem('token');
         if (!token) {

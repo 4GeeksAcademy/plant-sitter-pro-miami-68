@@ -167,8 +167,8 @@ def forgot_password():
     user = User.query.filter_by(email=email).first()
     
     if not user:
-        return jsonify({"error": "If your email is associated with an account, you will receive a password reset email."}), 200
-    
+        return jsonify({"message": "If your email is associated with an account, you will receive a password reset email."}), 200
+
     # Create a token with an expiration time, e.g., 10 minutes
     token = create_access_token(identity=user.id, expires_delta=timedelta(minutes=10))
     

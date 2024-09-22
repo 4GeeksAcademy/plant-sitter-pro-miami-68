@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
 import './../../styles/PersonalInfo.css';
+import '../../styles/handleSubmit.css';
 
 export const PersonalInfo = () => {
     const { store, actions } = useContext(Context);

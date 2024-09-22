@@ -59,7 +59,7 @@ export const ProviderSignUp = () => {
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
-                                <label className="form-label">First Name</label>
+                                <label className="form-label" htmlFor="firstName">First Name</label>
                             </div>
                         </div>
                         <div className="col-md-6 mb-2 pb-2">
@@ -71,7 +71,7 @@ export const ProviderSignUp = () => {
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                 />
-                                <label className="form-label">Last Name</label>
+                                <label className="form-label" htmlFor="lastName">Last Name</label>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@ export const ProviderSignUp = () => {
                                 value={addressLine1}
                                 onChange={(e) => setAddressLine1(e.target.value)}
                             />
-                            <label className="form-label">Address Line 1</label>
+                            <label className="form-label" htmlFor="addressLine1">Address Line 1</label>
                         </div>
                     </div>
 
@@ -98,7 +98,7 @@ export const ProviderSignUp = () => {
                                 value={addressLine2}
                                 onChange={(e) => setAddressLine2(e.target.value)}
                             />
-                            <label className="form-label">Address Line 2</label>
+                            <label className="form-label" htmlFor="addressLine2">Address Line 2</label>
                         </div>
                     </div>
 
@@ -112,7 +112,7 @@ export const ProviderSignUp = () => {
                                     value={city}
                                     onChange={(e) => setCity(e.target.value)}
                                 />
-                                <label className="form-label">City</label>
+                                <label className="form-label" htmlFor="city">City</label>
                             </div>
                         </div>
 
@@ -125,7 +125,7 @@ export const ProviderSignUp = () => {
                                     value={state}
                                     onChange={(e) => setState(e.target.value)}
                                 />
-                                <label className="form-label">State</label>
+                                <label className="form-label" for="state">State</label>
                             </div>
                         </div>
 
@@ -138,7 +138,7 @@ export const ProviderSignUp = () => {
                                     value={zipCode}
                                     onChange={(e) => setZipCode(e.target.value)}
                                 />
-                                <label className="form-label">ZIP Code</label>
+                                <label className="form-label" htmlFor="zipCode">ZIP Code</label>
                             </div>
                         </div>
                     </div>
@@ -153,7 +153,7 @@ export const ProviderSignUp = () => {
                                     placeholder="Currently only available in the United States"
                                     value={country}
                                 />
-                                <label className="form-label">Country</label>
+                                <label className="form-label" htmlFor="country">Country</label>
                             </div>
                         </fieldset>
                     </div>
@@ -167,7 +167,7 @@ export const ProviderSignUp = () => {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                             />
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label" htmlFor="phone">Phone Number</label>
                         </div>
                     </div>
 
@@ -180,7 +180,7 @@ export const ProviderSignUp = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <label className="form-label">Email</label>
+                            <label className="form-label" htmlFor="email">Email</label>
                         </div>
                     </div>
 
@@ -193,7 +193,7 @@ export const ProviderSignUp = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <label className="form-label">Password</label>
+                            <label className="form-label" htmlFor="password">Password</label>
                         </div>
                     </div>
 
@@ -205,7 +205,7 @@ export const ProviderSignUp = () => {
                             onChange={(e) => setTermsAccepted(e.target.checked)}
                             id="terms"
                         />
-                        <label className="form-check-label">
+                        <label className="form-check-label" htmlFor="terms">
                             I do accept the <a href="#!" className=""><u>Terms and Conditions</u></a> of your site.
                         </label>
                     </div>

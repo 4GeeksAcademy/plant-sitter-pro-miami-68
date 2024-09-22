@@ -25,6 +25,7 @@ export const JobPost1 = () => {
     const lastName = store.user?.last_name;
 
     const handleSubmit = async () => {
+        if (e.type === "keydown" && e.key !== "Enter") return
         const formattedStartDate = new Date(store.jobPostDetails.startDate).toISOString();
         const formattedEndDate = new Date(store.jobPostDetails.endDate).toISOString();
     

@@ -20,6 +20,7 @@ const AccountSettings = () => {
     }, []);
 
     const handleDeleteAccount = async (e) => {
+        if (e.type === "keydown" && e.key !== "Enter") return;
         e.preventDefault();
         if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
             const result = await actions.deleteUser();
