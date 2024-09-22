@@ -96,7 +96,7 @@ const Layout = () => {
                         <Route element={<Cancel />} path="/cancel" />
                         <Route element={<ProviderLandingPage />} path="/provider-landing" />
                         <Route element={<ClientLandingPage />} path="/client-landing" />
-                        <Route element={<ActiveJobPosts />} path="/active-job-posts/:id" />
+                        <Route element={<ActiveJobPosts />} path="/active-job-posts/:job_post_id" />
                     </Routes>
                     <Chat />
                     <Footer />
