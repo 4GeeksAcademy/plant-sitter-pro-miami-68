@@ -592,6 +592,32 @@ def get_job_post(job_post_id):
     return jsonify(job_post.serialize()), 200
 
 
+@api.route('/search-job-posts', methods=['POST'])
+def search_job_posts():
+    data = request.get_json()
+    zip_code = data.get("zip_code")
+    distance = data.get("distance")
+    
+    user = User.query.filter_by(zip_code=zip_code).first()
+    if not user or not user.latitude or not user.longitude:
+        return jsonify({"success": False, "message": "Invalid ZIP code"}), 400
+
+    user_location = (user.latitude, user.longitude)
+    radius_miles = float(distance)
+
+    job_posts_within_radius = []
+    job_posts = JobPost.query.all()
+
+    for post in job_posts:
+        if post.latitude and post.longitude:
+            post_location = (post.latitude, post.longitude)
+            distance = geodesic(user_location, post_location).miles
+            if distance <= radius_miles:
+                job_posts_within_radius.append(post)
+
+    return jsonify({"success": True, "data": [post.serialize() for post in job_posts_within_radius]})
+
+
 
 # ---------------------------endpoints for messeages--------------------------------------
 

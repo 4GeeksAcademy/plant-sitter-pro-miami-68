@@ -658,6 +658,30 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //Search jobpost using zip code
+            searchJobPosts: async (zipCode, distance) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/search-job-posts`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ zip_code: zipCode, distance: distance }),
+                    });
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        setStore({ jobPosts: data.data });
+                        return { success: true };
+                    } else {
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error searching job posts:", error);
+                    return { success: false };
+                }
+            },
+
 
             //refresh token
             refreshAccessToken: async () => {

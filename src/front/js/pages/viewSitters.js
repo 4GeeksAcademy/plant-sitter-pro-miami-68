@@ -16,7 +16,7 @@ export const ViewSitters = () => {
                 <strong>There are {sitters.length} Plant Sitters near you!</strong>
             </h1>
 
-            <div className="d-flex row mt-3">
+            <div className="d-flex row m-3">
                 {sitters.length > 0 ? (
                     sitters.map((sitter) => (
                         <PlantSitterCard key={sitter.id} sitter={sitter} />
