@@ -103,7 +103,10 @@ export const ClientLandingPage = () => {
                     ))}
                     <div
                         className="upload-job"
-                        onClick={() => navigate("/client-services1")}
+                        onClick={() => 
+                            {actions.clearJobPostId();
+                            navigate("/client-services1")}
+                        }
                         style={{ marginTop: "10%", marginLeft: "40px" }}
                     >
                         <i className="fa fa-plus fa-6x plus-sign"></i>
