@@ -112,10 +112,22 @@ export const ClientLandingPage = () => {
             </div>
 
             <div className="container mt-5">
-                <h1 className="diphylleia-regular mb-4 text-center"><strong>View Current Jobs</strong></h1 >
+                <h1 
+                    className="diphylleia-regular mb-4 text-center apply-link"
+                    style={{textDecoration: "underline"}}
+                    onClick={() => navigate('/job-posts')}
+                >
+                    <strong>View Current Jobs</strong>
+                </h1>
             </div>
             <div className="container mt-5">
-                <h1 className="diphylleia-regular mb-4 text-center"><strong>View Completed Jobs</strong></h1 >
+                <h1 
+                    className="diphylleia-regular mb-4 text-center apply-link"
+                    style={{textDecoration: "underline"}}
+                    onClick={() => navigate('/completed-jobs-page')}
+                >
+                    <strong>View Completed Jobs</strong>
+                </h1>
             </div>
         </div>
     );
