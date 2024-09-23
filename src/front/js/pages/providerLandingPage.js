@@ -78,10 +78,10 @@ export const ProviderLandingPage = () => {
 
             <div className="row container-fluid mt-4">
                 <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Options</strong></h2>
-                <div className="row">
+                <div className="row d-flex flex-wrap">
                     {jobPostsNearby.length > 0 ? (
                         jobPostsNearby.map((jobPost) => (
-                            <div key={jobPost.id} className="col-md-4 mb-1" style={{ paddingLeft: "1px", paddingRight: "1px" }}>
+                            <div key={jobPost.id} className="col mb-1" style={{ paddingLeft: "1px", paddingRight: "1px" }}>
                                 <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "10px", width: "240px", height: "300px" }}>
                                     <img
                                         src={jobPost.profile_picture_url || "no-image.png"}

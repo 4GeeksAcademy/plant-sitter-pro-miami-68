@@ -91,7 +91,7 @@ export const ProviderProfileCompleted = () => {
                         >
                         </div>
                         <div data-mdb-input-init className="form-outline form-white">
-                            <p className="fs-4 mt-4 text-white description">{intro}</p>
+                            <p className="fs-4 mt-4 text-black description">{intro}</p>
                         </div>
                         <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>I can provide the following services:</strong></h3>
                         <ServiceCard />
@@ -100,20 +100,20 @@ export const ProviderProfileCompleted = () => {
                         <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
                         <div className="input-group mb-3">
-                            <p className="fs-4 text-white description">{clientInfo}</p>
+                            <p className="fs-4 text-black description">{clientInfo}</p>
                         </div>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My plants:</strong></label>
                         <div className="input-group mb-3">
-                            <p className="fs-4 text-white description">{currentPlants}</p>
+                            <p className="fs-4 text-black description">{currentPlants}</p>
                         </div>
 
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My background and experience:</strong></label>
                         <div className="input-group mb-3">
-                            <p className="fs-4 text-white description">{professionalExperience}</p>
+                            <p className="fs-4 text-black description">{professionalExperience}</p>
                         </div>
                         <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things I'd like to share:</strong></label>
                         <div className="input-group justify-contents-center mb-3">
-                            <p className="fs-4 text-white description">{extraInfo}</p>
+                            <p className="fs-4 text-black description">{extraInfo}</p>
                         </div>
                     </div>
                     <div className="col bckgrnd rounded p-3 m-2">

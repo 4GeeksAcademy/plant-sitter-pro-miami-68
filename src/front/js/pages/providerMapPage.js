@@ -15,7 +15,8 @@ export const ProviderMapPage = () => {
             if (res.success) {
                 navigate('/view-jobs');
             } else {
-                alert("No job posts found in the specified location.");
+                // navigate('/view-jobs');
+                alert("No job posts yet in your search area. Try expanding your search.");
             }
         } else {
             alert("Please enter a valid ZIP code and distance.");
