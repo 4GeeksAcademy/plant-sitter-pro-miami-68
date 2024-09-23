@@ -49,7 +49,7 @@ export const JobPostsList = () => {
     console.log(jobPosts);
 
     const handleViewJobPost = (jobPostId) => {
-        navigate(`/jobs-in-progress/${jobPostId}`);
+        navigate(`/published-job-posts/${jobPostId}`);
     };
 
     const formatDate = (dateString) => {

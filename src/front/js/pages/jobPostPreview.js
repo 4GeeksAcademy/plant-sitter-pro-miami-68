@@ -87,7 +87,36 @@ export const JobPost2 = () => {
             className="text-center d-grid mt-4"
             style={{ minWidth: '100%', justifyContent: 'center' }}
         >
-            <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
+            <h1 className="mt-3 mb-0 diphylleia-regular jobs"><strong>This is how your job post will appear to our Plant Sitters</strong></h1>
+            <h3 className="p-5 diphylleia-regular jobs"><strong>You will be able to message applicants and the plant sitter that you chose in your published post.</strong></h3>
+            
+            <div
+                className="container-fluid row"
+            >
+                <div className="col-4"></div>
+                <button
+                    className="btn btn-success col-2 rounded-pill"
+                    onClick={() => {
+                        actions.setJobPostDetails({ id: job_post_id });
+                        navigate("/client-services1");
+                    }}
+                >
+                    Edit <i className="fas fa-pencil-alt"></i>
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-success col-2 rounded-pill"
+                    onClick={
+                        () => {
+                            navigate('/job-posts')
+                        }
+                    }
+                >
+                    Publish
+                </button>
+                <div className="col-4"></div>
+            </div>
+
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
@@ -331,7 +360,7 @@ export const JobPost2 = () => {
                     <div className="w-100">
                         <i
                             className="fa-regular fa-message btn"
-                            style={{ position: "absolute", right: "100px", fontSize: "80px" }}
+                            style={{right: "100px", fontSize: "80px" }}
                             title="This is where you will communicate with applicants"
                         // onClick={() => /*insert navigate link*/}
                         />
@@ -345,32 +374,6 @@ export const JobPost2 = () => {
                         <strong>Apply Now</strong>
                     </button>
                 </div>
-            </div>
-            <div
-                className="container-fluid row mb-2"
-            >
-                <div className="col-4"></div>
-                <button
-                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                    onClick={() => {
-                        actions.setJobPostDetails({ id: job_post_id });
-                        navigate("/client-services1");
-                    }}
-                >
-                    Edit <i className="fas fa-pencil-alt"></i>
-                </button>
-                <button
-                    type="button"
-                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                    onClick={
-                        () => {
-                            navigate('/client-landing')
-                        }
-                    }
-                >
-                    Publish
-                </button>
-                <div className="col-4"></div>
             </div>
         </div>
     );
