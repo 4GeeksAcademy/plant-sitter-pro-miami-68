@@ -3,10 +3,12 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import noImage from "../../img/noImage.png";
 import clientSignUp from "../../img/client-sign-up.png";
+import { useNavigate } from "react-router-dom";
 
 export const ViewJobs = () => {
     const { store } = useContext(Context);
     const jobPosts = store.jobPosts || [];
+    const navigate = useNavigate();
 
     return (
         <div className="row d-flex">

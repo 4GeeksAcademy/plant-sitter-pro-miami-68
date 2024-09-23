@@ -21,7 +21,7 @@ export const JobPostsList = () => {
     }, []);
 
     const handleViewJobPost = (jobPostId) => {
-        navigate(`/job-post-preview/${jobPostId}`);
+        navigate(`/jobs-in-progress/${jobPostId}`);
     };
 
     // Function to format date in "MM/DD/YYYY" format
@@ -32,7 +32,10 @@ export const JobPostsList = () => {
 
     return (
         <div className="container mt-5">
-            <h1 className="diphylleia-regular mb-4 text-center"><strong>Your Job Posts</strong></h1 >
+            <h1 className="diphylleia-regular mb-4 text-center"><strong>Success!</strong></h1 >
+
+            <h1 className="diphylleia-regular mb-4 text-center"><strong>Here Are Your Published Job Posts</strong></h1>
+            <h2 className="diphylleia-regular mb-4 text-center">Click on any post below to see and approve applicants for your job or, if you've already approved an applicant, to communicate with that plant sitter.</h2>
             <div className="row">
                 {jobPosts.map((post) => (
                     <div className="col-md-4 mb-4 job-cards" key={post.id} onClick={() => handleViewJobPost(post.id)}>

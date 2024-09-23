@@ -136,12 +136,12 @@ export const Home = () => {
 
 			<h1 className="diphylleia-regular text-center mt-5 mb-2"><strong>Meet Some of Our Plant Sitters...</strong></h1>
 			<div className="d-flex row mt-3">
-				<p className="text-center fs-4">** Insert carousel here... **</p>
+				{/* <p className="text-center fs-4">** Insert carousel here... **</p> */}
 				<img className="sitter-pics" src={client} />
 				<img className="sitter-pics" src={profilepic} />
 				<img className="sitter-pics" src={client} />
 				<img className="sitter-pics" src={profilepic} />
-				<img className="sitter-pics" src={client} />
+				{/* <img className="sitter-pics" src={client} /> */}
 			</div>
 			{/* <div className="carousel-container mt-2 mb-2">
 				<PlantSitterCarousel />
