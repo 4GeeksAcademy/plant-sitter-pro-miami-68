@@ -81,7 +81,12 @@ export const ProviderLandingPage = () => {
                 <div className="row">
                     {jobPostsNearby.length > 0 ? (
                         jobPostsNearby.map((jobPost) => (
-                            <div key={jobPost.id} className="col-md-4 mb-1" style={{ paddingLeft: "1px", paddingRight: "1px" }}>
+                            <div 
+                                key={jobPost.id} 
+                                className="col mb-1 job-option" 
+                                style={{ paddingLeft: "1px", paddingRight: "1px"}}
+                                onClick={()=> navigate(`/published-job-posts/${jobPost.id}`)}
+                            >
                                 <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "10px", width: "240px", height: "300px" }}>
                                     <img
                                         src={jobPost.profile_picture_url || "no-image.png"}

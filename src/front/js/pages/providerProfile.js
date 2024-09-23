@@ -228,7 +228,7 @@ export const ProviderProfile = () => {
                 className="btn mb-3 mt-3 col-2 rounded-pill"
                 onClick={handleSubmit}
             >
-                Submit
+                Next
             </button>
         </div>
     );

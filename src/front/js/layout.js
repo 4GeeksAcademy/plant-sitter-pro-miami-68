@@ -48,6 +48,7 @@ import { ViewPlantSitterProfile } from "./pages/ViewPlantSitterProfile";
 import { PublishedJobPosts } from "./pages/publishedJobPost";
 import { JobsInProgress } from "./pages/jobsInProgress";
 import { ViewApplicants } from "./pages/jobApplicants";
+import { ProfileSuccessPage } from "./pages/profileSuccessPage";
 
 //create your first component
 const Layout = () => {
@@ -103,6 +104,7 @@ const Layout = () => {
                         <Route element={<PublishedJobPosts />} path="/published-job-posts/:job_post_id" />
                         <Route element={<JobsInProgress />} path="/jobs-in-progress/:id" />
                         <Route element={<ViewApplicants />} path="/view-applicants" />
+                        <Route element={<ProfileSuccessPage />} path="/profile-success-page" />
                     </Routes>
                     <Chat />
                     <Footer />

@@ -70,31 +70,31 @@ export const ViewJobs = () => {
                             <strong>Benefits of Joining...</strong>
                         </h3>
                         <h4 className="diphylleia-regular mt-4" style={{ fontSize: "2vw" }}>
-                            <strong>✔️ Safe</strong>
+                            <strong>✔️ Easy</strong>
                         </h4>
                         <p className="mb-0" style={{ fontSize: "1.5vw" }}>
-                            🌿 Find and hire vetted, qualified help near you.
+                            🌿 Easily search and apply for jobs in your area.
                         </p>
-                        <p className="mb-4" style={{ fontSize: "1.5vw" }}>
+                        {/* <p className="mb-4" style={{ fontSize: "1.5vw" }}>
                             🌿 Background checks completed for all plant sitters.
-                        </p>
-                        <h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}>
-                            <strong>✔️ Affordable</strong>
-                        </h4>
-                        <p className="mb-0" style={{ fontSize: "1.5vw" }}>
-                            🌿 Pay only $__ /month to post unlimited jobs.
-                        </p>
-                        <p className="mb-4" style={{ fontSize: "1.5vw" }}>
-                            🌿 Choose your own rate per job.
-                        </p>
+                        </p> */}
                         <h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}>
                             <strong>✔️ Convenient</strong>
                         </h4>
                         <p className="mb-0" style={{ fontSize: "1.5vw" }}>
+                            🌿 Choose only the jobs you want, when you want them.
+                        </p>
+                        {/* <p className="mb-4" style={{ fontSize: "1.5vw" }}>
                             🌿 Cancel any time.
+                        </p> */}
+                        <h4 className="diphylleia-regular mt-3" style={{ fontSize: "2vw" }}>
+                            <strong>✔️ Affordable</strong>
+                        </h4>
+                        <p className="mb-0" style={{ fontSize: "1.5vw" }}>
+                            🌿 Pay only $__ /month to utilize our platform.
                         </p>
                         <p className="mb-4" style={{ fontSize: "1.5vw" }}>
-                            🌿 Hire only the help you need, when you need it.
+                            🌿 Cancel any time.
                         </p>
                     </div>
                 </div>

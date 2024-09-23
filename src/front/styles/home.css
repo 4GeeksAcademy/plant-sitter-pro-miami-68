@@ -6,6 +6,11 @@
     on that page only (the ones not reused in other pages).
 */
 
+.apply-link:hover {
+  cursor: pointer;
+  color: blue;
+}
+
 .upload-job {
   border: 2px solid darkgrey;
   border-radius: 15%;
@@ -465,11 +470,16 @@ border-bottom-left-radius: 100px;
 }
 
 .description {
-  border: 1px solid white;
+  border: 2px solid black;
   border-radius: 5px;
   padding: 10px;
   min-width: 100%;
   min-height: 200px;
+  background-color: white;
+}
+
+.job-option:hover {
+  cursor: pointer;
 }
 
 .needs {

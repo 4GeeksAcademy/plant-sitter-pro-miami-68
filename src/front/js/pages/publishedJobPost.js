@@ -95,12 +95,18 @@ export const PublishedJobPosts = () => {
     return (
         <div
             className="text-center d-grid mt-4"
-            // style={{ minWidth: '100%', justifyContent: 'center' }}
         >
-            {/* <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1> */}
+            <div className="mb-2">
+                <button 
+                    style={{backgroundColor: "white", color: "black", border: "3px solid black", borderRadius:"25px", width: "150px"}}
+                    onClick={()=> navigate('/job-posts')}
+                >
+                    <strong>Back</strong>
+                </button>
+            </div>
             <div>
                 <button
-                    className="see-applicants mt-5 mb-2"
+                    className="see-applicants mb-2"
                     type="button"
                     onClick={() => navigate("/view-applicants")}
                 >
