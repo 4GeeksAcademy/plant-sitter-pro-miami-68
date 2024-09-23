@@ -7,10 +7,8 @@ const PaymentForm = () => {
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [amount, setAmount] = useState(''); // State for payment amount
-
-  // Nav pill state
-  const [activeTab, setActiveTab] = useState("makePayments"); // Default is "makePayments"
+  const [amount, setAmount] = useState('');
+  const [activeTab, setActiveTab] = useState("makePayments");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,7 +21,6 @@ const PaymentForm = () => {
 
     setPaymentProcessing(true);
 
-    // Validate the amount
     const numericAmount = parseFloat(amount);
     if (isNaN(numericAmount) || numericAmount <= 0) {
       setError("Please enter a valid payment amount.");
@@ -31,7 +28,6 @@ const PaymentForm = () => {
       return;
     }
 
-    // Call your backend to create a PaymentIntent
     try {
       const response = await fetch(
         process.env.BACKEND_URL + "/api/create-payment-intent",
@@ -40,7 +36,7 @@ const PaymentForm = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ amount: numericAmount * 100 }), // Convert to cents
+          body: JSON.stringify({ amount: numericAmount * 100 }),
         }
       );
 
@@ -73,9 +69,9 @@ const PaymentForm = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       {/* Nav Pills */}
-      <ul className="nav nav-pills">
+      <ul className="nav nav-pills mb-4 justify-content-center">
         <li className="nav-item">
           <button
             className={`nav-link ${activeTab === "makePayments" ? "active" : ""}`}
@@ -94,45 +90,56 @@ const PaymentForm = () => {
         </li>
       </ul>
 
-      <div className="tab-content mt-4">
-        {/* "To Make Payments" Tab */}
-        {activeTab === "makePayments" && (
-          <div>
-            <h3>Make a Payment</h3>
-            <form onSubmit={handleSubmit}>
-              <div>
-                <label>
-                  Payment Amount (USD):
-                  <input
-                    type="number"
-                    value={amount}
-                    onChange={(e) => setAmount(e.target.value)}
-                    min="1"
-                    step="0.01"
-                    placeholder="Enter amount"
-                    required
-                  />
-                </label>
-              </div>
-              <CardElement />
-              <button type="submit" disabled={paymentProcessing || !stripe}>
-                {paymentProcessing ? "Processing..." : "Pay"}
-              </button>
-              {error && <div style={{ color: "red" }}>{error}</div>}
-              {success && <div style={{ color: "green" }}>Payment successful!</div>}
-            </form>
-          </div>
-        )}
+      {/* Payment Form */}
+      {activeTab === "makePayments" && (
+        <div className="card shadow-sm p-4">
+          <h3 className="text-center">Make a Payment</h3>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-3">
+              <label className="form-label">Payment Amount (USD):</label>
+              <input
+                type="number"
+                className="form-control"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                min="1"
+                step="0.01"
+                placeholder="Enter amount"
+                required
+              />
+            </div>
 
-        {/* "Payouts for Plant Sitters" Tab */}
-        {activeTab === "payouts" && (
-          <div>
-            <h3>Payouts for Plant Sitters</h3>
-            <p>Instructions on how to manage payouts for plant sitters will go here.</p>
-            {/* You can add the relevant payout form or instructions here */}
-          </div>
-        )}
-      </div>
+            <div className="mb-3">
+              <label className="form-label">Credit Card Details:</label>
+              <div className="form-control p-2">
+                <CardElement />
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className="btn btn-primary w-100"
+              disabled={paymentProcessing || !stripe}
+            >
+              {paymentProcessing ? "Processing..." : "Pay"}
+            </button>
+
+            {error && <div className="alert alert-danger mt-3">{error}</div>}
+            {success && <div className="alert alert-success mt-3">Payment successful!</div>}
+          </form>
+        </div>
+      )}
+
+      {/* Payouts Section */}
+      {activeTab === "payouts" && (
+        <div className="card shadow-sm p-4">
+          <h3 className="text-center">Payouts for Plant Sitters</h3>
+          <p className="text-center">
+            Instructions on how to manage payouts for plant sitters will go here.
+          </p>
+          {/* You can add the relevant payout form or instructions here */}
+        </div>
+      )}
     </div>
   );
 };
