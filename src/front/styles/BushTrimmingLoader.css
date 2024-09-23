@@ -1,4 +1,5 @@
-body {
+/* Use a unique class to scope styles to this component only */
+.bush-trimming-loader-container {
     margin: 0;
     display: flex;
     justify-content: center;

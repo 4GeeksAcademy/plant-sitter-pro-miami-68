@@ -1,14 +1,15 @@
 .carousel-container {
-  overflow: hidden;
+  overflow:visible;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 20px !important;
+  margin-bottom: 20px !important;
   position: relative;
 }
 
 .services-carousel {
   display: flex;
-  gap: 20px; /* Increased gap for spacing between larger cards */
-  animation: scroll 20s linear infinite;
+  gap: 30px; /* Increased gap for spacing between larger cards */
+  animation: scroll 15s linear infinite;
 }
 
 /* Pause the animation when hovering over any part of the carousel */
@@ -21,7 +22,7 @@
     transform: translateX(0);
   }
   100% {
-    transform: translateX(-100%);
+    transform: translateX(-50%);
   }
 }
 
