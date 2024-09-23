@@ -6,6 +6,11 @@
     on that page only (the ones not reused in other pages).
 */
 
+.apply-link:hover {
+  cursor: pointer;
+  color: blue;
+}
+
 .upload-job {
   border: 2px solid darkgrey;
   border-radius: 15%;
