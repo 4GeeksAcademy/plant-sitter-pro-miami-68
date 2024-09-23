@@ -326,14 +326,6 @@ export const PublishedJobPosts = () => {
                     <div className="input-group mb-2">
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
-                    <div className="w-100">
-                        <i
-                            className="fa-regular fa-message btn"
-                            style={{ position: "absolute", right: "100px", fontSize: "80px" }}
-                            title="This is where you will communicate with applicants"
-                        // onClick={() => /*insert navigate link*/}
-                        />
-                    </div>
                     <button
                         title="This will be active for applicants"
                         className="apply-now"
@@ -342,6 +334,17 @@ export const PublishedJobPosts = () => {
                     >
                         <strong>Apply Now</strong>
                     </button>
+                    <div 
+                        className="btn"
+                        style={{ width: "auto"}}
+                    >
+                        <i
+                            className="fa-regular fa-message mt-2"
+                            style={{fontSize: "80px" }}
+                            title="This is where you will communicate with applicants"
+                        // onClick={() => /*insert navigate link*/}
+                        />
+                    </div>
                 </div>
             </div>
             <div
