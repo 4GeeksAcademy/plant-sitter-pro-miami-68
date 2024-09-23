@@ -61,6 +61,14 @@ export const JobPostsList = () => {
         <div className="container mt-5">
             <h1 className="diphylleia-regular mb-4 text-center"><strong>Success!</strong></h1 >
             <h1 className="diphylleia-regular mb-4 text-center"><strong>Here Are Your Published Job Posts</strong></h1>
+            <div className="mb-2 text-center">
+                <button 
+                    style={{backgroundColor: "green", border: "1px solid black"}}
+                    onClick={()=> navigate('/client-landing')}
+                >
+                    Return to Edit Page
+                </button>
+            </div>
             <h2 className="diphylleia-regular mb-4 text-center">Click on any post below to see and approve applicants for your job or, if you've already approved an applicant, to communicate with that plant sitter.</h2>
             <div className="row">
                 {jobPosts.map((post) => (
