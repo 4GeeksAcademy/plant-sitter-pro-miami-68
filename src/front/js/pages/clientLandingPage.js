@@ -33,8 +33,6 @@ export const ClientLandingPage = () => {
                     if (res.success && res.data) {
                         setJobPosts(res.data);
                         setPicture(res.data.profile_picture_url);
-                    } else {
-                        alert("Error fetching job posts");
                     }
             }
             setLoading(false);
@@ -50,7 +48,7 @@ export const ClientLandingPage = () => {
     console.log(jobPosts);
 
     const handleViewJobPost = (jobPostId) => {
-        navigate(`/published-job-posts/${jobPostId}`);
+        navigate(`/job-post-preview/${jobPostId}`);
     };
 
     const formatDate = (dateString) => {
