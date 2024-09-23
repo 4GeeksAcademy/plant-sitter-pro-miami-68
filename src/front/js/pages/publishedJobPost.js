@@ -365,7 +365,7 @@ export const PublishedJobPosts = () => {
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
                     <div style={{border: "1px solid white", borderRadius: "10px", padding: "10px"}}>
-                        <h5 className="mt-1">Message Plant Sitter(s)</h5>
+                        <h5 className="mt-1">Message Plant Sitter</h5>
                         <div 
                             className="btn mt-3 mb-3"
                             style={{ width: "100%"}}
