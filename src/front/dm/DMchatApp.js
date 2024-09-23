@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import ChatList from './ChatList';
-import ChatWindow from './ChatWindow';
-import MessageInput from './MessageInput';
+import DMchatList from './DMchatList';
+import DMchatWindow from './DMchatWindow';
+import DMchatInput from './DMchatInput';
 
-const ChatApp = () => {
+const DMchatApp = () => {
     const [conversations, setConversations] = useState([]);
-    const [messages, setMessages] = useState([]);
+    const [DMchats, setDMchats] = useState([]);
     const [selectedConversation, setSelectedConversation] = useState(null);
 
     useEffect(() => {
@@ -22,20 +22,20 @@ const ChatApp = () => {
         }
     };
 
-    const fetchMessages = async (conversationId) => {
+    const fetchDMchats = async (conversationId) => {
         try {
-            const response = await fetch(`/api/messages/${conversationId}`);
+            const response = await fetch(`/api/DMchat/${conversationId}`);
             const data = await response.json();
-            setMessages(data);
+            setDMchats(data);
             setSelectedConversation(conversationId);
         } catch (error) {
-            console.error("Error fetching messages:", error);
+            console.error("Error fetching DMchats:", error);
         }
     };
 
-    const handleSendMessage = async (messageText) => {
+    const handleSendDMchat = async (DMchatText) => {
         try {
-            const response = await fetch('/api/messages', {
+            const response = await fetch('/api/DMchat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -43,27 +43,27 @@ const ChatApp = () => {
                 body: JSON.stringify({
                     conversationId: selectedConversation,
                     senderId: store.user.id,
-                    text: messageText,
+                    text: DMchatText,
                 }),
             });
-            const newMessage = await response.json();
-            setMessages([...messages, newMessage]);
+            const newDMchat = await response.json();
+            setDMchats([...DMchats, newDMchat]);
         } catch (error) {
-            console.error("Error sending message:", error);
+            console.error("Error sending DMchat:", error);
         }
     };
 
     return (
-        <div className="chat-app">
-            <ChatList users={conversations} onSelectUser={fetchMessages} />
+        <div className="DMchat-app">
+            <DMchatList users={conversations} onSelectUser={fetchDMchats} />
             {selectedConversation && (
                 <>
-                    <ChatWindow messages={messages} />
-                    <MessageInput onSendMessage={handleSendMessage} />
+                    <DMchatWindow DMchats={DMchats} />
+                    <DMchatInput onSendDMchat={handleSendDMchat} />
                 </>
             )}
         </div>
     );
 };
 
-export default ChatApp;
+export default DMchatApp;

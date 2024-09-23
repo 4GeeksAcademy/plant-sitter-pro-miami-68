@@ -1,8 +1,8 @@
 import React from 'react';
 
-const ChatList = ({ users, onSelectUser }) => {
+const DMchatList = ({ users, onSelectUser }) => {
     return (
-        <div className="chat-list">
+        <div className="DMchat-list">
             <h3>Conversations</h3>
             <ul>
                 {users.map(user => (
@@ -15,4 +15,4 @@ const ChatList = ({ users, onSelectUser }) => {
     );
 };
 
-export default ChatList;
+export default DMchatList;

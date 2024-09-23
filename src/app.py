@@ -9,18 +9,16 @@ from flask_migrate import Migrate
 from flask_swagger import swagger
 from api.utils import APIException, generate_sitemap
 from api.models import db
-from api.routes import api
+# from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy 
-# from src.models import db 
-from src.api.dmessaging import messaging 
+# from api.routes import api
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
-
 
 
 # from models import Person
@@ -68,6 +66,7 @@ setup_admin(app)
 setup_commands(app)
 
 # Add all endpoints form the API with a "api" prefix
+from src.api.routes import api 
 app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
@@ -79,6 +78,7 @@ def handle_invalid_usage(error):
 
 # generate sitemap with all your endpoints
 
+# db = SQLAlchemy(app)
 
 @app.route('/')
 def sitemap():
@@ -97,7 +97,6 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
-app.register_blueprint(messaging)
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

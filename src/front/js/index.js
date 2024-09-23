@@ -10,9 +10,9 @@ import "../styles/index.css";
 import Layout from "./layout";
 
 // //import chat function
-import ChatApp from '../dm/ChatApp';  
-import '../styles/Chat.css';  
-  
+import ChatApp from '../dm/DMchatApp';
+import '../styles/Chat.css';
+
 
 //render your react application
 ReactDOM.render(<Layout />, document.querySelector("#app"));

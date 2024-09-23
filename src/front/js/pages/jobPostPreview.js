@@ -18,7 +18,7 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
-import ChatApp from '../../dm/ChatApp';
+import ChatApp from '../../dm/DMchatApp';
 
 
 export const JobPost2 = () => {

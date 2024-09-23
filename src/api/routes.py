@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, PlantSitter, JobPost, Rating, Message
+from api.models import db, User, PlantSitter, JobPost, Rating, Message, Conversation
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, create_refresh_token
@@ -721,6 +721,7 @@ def submit_rating(plantsitter_id):
 
 
 @api.route('/plantsitters/<int:plantsitter_id>/ratings', methods=['GET'])
+@jwt_required()
 def get_ratings(plantsitter_id):
     ratings = Rating.query.filter_by(plantsitter_id=plantsitter_id).all()
     serialized_ratings = [rating.serialize() for rating in ratings]
@@ -736,3 +737,62 @@ def get_ratings(plantsitter_id):
         'average_score': average_score
     }), 200
 
+
+@api.route('/conversations', methods=['GET'])
+@jwt_required()
+def get_conversations():
+    user_id = request.args.get('user_id')  # Get user ID from the request query
+    conversations = Conversation.query.filter(
+        (Conversation.user1_id == user_id) | (Conversation.user2_id == user_id)
+    ).all()
+
+    conversation_data = []
+    for conversation in conversations:
+        user1 = User.query.get(conversation.user1_id)
+        user2 = User.query.get(conversation.user2_id)
+        conversation_data.append({
+            'id': conversation.id,
+            'user1': user1.name,
+            'user2': user2.name
+        })
+
+    return jsonify(conversation_data)
+
+@api.route('/DMchat/<int:conversation_id>', methods=['GET'])
+@jwt_required()
+def get_DMchat(conversation_id):
+    messages = Message.query.filter_by(conversation_id=conversation_id).order_by(Message.created_at).all()
+
+    DMchat_data = []
+    for message in messages:
+        sender = User.query.get(message.sender_id)
+        DMchat_data.append({
+            'id': message.id,
+            'sender': sender.name,
+            'text': message.text,
+            'created_at': message.created_at
+        })
+
+    return jsonify(DMchat_data)
+
+
+# Send a new message
+@api.route('/DMchat', methods=['POST'])
+@jwt_required()
+def send_DMchat():
+    data = request.json
+    new_DMchat = Message(
+        conversation_id=data['conversationId'],
+        sender_id=data['senderId'],
+        text=data['text']
+    )
+    db.session.add(new_DMchat)
+    db.session.commit()
+
+    return jsonify({
+        'id': new_DMchat.id,
+        'conversation_id': new_DMchat.conversation_id,
+        'sender_id': new_DMchat.sender_id,
+        'text': new_DMchat.text,
+        'created_at': new_DMchat.created_at
+    }), 201
