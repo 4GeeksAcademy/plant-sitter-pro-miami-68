@@ -20,6 +20,7 @@ from api.utils import generate_sitemap, APIException
 from datetime import timedelta
 from .send_email import send_email
 from api.decodetoken import decode_token, decode_reset_token
+from geopy.distance import geodesic
 import stripe
 
 api = Blueprint('api', __name__)
@@ -167,8 +168,8 @@ def forgot_password():
     user = User.query.filter_by(email=email).first()
     
     if not user:
-        return jsonify({"error": "If your email is associated with an account, you will receive a password reset email."}), 200
-    
+        return jsonify({"message": "If your email is associated with an account, you will receive a password reset email."}), 200
+
     # Create a token with an expiration time, e.g., 10 minutes
     token = create_access_token(identity=user.id, expires_delta=timedelta(minutes=10))
     
@@ -400,6 +401,17 @@ def get_all_plant_sitters():
     return jsonify({"plant_sitters": [s.serialize() for s in plant_sitters]}), 200
 
 
+@api.route('/plant_sitter/<int:id>', methods=['GET'])
+@jwt_required()
+def get_plant_sitter_by_id(id):
+    plant_sitter = PlantSitter.query.get(id)
+
+    if not plant_sitter:
+        return jsonify({"error": "Plant sitter not found"}), 404
+
+    return jsonify(plant_sitter.serialize()), 200
+
+
 @api.route('/plant_sitter/<int:id>', methods=['DELETE'])
 @jwt_required()
 def delete_plant_sitter(id):
@@ -415,6 +427,35 @@ def delete_plant_sitter(id):
     except Exception as e:
         db.session.rollback()
         return jsonify({"error": str(e)}), 400
+    
+
+
+@api.route('/search-sitters', methods=['POST'])
+def search_sitters():
+    data = request.get_json()
+    user_zip_code = data.get("zip_code")
+    
+    if not user_zip_code:
+        return jsonify({"success": False, "message": "ZIP code is required"}), 400
+
+    user = User.query.filter_by(zip_code=user_zip_code).first()
+    if not user or not user.latitude or not user.longitude:
+        return jsonify({"success": False, "message": "Invalid ZIP code"}), 400
+
+    user_location = (user.latitude, user.longitude)
+    radius_miles = 15
+
+    sitters_within_radius = []
+    sitters = PlantSitter.query.all()
+
+    for sitter in sitters:
+        if sitter.user.latitude and sitter.user.longitude:
+            sitter_location = (sitter.user.latitude, sitter.user.longitude)
+            distance = geodesic(user_location, sitter_location).miles
+            if distance <= radius_miles:
+                sitters_within_radius.append(sitter)
+
+    return jsonify({"success": True, "data": [sitter.serialize() for sitter in sitters_within_radius]})
     
 
 
@@ -541,6 +582,18 @@ def get_job_posts():
     return jsonify([post.serialize() for post in job_posts]), 200
 
 
+@api.route('/job_posts/user', methods=['GET'])
+@jwt_required()
+def get_user_job_posts():
+    user_id = get_jwt_identity()
+    job_posts = JobPost.query.filter_by(user_id=user_id).all()
+
+    if not job_posts:
+        return jsonify({"message": "No job posts found"}), 404
+
+    return jsonify([post.serialize() for post in job_posts]), 200
+
+
 @api.route('/job_posts/<int:job_post_id>', methods=['GET'])
 @jwt_required()
 def get_job_post(job_post_id):
@@ -549,6 +602,32 @@ def get_job_post(job_post_id):
     if not job_post:
         return jsonify({"error": "Job post not found"}), 404
     return jsonify(job_post.serialize()), 200
+
+
+@api.route('/search-job-posts', methods=['POST'])
+def search_job_posts():
+    data = request.get_json()
+    zip_code = data.get("zip_code")
+    distance = data.get("distance")
+    
+    user = User.query.filter_by(zip_code=zip_code).first()
+    if not user or not user.latitude or not user.longitude:
+        return jsonify({"success": False, "message": "Invalid ZIP code"}), 400
+
+    user_location = (user.latitude, user.longitude)
+    radius_miles = float(distance)
+
+    job_posts_within_radius = []
+    job_posts = JobPost.query.all()
+
+    for post in job_posts:
+        if post.latitude and post.longitude:
+            post_location = (post.latitude, post.longitude)
+            distance = geodesic(user_location, post_location).miles
+            if distance <= radius_miles:
+                job_posts_within_radius.append(post)
+
+    return jsonify({"success": True, "data": [post.serialize() for post in job_posts_within_radius]})
 
 
 

@@ -8,6 +8,7 @@ export const ClientSignUp2 = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
@@ -27,6 +28,7 @@ export const ClientSignUp2 = () => {
     }, [navigate]);
 
     const handleSubmit = async (e) => {
+        if (e.type === "keydown" && e.key !== "Enter") return
         e.preventDefault();
 
         if (!termsAccepted) {
@@ -34,12 +36,14 @@ export const ClientSignUp2 = () => {
             return;
         }
 
-        const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
-        if (result.success) {
-            navigate('/client-services1');
-        } else {
-            alert(result.error || "Sign-up failed. Please try again.");
-        }
+        if (password === confirmPassword) {
+            const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
+            if (result.success) {
+                navigate('/client-services1');
+            } else {
+                alert(result.error || "Sign-up failed. Please try again.");
+            }
+        };
     };
 
     return (
@@ -62,7 +66,7 @@ export const ClientSignUp2 = () => {
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="firstName">First Name</label>
+                                <label className="form-label" >First Name</label>
                             </div>
                         </div>
                         <div className="col-md-6 mb-2 pb-2">
@@ -74,7 +78,7 @@ export const ClientSignUp2 = () => {
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="lastName">Last Name</label>
+                                <label className="form-label">Last Name</label>
                             </div>
                         </div>
                     </div>
@@ -88,7 +92,7 @@ export const ClientSignUp2 = () => {
                                 value={addressLine1}
                                 onChange={(e) => setAddressLine1(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="addressLine1">Address Line 1</label>
+                            <label className="form-label">Address Line 1</label>
                         </div>
                     </div>
 
@@ -101,7 +105,7 @@ export const ClientSignUp2 = () => {
                                 value={addressLine2}
                                 onChange={(e) => setAddressLine2(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="addressLine2">Address Line 2</label>
+                            <label className="form-label">Address Line 2</label>
                         </div>
                     </div>
 
@@ -115,7 +119,7 @@ export const ClientSignUp2 = () => {
                                     value={city}
                                     onChange={(e) => setCity(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="city">City</label>
+                                <label className="form-label">City</label>
                             </div>
                         </div>
 
@@ -128,7 +132,7 @@ export const ClientSignUp2 = () => {
                                     value={state}
                                     onChange={(e) => setState(e.target.value)}
                                 />
-                                <label className="form-label" for="state">State</label>
+                                <label className="form-label">State</label>
                             </div>
                         </div>
 
@@ -141,7 +145,7 @@ export const ClientSignUp2 = () => {
                                     value={zipCode}
                                     onChange={(e) => setZipCode(e.target.value)}
                                 />
-                                <label className="form-label" htmlFor="zipCode">ZIP Code</label>
+                                <label className="form-label">ZIP Code</label>
                             </div>
                         </div>
                     </div>
@@ -155,8 +159,9 @@ export const ClientSignUp2 = () => {
                                     className="form-control"
                                     placeholder="Currently only available in the United States"
                                     value={country}
+                                    readOnly
                                 />
-                                <label className="form-label" htmlFor="country">Country</label>
+                                <label className="form-label">Country</label>
                             </div>
                         </fieldset>
                     </div>
@@ -170,7 +175,7 @@ export const ClientSignUp2 = () => {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="phone">Phone Number</label>
+                            <label className="form-label">Phone Number</label>
                         </div>
                     </div>
 
@@ -183,7 +188,7 @@ export const ClientSignUp2 = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="email">Email</label>
+                            <label className="form-label">Email</label>
                         </div>
                     </div>
 
@@ -196,7 +201,19 @@ export const ClientSignUp2 = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="password">Password</label>
+                            <label className="form-label">Password</label>
+                        </div>
+                    </div>
+                    <div className="mb-2 pb-2">
+                        <div data-mdb-input-init className="form-outline form-white">
+                            <input
+                                type="password"
+                                id="confirmPassword"
+                                className="form-control form-control-lg"
+                                value={confirmPassword}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            <label className="form-label" htmlFor="password">Confirm Password</label>
                         </div>
                     </div>
 
@@ -208,7 +225,7 @@ export const ClientSignUp2 = () => {
                             onChange={(e) => setTermsAccepted(e.target.checked)}
                             id="terms"
                         />
-                        <label className="form-check-label" htmlFor="terms">
+                        <label className="form-check-label">
                             I do accept the <a href="#!" className=""><u>Terms and Conditions</u></a> of your site.
                         </label>
                     </div>

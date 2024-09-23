@@ -37,7 +37,7 @@ export const ClientSignUp1 = () => {
 						</div>
 					</div>
 				</div>
-				<p className="fs-2 text-center">Include Success Page?</p>
+				{/* <p className="fs-2 text-center">Include Success Page?</p> */}
 			</div>
 		</div>
 	);

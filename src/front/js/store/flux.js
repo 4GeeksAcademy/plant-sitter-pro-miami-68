@@ -423,6 +423,52 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //Search Plant Sitter using zipcode
+            searchSitters: async (zipCode) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/search-sitters`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ zip_code: zipCode }),
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        setStore({ sitters: data.data });
+                        return { success: true };
+                    } else {
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error searching sitters:", error);
+                    return { success: false };
+                }
+            },
+
+            //get plantsitter by id
+            getPlantSitterById: async (id) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/plant_sitter/${id}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        return { success: true, data };
+                    } else {
+                        console.error("Failed to fetch plant sitter by ID");
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error fetching plant sitter:", error);
+                    return { success: false };
+                }
+            },
+
+
             //save JobPost Details
             setJobPostDetails: (details) => {
                 setStore({ jobPostDetails: details });
@@ -588,27 +634,72 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
-            // Fetch all job posts for the current user
-            getJobPosts: async () => {
-                const token = sessionStorage.getItem("token");
-                try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts`, {
-                        method: "GET",
-                        headers: {
-                            "Authorization": `Bearer ${token}`,
-                        },
-                    });
+            // // Fetch all job posts
+            // getJobPosts: async () => {
+            //     const token = sessionStorage.getItem("token");
+            //     try {
+            //         const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts`, {
+            //             method: "GET",
+            //             headers: {
+            //                 "Authorization": `Bearer ${token}`,
+            //             },
+            //         });
 
-                    if (resp.ok) {
-                        const data = await resp.json();
+            //         if (resp.ok) {
+            //             const data = await resp.json();
+            //             return { success: true, data };
+            //         } else {
+            //             const errorData = await resp.json();
+            //             return { success: false, error: errorData.error };
+            //         }
+            //     } catch (error) {
+            //         console.error("Error fetching job posts:", error);
+            //         return { success: false, error: "An unexpected error occurred" };
+            //     }
+            // },
+
+            //Fetch all job posts for the current user
+            getUserJobPosts: async () => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/job_posts/user`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${sessionStorage.getItem('token')}`
+                        }
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
                         return { success: true, data };
                     } else {
-                        const errorData = await resp.json();
-                        return { success: false, error: errorData.error };
+                        return { success: false, message: data.message };
                     }
                 } catch (error) {
                     console.error("Error fetching job posts:", error);
-                    return { success: false, error: "An unexpected error occurred" };
+                    return { success: false, message: "Error fetching job posts." };
+                }
+            },
+
+            //Search jobpost using zip code
+            searchJobPosts: async (zipCode, distance) => {
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/search-job-posts`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ zip_code: zipCode, distance: distance }),
+                    });
+                    
+                    if (res.ok) {
+                        const data = await res.json();
+                        setStore({ jobPosts: data.data });
+                        return { success: true };
+                    } else {
+                        return { success: false };
+                    }
+                } catch (error) {
+                    console.error("Error searching job posts:", error);
+                    return { success: false };
                 }
             },
 

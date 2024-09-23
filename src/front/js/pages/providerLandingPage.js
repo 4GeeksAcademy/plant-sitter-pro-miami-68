@@ -2,73 +2,70 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import { PlantCard } from "../component/PlantCard";
-import { ServiceCard } from "../component/ServiceCard";
 
 export const ProviderLandingPage = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
+    const [jobPostsNearby, setJobPostsNearby] = useState([]);
     const [picture, setPicture] = useState(null);
-    const [professionalExperience, setProfessionalExperience] = useState("");
-    const [intro, setIntro] = useState("");
-    const [currentPlants, setCurrentPlants] = useState("");
-    const [clientInfo, setClientInfo] = useState("");
-    const [extraInfo, setExtraInfo] = useState("");
-    const [preferredPlants, setPreferredPlants] = useState([]);
-    const [servicePreferences, setServicePreferences] = useState([]);
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
     const city = store.user?.city;
     const state = store.user?.state;
+    const zipCode = store.user?.zip_code;
+    const distance = 15;
 
     useEffect(() => {
         const fetchData = async () => {
-            setLoading(true);
             if (!store.user) {
                 await actions.getUser();
             }
 
             const res = await actions.getPlantSitter();
             if (res.success && res.data) {
-                setProfessionalExperience(res.data.professional_experience);
-                setIntro(res.data.intro);
-                setCurrentPlants(res.data.current_plants);
-                setClientInfo(res.data.client_info);
-                setExtraInfo(res.data.extra_info);
-                setPreferredPlants(res.data.preferred_plants || []);
-                setServicePreferences(res.data.service_preferences || []);
                 setPicture(res.data.profile_picture_url);
             }
+
+            if (zipCode) {
+                const res = await actions.searchJobPosts(zipCode, distance);
+                if (res.success) {
+                    setJobPostsNearby(store.jobPosts);
+                } else {
+                    alert("No job posts found near your location.");
+                }
+            }
+
             setLoading(false);
         };
 
         fetchData();
     }, []);
 
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+        return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
+    if (loading) return <div>Loading...</div>;
+
     return (
         <div className="container-fluid">
-            <div
-                className="row mb-4 mt-4"
-                style={{ marginLeft: "30px" }}
-            >
+            <div className="row mb-4 mt-4" style={{ marginLeft: "30px" }}>
                 <div className="profile-container row">
                     <div className="col">
                         <div
                             className="landing-profile ml-3"
                             style={{
-                                backgroundImage: picture ? `url(${picture})` : '',
+                                backgroundImage: picture ? `url(${picture})` : 'url(no-image.png)',
                                 backgroundSize: 'cover',
-                                backgroundPosition: 'center'
+                                backgroundPosition: 'center',
+                                height: '200px',
+                                width: '200px',
+                                borderRadius: '50%',
                             }}
                             onClick={() => navigate('/provider-profile')}
-                        >
-                        </div>
-                    <div className="middle">
-                        <div className="edit-profile">
-                            <i className="fa-solid fa-pencil" />
-                        </div>
-                    </div>
+                        ></div>
                     </div>
                     <div className="col text-end">
                         <h4 className="diphylleia-regular mb-0"><strong>Plant Sitter Since</strong></h4>
@@ -80,28 +77,55 @@ export const ProviderLandingPage = () => {
             </div>
 
             <div className="row container-fluid mt-4">
-                <h2 className="mb-3 mt-3 diphylleia-regular">
-                    <strong>Your Options</strong>
-                </h2>
-                {/* Insert component showing jobs within search radius */}
-                <div
-                    className="pt-5 text-center"
-                    style={{ border: "1px solid black", borderRadius: "10px", width: "200px", height: "200px" }}
-                >
-                    <p>Component Showing</p>
-                    <p>Jobs in Search Radius</p>
+                <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Options</strong></h2>
+                <div className="row">
+                    {jobPostsNearby.length > 0 ? (
+                        jobPostsNearby.map((jobPost) => (
+                            <div key={jobPost.id} className="col-md-4 mb-1" style={{ paddingLeft: "1px", paddingRight: "1px" }}>
+                                <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "10px", width: "240px", height: "300px" }}>
+                                    <img
+                                        src={jobPost.profile_picture_url || "no-image.png"}
+                                        alt={`${jobPost.first_name} ${jobPost.last_name}`}
+                                        className="card-img-top"
+                                        style={{
+                                            borderRadius: "10px",
+                                            width: "95%",
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            margin: "auto",
+                                            marginTop: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body" style={{ padding: "10px", textAlign: "center" }}>
+                                        <h6 className="card-title text-white diphylleia-regular" style={{ fontSize: "16px" }}>
+                                            <strong>{jobPost.first_name} {jobPost.last_name}</strong>
+                                        </h6>
+                                        <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
+                                            <strong>Location:</strong> {jobPost.location || 'Not provided'}
+                                        </p>
+                                        <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
+                                            <strong>Dates:</strong> {formatDate(jobPost.start_date)} - {formatDate(jobPost.end_date)}
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))
+                    ) : (
+                        <p>No job posts found near your location.</p>
+                    )}
                 </div>
 
-                <h2 className="mb-3 mt-3 diphylleia-regular">
-                    <strong>Your Jobs</strong>
-                </h2>
-                {/* Insert component showing jobs */}
-                <div
-                    className="pt-3 text-center"
-                    style={{ border: "1px solid black", borderRadius: "10px", width: "200px", height: "200px" }}
-                >
-                    <p>Component Showing</p>
-                    <p>Jobs applied to & upcoming jobs (differently colored / in different colums)</p>
+                <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Jobs</strong></h2>
+                {/* Placeholder for Your Jobs */}
+                <div className="row">
+                    <div className="col-md-4 mb-2" style={{ paddingLeft: "2px", paddingRight: "2px" }}>
+                        <div className="card" style={{ backgroundColor: "rgb(50, 70, 50)", borderRadius: "10px", width: "240px", height: "260px" }}>
+                            <div className="card-body text-center" style={{ padding: "10px" }}>
+                                <p className="diphylleia-regular text-white" style={{ fontSize: "16px" }}>You haven't applied to any jobs yet.</p>
+                            </div>
+                        </div>
+                    </div>
+                    {/* Additional job cards for applied or upcoming jobs can go here */}
                 </div>
             </div>
         </div>

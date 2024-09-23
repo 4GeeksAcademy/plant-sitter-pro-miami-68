@@ -29,8 +29,10 @@ export const ClientServices1 = () => {
     const [selectedPlants, setSelectedPlants] = useState([]);
     const [selectedServices, setSelectedServices] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [detailsUpdated, setDetailsUpdated] = useState(false);
 
     useEffect(() => {
+        
         const fetchData = async () => {
             setLoading(true);
 
@@ -83,9 +85,13 @@ export const ClientServices1 = () => {
             selectedPlants,
             selectedServices,
         });
-
-        if (store.jobPostDetails.id) {
-            navigate(`/job-post-update/${store.jobPostDetails.id}`);
+    
+        setDetailsUpdated(!detailsUpdated);
+    
+        const updatedJobPostDetails = store.jobPostDetails;
+    
+        if (updatedJobPostDetails.id) {
+            navigate(`/job-post-update/${updatedJobPostDetails.id}`);
         } else {
             navigate('/job-post');
         }
