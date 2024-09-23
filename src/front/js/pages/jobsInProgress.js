@@ -330,7 +330,7 @@ export const JobsInProgress = () => {
                     <button
                         className="apply-now"
                         type="button"
-                    // onClick={() => /*insert navigate link*/}
+                        onClick={() => navigate("/view-applicants")}
                     >
                         <strong>See Applicants</strong>
                     </button>
