@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
+import noImage from '../../img/noImage.png';
 
 export const ClientLandingPage = () => {
     const { store, actions } = useContext(Context);
@@ -28,7 +29,7 @@ export const ClientLandingPage = () => {
                         setCity(result.data.city);
                         setState(result.data.state);
                     }
-                const res = await actions.getJobPosts();
+                    const res = await actions.getUserJobPosts();
                     if (res.success && res.data) {
                         setJobPosts(res.data);
                         setPicture(res.data.profile_picture_url);
@@ -103,7 +104,10 @@ export const ClientLandingPage = () => {
                     ))}
                     <div
                         className="upload-job"
-                        onClick={() => navigate("/client-services1")}
+                        onClick={() => 
+                            {actions.clearJobPostId();
+                            navigate("/client-services1")}
+                        }
                         style={{ marginTop: "10%", marginLeft: "40px" }}
                     >
                         <i className="fa fa-plus fa-6x plus-sign"></i>
