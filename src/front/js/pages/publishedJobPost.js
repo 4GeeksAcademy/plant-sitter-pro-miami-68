@@ -83,7 +83,7 @@ export const PublishedJobPosts = () => {
     console.log(jobServices);
     console.log(jobPlants);
 
-    const handleClick = () => {
+    const changeColorOnClick = () => {
         if (isActive == false) {
             setIsActive(true);
         } else {
@@ -114,7 +114,7 @@ export const PublishedJobPosts = () => {
                         color: isActive ? 'white' : 'black',
                       }}
                     onClick=
-                        {handleClick}
+                        {changeColorOnClick}
                   
                 >
                     <strong>Mark As Completed</strong>
