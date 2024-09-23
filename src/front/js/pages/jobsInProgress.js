@@ -18,10 +18,9 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
-import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 
-export const JobPost2 = () => {
+export const JobsInProgress = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -77,7 +76,7 @@ export const JobPost2 = () => {
     }, []);
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <div>Loading...</div>;
     }
 
     console.log(jobServices);
@@ -88,36 +87,7 @@ export const JobPost2 = () => {
             className="text-center d-grid mt-4"
             style={{ minWidth: '100%', justifyContent: 'center' }}
         >
-            <h1 className="mt-3 mb-0 diphylleia-regular jobs"><strong>This is how your job post will appear to our Plant Sitters</strong></h1>
-            <h3 className="p-5 diphylleia-regular jobs"><strong>You will be able to message applicants and the plant sitter that you chose in your published post.</strong></h3>
-            
-            <div
-                className="container-fluid row"
-            >
-                <div className="col-4"></div>
-                <button
-                    className="btn btn-success col-2 rounded-pill"
-                    onClick={() => {
-                        actions.setJobPostDetails({ id: job_post_id });
-                        navigate("/client-services1");
-                    }}
-                >
-                    Edit <i className="fas fa-pencil-alt"></i>
-                </button>
-                <button
-                    type="button"
-                    className="btn btn-success col-2 rounded-pill"
-                    onClick={
-                        () => {
-                            navigate('/job-posts')
-                        }
-                    }
-                >
-                    Publish
-                </button>
-                <div className="col-4"></div>
-            </div>
-
+            <h1 className="mb-3 mt-3 diphylleia-regular jobs"><strong> Active Job </strong></h1>
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
@@ -140,7 +110,6 @@ export const JobPost2 = () => {
                         <p className="fs-4 mt-4 bg-white text-black description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
                         <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
-                        {/* <JobServices /> */}
 
                         <div className="container plantImageWrapper p-0">
                             {jobServices.map((image, index) => {
@@ -223,7 +192,6 @@ export const JobPost2 = () => {
                     <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
                     <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
                     <div className="d-flex justify-content-center">
-                        {/* <JobPlants /> */}
                         <div className="container plantImageWrapper p-0">
                             {jobPlants.map((image, index) => {
                                 if (image == "Standard House Plants") {
@@ -358,24 +326,60 @@ export const JobPost2 = () => {
                     <div className="input-group mb-2">
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
-                    <div className="w-100">
+
+                    <button
+                        className="apply-now"
+                        type="button"
+                        onClick={() => navigate("/view-applicants")}
+                    >
+                        <strong>See Applicants</strong>
+                    </button>
+                    <button
+                        className="apply-now mb-3"
+                        type="button"
+                    // onClick={() => /*insert navigate link*/}
+                    >
+                        <strong>Mark As Completed</strong>
+                    </button>
+                    <div 
+                        className="btn"
+                        style={{ width: "auto"}}
+                    >
                         <i
-                            className="fa-regular fa-message btn"
-                            style={{right: "100px", fontSize: "80px" }}
+                            className="fa-regular fa-message"
+                            style={{fontSize: "80px" }}
                             title="This is where you will communicate with applicants"
                         // onClick={() => /*insert navigate link*/}
                         />
                     </div>
-                    <button
-                        title="This will be active for applicants"
-                        className="apply-now"
-                        type="button"
-                    // onClick={() => /*insert navigate link*/}
-                    >
-                        <strong>Apply Now</strong>
-                    </button>
                 </div>
             </div>
+            {/* <div
+                className="container-fluid row mb-2"
+            >
+                <div className="col-4"></div>
+                <button
+                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                    onClick={() => {
+                        actions.setJobPostDetails({ id: job_post_id });
+                        navigate("/client-services1");
+                    }}
+                >
+                    Edit <i className="fas fa-pencil-alt"></i>
+                </button>
+                <button
+                    type="button"
+                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
+                    onClick={
+                        () => {
+                            navigate('/client-landing')
+                        }
+                    }
+                >
+                    Publish
+                </button>
+                <div className="col-4"></div>
+            </div> */}
         </div>
     );
 };

@@ -42,6 +42,7 @@ export const PublishedJobPosts = () => {
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
+    const [isActive, setIsActive] = useState(false);
 
     useEffect(() => {
 
@@ -82,12 +83,49 @@ export const PublishedJobPosts = () => {
     console.log(jobServices);
     console.log(jobPlants);
 
+    const changeColorOnClick = () => {
+        if (isActive == false) {
+            setIsActive(true);
+        } else {
+            setIsActive(false);
+        }
+        
+    }
+
     return (
         <div
             className="text-center d-grid mt-4"
-            // style={{ minWidth: '100%', justifyContent: 'center' }}
         >
-            <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
+            <div className="mb-2">
+                <button 
+                    style={{backgroundColor: "white", color: "black", border: "3px solid black", borderRadius:"25px", width: "150px"}}
+                    onClick={()=> navigate('/job-posts')}
+                >
+                    <strong>Back</strong>
+                </button>
+            </div>
+            <div>
+                <button
+                    className="see-applicants mb-2"
+                    type="button"
+                    onClick={() => navigate("/view-applicants")}
+                >
+                    <strong>See Applicants</strong>
+                </button>
+                <button
+                    className="mark-completed mb-3"
+                    type="button"
+                    style={{
+                        backgroundColor: isActive ? 'blue' : 'orange',
+                        color: isActive ? 'white' : 'black',
+                      }}
+                    onClick=
+                        {changeColorOnClick}
+                  
+                >
+                    <strong>Mark As Completed</strong>
+                </button>
+            </div>
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
@@ -326,49 +364,21 @@ export const PublishedJobPosts = () => {
                     <div className="input-group mb-2">
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
-                    <div className="w-100">
-                        <i
-                            className="fa-regular fa-message btn"
-                            style={{ position: "absolute", right: "100px", fontSize: "80px" }}
-                            title="This is where you will communicate with applicants"
-                        // onClick={() => /*insert navigate link*/}
-                        />
+                    <div style={{border: "1px solid white", borderRadius: "10px", padding: "10px"}}>
+                        <h5 className="mt-1">Message Plant Sitter</h5>
+                        <div 
+                            className="btn mt-3 mb-3"
+                            style={{ width: "100%"}}
+                        >
+                            <i
+                                className="fa-regular fa-message"
+                                style={{fontSize: "80px" }}
+                                title="This is where you will communicate with applicants"
+                            // onClick={() => /*insert navigate link*/}
+                            />
+                        </div>
                     </div>
-                    <button
-                        title="This will be active for applicants"
-                        className="apply-now"
-                        type="button"
-                    // onClick={() => /*insert navigate link*/}
-                    >
-                        <strong>Apply Now</strong>
-                    </button>
                 </div>
-            </div>
-            <div
-                className="container-fluid row mb-2"
-            >
-                <div className="col-4"></div>
-                <button
-                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                    onClick={() => {
-                        actions.setJobPostDetails({ id: job_post_id });
-                        navigate("/client-services1");
-                    }}
-                >
-                    Edit <i className="fas fa-pencil-alt"></i>
-                </button>
-                <button
-                    type="button"
-                    className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                    onClick={
-                        () => {
-                            navigate('/job-posts')
-                        }
-                    }
-                >
-                    Publish
-                </button>
-                <div className="col-4"></div>
             </div>
         </div>
     );

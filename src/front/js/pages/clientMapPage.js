@@ -13,8 +13,10 @@ export const ClientMapPage = () => {
             const res = await actions.searchSitters(zipCode);
             if (res.success) {
                 navigate('/view-sitters');
-            } else {
-                alert("No sitters found near your location.");
+            }
+             else {
+                navigate('/view-sitters');
+                // alert("No sitters found near your location.");
             }
         } else {
             alert("Please enter a valid ZIP code.");

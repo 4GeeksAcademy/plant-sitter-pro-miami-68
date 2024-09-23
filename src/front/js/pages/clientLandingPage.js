@@ -34,11 +34,8 @@ export const ClientLandingPage = () => {
                     if (res.success && res.data) {
                         setJobPosts(res.data);
                         setPicture(res.data.profile_picture_url);
-                    } else {
-                        alert("Error fetching job posts");
                     }
             }
-
             setLoading(false);
         };
 
@@ -52,7 +49,7 @@ export const ClientLandingPage = () => {
     console.log(jobPosts);
 
     const handleViewJobPost = (jobPostId) => {
-        navigate(`/published-job-posts/${jobPostId}`);
+        navigate(`/job-post-preview/${jobPostId}`);
     };
 
     const formatDate = (dateString) => {
@@ -61,7 +58,6 @@ export const ClientLandingPage = () => {
     };
 
     return (
-
         <div className="container-fluid">
             <div
                 className="row mb-4 mt-4"
@@ -78,7 +74,7 @@ export const ClientLandingPage = () => {
             </div>
 
             <div className="container mt-5">
-                <h1 className="diphylleia-regular mb-4 text-center"><strong>Your Job Posts</strong></h1 >
+                <h1 className="diphylleia-regular mb-4 text-center"><strong>Edit Your Open Job Posts</strong></h1 >
                 <div className="row">
                     {jobPosts.map((post) => (
                         <div className="col-md-4 mb-4 job-cards" key={post.id} onClick={() => handleViewJobPost(post.id)}>
@@ -105,8 +101,8 @@ export const ClientLandingPage = () => {
                     ))}
                     <div
                         className="upload-job"
-                        onClick={() => 
-                            {actions.clearJobPostId();
+                        onClick={() => {
+                            actions.clearJobPostId();
                             navigate("/client-services1")}
                         }
                         style={{ marginTop: "10%", marginLeft: "40px" }}
@@ -114,6 +110,25 @@ export const ClientLandingPage = () => {
                         <i className="fa fa-plus fa-6x plus-sign"></i>
                     </div>
                 </div>
+            </div>
+
+            <div className="container mt-5">
+                <h1 
+                    className="diphylleia-regular mb-4 text-center apply-link"
+                    style={{textDecoration: "underline"}}
+                    onClick={() => navigate('/job-posts')}
+                >
+                    <strong>View Current Jobs</strong>
+                </h1>
+            </div>
+            <div className="container mt-5">
+                <h1 
+                    className="diphylleia-regular mb-4 text-center apply-link"
+                    style={{textDecoration: "underline"}}
+                    onClick={() => navigate('/completed-jobs-page')}
+                >
+                    <strong>View Completed Jobs</strong>
+                </h1>
             </div>
         </div>
     );
