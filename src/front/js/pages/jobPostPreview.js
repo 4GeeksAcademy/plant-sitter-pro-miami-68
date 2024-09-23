@@ -18,11 +18,13 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
+import ChatApp from '../../dm/ChatApp';
 
 
 export const JobPost2 = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [showChat, setShowChat] = useState(false);
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -42,6 +44,8 @@ export const JobPost2 = () => {
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
+
+
 
     useEffect(() => {
 
@@ -81,6 +85,8 @@ export const JobPost2 = () => {
 
     console.log(jobServices);
     console.log(jobPlants);
+
+
 
     return (
         <div
@@ -333,9 +339,18 @@ export const JobPost2 = () => {
                             className="fa-regular fa-message btn"
                             style={{ position: "absolute", right: "100px", fontSize: "80px" }}
                             title="This is where you will communicate with applicants"
-                        // onClick={() => /*insert navigate link*/}
+                            onClick={() => setShowChat(prev => !prev)}
                         />
+
                     </div>
+
+                    {showChat && (
+                        <div className="chat-modal">
+                            <ChatApp />
+                        </div>
+                    )}
+
+
                     <button
                         title="This will be active for applicants"
                         className="apply-now"

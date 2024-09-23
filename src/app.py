@@ -14,9 +14,13 @@ from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
 from datetime import timedelta
+from flask_sqlalchemy import SQLAlchemy 
+# from src.models import db 
+from src.api.dmessaging import messaging 
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+
 
 
 # from models import Person
@@ -93,6 +97,7 @@ def serve_any_other_file(path):
     response.cache_control.max_age = 0  # avoid cache memory
     return response
 
+app.register_blueprint(messaging)
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':

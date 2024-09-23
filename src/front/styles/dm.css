@@ -1,0 +1,48 @@
+/* src/styles/dm.css */
+.chat-app {
+    display: flex;
+  }
+  
+  .chat-list {
+    width: 20%;
+    border-right: 1px solid #ddd;
+  }
+  
+  .chat-window {
+    width: 80%;
+    padding: 10px;
+  }
+  
+  .messages {
+    height: 300px;
+    overflow-y: scroll;
+    margin-bottom: 10px;
+  }
+  
+  .message {
+    margin: 5px 0;
+  }
+  
+  .message.sent {
+    text-align: right;
+    background-color: #e0ffe0;
+  }
+  
+  .message.received {
+    text-align: left;
+    background-color: #f0f0f0;
+  }
+  
+  .message-input {
+    display: flex;
+  }
+  
+  .message-input input {
+    flex: 1;
+    padding: 5px;
+  }
+  
+  .message-input button {
+    padding: 5px 10px;
+  }
+  

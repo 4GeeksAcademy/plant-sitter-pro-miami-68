@@ -5,6 +5,9 @@
     "*.md": "vscode.markdown.preview.editor"
   },
   "[javascript]": {
-    "editor.defaultFormatter": "ms-vsliveshare.vsliveshare"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
   }
 }
