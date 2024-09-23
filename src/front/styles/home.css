@@ -478,6 +478,10 @@ border-bottom-left-radius: 100px;
   background-color: white;
 }
 
+.job-option:hover {
+  cursor: pointer;
+}
+
 .needs {
   border: 2px solid rgb(70, 108, 70);
   border-radius: 25px;
