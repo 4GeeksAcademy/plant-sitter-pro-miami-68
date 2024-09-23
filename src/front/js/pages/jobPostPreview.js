@@ -24,6 +24,7 @@ import ChatApp from '../../dm/DMchatApp';
 export const JobPost2 = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [isChatOpen, setChatOpen] = useState(false); 
     const [showChat, setShowChat] = useState(false);
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState("");
@@ -45,7 +46,7 @@ export const JobPost2 = () => {
     const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
 
-
+    
 
     useEffect(() => {
 
@@ -339,13 +340,19 @@ export const JobPost2 = () => {
                             className="fa-regular fa-message btn"
                             style={{ position: "absolute", right: "100px", fontSize: "80px" }}
                             title="This is where you will communicate with applicants"
-                            onClick={() => setShowChat(prev => !prev)}
+                            onClick={() => {
+                                console.log("Chat button clicked"); 
+                                setChatOpen(true)
+
+                            }}
+                            
                         />
+
 
                     </div>
 
-                    {showChat && (
-                        <div className="chat-modal">
+                    {isChatOpen && (
+                        <div className="chat-container">
                             <ChatApp />
                         </div>
                     )}

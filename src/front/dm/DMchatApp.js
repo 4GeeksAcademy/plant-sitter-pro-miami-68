@@ -14,7 +14,7 @@ const DMchatApp = () => {
 
     const fetchConversations = async () => {
         try {
-            const response = await fetch(`/api/conversations?user_id=${store.user.id}`);
+            const response = await fetch(`/conversations?user_id=${store.user.id}`);
             const data = await response.json();
             setConversations(data);
         } catch (error) {
@@ -24,7 +24,7 @@ const DMchatApp = () => {
 
     const fetchDMchats = async (conversationId) => {
         try {
-            const response = await fetch(`/api/DMchat/${conversationId}`);
+            const response = await fetch(`/DMchat/${conversationId}`);
             const data = await response.json();
             setDMchats(data);
             setSelectedConversation(conversationId);
@@ -35,7 +35,7 @@ const DMchatApp = () => {
 
     const handleSendDMchat = async (DMchatText) => {
         try {
-            const response = await fetch('/api/DMchat', {
+            const response = await fetch('/DMchat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

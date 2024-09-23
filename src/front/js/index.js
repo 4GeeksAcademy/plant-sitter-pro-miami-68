@@ -16,5 +16,5 @@ import '../styles/Chat.css';
 
 //render your react application
 ReactDOM.render(<Layout />, document.querySelector("#app"));
-ReactDOM.render(<ChatApp />, document.getElementById('root'));
+// ReactDOM.render(<DMChatApp />, document.getElementById('root'));
 
