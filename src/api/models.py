@@ -121,6 +121,31 @@ class PlantSitter(db.Model):
             "updated_at": self.updated_at.isoformat()
         }
     
+class JobAssignment(db.Model):
+    __tablename__ = 'job_assignments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    job_post_id = db.Column(db.Integer, db.ForeignKey('job_post.id'), nullable=False)
+    plantsitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitter.id'), nullable=False)
+    status = db.Column(db.String(50), default='accepted')  # 'accepted', 'in progress', 'completed'
+    accepted_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    completed_at = db.Column(db.DateTime, nullable=True)
+
+    job_post = db.relationship('JobPost', backref=db.backref('assignments', lazy=True))
+    plantsitter = db.relationship('PlantSitter', backref=db.backref('assignments', lazy=True))
+
+    def __repr__(self):
+        return f'<JobAssignment {self.id}: Job {self.job_post_id} assigned to Plant Sitter {self.plantsitter_id}>'
+    # Relationships
+    def serialize(self):
+        return {
+            "id": self.id,
+            "job_post_id": self.job_post_id,
+            "plantsitter_id": self.plantsitter_id,
+            "status": self.status,
+            "accepted_at": self.accepted_at.isoformat(),
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None
+        }
 
 
 class JobPost(db.Model):

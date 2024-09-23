@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, PlantSitter, JobPost, Rating, Message
+from api.models import db, User, PlantSitter, JobPost, Rating, Message, JobAssignment
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import jwt_required, get_jwt_identity, create_access_token, create_refresh_token
@@ -22,6 +22,8 @@ from .send_email import send_email
 from api.decodetoken import decode_token, decode_reset_token
 from geopy.distance import geodesic
 import stripe
+from datetime import datetime, timezone
+
 
 api = Blueprint('api', __name__)
 
@@ -628,6 +630,111 @@ def search_job_posts():
                 job_posts_within_radius.append(post)
 
     return jsonify({"success": True, "data": [post.serialize() for post in job_posts_within_radius]})
+
+
+#--------------- JOB COMPLETED USER(CLIENT)
+
+@api.route('/user/completed-jobs', methods=['GET'])
+@jwt_required()
+def get_user_completed_jobs():
+    user_id = get_jwt_identity()
+
+    # Get all jobs posted by the user that are completed
+    completed_jobs = JobAssignment.query.join(JobPost).filter(
+        JobPost.user_id == user_id,
+        JobAssignment.status == 'completed'
+    ).all()
+
+    if not completed_jobs:
+        return jsonify({"message": "No completed jobs found"}), 404
+
+    # Serialize the completed jobs to return to the user
+    return jsonify([job.serialize() for job in completed_jobs]), 200
+
+
+#--------------- JOB IN PROGRESS USER(CLIENT)
+@api.route('/user/jobs-in-progress', methods=['GET'])
+@jwt_required()
+def get_user_jobs_in_progress():
+    user_id = get_jwt_identity()
+
+    # Get all jobs posted by the user that are accepted or in progress
+    job_assignments = JobAssignment.query.join(JobPost).filter(
+        JobPost.user_id == user_id,
+        JobAssignment.status.in_(['accepted', 'in progress'])
+    ).all()
+
+    if not job_assignments:
+        return jsonify({"message": "No jobs in progress"}), 404
+
+    # Serialize the results to return to the user
+    return jsonify([assignment.serialize() for assignment in job_assignments]), 200
+
+
+
+
+# -------------Accepted jobs route PLANT SITTER
+@api.route('/jobs/<int:job_post_id>/accept', methods=['POST'])
+@jwt_required()
+def accept_job(job_post_id):
+    plantsitter_id = get_jwt_identity()
+
+    job_post = JobPost.query.get(job_post_id)
+    if not job_post or job_post.status != 'open':
+        return jsonify({"error": "Job is either closed or does not exist"}), 404
+
+    # Create a new JobAssignment
+    new_assignment = JobAssignment(
+        job_post_id=job_post_id,
+        plantsitter_id=plantsitter_id,
+        status='accepted'
+    )
+
+    job_post.status = 'accepted'
+    db.session.add(new_assignment)
+    db.session.commit()
+
+    return jsonify(new_assignment.serialize()), 200
+
+
+
+#----------------------Job in Progress route PLANT SITTER
+@api.route('/jobs/<int:job_post_id>/start', methods=['POST'])
+@jwt_required()
+def start_job(job_post_id):
+    plantsitter_id = get_jwt_identity()
+
+    assignment = JobAssignment.query.filter_by(job_post_id=job_post_id, plantsitter_id=plantsitter_id).first()
+    if not assignment:
+        return jsonify({"error": "No job found for the current Plant Sitter"}), 404
+
+    assignment.status = 'in progress'
+    db.session.commit()
+
+    return jsonify(assignment.serialize()), 200
+
+
+#--------------------- Completed Jobs PLANT SITTER
+@api.route('/jobs/<int:job_post_id>/complete', methods=['POST'])
+@jwt_required()
+def complete_job(job_post_id):
+    plantsitter_id = get_jwt_identity()
+
+    assignment = JobAssignment.query.filter_by(job_post_id=job_post_id, plantsitter_id=plantsitter_id).first()
+    if not assignment:
+        return jsonify({"error": "No job found for the current Plant Sitter"}), 404
+
+    assignment.status = 'completed'
+    assignment.completed_at = datetime.now(timezone.utc)
+    db.session.commit()
+
+    # Notify the User via email that the job is completed
+    job_post = assignment.job_post
+    user = job_post.user
+    send_email(user.email, f"The job for {job_post.intro} has been completed.", "Job Completed")
+
+    return jsonify(assignment.serialize()), 200
+
 
 
 
