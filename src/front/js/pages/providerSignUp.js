@@ -10,6 +10,7 @@ export const ProviderSignUp = () => {
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
     const [phone, setPhone] = useState("");
     const [addressLine1, setAddressLine1] = useState("");
     const [addressLine2, setAddressLine2] = useState("");
@@ -35,13 +36,14 @@ export const ProviderSignUp = () => {
             alert("You must accept the terms and conditions.");
             return;
         }
-
+        if (password === confirmPassword) {
         const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
         if (result.success) {
             navigate('/provider-services');
         } else {
             alert(result.error || "Sign-up failed. Please try again.");
         }
+    }
     };
 
     return (
@@ -197,6 +199,18 @@ export const ProviderSignUp = () => {
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                             <label className="form-label" htmlFor="password">Password</label>
+                        </div>
+                    </div>
+                    <div className="mb-2 pb-2">
+                        <div data-mdb-input-init>
+                            <input
+                                type="password"
+                                id="password"
+                                className="form-control form-control-lg"
+                                value={password}
+                                onChange={(e) => setConfirmPassword(e.target.value)}
+                            />
+                            <label className="form-label" htmlFor="Confirm password"> Confirm Password</label>
                         </div>
                     </div>
 
