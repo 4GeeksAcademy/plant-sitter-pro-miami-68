@@ -1,0 +1,121 @@
+.chat-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    width: 500px;
+    height: 600px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.chat-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.chat-body {
+    flex: 1;
+    overflow-y: scroll;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.chat-footer {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+}
+
+.chat-footer input {
+    width: 80%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.chat-footer button {
+    padding: 10px;
+    margin-left: 10px;
+    border-radius: 5px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.chat-footer button.plus-button {
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+
+/* Profile Name */
+.profile-name {
+    color: black;
+    font-weight: bold;
+}
+
+/* Sender Name */
+.message-sender-name {
+    color: black;
+    font-weight: bold;
+}
+
+/* Style for messages sent by the user (sender) */
+.message-container.sender {
+    text-align: right;
+    background-color: #e0f7fa;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    max-width: 60%;
+    margin-left: auto;
+}
+
+/* Style for messages received by the user (receiver) */
+.message-container.receiver {
+    text-align: left;
+    background-color: #f1f1f1;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 15px;
+    max-width: 60%;
+    margin-right: auto;
+}
+
+/* Style for the message text */
+.message-text {
+    font-size: 16px;
+    color: black;
+}
+
+/* Message meta (timestamp and read status) */
+.message-meta {
+    font-size: 12px;
+    color: #888;
+}
+
+.message-read {
+    color: green;
+    margin-left: 5px;
+}
+
+.message-timestamp {
+    color: #888;
+    margin-left: 10px;
+}

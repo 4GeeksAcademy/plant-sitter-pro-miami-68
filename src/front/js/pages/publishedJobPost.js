@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
@@ -19,10 +19,14 @@ import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
 
-
 export const PublishedJobPosts = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const [isChatOpen, setIsChatOpen] = useState(false);
+    const [message, setMessage] = useState("");
+    const [messages, setMessages] = useState([]);
+    const [readReceipt, setReadReceipt] = useState({});
+    const [isMediaMenuOpen, setMediaMenuOpen] = useState(false);
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
@@ -43,8 +47,12 @@ export const PublishedJobPosts = () => {
     const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
 
-    useEffect(() => {
+    const profilePicUrl = store.user?.profile_picture || "default_profile_picture_url.jpg"; // Replace with actual logic
+    const profileName = store.user?.first_name + " " + store.user?.last_name || "User"; // Use user's name from store
+    const lastSeen = "Last seen 2 hours ago"; // Replace with actual last seen data
 
+
+    useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             if (!store.user) {
@@ -75,17 +83,35 @@ export const PublishedJobPosts = () => {
         fetchData();
     }, []);
 
+    const toggleChat = () => {
+        setIsChatOpen(!isChatOpen);
+    };
+
+    const sendMessage = () => {
+        if (message.trim()) {
+            const newMessage = {
+                text: message,
+                timestamp: new Date().toLocaleString(),
+                isRead: false,
+            };
+            setMessages([...messages, newMessage]);
+            setMessage("");
+        }
+    };
+
+    const markMessagesAsRead = () => {
+        const updatedMessages = messages.map((msg) => ({ ...msg, isRead: true }));
+        setMessages(updatedMessages);
+    };
+
     if (loading) {
         return <div>Loading...</div>;
     }
 
-    console.log(jobServices);
-    console.log(jobPlants);
-
     return (
         <div
             className="text-center d-grid mt-4"
-            // style={{ minWidth: '100%', justifyContent: 'center' }}
+            style={{ minWidth: '100%', justifyContent: 'center' }}
         >
             <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
@@ -110,13 +136,12 @@ export const PublishedJobPosts = () => {
                         <p className="fs-4 mt-4 bg-white text-black description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
                         <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help with:</strong></label>
-
                         <div className="container plantImageWrapper p-0">
                             {jobServices.map((image, index) => {
                                 if (image == "Watering") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={watering}
                                                     className="selectPlantsCompleted"
@@ -125,12 +150,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Cleaning") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={cleaning}
                                                     className="selectPlantsCompleted"
@@ -139,12 +164,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Pruning") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={pruning}
                                                     className="selectPlantsCompleted"
@@ -153,12 +178,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Repotting") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={repotting}
                                                     className="selectPlantsCompleted"
@@ -167,12 +192,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Pest Control") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={pestControl}
                                                     className="selectPlantsCompleted"
@@ -181,11 +206,10 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                             })}
                         </div>
-
                     </div>
                 </div>
                 <div className="col bckgrnd rounded p-3 m-2">
@@ -197,7 +221,7 @@ export const PublishedJobPosts = () => {
                                 if (image == "Standard House Plants") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={usual}
                                                     className="selectPlantsCompleted"
@@ -206,12 +230,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Outdoor Potted Plants") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={outdoors}
                                                     className="selectPlantsCompleted"
@@ -220,12 +244,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Succulents") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={succulents}
                                                     className="selectPlantsCompleted"
@@ -234,12 +258,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Orchids") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={orchids}
                                                     className="selectPlantsCompleted"
@@ -248,12 +272,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Unusual / Rare") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={unusual}
                                                     className="selectPlantsCompleted"
@@ -262,12 +286,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Carnivorous") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={carnivorous}
                                                     className="selectPlantsCompleted"
@@ -276,12 +300,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Landscape") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={landscape}
                                                     className="selectPlantsCompleted"
@@ -290,12 +314,12 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                                 if (image == "Vegetable Gardens") {
                                     return (
                                         <div className="selectPlants" key={index}>
-                                            <div className="plantImageContainer plants" >
+                                            <div className="plantImageContainer plants">
                                                 <img
                                                     src={veggies}
                                                     className="selectPlantsCompleted"
@@ -304,7 +328,7 @@ export const PublishedJobPosts = () => {
                                             </div>
                                             <p className="text-white mb-0"><strong>{image}</strong></p>
                                         </div>
-                                    )
+                                    );
                                 }
                             })}
                         </div>
@@ -331,22 +355,164 @@ export const PublishedJobPosts = () => {
                             className="fa-regular fa-message btn"
                             style={{ position: "absolute", right: "100px", fontSize: "80px" }}
                             title="This is where you will communicate with applicants"
-                        // onClick={() => /*insert navigate link*/}
+                            onClick={toggleChat}
                         />
                     </div>
+
+                    {/* Chat Popup */}
+                    {isChatOpen && (
+                        <div className="chat-popup" style={{
+                            position: 'fixed',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 1000,
+                            width: '500px',
+                            height: '600px',
+                            backgroundColor: 'white',
+                            border: '1px solid black',
+                            borderRadius: '10px',
+                            padding: '20px',
+                            boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}>
+                            <div className="chat-header" style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: '10px'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center' }}>
+                                    <img
+                                        src={'https://rickandmortyapi.com/api/character/avatar/1.jpeg'} // Replace with the correct profile picture URL
+                                        alt="Profile"
+                                        style={{
+                                            width: '40px',
+                                            height: '40px',
+                                            borderRadius: '50%',
+                                            marginRight: '10px'
+                                        }}
+                                    />
+                                    <div>
+                                        <h3>{profileName}</h3>{'Rick Sanchez'}
+                                        <p style={{ fontSize: '0.8em', color: 'Black' }}>Last seen 2 hours ago</p> {/* Adjust accordingly */}
+                                    </div>
+                                </div>
+                                <button onClick={toggleChat} style={{
+                                    background: 'none',
+                                    border: 'none',
+                                    fontSize: '20px',
+                                    cursor: 'pointer'
+                                }}>✖</button>
+                            </div>
+
+                            {/* Chat body (message history) */}
+                            <div className="chat-body" style={{
+                                flex: '1',
+                                overflowY: 'scroll',
+                                border: '1px solid #ccc',
+                                borderRadius: '5px',
+                                padding: '10px'
+                            }} onClick={markMessagesAsRead}>
+                                {/* Rendering chat messages */}
+                                {/* Rendering chat messages */}
+                                {messages.length > 0 ? (
+                                    messages.map((msg, index) => (
+                                        <div key={index} style={{ marginBottom: '10px' }}>
+                                            <div style={{ color: 'black' }}><strong>{msg.text}</strong></div> {/* Text is now black */}
+                                            <div style={{ fontSize: '0.8em', color: 'gray' }}>
+                                                {msg.timestamp}
+                                                {msg.isRead ? " - Read" : " - Unread"}
+                                            </div>
+                                        </div>
+                                    ))
+                                ) : (
+                                    <p>No messages yet.</p>
+                                )}
+
+                            </div>
+
+                            {/* Chat input and options */}
+                            <div className="chat-footer" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center' }}>
+                                {/* Plus button for media */}
+                                <button
+                                    onClick={() => setMediaMenuOpen(!isMediaMenuOpen)} // Toggle the media menu
+                                    style={{
+                                        padding: '10px',
+                                        borderRadius: '5px',
+                                        backgroundColor: '#007bff',
+                                        color: 'white',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        marginRight: '10px'
+                                    }}
+                                >
+                                    ➕
+                                </button>
+
+                                {/* Media options menu */}
+                                {isMediaMenuOpen && (
+                                    <div style={{
+                                        position: 'absolute',
+                                        bottom: '80px',
+                                        left: '10px',
+                                        backgroundColor: 'white',
+                                        border: '1px solid #ccc',
+                                        borderRadius: '5px',
+                                        boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
+                                        padding: '10px'
+                                    }}>
+                                        <button style={{ display: 'block', marginBottom: '10px' }} onClick={handleUploadPicVid}>Upload Pic/Vid</button>
+                                        <button style={{ display: 'block', marginBottom: '10px' }} onClick={handleUploadFile}>Upload File</button>
+                                        <button style={{ display: 'block' }} onClick={handleVoiceNotes}>Voice Notes</button>
+                                    </div>
+                                )}
+
+
+                                {/* Text input with emoji */}
+                                <input
+                                    type="text"
+                                    placeholder="Type a message... 😃"
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                    style={{
+                                        width: '80%',
+                                        padding: '10px',
+                                        borderRadius: '5px',
+                                        border: '1px solid #ccc',
+                                    }}
+                                />
+
+                                {/* Send button */}
+                                <button
+                                    style={{
+                                        padding: '10px 20px',
+                                        marginLeft: '10px',
+                                        borderRadius: '5px',
+                                        backgroundColor: '#28a745',
+                                        color: 'white',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                    }}
+                                    onClick={sendMessage} // Trigger message send
+                                >
+                                    Send
+                                </button>
+                            </div>
+                        </div>
+                    )}
+
                     <button
                         title="This will be active for applicants"
                         className="apply-now"
                         type="button"
-                    // onClick={() => /*insert navigate link*/}
                     >
                         <strong>Apply Now</strong>
                     </button>
                 </div>
             </div>
-            <div
-                className="container-fluid row mb-2"
-            >
+            <div className="container-fluid row mb-2">
                 <div className="col-4"></div>
                 <button
                     className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
@@ -360,11 +526,7 @@ export const PublishedJobPosts = () => {
                 <button
                     type="button"
                     className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                    onClick={
-                        () => {
-                            navigate('/job-posts')
-                        }
-                    }
+                    onClick={() => navigate('/job-posts')}
                 >
                     Publish
                 </button>

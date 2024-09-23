@@ -46,6 +46,7 @@ import { ProviderLandingPage } from "./pages/providerLandingPage";
 import { ClientLandingPage } from "./pages/clientLandingPage";
 import { ViewPlantSitterProfile } from "./pages/ViewPlantSitterProfile";
 import { PublishedJobPosts } from "./pages/publishedJobPost";
+import MessagePage from "./pages/MessagePage";
 
 //create your first component
 const Layout = () => {
@@ -99,6 +100,7 @@ const Layout = () => {
                         <Route element={<ClientLandingPage />} path="/client-landing" />
                         <Route element={<ViewPlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<PublishedJobPosts />} path="/published-job-posts/:job_post_id" />
+                        <Route path="/message-page" element={<MessagePage />} /> 
                     </Routes>
                     <Chat />
                     <Footer />

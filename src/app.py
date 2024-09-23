@@ -66,7 +66,7 @@ setup_admin(app)
 setup_commands(app)
 
 # Add all endpoints form the API with a "api" prefix
-from src.api.routes import api 
+from api.routes import api 
 app.register_blueprint(api, url_prefix='/api')
 
 # Handle/serialize errors like a JSON object
