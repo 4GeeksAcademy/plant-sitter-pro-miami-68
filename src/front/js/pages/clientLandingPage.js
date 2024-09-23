@@ -37,7 +37,6 @@ export const ClientLandingPage = () => {
                         alert("Error fetching job posts");
                     }
             }
-
             setLoading(false);
         };
 
@@ -60,7 +59,6 @@ export const ClientLandingPage = () => {
     };
 
     return (
-
         <div className="container-fluid">
             <div
                 className="row mb-4 mt-4"
@@ -77,7 +75,7 @@ export const ClientLandingPage = () => {
             </div>
 
             <div className="container mt-5">
-                <h1 className="diphylleia-regular mb-4 text-center"><strong>View / Edit Your Open Job Posts</strong></h1 >
+                <h1 className="diphylleia-regular mb-4 text-center"><strong>Edit Your Open Job Posts</strong></h1 >
                 <div className="row">
                     {jobPosts.map((post) => (
                         <div className="col-md-4 mb-4 job-cards" key={post.id} onClick={() => handleViewJobPost(post.id)}>
@@ -115,6 +113,9 @@ export const ClientLandingPage = () => {
                 </div>
             </div>
 
+            <div className="container mt-5">
+                <h1 className="diphylleia-regular mb-4 text-center"><strong>View Current Jobs</strong></h1 >
+            </div>
             <div className="container mt-5">
                 <h1 className="diphylleia-regular mb-4 text-center"><strong>View Completed Jobs</strong></h1 >
             </div>

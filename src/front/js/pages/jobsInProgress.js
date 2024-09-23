@@ -87,7 +87,7 @@ export const JobsInProgress = () => {
             className="text-center d-grid mt-4"
             style={{ minWidth: '100%', justifyContent: 'center' }}
         >
-            <h1 className="mb-5 mt-3 diphylleia-regular jobs"><strong>This is how your job post will appear</strong></h1>
+            <h1 className="mb-3 mt-3 diphylleia-regular jobs"><strong> Active Job </strong></h1>
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
@@ -192,7 +192,6 @@ export const JobsInProgress = () => {
                     <h2 className="diphylleia-regular text-white"><strong>Plant Types</strong></h2>
                     <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I have these kinds of plants:</strong></label>
                     <div className="d-flex justify-content-center">
-                        {/* <JobPlants /> */}
                         <div className="container plantImageWrapper p-0">
                             {jobPlants.map((image, index) => {
                                 if (image == "Standard House Plants") {
@@ -327,25 +326,35 @@ export const JobsInProgress = () => {
                     <div className="input-group mb-2">
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
                     </div>
-                    <div className="w-100">
-                        <i
-                            className="fa-regular fa-message btn"
-                            style={{ position: "absolute", right: "100px", fontSize: "80px" }}
-                            title="This is where you will communicate with applicants"
-                        // onClick={() => /*insert navigate link*/}
-                        />
-                    </div>
+
                     <button
-                        title="This will be active for applicants"
                         className="apply-now"
                         type="button"
                     // onClick={() => /*insert navigate link*/}
                     >
-                        <strong>Apply Now</strong>
+                        <strong>See Applicants</strong>
                     </button>
+                    <button
+                        className="apply-now mb-3"
+                        type="button"
+                    // onClick={() => /*insert navigate link*/}
+                    >
+                        <strong>Mark As Completed</strong>
+                    </button>
+                    <div 
+                        className="btn"
+                        style={{ width: "auto"}}
+                    >
+                        <i
+                            className="fa-regular fa-message"
+                            style={{fontSize: "80px" }}
+                            title="This is where you will communicate with applicants"
+                        // onClick={() => /*insert navigate link*/}
+                        />
+                    </div>
                 </div>
             </div>
-            <div
+            {/* <div
                 className="container-fluid row mb-2"
             >
                 <div className="col-4"></div>
@@ -370,7 +379,7 @@ export const JobsInProgress = () => {
                     Publish
                 </button>
                 <div className="col-4"></div>
-            </div>
+            </div> */}
         </div>
     );
 };

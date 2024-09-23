@@ -1,30 +1,57 @@
-import React, { useEffect, useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
-import noImage from "../../img/noImage.png";
+import "../../styles/home.css";
+import { useNavigate } from "react-router-dom";
+import noImage from '../../img/noImage.png';
 
 export const JobPostsList = () => {
     const { store, actions } = useContext(Context);
-    const [jobPosts, setJobPosts] = useState([]);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
+    const [jobPosts, setJobPosts] = useState([]);
+    const [picture, setPicture] = useState(null);
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const firstName = store.user?.first_name;
+    const lastName = store.user?.last_name;
 
     useEffect(() => {
-        const fetchJobPosts = async () => {
-            const res = await actions.getUserJobPosts();
-            if (res.success) {
-                setJobPosts(res.data);
-            } else {
-                alert("Error fetching job posts");
+        const fetchData = async () => {
+            setLoading(true);
+            if (!store.user) {
+                await actions.getUser();
             }
+            if (store.user) {
+                const result = await actions.getUser();
+                    if (result.success && result.data) {
+                        setCity(result.data.city);
+                        setState(result.data.state);
+                    }
+                    const res = await actions.getUserJobPosts();
+                    if (res.success && res.data) {
+                        setJobPosts(res.data);
+                        setPicture(res.data.profile_picture_url);
+                    } else {
+                        alert("Error fetching job posts");
+                    }
+            }
+            setLoading(false);
         };
-        fetchJobPosts();
+
+        fetchData();
     }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    console.log(jobPosts);
 
     const handleViewJobPost = (jobPostId) => {
         navigate(`/jobs-in-progress/${jobPostId}`);
     };
 
-    // Function to format date in "MM/DD/YYYY" format
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
@@ -33,7 +60,6 @@ export const JobPostsList = () => {
     return (
         <div className="container mt-5">
             <h1 className="diphylleia-regular mb-4 text-center"><strong>Success!</strong></h1 >
-
             <h1 className="diphylleia-regular mb-4 text-center"><strong>Here Are Your Published Job Posts</strong></h1>
             <h2 className="diphylleia-regular mb-4 text-center">Click on any post below to see and approve applicants for your job or, if you've already approved an applicant, to communicate with that plant sitter.</h2>
             <div className="row">
