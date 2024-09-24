@@ -219,44 +219,66 @@ export const ProviderLandingPage = () => {
                     )}
                 </div>
             
-                 <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Jobs</strong></h2>
-                 <div className="row">
-                     {appliedJobs.length > 0 ? (
-                        appliedJobs.map((jobAssignment) => (
-                            <div 
-                                key={jobAssignment.id} 
-                                className="col mb-1 job-option" 
-                                style={{ paddingLeft: "1px", paddingRight: "1px"}}
-                                onClick={()=> navigate(`/published-job-posts/${jobAssignment.job_post_id}`)}
-                            >
-                                <div className="card" style={{ backgroundColor: "rgb(50, 70, 50)", borderRadius: "10px", width: "240px", height: "300px" }}>
-                                    <img
-                                        src={jobAssignment.job_post.profile_picture_url || "noImage.png"}
-                                        alt={`${jobAssignment.job_post.first_name} ${jobAssignment.job_post.last_name}`}
-                                        className="card-img-top"
-                                        style={{
-                                            borderRadius: "10px",
-                                            width: "95%",
-                                            height: "150px",
-                                            objectFit: "cover",
-                                            margin: "auto",
-                                            marginTop: "10px",
-                                        }}
-                                    />
-                                    <div className="card-body" style={{ padding: "10px", textAlign: "center" }}>
-                                        <h6 className="card-title text-white diphylleia-regular" style={{ fontSize: "16px" }}>
-                                            <strong>{jobAssignment.job_post.first_name} {jobAssignment.job_post.last_name}</strong>
-                                        </h6>
-                                        <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
-                                            <strong>Location:</strong> {jobAssignment.job_post.location || 'Not provided'}
-                                        </p>
-                                        <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
-                                            <strong>Dates:</strong> {formatDate(jobAssignment.job_post.start_date)} - {formatDate(jobAssignment.job_post.end_date)}
-                                        </p>
+                <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Jobs</strong></h2>
+                <div className="row">
+                    {appliedJobs.length > 0 ? (
+                        appliedJobs.map((jobAssignment) => {
+                            let statusColor;
+                            if (jobAssignment.status === 'pending') {
+                                statusColor = 'yellow';
+                            } else if (jobAssignment.status === 'rejected') {
+                                statusColor = 'red';
+                            } else if (jobAssignment.status === 'accepted') {
+                                statusColor = '#00FF00';
+                            }
+
+                            return (
+                                <div 
+                                    key={jobAssignment.id} 
+                                    className="col mb-1 job-option" 
+                                    style={{ paddingLeft: "1px", paddingRight: "1px" }}
+                                    onClick={() => navigate(`/published-job-posts/${jobAssignment.job_post_id}`)}
+                                >
+                                    <div className="card" style={{ backgroundColor: "rgb(50, 70, 50)", borderRadius: "10px", width: "240px", height: "320px" }}>
+                                        <img
+                                            src={jobAssignment.job_post.profile_picture_url || "noImage.png"}
+                                            alt={`${jobAssignment.job_post.first_name} ${jobAssignment.job_post.last_name}`}
+                                            className="card-img-top"
+                                            style={{
+                                                borderRadius: "10px",
+                                                width: "95%",
+                                                height: "150px",
+                                                objectFit: "cover",
+                                                margin: "auto",
+                                                marginTop: "10px",
+                                            }}
+                                        />
+                                        <div className="card-body" style={{ padding: "10px", textAlign: "center" }}>
+                                            <h6 className="card-title text-white diphylleia-regular" style={{ fontSize: "16px" }}>
+                                                <strong>{jobAssignment.job_post.first_name} {jobAssignment.job_post.last_name}</strong>
+                                            </h6>
+                                            <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
+                                                <strong>Location:</strong> {jobAssignment.job_post.location || 'Not provided'}
+                                            </p>
+                                            <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
+                                                <strong>Dates:</strong> {formatDate(jobAssignment.job_post.start_date)} - {formatDate(jobAssignment.job_post.end_date)}
+                                            </p>
+                                            {/* Display the status of the job application */}
+                                            <p 
+                                                className="card-text"
+                                                style={{
+                                                    fontSize: "20px",
+                                                    fontWeight: "bold", 
+                                                    color: statusColor
+                                                }}
+                                            >
+                                                {jobAssignment.status.charAt(0).toUpperCase() + jobAssignment.status.slice(1)}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))
+                            );
+                        })
                     ) : (
                         <p>You haven't applied to any jobs yet.</p>
                     )}
