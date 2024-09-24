@@ -75,7 +75,7 @@ export const ProviderLandingPage = () => {
                                 width: '200px',
                                 borderRadius: '50%',
                             }}
-                            onClick={() => navigate('/provider-profile')}
+                            onClick={() => navigate('/provider-services')}
                         ></div>
                     </div>
                     <div className="col text-end">
