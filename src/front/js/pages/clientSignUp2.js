@@ -1,7 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
+import "../../styles/handleSubmit.css"
 
 export const ClientSignUp2 = () => {
     const [firstName, setFirstName] = useState("");
@@ -19,13 +21,8 @@ export const ClientSignUp2 = () => {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const { actions } = useContext(Context);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (token) {
-            navigate("/client-signup2");
-        }
-    }, [navigate]);
 
     const handleSubmit = async (e) => {
         if (e.type === "keydown" && e.key !== "Enter") return
@@ -39,19 +36,27 @@ export const ClientSignUp2 = () => {
         if (password === confirmPassword) {
             const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
             if (result.success) {
-                navigate('/client-services1');
+                setShowModal(true); // Show modal on success;
             } else {
                 alert(result.error || "Sign-up failed. Please try again.");
             }
-        };
+        } else {
+            alert("Passwords Do Not MATCHH!!");
+        }
+
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        navigate('/client-services1');
     };
 
     return (
         <div className="row justify-content-center">
             <div className="col-lg-6 bg-indigo">
-                <h1 className="fw-normal mt-5 diphylleia-regular jobs">Create an account</h1>
+                <h1 className="fw-normal mb-1 mt-4 diphylleia-regular jobs">Create an account</h1>
 
-                <div className="text-center mb-5">
+                <div className="text-center mt-2 mb-4">
                     <p>Already have an account? <a href="/login"><u>Log in</u></a></p>
                 </div>
 
@@ -66,7 +71,7 @@ export const ClientSignUp2 = () => {
                                     value={firstName}
                                     onChange={(e) => setFirstName(e.target.value)}
                                 />
-                                <label className="form-label" >First Name</label>
+                                <label className="form-label" htmlFor="firstName">First Name</label>
                             </div>
                         </div>
                         <div className="col-md-6 mb-2 pb-2">
@@ -78,7 +83,7 @@ export const ClientSignUp2 = () => {
                                     value={lastName}
                                     onChange={(e) => setLastName(e.target.value)}
                                 />
-                                <label className="form-label">Last Name</label>
+                                <label className="form-label" htmlFor="lastName">Last Name</label>
                             </div>
                         </div>
                     </div>
@@ -92,7 +97,7 @@ export const ClientSignUp2 = () => {
                                 value={addressLine1}
                                 onChange={(e) => setAddressLine1(e.target.value)}
                             />
-                            <label className="form-label">Address Line 1</label>
+                            <label className="form-label" htmlFor="addressLine1">Address Line 1</label>
                         </div>
                     </div>
 
@@ -105,7 +110,7 @@ export const ClientSignUp2 = () => {
                                 value={addressLine2}
                                 onChange={(e) => setAddressLine2(e.target.value)}
                             />
-                            <label className="form-label">Address Line 2</label>
+                            <label className="form-label" htmlFor="addressLine2">Address Line 2</label>
                         </div>
                     </div>
 
@@ -119,24 +124,70 @@ export const ClientSignUp2 = () => {
                                     value={city}
                                     onChange={(e) => setCity(e.target.value)}
                                 />
-                                <label className="form-label">City</label>
+                                <label className="form-label" htmlFor="city">City</label>
                             </div>
                         </div>
 
-                        <div className="col-md-5 mb-2 pb-2">
+                        <div className="col-md-3 mb-2 pb-2">
                             <div data-mdb-input-init className="form-outline form-white">
-                                <input
-                                    type="text"
-                                    id="state"
-                                    className="form-control form-control-lg"
-                                    value={state}
-                                    onChange={(e) => setState(e.target.value)}
-                                />
-                                <label className="form-label">State</label>
+                                <select className="form-select form-select-lg mb-2" aria-label="Default select example" for="state" value={state}
+                                    onChange={(e) => setState(e.target.value)}>
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                    <option value="PR">Puerto Rico</option>
+                                </select>
                             </div>
                         </div>
 
-                        <div className="col-md-2 mb-2 pb-2">
+                        <div className="col-md-4 mb-2 pb-2">
                             <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"
@@ -145,7 +196,7 @@ export const ClientSignUp2 = () => {
                                     value={zipCode}
                                     onChange={(e) => setZipCode(e.target.value)}
                                 />
-                                <label className="form-label">ZIP Code</label>
+                                <label className="form-label" htmlFor="zipCode">ZIP Code</label>
                             </div>
                         </div>
                     </div>
@@ -159,9 +210,8 @@ export const ClientSignUp2 = () => {
                                     className="form-control"
                                     placeholder="Currently only available in the United States"
                                     value={country}
-                                    readOnly
                                 />
-                                <label className="form-label">Country</label>
+                                <label className="form-label" htmlFor="country">Country</label>
                             </div>
                         </fieldset>
                     </div>
@@ -175,7 +225,7 @@ export const ClientSignUp2 = () => {
                                 value={phone}
                                 onChange={(e) => setPhone(e.target.value)}
                             />
-                            <label className="form-label">Phone Number</label>
+                            <label className="form-label" htmlFor="phone">Phone Number</label>
                         </div>
                     </div>
 
@@ -188,7 +238,7 @@ export const ClientSignUp2 = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                             />
-                            <label className="form-label">Email</label>
+                            <label className="form-label" htmlFor="email">Email</label>
                         </div>
                     </div>
 
@@ -201,7 +251,7 @@ export const ClientSignUp2 = () => {
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
-                            <label className="form-label">Password</label>
+                            <label className="form-label" htmlFor="password">Password</label>
                         </div>
                     </div>
                     <div className="mb-2 pb-2">
@@ -225,7 +275,7 @@ export const ClientSignUp2 = () => {
                             onChange={(e) => setTermsAccepted(e.target.checked)}
                             id="terms"
                         />
-                        <label className="form-check-label">
+                        <label className="form-check-label" htmlFor="terms">
                             I do accept the <a href="#!" className=""><u>Terms and Conditions</u></a> of your site.
                         </label>
                     </div>
@@ -239,8 +289,18 @@ export const ClientSignUp2 = () => {
                         </button>
                     </div>
                 </form>
-
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Account Verification</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>An email has been sent for you to verify the account.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        OK
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 export const ViewPlantSitterProfile = () => {
     const { actions } = useContext(Context);
@@ -20,7 +21,7 @@ export const ViewPlantSitterProfile = () => {
         fetchSitter();
     }, [sitterId]);
 
-    if (!sitter) return <p>Loading...</p>;
+    if (!sitter) return <BushTrimmingLoader />;
 
     return (
         <div className="text-center m-2">
