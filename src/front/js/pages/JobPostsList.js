@@ -33,9 +33,10 @@ export const JobPostsList = () => {
                     if (res.success && res.data) {
                         setJobPosts(res.data);
                         setPicture(res.data.profile_picture_url);
-                    } else {
-                        alert("Error fetching job posts");
-                    }
+                    } 
+                    // else {
+                    //     alert("Error fetching job posts");
+                    // }
             }
             setLoading(false);
         };

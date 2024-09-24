@@ -851,20 +851,25 @@ def get_ratings(plantsitter_id):
 @api.route('/jobs/<int:job_post_id>/accept', methods=['POST'])
 @jwt_required()
 def accept_job(job_post_id):
-    plantsitter_id = get_jwt_identity()
+    user_id = get_jwt_identity()
+    plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
+
+    if not plant_sitter:
+        return jsonify({"error": "You do not have a plant sitter profile"}), 404
+
+    plantsitter_id = plant_sitter.id
 
     job_post = JobPost.query.get(job_post_id)
+    
     if not job_post or job_post.status != 'open':
         return jsonify({"error": "Job is either closed or does not exist"}), 404
 
-    # Create a new JobAssignment
     new_assignment = JobAssignment(
         job_post_id=job_post_id,
         plantsitter_id=plantsitter_id,
-        status='accepted'
+        status='pending'
     )
 
-    job_post.status = 'accepted'
     db.session.add(new_assignment)
     db.session.commit()
 
@@ -876,9 +881,18 @@ def accept_job(job_post_id):
 @api.route('/user/applied-jobs', methods=['GET'])
 @jwt_required()
 def get_applied_jobs():
-    plant_sitter_id = get_jwt_identity()
 
-    job_assignments = JobAssignment.query.filter_by(plantsitter_id=plant_sitter_id, status='accepted').all()
+    user_id = get_jwt_identity()
+
+    plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
+
+    if not plant_sitter:
+        return jsonify({"message": "No plant sitter profile found."}), 404
+
+    job_assignments = JobAssignment.query.filter(
+        JobAssignment.plantsitter_id == plant_sitter.id,
+        JobAssignment.status.in_(['pending', 'accepted'])
+    ).all()
 
     if not job_assignments:
         return jsonify({"message": "No applied jobs found."}), 404
