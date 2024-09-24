@@ -52,6 +52,7 @@ import { ProfileSuccessPage } from "./pages/profileSuccessPage";
 import { CompletedJobsPage } from "./pages/completedJobsPage";
 import { ClientServicesUpdate } from "./pages/clientServicesUpdate";
 import { Trimming } from "./pages/ExampleLoading.js";
+import { ProviderPaymentPage } from "./pages/providerPaymentPage.js";
 
 //create your first component
 const Layout = () => {
@@ -111,6 +112,7 @@ const Layout = () => {
                         <Route element={<ProfileSuccessPage />} path="/profile-success-page" />
                         <Route element={<CompletedJobsPage />} path="/completed-jobs-page" />
                         <Route element={<Trimming />} path="/trimming" />
+                        <Route element={<ProviderPaymentPage />} path="/provider-payment" />
 
                     </Routes>
                     <Chat />
