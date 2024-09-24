@@ -18,6 +18,9 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
+import Picker from 'emoji-picker-react'; 
+import io from 'socket.io-client';
+// import DMchatApp from '../dm/DMchatApp'; 
 
 export const PublishedJobPosts = () => {
     const { store, actions } = useContext(Context);
@@ -25,6 +28,7 @@ export const PublishedJobPosts = () => {
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
+    const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
     const [readReceipt, setReadReceipt] = useState({});
     const [isMediaMenuOpen, setMediaMenuOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -47,10 +51,32 @@ export const PublishedJobPosts = () => {
     const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
 
-    const profilePicUrl = store.user?.profile_picture || "default_profile_picture_url.jpg"; // Replace with actual logic
-    const profileName = store.user?.first_name + " " + store.user?.last_name || "User"; // Use user's name from store
-    const lastSeen = "Last seen 2 hours ago"; // Replace with actual last seen data
+    const profilePicUrl = store.user?.profile_picture || "default_profile_picture_url.jpg";
+    const profileName = store.user?.first_name + " " + store.user?.last_name || "User";
+    const lastSeen = "Last seen 2 hours ago";
 
+    const socket = io('https://your-socket-url');
+
+    useEffect(() => {
+        socket.on('receive_message', (newMessage) => {
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+        });
+
+        return () => {
+            socket.off('receive_message');
+        };
+    }, []);
+
+    const handleSendMessage = () => {
+        if (message.trim()) {
+            socket.emit('send_message', { message, sender: 'You' });
+            setMessage(''); // Clear the input field after sending
+        }
+    };
+
+    const onEmojiClick = (event, emojiObject) => {
+        setMessage((prevMessage) => prevMessage + emojiObject.emoji);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,10 +118,16 @@ export const PublishedJobPosts = () => {
             const newMessage = {
                 text: message,
                 timestamp: new Date().toLocaleString(),
-                isRead: false,
+                senderId: store.user.id,
             };
             setMessages([...messages, newMessage]);
             setMessage("");
+        }
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            sendMessage();
         }
     };
 
@@ -108,6 +140,18 @@ export const PublishedJobPosts = () => {
         return <div>Loading...</div>;
     }
 
+    const chatBodyStyles = {
+        flex: '1',
+        overflowY: 'scroll',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        padding: '10px',
+        backgroundImage: `url('https://cdn.prod.website-files.com/64876ae345f1e27598fafc02/6686662215fbf514fbfb55fc_dandelion-1452219_1280.jpg')`, // Background image
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+    };
+    
+
     return (
         <div
             className="text-center d-grid mt-4"
@@ -118,7 +162,7 @@ export const PublishedJobPosts = () => {
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>
                     <div
-                        className="profile-picture m-auto mb-4"
+                        className="profile-picture m-auto mb-4"//remember to edit 
                         style={{
                             backgroundImage: picture ? `url(${picture})` : '',
                             backgroundSize: 'cover',
@@ -359,7 +403,6 @@ export const PublishedJobPosts = () => {
                         />
                     </div>
 
-                    {/* Chat Popup */}
                     {isChatOpen && (
                         <div className="chat-popup" style={{
                             position: 'fixed',
@@ -369,136 +412,182 @@ export const PublishedJobPosts = () => {
                             zIndex: 1000,
                             width: '500px',
                             height: '600px',
-                            backgroundColor: 'white',
+                            backgroundColor: '#1f2c34',
                             border: '1px solid black',
                             borderRadius: '10px',
-                            padding: '20px',
-                            boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
                             display: 'flex',
-                            flexDirection: 'column'
+                            flexDirection: 'column',
+                            color: 'white',
                         }}>
                             <div className="chat-header" style={{
                                 display: 'flex',
                                 justifyContent: 'space-between',
                                 alignItems: 'center',
-                                marginBottom: '10px'
+                                padding: '10px',
+                                backgroundColor: 'green',
+                                borderTopLeftRadius: '10px',
+                                borderTopRightRadius: '10px'
                             }}>
                                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                                    <img
-                                        src={'https://rickandmortyapi.com/api/character/avatar/1.jpeg'} // Replace with the correct profile picture URL
-                                        alt="Profile"
-                                        style={{
-                                            width: '40px',
-                                            height: '40px',
-                                            borderRadius: '50%',
-                                            marginRight: '10px'
-                                        }}
-                                    />
+                                    <img src={'https://rickandmortyapi.com/api/character/avatar/1.jpeg'} alt="Profile" style={{
+                                        width: '60px',
+                                        height: '60px',
+                                        borderRadius: '50%',
+                                        marginRight: '10px'
+                                    }} />
                                     <div>
-                                        <h3>{profileName}</h3>{'Rick Sanchez'}
-                                        <p style={{ fontSize: '0.8em', color: 'Black' }}>Last seen 2 hours ago</p> {/* Adjust accordingly */}
+                                        <h5 style={{ color: 'white' }}>{profileName}</h5>
+                                        <p style={{ fontSize: '0.9em', color: 'lightgray' }}>{lastSeen}</p>
                                     </div>
                                 </div>
                                 <button onClick={toggleChat} style={{
                                     background: 'none',
                                     border: 'none',
                                     fontSize: '20px',
-                                    cursor: 'pointer'
+                                    cursor: 'pointer',
+                                    color: 'white'
                                 }}>✖</button>
                             </div>
-
-                            {/* Chat body (message history) */}
-                            <div className="chat-body" style={{
-                                flex: '1',
-                                overflowY: 'scroll',
-                                border: '1px solid #ccc',
-                                borderRadius: '5px',
-                                padding: '10px'
-                            }} onClick={markMessagesAsRead}>
-                                {/* Rendering chat messages */}
-                                {/* Rendering chat messages */}
+                            <div className="chat-body" style={chatBodyStyles} onClick={markMessagesAsRead}>
                                 {messages.length > 0 ? (
-                                    messages.map((msg, index) => (
-                                        <div key={index} style={{ marginBottom: '10px' }}>
-                                            <div style={{ color: 'black' }}><strong>{msg.text}</strong></div> {/* Text is now black */}
-                                            <div style={{ fontSize: '0.8em', color: 'gray' }}>
-                                                {msg.timestamp}
-                                                {msg.isRead ? " - Read" : " - Unread"}
+                                    messages.map((msg, index) => {
+                                        const isSender = msg.senderId === store.user.id; // Compare senderId with the current user's id
+
+                                        return (
+                                            <div
+                                                key={index}
+                                                style={{
+                                                    display: 'flex',
+                                                    justifyContent: isSender ? 'flex-end' : 'flex-start', // Align messages
+                                                    marginBottom: '10px',
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        backgroundColor: isSender ? '#dcf8c6' : '#fff', // Background colors for sender/receiver
+                                                        color: 'black',
+                                                        padding: '10px',
+                                                        borderRadius: '20px',
+                                                        maxWidth: '60%',
+                                                        textAlign: isSender ? 'right' : 'left', // Text alignment
+                                                        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
+                                                    }}
+                                                >
+                                                    <strong>{msg.text}</strong>
+                                                    <div style={{ fontSize: '0.8em', color: 'gray', marginTop: '5px' }}>
+                                                        {msg.timestamp}
+                                                        {msg.isRead ? ' - Read' : ' - Unread'}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    ))
+                                        );
+                                    })
                                 ) : (
                                     <p>No messages yet.</p>
                                 )}
-
                             </div>
+                            <div className="chat-footer" style={{
+                                marginTop: 'auto',
+                                display: 'flex',
+                                flexDirection: 'column',
+                                padding: '10px',
+                                backgroundColor: '#1f2c34',
+                                borderTop: '1px solid #ccc'
+                            }}>
+                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                    <input
+                                        type="text"
+                                        placeholder="Write a message..."
+                                        value={message}
+                                        onChange={(e) => setMessage(e.target.value)}
+                                        onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
+                                        style={{
+                                            flex: '1',
+                                            padding: '10px',
+                                            borderRadius: '5px',
+                                            border: 'none',
+                                            backgroundColor: '#3a4a52',
+                                            color: 'white',
+                                            height: '40px',
+                                        }}
+                                    />
 
-                            {/* Chat input and options */}
-                            <div className="chat-footer" style={{ marginTop: 'auto', display: 'flex', alignItems: 'center' }}>
-                                {/* Plus button for media */}
-                                <button
-                                    onClick={() => setMediaMenuOpen(!isMediaMenuOpen)} // Toggle the media menu
-                                    style={{
-                                        padding: '10px',
-                                        borderRadius: '5px',
-                                        backgroundColor: '#007bff',
-                                        color: 'white',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        marginRight: '10px'
-                                    }}
-                                >
-                                    ➕
-                                </button>
-
-                                {/* Media options menu */}
-                                {isMediaMenuOpen && (
-                                    <div style={{
-                                        position: 'absolute',
-                                        bottom: '80px',
-                                        left: '10px',
-                                        backgroundColor: 'white',
-                                        border: '1px solid #ccc',
-                                        borderRadius: '5px',
-                                        boxShadow: '0px 4px 8px rgba(0,0,0,0.1)',
-                                        padding: '10px'
-                                    }}>
-                                        <button style={{ display: 'block', marginBottom: '10px' }} onClick={handleUploadPicVid}>Upload Pic/Vid</button>
-                                        <button style={{ display: 'block', marginBottom: '10px' }} onClick={handleUploadFile}>Upload File</button>
-                                        <button style={{ display: 'block' }} onClick={handleVoiceNotes}>Voice Notes</button>
-                                    </div>
+                                    <button
+                                        style={{
+                                            padding: '10px 20px',
+                                            marginLeft: '10px',
+                                            borderRadius: '5px',
+                                            backgroundColor: message.trim() ? '#1a73e8' : '#333',
+                                            color: message.trim() ? 'white' : '#555',
+                                            border: 'none',
+                                            cursor: message.trim() ? 'pointer' : 'not-allowed',
+                                            fontSize: '16px'
+                                        }}
+                                        onClick={sendMessage}
+                                        disabled={!message.trim()}
+                                    >
+                                        Send
+                                    </button>
+                                </div>
+                                
+                                {isEmojiPickerVisible && (
+                                    <Picker
+                                        onEmojiClick={onEmojiClick}
+                                        pickerStyle={{ width: '100%' }} // Adjust the width of the emoji picker
+                                    />
                                 )}
 
-
-                                {/* Text input with emoji */}
-                                <input
-                                    type="text"
-                                    placeholder="Type a message... 😃"
-                                    value={message}
-                                    onChange={(e) => setMessage(e.target.value)}
-                                    style={{
-                                        width: '80%',
-                                        padding: '10px',
-                                        borderRadius: '5px',
-                                        border: '1px solid #ccc',
-                                    }}
-                                />
-
-                                {/* Send button */}
-                                <button
-                                    style={{
-                                        padding: '10px 20px',
-                                        marginLeft: '10px',
-                                        borderRadius: '5px',
-                                        backgroundColor: '#28a745',
-                                        color: 'white',
+                                <div style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-between'
+                                }}>
+                                    <button style={{
+                                        background: 'none',
                                         border: 'none',
                                         cursor: 'pointer',
-                                    }}
-                                    onClick={sendMessage} // Trigger message send
-                                >
-                                    Send
-                                </button>
+                                        color: '#ccc',
+                                        fontSize: '24px',
+                                        marginRight: '10px'
+                                    }} title="Upload Image">
+                                        <i className="fa fa-image"></i>
+                                    </button>
+
+                                    <button style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        color: '#ccc',
+                                        fontSize: '24px',
+                                        marginRight: '10px'
+                                    }} title="Attach File">
+                                        <i className="fa fa-paperclip"></i>
+                                    </button>
+
+                                    <button style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        color: '#ccc',
+                                        fontSize: '24px',
+                                        marginRight: '10px'
+                                    }} title="Send GIF">
+                                        GIF
+                                    </button>
+
+                                    <button style={{
+                                        background: 'none',
+                                        border: 'none',
+                                        cursor: 'pointer',
+                                        color: '#ccc',
+                                        fontSize: '24px',
+                                        marginRight: '10px'
+                                    }} title="Emoji"
+                                        onClick={() => setIsEmojiPickerVisible(!isEmojiPickerVisible)} // Toggle Emoji Picker visibility
+                                    >
+                                        <i className="fa fa-smile"></i>
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     )}
@@ -532,6 +621,6 @@ export const PublishedJobPosts = () => {
                 </button>
                 <div className="col-4"></div>
             </div>
-        </div>
+        </div >
     );
 };

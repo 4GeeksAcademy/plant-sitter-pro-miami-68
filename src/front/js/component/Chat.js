@@ -20,9 +20,9 @@ function Chat() {
         setMessages([...messages, { from: 'user', text: text }]); // Display user's message immediately
 
         try {
-            const response = await fetch('https://api.example.com/chat', { // Replace with your bot's API endpoint
+            const response = await fetch('https://api-inference.huggingface.co/models/<plantsitterspro>', { // Replace with your bot's API endpoint
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer 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' },
                 body: JSON.stringify({ message: text })
             });
             const data = await response.json();

@@ -1,125 +1,104 @@
-/* DMchatApp.css */
+/* Styles for the DM Chat App */
 
-.chat-popup-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Overlay background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.chat-popup-container {
-    background-color: white;
-    width: 600px;
-    height: 400px;
-    border-radius: 10px;
-    position: relative;
+.dm-chat-app {
     display: flex;
     flex-direction: column;
+    background-color: #1E2A2E;
+    border-radius: 20px;
+    height: 100%;
+    width: 100%;
 }
 
-.chat-header {
-    padding: 15px;
-    background-color: #4CAF50;
-    color: white;
-    text-align: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-}
-
-.chat-body {
-    flex: 1;
-    padding: 15px;
-    overflow-y: auto;
-}
-
-.chat-footer {
-    padding: 10px;
+.dm-chat-header {
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    border-top: 1px solid #ddd;
-}
-
-.chat-footer input {
-    width: 80%;
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+    background-color: #3C4856;
+    border-radius: 10px 10px 0 0;
 }
 
-.chat-footer button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.profile-details {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
     color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
 }
 
-.close-chat-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: transparent;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #333;
-}
-.chat-input-container {
-    display: flex;
-    align-items: center;
-    background-color: #2f2f2f;
-    padding: 10px;
-    border-top: 1px solid #404040;
+.profile-name {
+    font-weight: bold;
 }
 
-.chat-tools {
-    display: flex;
-    align-items: center;
-    gap: 15px; /* Adjust the space between icons */
+.last-seen {
+    font-size: 12px;
+    color: #96A7A8;
 }
 
-.chat-tool-btn {
+.close-chat {
     background: none;
     border: none;
-    cursor: pointer;
-    outline: none;
-}
-
-.chat-tool-btn img {
-    width: 24px; /* Adjust icon size */
-    height: 24px;
-    filter: invert(1); /* Makes the icons white */
-}
-
-.chat-input-field {
-    flex: 1;
-    background-color: #3a3a3a;
-    border: none;
-    padding: 10px;
     color: white;
     font-size: 16px;
-    margin-left: 15px;
-    border-radius: 5px;
-    outline: none;
-}
-
-.chat-send-btn {
-    background-color: #555;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    margin-left: 15px;
     cursor: pointer;
 }
 
-.chat-send-btn:hover {
-    background-color: #777;
+.dm-chat-window {
+    flex: 1;
+    padding: 10px;
+    overflow-y: scroll;
+    background-color: #2F3E45;
+}
+
+.dm-chat-input-container {
+    display: flex;
+    align-items: center;
+    background-color: #1E2A2E;
+    border-radius: 20px;
+    padding: 10px;
+    position: relative;
+}
+
+.media-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.media-icons img {
+    width: 24px;
+    cursor: pointer;
+}
+
+.dm-chat-input {
+    flex: 1;
+    background-color: #243B42;
+    border: none;
+    padding: 10px;
+    margin-left: 10px;
+    color: white;
+    border-radius: 10px;
+}
+
+.dm-chat-input::placeholder {
+    color: #96A7A8;
+}
+
+.send-btn {
+    background-color: #3C4856;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.send-btn:disabled {
+    background-color: #606D7B;
+    cursor: not-allowed;
 }
