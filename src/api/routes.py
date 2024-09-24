@@ -611,7 +611,7 @@ def get_user_job_posts():
     return jsonify([post.serialize() for post in job_posts]), 200
 
 
-@api.route('/job_posts/<int:job_post_id>', methods=['GET'])
+@api.route('/job_posts_with_token/<int:job_post_id>', methods=['GET'])
 @jwt_required()
 def get_job_post(job_post_id):
     user_id = get_jwt_identity()
@@ -619,6 +619,39 @@ def get_job_post(job_post_id):
     if not job_post:
         return jsonify({"error": "Job post not found"}), 404
     return jsonify(job_post.serialize()), 200
+
+
+@api.route('/job_posts/<int:job_post_id>', methods=['GET'])
+def get_job_post_public(job_post_id):
+    job_post = JobPost.query.filter_by(id=job_post_id).first()
+    if not job_post:
+        return jsonify({"error": "Job post not found"}), 404
+
+    job_post_data = {
+        "id": job_post.id,
+        "user_id": job_post.user_id,
+        "start_date": job_post.start_date.isoformat(),
+        "end_date": job_post.end_date.isoformat(),
+        "city": job_post.city,
+        "state": job_post.state,
+        "zip_code": job_post.zip_code,
+        "country": job_post.country,
+        "location": job_post.location,
+        "latitude": job_post.latitude,
+        "longitude": job_post.longitude,
+        "first_name": job_post.user.first_name if job_post.user else None,
+        "last_name": job_post.user.last_name if job_post.user else None,
+        "profile_picture_url": job_post.profile_picture_url,
+        "service_preferences": job_post.service_preferences,
+        "my_plants": job_post.my_plants, 
+        "intro": job_post.intro,
+        "more_about_your_plants": job_post.more_about_your_plants,
+        "more_about_services": job_post.more_about_services,
+        "job_duration": job_post.job_duration,
+        "status": job_post.status,
+    }
+
+    return jsonify(job_post_data), 200
 
 
 @api.route('/search-job-posts', methods=['POST'])
@@ -896,3 +929,23 @@ def get_ratings(plantsitter_id):
         'average_score': average_score
     }), 200
 
+
+
+#--------------------JobAssaingment endpoints
+
+@api.route('/job_posts/<int:job_post_id>/check_assignment', methods=['GET'])
+@jwt_required()
+def check_assignment(job_post_id):
+    user_id = get_jwt_identity()
+
+    plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
+
+    if not plant_sitter:
+        return jsonify({"applied": False, "error": "User is not a plant sitter"}), 404
+
+    job_assignment = JobAssignment.query.filter_by(job_post_id=job_post_id, plantsitter_id=plant_sitter.id).first()
+
+    if job_assignment:
+        return jsonify({"applied": True, "status": job_assignment.status}), 200
+    else:
+        return jsonify({"applied": False}), 200

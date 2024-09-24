@@ -608,11 +608,33 @@ const getState = ({ getStore, getActions, setStore }) => {
             getJobPostById: async (job_post_id) => {
                 const token = sessionStorage.getItem("token");
                 try {
-                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${job_post_id}`, {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts_with_token/${job_post_id}`, {
                         method: "GET",
                         headers: {
                             "Authorization": `Bearer ${token}`
                         }
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        setStore({ jobPost: data });
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching job post:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+
+            // Fetch a specific job post by ID without a token
+            getJobPostByIdPublic: async (job_post_id) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${job_post_id}`, {
+                        method: "GET"
                     });
 
                     if (resp.ok) {
@@ -764,6 +786,30 @@ const getState = ({ getStore, getActions, setStore }) => {
                 } catch (error) {
                     console.error("Error fetching applied jobs:", error);
                     return { success: false, error: "An unexpected error occurred." };
+                }
+            },
+
+            //Checks the assigment of an application for a jobpost
+            checkAssignment: async (job_post_id) => {
+                try {
+                    const token = sessionStorage.getItem("token");
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${job_post_id}/check_assignment`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+            
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error checking assignment:", error);
+                    return { success: false, error: "An unexpected error occurred" };
                 }
             },
 

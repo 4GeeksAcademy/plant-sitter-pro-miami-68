@@ -27,8 +27,6 @@ export const PublishedJobPosts = () => {
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
     const [picture, setPicture] = useState(null);
-    const [addressLine1, setAddressLine1] = useState("");
-    const [addressLine2, setAddressLine2] = useState("");
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const [zipCode, setZipCode] = useState("");
@@ -54,12 +52,10 @@ export const PublishedJobPosts = () => {
                 await actions.getUser();
             }
 
-            const res = await actions.getJobPostById(job_post_id);
+            const res = await actions.getJobPostByIdPublic(job_post_id);
             if (res.success && res.data) {
                 setStartDate(res.data.start_date);
                 setEndDate(res.data.end_date);
-                setAddressLine1(res.data.address_line_1);
-                setAddressLine2(res.data.address_line_2);
                 setCity(res.data.city);
                 setState(res.data.state);
                 setZipCode(res.data.zip_code);
@@ -75,7 +71,7 @@ export const PublishedJobPosts = () => {
                 if (res.data.user_id === store.user.id) {
                     setIsOwner(true);
                 } else {
-                    const applied = await actions.checkIfApplied(job_post_id);
+                    const applied = await actions.checkAssignment(job_post_id);
                     setHasApplied(applied.success && applied.data.applied);
                 }
             }
@@ -108,7 +104,6 @@ export const PublishedJobPosts = () => {
         } else {
             setIsActive(false);
         }
-        
     }
 
     return (
@@ -173,8 +168,6 @@ export const PublishedJobPosts = () => {
                         <h2 className="diphylleia-regular text-white mb-4"><strong>Plant Owner</strong></h2>
                         <p className="fs-3">🌿</p>
                         <h3 className="text-white diphylleia-regular mt-1 mb-3 jobs">Job Location</h3>
-                        <h3 className="text-white">{addressLine1}</h3>
-                        <h3 className="text-white">{addressLine2}</h3>
                         <h3 className="text-white mb-5 jobs">{city}, {state} {zipCode}</h3>
                         <p className="fs-4 mt-4 bg-white text-black description">{intro}</p>
                         <h2 className="diphylleia-regular text-white mt-3"><strong>Services</strong></h2>
