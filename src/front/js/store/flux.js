@@ -630,6 +630,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 
             clearJobPostId: async () => {
+                const store = getStore()
+                console.log(store.jobPostDetails, "clear jobpost id log in jobpost details from the store");
                 setStore({jobPostDetails: null})
             },
 
@@ -700,6 +702,36 @@ const getState = ({ getStore, getActions, setStore }) => {
                 } catch (error) {
                     console.error("Error searching job posts:", error);
                     return { success: false };
+                }
+            },
+
+            //apply for a jobpost as a plantsitter
+            applyForJob: async (jobPostId) => {
+                const token = sessionStorage.getItem("token");
+            
+                if (!token) {
+                    return { success: false, error: "You are not logged in." };
+                }
+            
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/jobs/${jobPostId}/accept`, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+            
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error applying for job:", error);
+                    return { success: false, error: "An unexpected error occurred" };
                 }
             },
 
