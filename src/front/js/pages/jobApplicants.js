@@ -15,7 +15,7 @@ export const ViewApplicants = () => {
                 if (res.success) {
                     setApplicants(res.data);
                 } else {
-                    alert(res.error || "No applicants found");
+                    alert(res.error || "No applicants found.");
                 }
             } else {
                 alert("No Job Post ID found.");
@@ -23,15 +23,17 @@ export const ViewApplicants = () => {
         };
 
         fetchApplicants();
-    }, []);
+    }, [job_post_id]);
 
     const handleDecision = async (applicantId, decision) => {
-        const res = await actions.updateJobAssignmentStatus(applicantId, decision);
+        const res = await actions.updateAssignmentStatus(applicantId, decision);
         if (res.success) {
-            alert(`Applicant has been ${decision}`);
-            setApplicants(prev => prev.filter(a => a.id !== applicantId));
+            alert(`Applicant has been ${decision}.`);
+            setApplicants(prev => prev.map(a => 
+                a.id === applicantId ? { ...a, status: decision } : a
+            ));  // Update the status in the frontend after accepting/rejecting
         } else {
-            alert(res.error || "Error making a decision");
+            alert(res.error || "Error making a decision.");
         }
     };
 
@@ -44,8 +46,23 @@ export const ViewApplicants = () => {
                         <div key={applicant.id} className="applicant-card">
                             <h5>Plant Sitter ID: {applicant.plantsitter_id}</h5>
                             <p>Status: {applicant.status}</p>
-                            <button onClick={() => handleDecision(applicant.id, 'accepted')}>Accept</button>
-                            <button onClick={() => handleDecision(applicant.id, 'rejected')}>Reject</button>
+                            {applicant.status === 'pending' && (
+                                <>
+                                    <button 
+                                        onClick={() => handleDecision(applicant.id, 'accepted')}
+                                    >
+                                        Accept
+                                    </button>
+                                    <button 
+                                        onClick={() => handleDecision(applicant.id, 'rejected')}
+                                    >
+                                        Reject
+                                    </button>
+                                </>
+                            )}
+                            {applicant.status !== 'pending' && (
+                                <p>Decision: {applicant.status}</p>
+                            )}
                         </div>
                     ))
                 ) : (
