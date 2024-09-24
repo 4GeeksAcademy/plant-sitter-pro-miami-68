@@ -4,6 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import noImage from '../../img/noImage.png';
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 export const JobPostsList = () => {
     const { store, actions } = useContext(Context);
@@ -43,7 +44,7 @@ export const JobPostsList = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader />;
     }
 
     console.log(jobPosts);

@@ -11,6 +11,7 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { ServiceCard } from "../component/ServiceCard"
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 export const ProviderProfile = () => {
     const { store, actions } = useContext(Context);
@@ -97,7 +98,7 @@ export const ProviderProfile = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader/>;
     }
 
     return (

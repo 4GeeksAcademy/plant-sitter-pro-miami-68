@@ -18,7 +18,7 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
-
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 export const JobsInProgress = () => {
     const { store, actions } = useContext(Context);
@@ -76,7 +76,7 @@ export const JobsInProgress = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader />;
     }
 
     console.log(jobServices);

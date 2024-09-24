@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { JobPlants } from "../component/JobPlants";
 import { JobServices } from "../component/JobServices"; 
 import { JobDates } from "../component/JobDates";
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 export const JobPostUpdate = () => {
     const { store, actions } = useContext(Context);
@@ -100,7 +101,7 @@ export const JobPostUpdate = () => {
         }
     };
 
-    return loading ? <div>Loading...</div> : (
+    return loading ? <BushTrimmingLoader /> : (
         <div className="text-center m-2 mt-4">
             <h1 className="mb-4">Edit your job post</h1>
             <div className="row">

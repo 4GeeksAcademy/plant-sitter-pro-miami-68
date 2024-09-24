@@ -602,6 +602,34 @@ const getState = ({ getStore, getActions, setStore }) => {
                     return { success: false, error: "An unexpected error occurred" };
                 }
             },
+            // Delete Job Post
+            deleteJobPost: async (job_post_id) => {
+                const token = sessionStorage.getItem("token");
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${job_post_id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Authorization": `Bearer ${token}`
+                        }
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        // Optionally remove the deleted job post from the store
+                        const store = getStore();
+                        const updatedJobPosts = store.jobPostDetails.filter(post => post.id !== job_post_id);
+                        setStore({ jobPostDetails: updatedJobPosts });
+
+                        return { success: true, message: "Job post deleted successfully" };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error deleting job post:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
 
 
             // Fetch a specific job post by ID
@@ -658,6 +686,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                 setStore({jobPostDetails: null})
             },
 
+            
+            
 
             // // Fetch all job posts
             // getJobPosts: async () => {
