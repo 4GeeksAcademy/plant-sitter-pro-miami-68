@@ -1,9 +1,9 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import plantPic from "../../img/plants-on-stand.jpg";
-import placeholder from "../../img/placeholder.png";
 import { useNavigate } from "react-router-dom";
+import { Modal, Button } from "react-bootstrap";
+import "../../styles/handleSubmit.css"
 
 export const ProviderSignUp = () => {
     const [firstName, setFirstName] = useState("");
@@ -21,42 +21,49 @@ export const ProviderSignUp = () => {
     const [termsAccepted, setTermsAccepted] = useState(false);
     const { actions } = useContext(Context);
     const navigate = useNavigate();
+    const [showModal, setShowModal] = useState(false);
 
-    useEffect(() => {
-        const token = sessionStorage.getItem("token");
-        if (token) {
-            navigate("/provider-services");
-        }
-    }, [navigate]);
 
     const handleSubmit = async (e) => {
+        if (e.type === "keydown" && e.key !== "Enter") return
         e.preventDefault();
 
         if (!termsAccepted) {
             alert("You must accept the terms and conditions.");
             return;
         }
+
         if (password === confirmPassword) {
-        const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
-        if (result.success) {
-            navigate('/provider-services');
+            const result = await actions.signup(email, password, phone, firstName, lastName, addressLine1, addressLine2, city, state, country, zipCode);
+            if (result.success) {
+                setShowModal(true); // Show modal on success;
+            } else {
+                alert(result.error || "Sign-up failed. Please try again.");
+            }
         } else {
-            alert(result.error || "Sign-up failed. Please try again.");
+            alert("Passwords Do Not MATCHH!!");
         }
-    }
+
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        navigate('/provider-services'); // Redirect to account settings after closing modal
     };
 
     return (
         <div className="row justify-content-center">
             <div className="col-lg-6 bg-indigo">
-                <h1 className="fw-normal mt-5 diphylleia-regular jobs">Create an account</h1>
-                <div className="mb-4 text-center">
+                <h1 className="fw-normal mb-1 mt-4 diphylleia-regular jobs">Create an account</h1>
+
+                <div className="text-center mt-2 mb-4">
                     <p>Already have an account? <a href="/login"><u>Log in</u></a></p>
                 </div>
+
                 <form onSubmit={handleSubmit}>
                     <div className="row">
                         <div className="col-md-6 mb-2 pb-2">
-                            <div data-mdb-input-init>
+                            <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"
                                     id="firstName"
@@ -68,7 +75,7 @@ export const ProviderSignUp = () => {
                             </div>
                         </div>
                         <div className="col-md-6 mb-2 pb-2">
-                            <div data-mdb-input-init>
+                            <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"
                                     id="lastName"
@@ -82,7 +89,7 @@ export const ProviderSignUp = () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init>
+                        <div data-mdb-input-init className="form-outline form-white">
                             <input
                                 type="text"
                                 id="addressLine1"
@@ -95,7 +102,7 @@ export const ProviderSignUp = () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init>
+                        <div data-mdb-input-init className="form-outline form-white">
                             <input
                                 type="text"
                                 id="addressLine2"
@@ -109,7 +116,7 @@ export const ProviderSignUp = () => {
 
                     <div className="row">
                         <div className="col-md-5 mb-2 pb-2">
-                            <div data-mdb-input-init>
+                            <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"
                                     id="city"
@@ -121,15 +128,8 @@ export const ProviderSignUp = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-5 mb-2 pb-2">
-                            <div data-mdb-input-init>
-                                {/* <input
-                                    type="text"
-                                    id="state"
-                                    className="form-control form-control-lg"
-                                    value={state}
-                                    onChange={(e) => setState(e.target.value)}
-                                /> */}
+                        <div className="col-md-3 mb-2 pb-2">
+                            <div data-mdb-input-init className="form-outline form-white">
                                 <select className="form-select form-select-lg mb-2" aria-label="Default select example" for="state" value={state}
                                     onChange={(e) => setState(e.target.value)}>
                                     <option value="AL">Alabama</option>
@@ -187,8 +187,8 @@ export const ProviderSignUp = () => {
                             </div>
                         </div>
 
-                        <div className="col-md-2 mb-2 pb-2">
-                            <div data-mdb-input-init>
+                        <div className="col-md-4 mb-2 pb-2">
+                            <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"
                                     id="zipCode"
@@ -203,7 +203,7 @@ export const ProviderSignUp = () => {
 
                     <div className="mb-2 pb-2">
                         <fieldset disabled>
-                            <div data-mdb-input-init>
+                            <div data-mdb-input-init className="form-outline form-white">
                                 <input
                                     type="text"
                                     id="country"
@@ -217,7 +217,7 @@ export const ProviderSignUp = () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init>
+                        <div data-mdb-input-init className="form-outline form-white">
                             <input
                                 type="tel"
                                 id="phone"
@@ -230,9 +230,9 @@ export const ProviderSignUp = () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init>
+                        <div data-mdb-input-init className="form-outline form-white">
                             <input
-                                type="email"
+                                type="text"
                                 id="email"
                                 className="form-control form-control-lg"
                                 value={email}
@@ -243,7 +243,7 @@ export const ProviderSignUp = () => {
                     </div>
 
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init>
+                        <div data-mdb-input-init className="form-outline form-white">
                             <input
                                 type="password"
                                 id="password"
@@ -255,15 +255,15 @@ export const ProviderSignUp = () => {
                         </div>
                     </div>
                     <div className="mb-2 pb-2">
-                        <div data-mdb-input-init>
+                        <div data-mdb-input-init className="form-outline form-white">
                             <input
                                 type="password"
-                                id="password"
+                                id="confirmPassword"
                                 className="form-control form-control-lg"
-                                value={password}
+                                value={confirmPassword}
                                 onChange={(e) => setConfirmPassword(e.target.value)}
                             />
-                            <label className="form-label" htmlFor="Confirm password"> Confirm Password</label>
+                            <label className="form-label" htmlFor="password">Confirm Password</label>
                         </div>
                     </div>
 
@@ -290,6 +290,17 @@ export const ProviderSignUp = () => {
                     </div>
                 </form>
             </div>
+            <Modal show={showModal} onHide={handleCloseModal}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Account Verification</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>An email has been sent for you to verify the account.</Modal.Body>
+                <Modal.Footer>
+                    <Button variant="primary" onClick={handleCloseModal}>
+                        OK
+                    </Button>
+                </Modal.Footer>
+            </Modal>
         </div>
     );
 };
