@@ -111,7 +111,7 @@ export const PublishedJobPosts = () => {
             <div className="mb-2">
                 <button 
                     style={{backgroundColor: "white", color: "black", border: "3px solid black", borderRadius:"25px", width: "150px"}}
-                    onClick={() => navigate('/job-posts')}
+                    onClick={() => navigate('/provider-landing')}
                 >
                     <strong>Back</strong>
                 </button>
@@ -134,7 +134,7 @@ export const PublishedJobPosts = () => {
                         <button
                             className="see-applicants mb-2"
                             type="button"
-                            onClick={() => navigate("/view-applicants")}
+                            onClick={() => navigate(`/view-applicants/${job_post_id}`)}
                         >
                             <strong>See Applicants</strong>
                         </button>

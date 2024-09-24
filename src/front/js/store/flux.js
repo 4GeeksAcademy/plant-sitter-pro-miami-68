@@ -814,6 +814,55 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
+            //Fetch applicants for a job post
+            getJobApplicants: async (jobPostId) => {
+                const token = sessionStorage.getItem("token");
+            
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/jobs/${jobPostId}/applicants`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                        },
+                    });
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await response.json();
+                        return { success: false, error: errorData.message || "Error fetching applicants" };
+                    }
+                } catch (error) {
+                    return { success: false, error: "An error occurred while fetching applicants" };
+                }
+            },
+
+            // Update job assignment status
+            updateAssignmentStatus: async (assignmentId, status) => {
+                const token = sessionStorage.getItem("token");
+
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${assignmentId}/update-status`, {
+                        method: "POST",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ status })
+                    });
+                    if (resp.ok) {
+                        return { success: true };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+
             //refresh token
             refreshAccessToken: async () => {
                 const store = getStore();
