@@ -458,6 +458,21 @@ def search_sitters():
                 sitters_within_radius.append(sitter)
 
     return jsonify({"success": True, "data": [sitter.serialize() for sitter in sitters_within_radius]})
+
+
+
+#---------------------Jobs applied (plantsitter)
+@api.route('/user/applied-jobs', methods=['GET'])
+@jwt_required()
+def get_applied_jobs():
+    plant_sitter_id = get_jwt_identity()
+
+    job_assignments = JobAssignment.query.filter_by(plantsitter_id=plant_sitter_id, status='accepted').all()
+
+    if not job_assignments:
+        return jsonify({"message": "No applied jobs found."}), 404
+
+    return jsonify([job.serialize() for job in job_assignments]), 200
     
 
 
