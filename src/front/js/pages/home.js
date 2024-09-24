@@ -11,8 +11,10 @@ import helping2 from "../../img/helping2.png";
 import forOwners from "../../img/for-owners.png";
 import client from "../../img/client.png";
 import profilepic from "../../img/profilePicture.png";
+import sitter1 from "../../img/sitter1.png";
+import sitter2 from "../../img/sitter2.png";
 
-
+git 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
@@ -139,8 +141,8 @@ export const Home = () => {
 				{/* <p className="text-center fs-4">** Insert carousel here... **</p> */}
 				<img className="sitter-pics" src={client} />
 				<img className="sitter-pics" src={profilepic} />
-				<img className="sitter-pics" src={client} />
-				<img className="sitter-pics" src={profilepic} />
+				<img className="sitter-pics" src={sitter1} />
+				<img className="sitter-pics" src={sitter2} />
 				{/* <img className="sitter-pics" src={client} /> */}
 			</div>
 			{/* <div className="carousel-container mt-2 mb-2">
