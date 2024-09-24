@@ -64,19 +64,31 @@ export const ProviderLandingPage = () => {
         <div className="container-fluid">
             <div className="row mb-4 mt-4" style={{ marginLeft: "30px" }}>
                 <div className="profile-container row">
-                    <div className="col">
-                        <div
-                            className="landing-profile ml-3"
-                            style={{
-                                backgroundImage: picture ? `url(${picture})` : 'url(no-image.png)',
-                                backgroundSize: 'cover',
-                                backgroundPosition: 'center',
-                                height: '200px',
-                                width: '200px',
-                                borderRadius: '50%',
-                            }}
-                            onClick={() => navigate('/provider-services')}
-                        ></div>
+                <div className="col">
+                    <div
+                        className="landing-profile ml-3 profile-hover"
+                        style={{
+                            backgroundImage: picture ? `url(${picture})` : 'none',
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                            height: '200px',
+                            width: '200px',
+                            borderRadius: '50%',
+                            border: '2px solid #ccc',
+                            position: 'relative',
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: picture ? 'transparent' : '#f0f0f0'
+                        }}
+                        onClick={() => navigate('/provider-services')}
+                    >
+                        {!picture && (
+                            <span className="no-profile-text">
+                                Sign Up as a Plantsitter
+                            </span>
+                        )}
+                    </div>
                     </div>
                     <div className="col text-end">
                         <h4 className="diphylleia-regular mb-0"><strong>Plant Sitter Since</strong></h4>
