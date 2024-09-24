@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "./../store/appContext";
 import './../../styles/AccountSettings.css';
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 const AccountSettings = () => {
     const { store, actions } = useContext(Context);
@@ -54,7 +55,7 @@ const AccountSettings = () => {
                     </footer>
                 </>
             ) : (
-                <p>Loading...</p>
+                <BushTrimmingLoader />
             )}
         </div>
     );
