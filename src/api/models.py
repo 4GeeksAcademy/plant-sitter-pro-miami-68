@@ -144,7 +144,15 @@ class JobAssignment(db.Model):
             "plantsitter_id": self.plantsitter_id,
             "status": self.status,
             "accepted_at": self.accepted_at.isoformat(),
-            "completed_at": self.completed_at.isoformat() if self.completed_at else None
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+            "job_post": {
+                "first_name": self.job_post.user.first_name,
+                "last_name": self.job_post.user.last_name,
+                "profile_picture_url": self.job_post.profile_picture_url,
+                "location": self.job_post.location,
+                "start_date": self.job_post.start_date.isoformat(),
+                "end_date": self.job_post.end_date.isoformat(),
+            }
         }
 
 

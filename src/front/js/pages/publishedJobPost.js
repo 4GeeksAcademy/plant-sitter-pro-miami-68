@@ -43,6 +43,8 @@ export const PublishedJobPosts = () => {
     const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
     const [isActive, setIsActive] = useState(false);
+    const [isOwner, setIsOwner] = useState(false);
+    const [hasApplied, setHasApplied] = useState(false);  
 
     useEffect(() => {
 
@@ -69,12 +71,29 @@ export const PublishedJobPosts = () => {
                 setJobDuration(res.data.job_duration);
                 setJobServices(JSON.parse(res.data.service_preferences));
                 setJobPlants(JSON.parse(res.data.my_plants));
+
+                if (res.data.user_id === store.user.id) {
+                    setIsOwner(true);
+                } else {
+                    const applied = await actions.checkIfApplied(job_post_id);
+                    setHasApplied(applied.success && applied.data.applied);
+                }
             }
             setLoading(false);
         };
 
         fetchData();
     }, []);
+
+    const handleApply = async () => {
+        const res = await actions.applyForJob(job_post_id);
+        if (res.success) {
+            alert("Successfully applied for the job!");
+            setHasApplied(true);
+        } else {
+            alert("Error applying for the job: " + res.error);
+        }
+    };
 
     if (loading) {
         return <div>Loading...</div>;
@@ -93,39 +112,51 @@ export const PublishedJobPosts = () => {
     }
 
     return (
-        <div
-            className="text-center d-grid mt-4"
-        >
+        <div className="text-center d-grid mt-4">
             <div className="mb-2">
                 <button 
                     style={{backgroundColor: "white", color: "black", border: "3px solid black", borderRadius:"25px", width: "150px"}}
-                    onClick={()=> navigate('/job-posts')}
+                    onClick={() => navigate('/job-posts')}
                 >
                     <strong>Back</strong>
                 </button>
             </div>
-            <div>
-                <button
-                    className="see-applicants mb-2"
-                    type="button"
-                    onClick={() => navigate("/view-applicants")}
-                >
-                    <strong>See Applicants</strong>
-                </button>
-                <button
-                    className="mark-completed mb-3"
-                    type="button"
-                    style={{
-                        backgroundColor: isActive ? 'blue' : 'orange',
-                        color: isActive ? 'white' : 'black',
-                      }}
-                    onClick=
-                        {changeColorOnClick}
-                  
-                >
-                    <strong>Mark As Completed</strong>
-                </button>
-            </div>
+
+            {!isOwner && !hasApplied && (
+                <div className="mb-2">
+                    <button 
+                        style={{ backgroundColor: "green", color: "white", border: "3px solid black", borderRadius: "25px", width: "150px" }}
+                        onClick={handleApply}
+                    >
+                        <strong>Apply for this Job</strong>
+                    </button>
+                </div>
+            )}
+
+            {isOwner && (
+                <>
+                    <div>
+                        <button
+                            className="see-applicants mb-2"
+                            type="button"
+                            onClick={() => navigate("/view-applicants")}
+                        >
+                            <strong>See Applicants</strong>
+                        </button>
+                        <button
+                            className="mark-completed mb-3"
+                            type="button"
+                            style={{
+                                backgroundColor: isActive ? 'blue' : 'orange',
+                                color: isActive ? 'white' : 'black',
+                              }}
+                            onClick={changeColorOnClick}
+                        >
+                            <strong>Mark As Completed</strong>
+                        </button>
+                    </div>
+                </>
+            )}
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h1 className="text-white mb-4 diphylleia-regular jobs"><strong>{firstName} {lastName}</strong></h1>

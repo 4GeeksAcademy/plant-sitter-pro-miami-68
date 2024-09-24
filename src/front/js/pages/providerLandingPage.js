@@ -8,6 +8,7 @@ export const ProviderLandingPage = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [jobPostsNearby, setJobPostsNearby] = useState([]);
+    const [appliedJobs, setAppliedJobs] = useState([]);
     const [picture, setPicture] = useState(null);
     const firstName = store.user?.first_name;
     const lastName = store.user?.last_name;
@@ -36,6 +37,11 @@ export const ProviderLandingPage = () => {
                 }
             }
 
+            const appliedRes = await actions.getUserAppliedJobs();
+            if (appliedRes.success) {
+                setAppliedJobs(appliedRes.data);
+            }
+
             setLoading(false);
         };
 
@@ -46,6 +52,11 @@ export const ProviderLandingPage = () => {
         const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
+
+    // Filter out jobs the user has already applied for from the nearby jobs
+    const filteredJobPostsNearby = jobPostsNearby.filter(
+        jobPost => !appliedJobs.some(appliedJob => appliedJob.job_post_id === jobPost.id)
+    );
 
     if (loading) return <div>Loading...</div>;
 
@@ -79,8 +90,8 @@ export const ProviderLandingPage = () => {
             <div className="row container-fluid mt-4">
                 <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Options</strong></h2>
                 <div className="row">
-                    {jobPostsNearby.length > 0 ? (
-                        jobPostsNearby.map((jobPost) => (
+                    {filteredJobPostsNearby.length > 0 ? (
+                        filteredJobPostsNearby.map((jobPost) => (
                             <div 
                                 key={jobPost.id} 
                                 className="col mb-1 job-option" 
@@ -121,15 +132,46 @@ export const ProviderLandingPage = () => {
                 </div>
 
                 <h2 className="mb-3 mt-3 diphylleia-regular"><strong>Your Jobs</strong></h2>
-                {/* Placeholder for Your Jobs */}
                 <div className="row">
-                    <div className="col-md-4 mb-2" style={{ paddingLeft: "2px", paddingRight: "2px" }}>
-                        <div className="card" style={{ backgroundColor: "rgb(50, 70, 50)", borderRadius: "10px", width: "240px", height: "260px" }}>
-                            <div className="card-body text-center" style={{ padding: "10px" }}>
-                                <p className="diphylleia-regular text-white" style={{ fontSize: "16px" }}>You haven't applied to any jobs yet.</p>
+                    {appliedJobs.length > 0 ? (
+                        appliedJobs.map((jobAssignment) => (
+                            <div 
+                                key={jobAssignment.id} 
+                                className="col mb-1 job-option" 
+                                style={{ paddingLeft: "1px", paddingRight: "1px"}}
+                                onClick={()=> navigate(`/published-job-posts/${jobAssignment.job_post_id}`)}
+                            >
+                                <div className="card" style={{ backgroundColor: "rgb(50, 70, 50)", borderRadius: "10px", width: "240px", height: "300px" }}>
+                                    <img
+                                        src={jobAssignment.job_post.profile_picture_url || "no-image.png"}
+                                        alt={`${jobAssignment.job_post.first_name} ${jobAssignment.job_post.last_name}`}
+                                        className="card-img-top"
+                                        style={{
+                                            borderRadius: "10px",
+                                            width: "95%",
+                                            height: "150px",
+                                            objectFit: "cover",
+                                            margin: "auto",
+                                            marginTop: "10px",
+                                        }}
+                                    />
+                                    <div className="card-body" style={{ padding: "10px", textAlign: "center" }}>
+                                        <h6 className="card-title text-white diphylleia-regular" style={{ fontSize: "16px" }}>
+                                            <strong>{jobAssignment.job_post.first_name} {jobAssignment.job_post.last_name}</strong>
+                                        </h6>
+                                        <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
+                                            <strong>Location:</strong> {jobAssignment.job_post.location || 'Not provided'}
+                                        </p>
+                                        <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
+                                            <strong>Dates:</strong> {formatDate(jobAssignment.job_post.start_date)} - {formatDate(jobAssignment.job_post.end_date)}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        ))
+                    ) : (
+                        <p>You haven't applied to any jobs yet.</p>
+                    )}
                     {/* Additional job cards for applied or upcoming jobs can go here */}
                 </div>
             </div>
