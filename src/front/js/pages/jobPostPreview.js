@@ -99,7 +99,7 @@ export const JobPost2 = () => {
                     className="btn btn-success col-2 rounded-pill"
                     onClick={() => {
                         actions.setJobPostDetails({ id: job_post_id });
-                        navigate("/client-services1");
+                        navigate(`/client-services-update/${job_post_id}`);;
                     }}
                 >
                     Edit <i className="fas fa-pencil-alt"></i>
