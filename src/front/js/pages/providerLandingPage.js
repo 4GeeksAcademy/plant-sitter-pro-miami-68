@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 export const ProviderLandingPage = () => {
     const { store, actions } = useContext(Context);
@@ -47,7 +48,7 @@ export const ProviderLandingPage = () => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <BushTrimmingLoader/>;
 
     return (
         <div className="container-fluid">

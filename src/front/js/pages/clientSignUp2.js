@@ -48,7 +48,7 @@ export const ClientSignUp2 = () => {
 
     const handleCloseModal = () => {
         setShowModal(false);
-        navigate('/provider-services'); // Redirect to account settings after closing modal
+        navigate('/client-services1');
     };
 
     return (

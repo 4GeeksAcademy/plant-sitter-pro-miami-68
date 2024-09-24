@@ -526,6 +526,26 @@ def create_job_post():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+@api.route('/job_posts/<int:job_post_id>', methods=['DELETE'])
+@jwt_required()
+def delete_job_post(job_post_id):
+    user_id = get_jwt_identity()
+    
+    # Fetch the job post by the user and the job_post_id
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    
+    if not job_post:
+        return jsonify({"error": "Job post not found or you do not have permission to delete this post"}), 404
+    
+    try:
+        # Delete the job post
+        db.session.delete(job_post)
+        db.session.commit()
+        return jsonify({"message": "Job post deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f"Failed to delete job post: {str(e)}"}), 500
+
 
 
 @api.route('/job_posts/<int:job_post_id>', methods=['PUT'])
