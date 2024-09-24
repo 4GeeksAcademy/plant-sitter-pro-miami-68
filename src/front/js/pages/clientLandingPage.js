@@ -60,7 +60,7 @@ export const ClientLandingPage = () => {
     return (
         <div className="container-fluid">
             <div
-                className="row mb-4 mt-4"
+                className="row mt-4"
                 style={{ marginLeft: "30px" }}
             >
                 <div className="profile-container row">
@@ -73,8 +73,18 @@ export const ClientLandingPage = () => {
                 </div>
             </div>
 
-            <div className="container mt-5">
-                <h1 className="diphylleia-regular mb-4 text-center"><strong>Edit Your Open Job Posts</strong></h1 >
+            <div className="container mt-3">
+                <div className="container">
+                    <h1 
+                        className="diphylleia-regular mb-4 text-center apply-link"
+                        style={{textDecoration: "underline"}}
+                        onClick={() => navigate('/job-posts')}
+                    >
+                        <strong>View Current / Published Jobs</strong>
+                    </h1>
+                </div>
+
+                <h1 className="diphylleia-regular mb-5 text-center"><strong>Edit Your Open Job Posts</strong></h1 >
                 <div className="row">
                     {jobPosts.map((post) => (
                         <div className="col-md-4 mb-4 job-cards" key={post.id} onClick={() => handleViewJobPost(post.id)}>
@@ -110,25 +120,15 @@ export const ClientLandingPage = () => {
                         <i className="fa fa-plus fa-6x plus-sign"></i>
                     </div>
                 </div>
-            </div>
-
-            <div className="container mt-5">
-                <h1 
-                    className="diphylleia-regular mb-4 text-center apply-link"
-                    style={{textDecoration: "underline"}}
-                    onClick={() => navigate('/job-posts')}
-                >
-                    <strong>View Current Jobs</strong>
-                </h1>
-            </div>
-            <div className="container mt-5">
-                <h1 
-                    className="diphylleia-regular mb-4 text-center apply-link"
-                    style={{textDecoration: "underline"}}
-                    onClick={() => navigate('/completed-jobs-page')}
-                >
-                    <strong>View Completed Jobs</strong>
-                </h1>
+                <div className="container mt-3 mb-3">
+                    <h1 
+                        className="diphylleia-regular mb-4 text-center apply-link"
+                        style={{textDecoration: "underline"}}
+                        onClick={() => navigate('/completed-jobs-page')}
+                    >
+                        <strong>View Completed Jobs</strong>
+                    </h1>
+                </div>
             </div>
         </div>
     );
