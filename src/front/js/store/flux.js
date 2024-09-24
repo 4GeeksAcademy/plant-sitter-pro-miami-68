@@ -901,7 +901,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                 try {
                     const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${assignmentId}/update-status`, {
-                        method: "POST",
+                        method: "PUT",
                         headers: {
                             "Authorization": `Bearer ${token}`,
                             "Content-Type": "application/json"

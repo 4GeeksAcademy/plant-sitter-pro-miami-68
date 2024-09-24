@@ -940,7 +940,7 @@ def get_job_applicants(job_post_id):
 
 
 # Endpoint to update the status of a job assignment
-@api.route('/job_posts/<int:assignment_id>/update-status', methods=['POST'])
+@api.route('/job_posts/<int:assignment_id>/update-status', methods=['PUT'])
 @jwt_required()
 def update_assignment_status(assignment_id):
     user_id = get_jwt_identity()
