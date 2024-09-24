@@ -98,6 +98,18 @@ export const PublishedJobPosts = () => {
     }, []);
 
 
+    const handleMarkCompleted = async () => {
+        const assignmentId = job_post_id; // Ensure you're fetching the correct assignment ID
+
+        const res = await actions.markJobAsCompleted(assignmentId);
+        if (res.success) {
+            alert("Job marked as completed!");
+            setIsActive(false);
+        } else {
+            alert("Error marking job as completed: " + res.error);
+        }
+    };
+
 
     const handleApply = async () => {
         if (!hasPlantSitterProfile) {
@@ -159,19 +171,19 @@ export const PublishedJobPosts = () => {
 
             {!isOwner && !hasApplied && (
                 <div className="mb-2">
-                <button 
-                    style={{
-                        backgroundColor: hasPlantSitterProfile ? "green" : "yellow",
-                        color: hasPlantSitterProfile ? "white" : "black",
-                        border: "3px solid black",
-                        borderRadius: "25px",
-                        width: "150px"
-                    }}
-                    onClick={handleApply}
-                >
-                    <strong>{hasPlantSitterProfile ? "Apply for this Job" : "Sign Up as a Plantsitter to Apply"}</strong>
-                </button>
-            </div>
+                    <button 
+                        style={{
+                            backgroundColor: "green",
+                            color: "white",
+                            border: "3px solid black",
+                            borderRadius: "25px",
+                            width: "150px"
+                        }}
+                        onClick={handleApply}
+                    >
+                        <strong>Apply for this Job</strong>
+                    </button>
+                </div>
             )}
 
             {isOwner && (
@@ -190,29 +202,27 @@ export const PublishedJobPosts = () => {
                             style={{
                                 backgroundColor: isActive ? 'blue' : 'orange',
                                 color: isActive ? 'white' : 'black',
-                              }}
-                            onClick={() => setIsActive(!isActive)}
+                            }}
+                            onClick={handleMarkCompleted}
                         >
                             <strong>Mark As Completed</strong>
                         </button>
-                              {/* Delete Job Post Button */}
-                <button
-                    className="delete-job-post mb-3 ms-2"
-                    type="button"
-                    style={{
-                        backgroundColor: 'red',
-                        color: 'white',
-                    }}
-                    onClick={() => setShowModal(true)} // Show the modal when clicked
-                >
-                    <strong>Delete Job Post</strong>
-                </button>
 
-            </div>
+                        <button
+                            className="delete-job-post mb-3 ms-2"
+                            type="button"
+                            style={{
+                                backgroundColor: 'red',
+                                color: 'white',
+                            }}
+                            onClick={() => setShowModal(true)}
+                        >
+                            <strong>Delete Job Post</strong>
+                        </button>
+                    </div>
                 </>
             )}
 
-            {/* Show "Mark As Completed" for plant sitter if status is accepted */}
             {!isOwner && hasApplied && isAccepted && (
                 <div className="mb-2">
                     <button
@@ -221,8 +231,8 @@ export const PublishedJobPosts = () => {
                         style={{
                             backgroundColor: isActive ? 'blue' : 'orange',
                             color: isActive ? 'white' : 'black',
-                          }}
-                        onClick={() => setIsActive(!isActive)}
+                        }}
+                        onClick={handleMarkCompleted}
                     >
                         <strong>Mark As Completed</strong>
                     </button>
