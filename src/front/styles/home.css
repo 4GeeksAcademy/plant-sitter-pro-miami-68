@@ -662,3 +662,30 @@ border-bottom-left-radius: 100px;
   position: relative;
   bottom: 0;
 } */
+
+
+/* Text displayed in the center when there's no profile picture */
+.no-profile-text {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* optional background for better readability */
+  border-radius: 5px; /* optional rounded corners */
+  max-width: 80%; /* to prevent the text from overflowing */
+}
+
+/* Profile hover container */
+.profile-hover {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Optional styles for image container when profile picture is not available */
+.landing-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* default background when no image */
+  border-radius: 50%;
+}

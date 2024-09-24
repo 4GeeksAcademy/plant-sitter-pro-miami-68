@@ -17,16 +17,38 @@ import pruning from "../../img/pruning.png";
 import repotting from "../../img/repotting.png";
 import pestControl from "../../img/pestControl.png";
 import border from "../../img/border.png";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-export const ClientServices1 = () => {
+export const ClientServicesUpdate = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
+    const { job_post_id } = useParams();
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [selectedPlants, setSelectedPlants] = useState([]);
     const [selectedServices, setSelectedServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setLoading(true);
+            const res = await actions.getJobPostById(job_post_id);
+            if (res.success && res.data) {
+                setStartDate(new Date(res.data.start_date));
+                setEndDate(new Date(res.data.end_date));
+                setSelectedPlants(JSON.parse(res.data.my_plants));
+                setSelectedServices(JSON.parse(res.data.service_preferences));
+            }
+            setLoading(false);
+        };
+
+        if (job_post_id) {
+            fetchData();
+        } else {
+            navigate('/client-services1');
+        }
+    }, []);
 
     const handlePlantSelection = (plant) => {
         setSelectedPlants((prevPlants) =>
@@ -56,8 +78,9 @@ export const ClientServices1 = () => {
             selectedServices,
         });
 
-        navigate('/job-post');
+        navigate(`/job-post-update/${job_post_id}`);
     };
+
 
     return (
         <div className="text-center m-5">

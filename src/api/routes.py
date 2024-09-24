@@ -762,13 +762,19 @@ def create_payment_intent():
 @jwt_required() 
 def create_payout():
     try:
+        current_user_id = get_jwt_identity()
         data = request.get_json()
+
+        # Here you would typically look up the Stripe account ID for the current user
+        # This is just an example - replace with your actual logic
+        # provider_stripe_account = get_provider_stripe_account(current_user_id)
 
         # Create a transfer to the connected account
         payout = stripe.Payout.create(
             amount=data['amount'],  # amount in cents
             currency='usd',
-            stripe_account=data['providerId']  # Stripe Account ID of the provider
+            # stripe_account=data['providerId']  # Stripe Account ID of the provider
+            stripe_account="acct_1Q18mE2ZAO1b3fPQ"
         )
 
         return jsonify({
@@ -781,6 +787,12 @@ def create_payout():
             'success': False,
             'error': str(e)
         }), 403
+
+# def get_provider_stripe_account(user_id):
+    # This is a placeholder function
+    # Implement the logic to retrieve the Stripe account ID for the given user
+    # This might involve a database lookup or an API call to your user management system
+    # pass
 
 #--------------------------Ratings
 
