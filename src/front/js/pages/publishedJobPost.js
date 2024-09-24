@@ -43,10 +43,11 @@ export const PublishedJobPosts = () => {
     const { job_post_id } = useParams();
     const [isActive, setIsActive] = useState(false);
 
-    const [showModal, setShowModal] = useState(false); // Modal visibility state
-    const [deleting, setDeleting] = useState(false); // Deletion state
+    const [showModal, setShowModal] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const [hasApplied, setHasApplied] = useState(false);  
+    const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
 
     useEffect(() => {
 
@@ -54,6 +55,11 @@ export const PublishedJobPosts = () => {
             setLoading(true);
             if (!store.user) {
                 await actions.getUser();
+            }
+
+            const plantSitterRes = await actions.getPlantSitter();
+            if (plantSitterRes.success && plantSitterRes.data) {
+                setHasPlantSitterProfile(true);
             }
 
             const res = await actions.getJobPostByIdPublic(job_post_id);
@@ -87,7 +93,14 @@ export const PublishedJobPosts = () => {
         fetchData();
     }, []);
 
+
+
     const handleApply = async () => {
+        if (!hasPlantSitterProfile) {
+            navigate("/provider-services");
+            return;
+        }
+
         const res = await actions.applyForJob(job_post_id);
         if (res.success) {
             alert("Successfully applied for the job!");
@@ -96,6 +109,7 @@ export const PublishedJobPosts = () => {
             alert("Error applying for the job: " + res.error);
         }
     };
+
 
     const formatDate = (isoString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric' };
@@ -141,13 +155,19 @@ export const PublishedJobPosts = () => {
 
             {!isOwner && !hasApplied && (
                 <div className="mb-2">
-                    <button 
-                        style={{ backgroundColor: "green", color: "white", border: "3px solid black", borderRadius: "25px", width: "150px" }}
-                        onClick={handleApply}
-                    >
-                        <strong>Apply for this Job</strong>
-                    </button>
-                </div>
+                <button 
+                    style={{
+                        backgroundColor: hasPlantSitterProfile ? "green" : "yellow",
+                        color: hasPlantSitterProfile ? "white" : "black",
+                        border: "3px solid black",
+                        borderRadius: "25px",
+                        width: "150px"
+                    }}
+                    onClick={handleApply}
+                >
+                    <strong>{hasPlantSitterProfile ? "Apply for this Job" : "Sign Up as a Plantsitter to Apply"}</strong>
+                </button>
+            </div>
             )}
 
             {isOwner && (
@@ -167,7 +187,7 @@ export const PublishedJobPosts = () => {
                                 backgroundColor: isActive ? 'blue' : 'orange',
                                 color: isActive ? 'white' : 'black',
                               }}
-                            onClick={changeColorOnClick}
+                            onClick={() => setIsActive(!isActive)}
                         >
                             <strong>Mark As Completed</strong>
                         </button>

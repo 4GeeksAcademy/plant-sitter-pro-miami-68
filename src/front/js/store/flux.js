@@ -631,6 +631,33 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //get the jobpost of the current user
+            getUserOwnedJobs: async () => {
+                const token = sessionStorage.getItem("token");
+                if (!token) return { success: false, message: "User not logged in" };
+            
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/job_posts/user`, {
+                        method: "GET",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    });
+            
+                    if (!res.ok) {
+                        const errorData = await res.json();
+                        return { success: false, message: errorData.message };
+                    }
+            
+                    const data = await res.json();
+                    return { success: true, data: data };
+                } catch (error) {
+                    console.error("Error fetching user job posts", error);
+                    return { success: false, message: "There was an error fetching job posts" };
+                }
+            },
+
 
             // Fetch a specific job post by ID
             getJobPostById: async (job_post_id) => {
