@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom"
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
+import { Modal, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import calendar from "../../img/calendar.png";
 import watering from "../../img/watering.png";
@@ -17,6 +18,7 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 
 export const PublishedJobPosts = () => {
@@ -40,6 +42,9 @@ export const PublishedJobPosts = () => {
     const [jobPlants, setJobPlants] = useState([]);
     const { job_post_id } = useParams();
     const [isActive, setIsActive] = useState(false);
+
+    const [showModal, setShowModal] = useState(false); // Modal visibility state
+    const [deleting, setDeleting] = useState(false); // Deletion state
     const [isOwner, setIsOwner] = useState(false);
     const [hasApplied, setHasApplied] = useState(false);  
     const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
@@ -112,7 +117,7 @@ export const PublishedJobPosts = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader />;
     }
 
     const changeColorOnClick = () => {
@@ -122,6 +127,20 @@ export const PublishedJobPosts = () => {
             setIsActive(false);
         }
     }
+
+    // Delete Job Post function
+    const handleDeleteJobPost = async () => {
+        setDeleting(true);
+        const response = await actions.deleteJobPost(job_post_id);
+
+        if (response.success) {
+            setShowModal(false);
+            navigate('/job-posts'); // Redirect to job post listing after successful deletion
+        } else {
+            alert("Failed to delete job post: " + response.error);
+        }
+        setDeleting(false);
+    };
 
     return (
         <div className="text-center d-grid mt-4">
@@ -172,7 +191,20 @@ export const PublishedJobPosts = () => {
                         >
                             <strong>Mark As Completed</strong>
                         </button>
-                    </div>
+                              {/* Delete Job Post Button */}
+                <button
+                    className="delete-job-post mb-3 ms-2"
+                    type="button"
+                    style={{
+                        backgroundColor: 'red',
+                        color: 'white',
+                    }}
+                    onClick={() => setShowModal(true)} // Show the modal when clicked
+                >
+                    <strong>Delete Job Post</strong>
+                </button>
+
+            </div>
                 </>
             )}
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
@@ -434,7 +466,28 @@ export const PublishedJobPosts = () => {
                             />
                         </div>
                     </div>
-                </div>
+                    {/* Modal for Deleting the Job Post */}
+            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Confirm Deletion</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    Are you sure you want to delete this job post? This action cannot be undone.
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        Cancel
+                    </Button>
+                    <Button
+                        variant="danger"
+                        onClick={handleDeleteJobPost}
+                        disabled={deleting} // Disable the button while deleting
+                    >
+                        {deleting ? 'Deleting...' : 'Confirm Delete'}
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
             </div>
         </div>
     );

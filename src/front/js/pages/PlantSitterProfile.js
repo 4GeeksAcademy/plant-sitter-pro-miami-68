@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ReactStars from 'react-rating-stars-component';
+import ScissorsLoader from '../component/ScissorsLoader';
 
 export const PlantSitterProfile = () => {
     const { id } = useParams(); // Get PlantSitter ID from URL
@@ -149,7 +150,7 @@ export const PlantSitterProfile = () => {
                     </form>
                 </>
             ) : (
-                <p>Loading...</p>
+                <ScissorsLoader />
             )}
         </div>
     );

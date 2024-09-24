@@ -526,6 +526,26 @@ def create_job_post():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+@api.route('/job_posts/<int:job_post_id>', methods=['DELETE'])
+@jwt_required()
+def delete_job_post(job_post_id):
+    user_id = get_jwt_identity()
+    
+    # Fetch the job post by the user and the job_post_id
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    
+    if not job_post:
+        return jsonify({"error": "Job post not found or you do not have permission to delete this post"}), 404
+    
+    try:
+        # Delete the job post
+        db.session.delete(job_post)
+        db.session.commit()
+        return jsonify({"message": "Job post deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": f"Failed to delete job post: {str(e)}"}), 500
+
 
 
 @api.route('/job_posts/<int:job_post_id>', methods=['PUT'])
@@ -742,13 +762,19 @@ def create_payment_intent():
 @jwt_required() 
 def create_payout():
     try:
+        current_user_id = get_jwt_identity()
         data = request.get_json()
+
+        # Here you would typically look up the Stripe account ID for the current user
+        # This is just an example - replace with your actual logic
+        # provider_stripe_account = get_provider_stripe_account(current_user_id)
 
         # Create a transfer to the connected account
         payout = stripe.Payout.create(
             amount=data['amount'],  # amount in cents
             currency='usd',
-            stripe_account=data['providerId']  # Stripe Account ID of the provider
+            # stripe_account=data['providerId']  # Stripe Account ID of the provider
+            stripe_account="acct_1Q18mE2ZAO1b3fPQ"
         )
 
         return jsonify({
@@ -761,6 +787,12 @@ def create_payout():
             'success': False,
             'error': str(e)
         }), 403
+
+# def get_provider_stripe_account(user_id):
+    # This is a placeholder function
+    # Implement the logic to retrieve the Stripe account ID for the given user
+    # This might involve a database lookup or an API call to your user management system
+    # pass
 
 #--------------------------Ratings
 

@@ -1,0 +1,77 @@
+.scissors {
+    position: relative;
+    width: 25px;
+    height: 225px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 50px auto;
+}
+
+.scissors-handle {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+
+.handle-left, .handle-right {
+    position: absolute;
+    width: 60px;
+    height: 100px;
+    border: 5px solid black;
+    border-radius: 70%;
+    background-color: black;
+}
+
+.handle-left {
+    left: 0;
+    top: 0;
+}
+
+.handle-right {
+    right: 0;
+    top: 0;
+}
+
+.scissors-blade {
+    position: absolute;
+    margin-top: 20px;
+    width: 30px;
+    height: 150px;
+    background-color: silver;
+    border-radius: 0 0 50% 50%;
+    border: 2px solid black;
+    transform-origin: top center;
+    top: 80px;
+}
+
+.scissors-blade.left {
+    left: -5px;
+    transform: rotate(90deg); /* Initial position */
+    animation: open-close-left .35s infinite alternate ease-in-out;
+}
+
+.scissors-blade.right {
+    right: -5px;
+    transform: rotate(-90deg); /* Initial position */
+    animation: open-close-right .35s infinite alternate ease-in-out;
+}
+
+/* Animation for opening and closing */
+@keyframes open-close-left {
+    from {
+        transform: rotate(30deg);
+    }
+    to {
+        transform: rotate(5deg); /* Open angle */
+    }
+}
+
+@keyframes open-close-right {
+    from {
+        transform: rotate(-30deg);
+    }
+    to {
+        transform: rotate(-5deg); /* Open angle */
+    }
+}

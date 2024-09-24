@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import noImage from "../../img/noImage.png";
-import BushTrimmingLoader from "../component/BushTrimmingLoader";
+import ScissorsLoader from "../component/ScissorsLoader";
 
 export const ClientLandingPage = () => {
     const { store, actions } = useContext(Context);
@@ -43,7 +43,7 @@ export const ClientLandingPage = () => {
     }, []);
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <ScissorsLoader />;
     }
 
     console.log(jobPosts);
