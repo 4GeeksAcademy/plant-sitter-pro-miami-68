@@ -1,10 +1,10 @@
 import React from 'react';
-import BushTrimmingLoader from '../component/BushTrimmingLoader';
+import ScissorsLoader from '../component/ScissorsLoader';
 export const Trimming = () => {
   return (
     <div>
       {/* This will display the loading animation */}
-      <BushTrimmingLoader />
+      <ScissorsLoader />
     </div>
   );
 };

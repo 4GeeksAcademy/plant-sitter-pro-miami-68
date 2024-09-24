@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../store/appContext';
+import BushTrimmingLoader from './BushTrimmingLoader';
 
 export const JobDates = () => {
     const { store, actions } = useContext(Context);
@@ -19,7 +20,7 @@ export const JobDates = () => {
     }, []);
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <BushTrimmingLoader />;
     }
 
     return (
