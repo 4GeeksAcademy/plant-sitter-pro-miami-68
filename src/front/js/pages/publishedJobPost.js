@@ -157,11 +157,13 @@ export const PublishedJobPosts = () => {
                 <div className="mb-2">
                 <button 
                     style={{
-                        backgroundColor: hasPlantSitterProfile ? "green" : "yellow",
+                        backgroundColor: hasPlantSitterProfile ? "green" : "orange",
                         color: hasPlantSitterProfile ? "white" : "black",
                         border: "3px solid black",
                         borderRadius: "25px",
-                        width: "150px"
+                        width: "auto",
+                        paddingLeft: "20px",
+                        paddingRight: "20px",
                     }}
                     onClick={handleApply}
                 >
