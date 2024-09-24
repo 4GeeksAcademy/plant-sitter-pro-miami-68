@@ -68,7 +68,7 @@ export const ProviderLandingPage = () => {
                         <div
                             className="landing-profile ml-3"
                             style={{
-                                backgroundImage: picture ? `url(${picture})` : 'url(no-image.png)',
+                                backgroundImage: picture ? `url(${picture})` : 'url(noImage.png)',
                                 backgroundSize: 'cover',
                                 backgroundPosition: 'center',
                                 height: '200px',
@@ -100,7 +100,7 @@ export const ProviderLandingPage = () => {
                             >
                                 <div className="card" style={{ backgroundColor: "rgb(70, 108, 70)", borderRadius: "10px", width: "240px", height: "300px" }}>
                                     <img
-                                        src={jobPost.profile_picture_url || "no-image.png"}
+                                        src={jobPost.profile_picture_url || "noImage.png"}
                                         alt={`${jobPost.first_name} ${jobPost.last_name}`}
                                         className="card-img-top"
                                         style={{
@@ -143,7 +143,7 @@ export const ProviderLandingPage = () => {
                             >
                                 <div className="card" style={{ backgroundColor: "rgb(50, 70, 50)", borderRadius: "10px", width: "240px", height: "300px" }}>
                                     <img
-                                        src={jobAssignment.job_post.profile_picture_url || "no-image.png"}
+                                        src={jobAssignment.job_post.profile_picture_url || "noImage.png"}
                                         alt={`${jobAssignment.job_post.first_name} ${jobAssignment.job_post.last_name}`}
                                         className="card-img-top"
                                         style={{
