@@ -881,7 +881,6 @@ def accept_job(job_post_id):
 @api.route('/user/applied-jobs', methods=['GET'])
 @jwt_required()
 def get_applied_jobs():
-
     user_id = get_jwt_identity()
 
     plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
@@ -891,7 +890,7 @@ def get_applied_jobs():
 
     job_assignments = JobAssignment.query.filter(
         JobAssignment.plantsitter_id == plant_sitter.id,
-        JobAssignment.status.in_(['pending', 'accepted'])
+        JobAssignment.status.in_(['pending', 'accepted', 'rejected'])
     ).all()
 
     if not job_assignments:
