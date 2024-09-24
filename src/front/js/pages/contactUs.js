@@ -4,6 +4,7 @@ import "../../styles/home.css";
 import noImage from "../../img/noImage.png";
 import { useNavigate } from "react-router-dom";
 import Sedonia from "../../img/Sedonia.jpg";
+import Cesar from "../../img/Cesar.jpg";
 
 export const ContactUs = () => {
 	const { store, actions } = useContext(Context);
@@ -48,31 +49,31 @@ export const ContactUs = () => {
                 {/* Cesar */}
                 <div className="col contacts">
                     <img 
-                        src={noImage} 
+                        src={Cesar} 
                         alt="Image of ___" 
                         className="card-img-top" 
                         style={{ borderRadius: "25px", objectFit: "cover", margin: "auto", marginTop: "20px" }}
                     />
                     <div className="card-body text-center">
                         <h5 className="card-title diphylleia-regular text-white fs-2">
-                            <strong>First Name Last Name</strong>
+                            <strong>Cesar Amaya Colella</strong>
                         </h5>
                         <div className="card-text">
-                            <i className="fa-solid fa-location-dot"/>  City, State
+                            <i className="fa-solid fa-location-dot"/>  Orlando, FL
                         </div>
                         <div className="card-text">
                             <a className="contact-us" href="mailto:your-email@gmail.com">
-                                <i className="fa-regular fa-envelope"/>  email
+                                <i className="fa-regular fa-envelope"/>  cesar.rafael.gep@gmail.com
                             </a>
                         </div>
                         <div className="card-text">
-                            <a className="contact-us" href="https://www.linkedin.com/">
-                                <i className="fa-brands fa-linkedin"/>  /linkedin
+                            <a className="contact-us" href="https://www.linkedin.com/in/cesaramcolson//">
+                                <i className="fa-brands fa-linkedin"/>  /cesaramcolson
                             </a>
                         </div>
                         <div className="card-text">
-                            <a className="contact-us" href="https://github.com">
-                                <i className="fa-brands fa-github"/>  /github
+                            <a className="contact-us" href="https://github.com/cesaramcolson">
+                                <i className="fa-brands fa-github"/>  /cesaramcolson
                             </a>
                         </div>
                     </div>

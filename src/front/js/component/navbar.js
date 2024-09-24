@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import logo2 from "../../img/Logo2.png";
-import "../../styles/navbar.css"
+import "../../styles/navbar.css";
 import { Link, animateScroll as scroll } from "react-scroll";
 
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const location = useLocation();
   const token = store.token;
 
   const handleLogoClick = () => {
@@ -45,25 +46,26 @@ export const Navbar = () => {
               aria-labelledby="dropdownMenuButton1"
             >
               <li>
-                <a className="dropdown-item"
-                  href="#"
-                  onClick={() => navigate("/")}
-                >
+                <a className="dropdown-item" href="#" onClick={() => navigate("/")}>
                   Home
                 </a>
               </li>
-              <li className="scrollLink" style={{ paddingLeft: "15px", paddingTop: "5px", paddingBottom: "5px" }}>
-                <Link
-                  activeClass="active"
-                  to="how-it-works"
-                  spy={true}
-                  smooth={true}
-                  offset={-70}
-                  duration={500}
-                >
-                  How it Works
-                </Link>
-              </li>
+
+              {location.pathname === "/" && (
+                <li className="scrollLink" style={{ paddingLeft: "15px", paddingTop: "5px", paddingBottom: "5px" }}>
+                  <Link
+                    activeClass="active"
+                    to="how-it-works"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                  >
+                    How it Works
+                  </Link>
+                </li>
+              )}
+
               <li>
                 <a
                   className="dropdown-item"
@@ -74,10 +76,7 @@ export const Navbar = () => {
                 </a>
               </li>
               <li>
-                <a className="dropdown-item"
-                  href="#"
-                  onClick={() => navigate("/contact-us")}
-                >
+                <a className="dropdown-item" href="#" onClick={() => navigate("/contact-us")}>
                   Contact Us
                 </a>
               </li>
@@ -97,10 +96,7 @@ export const Navbar = () => {
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item"
-                      href="#"
-                      onClick={handleLogout}
-                    >
+                    <a className="dropdown-item" href="#" onClick={handleLogout}>
                       Log Out
                     </a>
                   </li>
@@ -108,18 +104,12 @@ export const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <a
-                      className="dropdown-item"
-                      onClick={() => navigate("/login")}
-                    >
+                    <a className="dropdown-item" onClick={() => navigate("/login")}>
                       Log In
                     </a>
                   </li>
                   <li>
-                    <a
-                      className="dropdown-item"
-                      onClick={() => navigate("/signup")}
-                    >
+                    <a className="dropdown-item" onClick={() => navigate("/signup")}>
                       Sign Up
                     </a>
                   </li>
@@ -129,6 +119,6 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav >
+    </nav>
   );
 };

@@ -18,7 +18,6 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
-import { JobDates } from "../component/JobDates";
 import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 
@@ -28,6 +27,8 @@ export const PublishedJobPosts = () => {
     const [loading, setLoading] = useState(true);
     const [startDate, setStartDate] = useState("");
     const [endDate, setEndDate] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState(""); 
     const [picture, setPicture] = useState(null);
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
@@ -39,8 +40,6 @@ export const PublishedJobPosts = () => {
     const [jobDuration, setJobDuration] = useState("");
     const [jobServices, setJobServices] = useState([]);
     const [jobPlants, setJobPlants] = useState([]);
-    const firstName = store.user?.first_name;
-    const lastName = store.user?.last_name;
     const { job_post_id } = useParams();
     const [isActive, setIsActive] = useState(false);
 
@@ -61,6 +60,8 @@ export const PublishedJobPosts = () => {
             if (res.success && res.data) {
                 setStartDate(res.data.start_date);
                 setEndDate(res.data.end_date);
+                setFirstName(res.data.first_name);
+                setLastName(res.data.last_name);
                 setCity(res.data.city);
                 setState(res.data.state);
                 setZipCode(res.data.zip_code);
@@ -96,12 +97,14 @@ export const PublishedJobPosts = () => {
         }
     };
 
+    const formatDate = (isoString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        return new Date(isoString).toLocaleDateString(undefined, options);
+    };
+
     if (loading) {
         return <BushTrimmingLoader />;
     }
-
-    console.log(jobServices);
-    console.log(jobPlants);
 
     const changeColorOnClick = () => {
         if (isActive == false) {
@@ -415,7 +418,16 @@ export const PublishedJobPosts = () => {
                 <div className="col bckgrnd rounded p-3 m-2">
                     <h2 className="diphylleia-regular text-white"><strong>Duration</strong></h2>
                     <label className="form-label diphylleia-regular fs-5 mt-2 text-white"><strong>I need help on these dates:</strong></label>
-                    <JobDates />
+                    <div className="dates rounded">   
+                        <div className='dateWrapper'>
+                            <div>Start date:</div>
+                            <div>{formatDate(startDate)}</div>
+                        </div>
+                        <div className='dateWrapper'>
+                            <div>End date:</div>
+                            <div>{formatDate(endDate)}</div>
+                        </div>
+                    </div>
                     <label className="form-label diphylleia-regular fs-5 text-white"><strong>Other things to know about this job's duration:</strong></label>
                     <div className="input-group mb-2">
                         <p className="fs-4 bg-white text-black description">{jobDuration}</p>
