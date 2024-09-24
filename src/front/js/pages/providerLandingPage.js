@@ -24,6 +24,8 @@ export const ProviderLandingPage = () => {
             if (!store.user) {
                 await actions.getUser();
             }
+
+            console.log("Zip Code:", store.user?.zip_code);
     
             const res = await actions.getPlantSitter();
             if (res.success && res.data) {
@@ -45,8 +47,8 @@ export const ProviderLandingPage = () => {
                 if (jobPostsRes.success) {
                     const nearbyJobs = store.jobPosts.filter(
                         (jobPost) =>
-                            !ownedJobsRes.data.some((ownedJob) => ownedJob.id === jobPost.id) &&
-                            !appliedRes.data.some((appliedJob) => appliedJob.job_post_id === jobPost.id)
+                            (!Array.isArray(ownedJobsRes.data) || !ownedJobsRes.data.some((ownedJob) => ownedJob.id === jobPost.id)) &&
+                            (!Array.isArray(appliedRes.data) || !appliedRes.data.some((appliedJob) => appliedJob.job_post_id === jobPost.id))
                     );
                     setJobPostsNearby(nearbyJobs);
                 } else {

@@ -146,14 +146,14 @@ class JobAssignment(db.Model):
             "accepted_at": self.accepted_at.isoformat(),
             "completed_at": self.completed_at.isoformat() if self.completed_at else None,
             "job_post": {
-                "first_name": self.job_post.user.first_name,
-                "last_name": self.job_post.user.last_name,
-                "profile_picture_url": self.job_post.profile_picture_url,
-                "location": self.job_post.location,
-                "start_date": self.job_post.start_date.isoformat(),
-                "end_date": self.job_post.end_date.isoformat(),
+                "first_name": self.job_post.user.first_name if self.job_post.user else None,
+                "last_name": self.job_post.user.last_name if self.job_post.user else None,
+                "profile_picture_url": self.job_post.profile_picture_url or "",
+                "location": self.job_post.location or "Not provided",
+                "start_date": self.job_post.start_date.isoformat() if self.job_post.start_date else None,
+                "end_date": self.job_post.end_date.isoformat() if self.job_post.end_date else None,
+                }
             }
-        }
 
 
 class JobPost(db.Model):
