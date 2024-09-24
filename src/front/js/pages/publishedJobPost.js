@@ -43,8 +43,8 @@ export const PublishedJobPosts = () => {
     const { job_post_id } = useParams();
     const [isActive, setIsActive] = useState(false);
 
-    const [showModal, setShowModal] = useState(false); // Modal visibility state
-    const [deleting, setDeleting] = useState(false); // Deletion state
+    const [showModal, setShowModal] = useState(false);
+    const [deleting, setDeleting] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
     const [hasApplied, setHasApplied] = useState(false);  
     const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
@@ -97,7 +97,7 @@ export const PublishedJobPosts = () => {
 
     const handleApply = async () => {
         if (!hasPlantSitterProfile) {
-            navigate("/provider-signup");
+            navigate("/provider-services");
             return;
         }
 
