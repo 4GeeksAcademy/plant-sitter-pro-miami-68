@@ -48,6 +48,7 @@ export const PublishedJobPosts = () => {
     const [isOwner, setIsOwner] = useState(false);
     const [hasApplied, setHasApplied] = useState(false);  
     const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
+    const [isAccepted, setIsAccepted] = useState(false);
 
     useEffect(() => {
 
@@ -85,6 +86,9 @@ export const PublishedJobPosts = () => {
                 } else {
                     const applied = await actions.checkAssignment(job_post_id);
                     setHasApplied(applied.success && applied.data.applied);
+                    if (applied.success && applied.data.status === 'accepted') {
+                        setIsAccepted(true);
+                    }
                 }
             }
             setLoading(false);
@@ -135,7 +139,7 @@ export const PublishedJobPosts = () => {
 
         if (response.success) {
             setShowModal(false);
-            navigate('/job-posts'); // Redirect to job post listing after successful deletion
+            navigate('/job-posts');
         } else {
             alert("Failed to delete job post: " + response.error);
         }
@@ -206,6 +210,23 @@ export const PublishedJobPosts = () => {
 
             </div>
                 </>
+            )}
+
+            {/* Show "Mark As Completed" for plant sitter if status is accepted */}
+            {!isOwner && hasApplied && isAccepted && (
+                <div className="mb-2">
+                    <button
+                        className="mark-completed mb-3"
+                        type="button"
+                        style={{
+                            backgroundColor: isActive ? 'blue' : 'orange',
+                            color: isActive ? 'white' : 'black',
+                          }}
+                        onClick={() => setIsActive(!isActive)}
+                    >
+                        <strong>Mark As Completed</strong>
+                    </button>
+                </div>
             )}
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
