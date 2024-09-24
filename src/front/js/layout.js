@@ -105,7 +105,7 @@ const Layout = () => {
                         <Route element={<ViewPlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<PublishedJobPosts />} path="/published-job-posts/:job_post_id" />
                         <Route element={<JobsInProgress />} path="/jobs-in-progress/:id" />
-                        <Route element={<ViewApplicants />} path="/view-applicants" />
+                        <Route element={<ViewApplicants />} path="/view-applicants/:job_post_id" />
                         <Route element={<ProfileSuccessPage />} path="/profile-success-page" />
                         <Route element={<CompletedJobsPage />} path="/completed-jobs-page" />
                         <Route element={<Trimming />} path="/trimming" />
