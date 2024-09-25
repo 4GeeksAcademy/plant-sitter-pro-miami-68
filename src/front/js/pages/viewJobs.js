@@ -104,7 +104,7 @@ export const ViewJobs = () => {
                 <button
                     type="submit"
                     className="btn col-12 rounded-pill mt-2"
-                    onClick={() => navigate('/provider-signup')}
+                    onClick={() => navigate('/provider-payment')}
                 >
                     <h3 className="diphylleia-regular text-center" style={{ fontSize: "2vw" }}>
                         <strong>Subscribe Now</strong>

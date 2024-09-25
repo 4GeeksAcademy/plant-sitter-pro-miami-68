@@ -74,7 +74,7 @@ const RepottingService = () => {
           </p>
           <button
             className="btn btn-success mt-3"
-            onClick={() => navigate("/client-signup1")}
+            onClick={() => navigate("/client-map")}
           >
             Sign Up to Schedule
           </button>

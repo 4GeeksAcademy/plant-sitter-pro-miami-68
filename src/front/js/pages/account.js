@@ -65,8 +65,8 @@ const settingsOptions = [
     { title: 'Personal info', description: 'Provide personal details and how we can reach you', link: '/personal-info' },
     { title: 'Login & Security', description: 'Update your password and secure your account', link: '/login-security' },
     { title: 'Payment History', description: 'Review your payments and update your payment method', link: '/payments-payouts' },
-    { title: 'Jobs', description: "Apply for Jobs, follow the status of your Jobs, Manage Applications", link: '/provider-landing' },
-    { title: 'Your Posts', description: 'Edit your Job Posts', link: '/client-landing' },
+    { title: 'Your Jobs (Plant Sitters)', description: "Apply for Jobs, follow the status of your Jobs, Manage Applications", link: '/provider-landing' },
+    { title: 'Your Job Posts (Plant Owners)', description: 'See and edit your Job Posts', link: '/client-landing' },
     { title: 'Manage Subscription', description: 'Cancel, Renew, or Update Your Subscription Here', link: '/cancel' }
 ];
 

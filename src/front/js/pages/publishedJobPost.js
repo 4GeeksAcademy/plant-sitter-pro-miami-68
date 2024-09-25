@@ -171,19 +171,21 @@ export const PublishedJobPosts = () => {
 
             {!isOwner && !hasApplied && (
                 <div className="mb-2">
-                    <button 
-                        style={{
-                            backgroundColor: "green",
-                            color: "white",
-                            border: "3px solid black",
-                            borderRadius: "25px",
-                            width: "150px"
-                        }}
-                        onClick={handleApply}
-                    >
-                        <strong>Apply for this Job</strong>
-                    </button>
-                </div>
+                <button 
+                    style={{
+                        backgroundColor: hasPlantSitterProfile ? "green" : "orange",
+                        color: hasPlantSitterProfile ? "white" : "black",
+                        border: "3px solid black",
+                        borderRadius: "25px",
+                        width: "auto",
+                        paddingLeft: "20px",
+                        paddingRight: "20px",
+                    }}
+                    onClick={handleApply}
+                >
+                    <strong>{hasPlantSitterProfile ? "Apply for this Job" : "Sign Up as a Plantsitter to Apply"}</strong>
+                </button>
+            </div>
             )}
 
             {isOwner && (
