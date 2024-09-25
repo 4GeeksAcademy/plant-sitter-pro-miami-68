@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { PlantCard } from "../component/PlantCard";
 import { ServiceCard } from "../component/ServiceCard";
 
-export const ProviderProfileCompleted = () => {
+export const ApplicantProfiles= () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
@@ -17,19 +17,24 @@ export const ProviderProfileCompleted = () => {
     const [extraInfo, setExtraInfo] = useState("");
     const [preferredPlants, setPreferredPlants] = useState([]);
     const [servicePreferences, setServicePreferences] = useState([]);
-    const firstName = store.user?.first_name;
-    const lastName = store.user?.last_name;
-    const city = store.user?.city;
-    const state = store.user?.state;
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [city, setCity] = useState("");
+    const [state, setState] = useState("");
+    const { sitter_id } = useParams();
 
     useEffect(() => {
         const fetchData = async () => {
             setLoading(true);
             if (!store.user) {
-                await actions.getUser();
+                const user = await actions.getUser();
+                    if (user.success && user.data) {
+                        setCity(user.data.city);
+                        setState(user.data.state);
+                    }
             }
 
-            const res = await actions.getPlantSitter();
+            const res = await actions.getPlantSitterByIdPublic(sitter_id);
             if (res.success && res.data) {
                 setProfessionalExperience(res.data.professional_experience);
                 setIntro(res.data.intro);
@@ -39,6 +44,8 @@ export const ProviderProfileCompleted = () => {
                 setPreferredPlants(res.data.preferred_plants || []);
                 setServicePreferences(res.data.service_preferences || []);
                 setPicture(res.data.profile_picture_url);
+                setFirstName(res.data.first_name);
+                setLastName(res.data.last_name);
             }
             setLoading(false);
         };
@@ -49,32 +56,6 @@ export const ProviderProfileCompleted = () => {
     return (
         <div className="text-center m-2">
             <div className="row container-fluid mt-4">
-                <h2 className="mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
-                <div
-                    className="container-fluid row mb-1 mt-3 "
-                >
-                    <div className="col-4"></div>
-                    <button
-                        className="btn btn-success col-2 rounded-pill"
-                        onClick={() => {
-                            navigate("/provider-profile")
-                        }}
-                    >
-                        Edit <i className="fas fa-pencil-alt"></i>
-                    </button>
-                    <button
-                        type="button"
-                        className="btn btn-success col-2 rounded-pill"
-                        onClick={
-                            () => {
-                                navigate('/profile-success-page')
-                            }
-                        }
-                    >
-                        Publish My Profile
-                    </button>
-                    <div className="col-4"></div>
-                </div>
                 <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                     <div className="col bckgrnd rounded p-3 m-2">
                         <div data-mdb-input-init className="form-outline form-white">
