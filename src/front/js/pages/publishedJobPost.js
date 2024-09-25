@@ -155,20 +155,26 @@ export const PublishedJobPosts = () => {
         }
     }
 
-  // Delete Job Post function
-  const handleDeleteJobPost = async () => {
-    setDeleting(true);
-    const response = await actions.deleteJobPost(job_post_id);
-
-    if (response.success) {  // Check if the response is marked as successful
-        setShowModal(false);
-        alert(response.message);  // Show success message
-        navigate('/job-posts'); // Redirect to job post listing after successful deletion
-    } else {
-        alert("Failed to delete job post: " + response.error);  // Handle failure
-    }
-    setDeleting(false);
-};
+    const handleDeleteJobPost = async () => {
+        if (!job_post_id) {
+            alert("Job post ID is missing.");
+            return;
+        }
+    
+        setDeleting(true);
+        const response = await actions.deleteJobPost(job_post_id);
+        
+        if (response.success) {
+            setShowModal(false);
+            alert(response.message);
+            navigate('/job-posts'); // Redirect after successful deletion
+        } else {
+            alert("Failed to delete job post: " + response.error);
+        }
+        setDeleting(false);
+    };
+    
+    
 
 
 
@@ -513,27 +519,27 @@ export const PublishedJobPosts = () => {
                             />
                         </div>
                     </div>
-                    {/* Modal for Deleting the Job Post */}
-            <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirm Deletion</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    Are you sure you want to delete this job post? This action cannot be undone.
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowModal(false)}>
-                        Cancel
-                    </Button>
-                    <Button
-                        variant="danger"
-                        onClick={handleDeleteJobPost}
-                        disabled={deleting} // Disable the button while deleting
-                    >
-                        {deleting ? 'Deleting...' : 'Confirm Delete'}
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+                    <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+    <Modal.Header closeButton>
+        <Modal.Title>Confirm Deletion</Modal.Title>
+    </Modal.Header>
+    <Modal.Body>
+        Are you sure you want to delete this job post? This action cannot be undone.
+    </Modal.Body>
+    <Modal.Footer>
+        <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Cancel
+        </Button>
+        <Button
+            variant="danger"
+            onClick={handleDeleteJobPost}
+            disabled={deleting} // Disable button while deleting
+        >
+            {deleting ? 'Deleting...' : 'Confirm Delete'}
+        </Button>
+    </Modal.Footer>
+</Modal>
+
         </div>
             </div>
         </div>
