@@ -10,6 +10,16 @@ export const ViewSitters = () => {
     const sitters = store.sitters || [];
     const navigate = useNavigate();
 
+    const handleButtonClick = () => {
+        if (store.token) {
+            // If logged in, navigate to create a job post
+            navigate("/client-services1");
+        } else {
+            // If not logged in, navigate to the signup page
+            navigate("/client-signup1");
+        }
+    };
+
     return (
         <div className="row d-flex">
             <h1 className="mb-5 mt-5 diphylleia-regular jobs">
@@ -74,12 +84,10 @@ export const ViewSitters = () => {
                 <button
                     type="button"
                     className="btn col-12 rounded-pill mt-2"
-                    onClick={() => {
-                        navigate("/client-signup1");
-                    }}
+                    onClick={handleButtonClick}
                 >
                     <h3 className="diphylleia-regular text-center" style={{ fontSize: "2vw" }}>
-                        <strong>Subscribe Now</strong>
+                        <strong>{store.token ? "Create a Job Post" : "Subscribe Now"}</strong>
                     </h3>
                 </button>
             </div>

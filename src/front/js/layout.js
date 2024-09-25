@@ -50,7 +50,9 @@ import { JobsInProgress } from "./pages/jobsInProgress";
 import { ViewApplicants } from "./pages/jobApplicants";
 import { ProfileSuccessPage } from "./pages/profileSuccessPage";
 import { CompletedJobsPage } from "./pages/completedJobsPage";
+import { ClientServicesUpdate } from "./pages/clientServicesUpdate";
 import { Trimming } from "./pages/ExampleLoading.js";
+import { ProviderPaymentPage } from "./pages/providerPaymentPage.js";
 
 //create your first component
 const Layout = () => {
@@ -71,6 +73,7 @@ const Layout = () => {
                         <Route element={<ClientServices1 />} path="/client-services1" />
                         <Route element={<JobPost1 />} path="/job-post" />
                         <Route element={<JobPostUpdate />} path="/job-post-update/:job_post_id" />
+                        <Route element={<ClientServicesUpdate />} path="/client-services-update/:job_post_id" />
                         <Route element={<JobPost2 />} path="/job-post-preview/:job_post_id" />
                         <Route element={<ProviderProfile />} path="/provider-profile" />
                         <Route element={<ProviderProfileCompleted />} path="/provider-profile-completed" />
@@ -105,10 +108,11 @@ const Layout = () => {
                         <Route element={<ViewPlantSitterProfile />} path="/plantsitter/:id" />
                         <Route element={<PublishedJobPosts />} path="/published-job-posts/:job_post_id" />
                         <Route element={<JobsInProgress />} path="/jobs-in-progress/:id" />
-                        <Route element={<ViewApplicants />} path="/view-applicants" />
+                        <Route element={<ViewApplicants />} path="/view-applicants/:job_post_id" />
                         <Route element={<ProfileSuccessPage />} path="/profile-success-page" />
                         <Route element={<CompletedJobsPage />} path="/completed-jobs-page" />
                         <Route element={<Trimming />} path="/trimming" />
+                        <Route element={<ProviderPaymentPage />} path="/provider-payment" />
 
                     </Routes>
                     <Chat />
