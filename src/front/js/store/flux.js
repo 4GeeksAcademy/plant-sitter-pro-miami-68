@@ -604,32 +604,43 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
             // Delete Job Post
             deleteJobPost: async (job_post_id) => {
+                // Retrieve the token from sessionStorage
                 const token = sessionStorage.getItem("token");
+                
+                // Check if token exists; if not, log an error and return an appropriate response
+                if (!token) {
+                    console.error("Token is missing from sessionStorage.");
+                    return { success: false, error: "No token found, unable to delete the job post." };
+                }
+            
+                // Proceed to try-catch block for the API request
                 try {
                     const resp = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${job_post_id}`, {
                         method: "DELETE",
                         headers: {
-                            "Authorization": `Bearer ${token}`
-                        }
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json", // Added this header for completeness
+                        },
                     });
-
+            
                     if (resp.ok) {
                         const data = await resp.json();
-                        // Optionally remove the deleted job post from the store
                         const store = getStore();
                         const updatedJobPosts = store.jobPostDetails.filter(post => post.id !== job_post_id);
                         setStore({ jobPostDetails: updatedJobPosts });
-
+            
                         return { success: true, message: "Job post deleted successfully" };
                     } else {
                         const errorData = await resp.json();
-                        return { success: false, error: errorData.error };
+                        return { success: false, error: errorData.error || "Failed to delete job post" };
                     }
                 } catch (error) {
                     console.error("Error deleting job post:", error);
-                    return { success: false, error: "An unexpected error occurred" };
+                    return { success: false, error: "An unexpected error occurred while deleting the job post." };
                 }
             },
+            
+            
 
             //get the jobpost of the current user
             getUserOwnedJobs: async () => {
