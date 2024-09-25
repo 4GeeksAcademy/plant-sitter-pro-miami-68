@@ -463,6 +463,18 @@ def search_sitters():
 
 #----------------------------endpoints for JobPost---------------------------------------
 
+
+# Fetch jobs created by the current user
+@api.route('/user/owned-jobs', methods=['GET'])
+@jwt_required()
+def get_user_owned_jobs():
+    user_id = get_jwt_identity()
+
+    owned_jobs = JobPost.query.filter_by(user_id=user_id).all()
+
+    return jsonify([job.serialize() for job in owned_jobs]), 200
+
+
 @api.route('/job_posts', methods=['POST'])
 @jwt_required()
 def create_job_post():
@@ -841,6 +853,39 @@ def get_ratings(plantsitter_id):
 
 
 #--------------------JobAssaingment endpoints
+
+
+@api.route('/search-job-posts-insession', methods=['POST'])
+@jwt_required()
+def search_job_posts_in_session():
+    data = request.get_json()
+    zip_code = data.get("zip_code")
+    distance = data.get("distance")
+    user_id = get_jwt_identity()
+
+    user = User.query.filter_by(zip_code=zip_code).first()
+    if not user or not user.latitude or not user.longitude:
+        return jsonify({"success": False, "message": "Invalid ZIP code"}), 400
+
+    user_location = (user.latitude, user.longitude)
+    radius_miles = float(distance)
+
+    job_posts_within_radius = []
+    
+    job_posts = JobPost.query.filter(
+        JobPost.user_id != user_id,
+        JobPost.status == 'open',
+        ~JobPost.assignments.any(JobAssignment.status == 'completed')
+    ).all()
+
+    for post in job_posts:
+        if post.latitude and post.longitude:
+            post_location = (post.latitude, post.longitude)
+            distance = geodesic(user_location, post_location).miles
+            if distance <= radius_miles:
+                job_posts_within_radius.append(post)
+
+    return jsonify({"success": True, "data": [post.serialize() for post in job_posts_within_radius]}), 200
 
 
 #apply for a jobpost as a plantsitter

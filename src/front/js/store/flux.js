@@ -796,6 +796,57 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            //search for jobposts in provider landing page
+            searchJobPostsInSession: async (zipCode, distance) => {
+                const token = sessionStorage.getItem("token");
+            
+                if (!token) {
+                    return { success: false, error: "You are not logged in." };
+                }
+            
+                try {
+                    const res = await fetch(`${process.env.BACKEND_URL}/api/search-job-posts-insession`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify({ zip_code: zipCode, distance: distance }),
+                    });
+            
+                    if (res.ok) {
+                        const data = await res.json();
+                        setStore({ jobPosts: data.data });
+                        return { success: true };
+                    } else {
+                        const errorData = await res.json();
+                        return { success: false, error: errorData.message || "Error searching job posts" };
+                    }
+                } catch (error) {
+                    console.error("Error searching job posts:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
+            // Fetch owned jobs
+            getUserOwnedJobs: async () => {
+                const token = sessionStorage.getItem("token");
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/user/owned-jobs`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+                    const data = await response.json();
+                    return { success: true, data };
+                } catch (error) {
+                    console.error("Error fetching owned jobs:", error);
+                    return { success: false, error: "Failed to fetch owned jobs" };
+                }
+            },
+
             //apply for a jobpost as a plantsitter
             applyForJob: async (jobPostId) => {
                 const token = sessionStorage.getItem("token");

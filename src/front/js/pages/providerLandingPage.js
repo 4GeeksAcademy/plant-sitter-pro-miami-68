@@ -42,27 +42,28 @@ export const ProviderLandingPage = () => {
                 const nonCompletedAppliedJobs = appliedRes.data.filter(job => job.status !== 'completed');
                 setAppliedJobs(nonCompletedAppliedJobs);
             }
-
+    
             const completedRes = await actions.getUserCompletedJobs();
             if (completedRes.success) {
                 setCompletedJobs(completedRes.data);
             }
     
             if (zipCode) {
-                const jobPostsRes = await actions.searchJobPosts(zipCode, distance);
+                const jobPostsRes = await actions.searchJobPostsInSession(zipCode, distance);
                 if (jobPostsRes.success) {
                     const jobPosts = Array.isArray(store.jobPosts) ? store.jobPosts : [];
                     const nearbyJobs = jobPosts.filter(
                         (jobPost) =>
                             (!Array.isArray(ownedJobsRes.data) || !ownedJobsRes.data.some((ownedJob) => ownedJob.id === jobPost.id)) &&
-                            (!Array.isArray(appliedRes.data) || !appliedRes.data.some((appliedJob) => appliedJob.job_post_id === jobPost.id))
+                            (!Array.isArray(appliedRes.data) || !appliedRes.data.some((appliedJob) => appliedJob.job_post_id === jobPost.id)) &&
+                            jobPost.status !== 'completed' // Ensure no completed jobs
                     );
                     setJobPostsNearby(nearbyJobs);
                 } else {
                     alert("No job posts found near your location.");
                 }
             }
-        
+    
             setLoading(false);
         };
     
@@ -271,7 +272,6 @@ export const ProviderLandingPage = () => {
                                             <p className="card-text text-white" style={{ fontSize: "14px", margin: "10px 0" }}>
                                                 <strong>Dates:</strong> {formatDate(jobAssignment.job_post.start_date)} - {formatDate(jobAssignment.job_post.end_date)}
                                             </p>
-                                            {/* Display the status of the job application */}
                                             <p 
                                                 className="card-text"
                                                 style={{
