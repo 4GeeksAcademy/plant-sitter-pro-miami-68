@@ -63,7 +63,11 @@ export const ProviderProfile = () => {
     };
 
     const handleSubmit = () => {
-
+        if (preferredPlants.length === 0) {
+            alert("You need to select at least one plant.");
+            return;
+        }
+    
         const dataToSubmit = {
             profile_picture: picture,
             professionalExperience,
@@ -74,7 +78,7 @@ export const ProviderProfile = () => {
             clientInfo,
             extraInfo,
         };
-
+    
         actions.createOrUpdatePlantSitter(
             dataToSubmit.profile_picture,
             dataToSubmit.professionalExperience,
