@@ -14,7 +14,6 @@ import profilepic from "../../img/profilePicture.png";
 import sitter1 from "../../img/sitter1.png";
 import sitter2 from "../../img/sitter2.png";
 
-git 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
 	const navigate = useNavigate();
