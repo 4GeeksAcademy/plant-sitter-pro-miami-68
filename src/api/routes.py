@@ -1018,6 +1018,31 @@ def mark_job_as_completed(assignment_id):
     return jsonify({"message": "Marked as completed.", "assignment": assignment.serialize()}), 200
 
 
+# Completed Jobs Endpoint
+@api.route('/user/completed-jobs', methods=['GET'])
+@jwt_required()
+def get_completed_jobs():
+    user_id = get_jwt_identity()
+
+    plant_sitter = PlantSitter.query.filter_by(user_id=user_id).first()
+    
+    plant_sitter_completed_jobs = []
+    if plant_sitter:
+        plant_sitter_completed_jobs = JobAssignment.query.filter_by(
+            plantsitter_id=plant_sitter.id, 
+            status='completed'
+        ).all()
+
+    client_completed_jobs = JobAssignment.query.join(JobPost).filter(
+        JobPost.user_id == user_id, 
+        JobAssignment.status == 'completed'
+    ).all()
+
+    completed_jobs = plant_sitter_completed_jobs + client_completed_jobs
+
+    return jsonify([job.serialize() for job in completed_jobs]), 200
+
+
 
 
 # #--------------- JOB COMPLETED USER(CLIENT)
