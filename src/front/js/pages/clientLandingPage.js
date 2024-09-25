@@ -65,7 +65,7 @@ export const ClientLandingPage = () => {
             >
                 <div className="profile-container row">
                     <h1 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h1>
-                    <h2 className="diphylleia-regular"><strong>{city}, {state}</strong></h2>
+                    {/* <h2 className="diphylleia-regular"><strong>{city}, {state}</strong></h2> */}
                     <div className="col text-end">
                         <h4 className="diphylleia-regular mb-0"><strong>Subscriber Since</strong></h4>
                         <h4 className="diphylleia-regular mt-0">October 2024</h4>
