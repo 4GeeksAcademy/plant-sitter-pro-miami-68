@@ -941,6 +941,86 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
 
 
+            // Fetch job assignment for job owner
+            getAssignmentForOwner: async (jobPostId) => {
+                const token = sessionStorage.getItem("token");
+            
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${jobPostId}/owner_assignment`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await response.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching assignment for owner:", error);
+                    return { success: false, error: "An unexpected error occurred." };
+                }
+            },
+
+
+            // Mark job assignment as completed
+            markJobAsCompleted: async (assignmentId) => {
+                const token = sessionStorage.getItem("token");
+
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/job_posts/${assignmentId}/mark-completed`, {
+                        method: "PUT",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await response.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error marking job as completed:", error);
+                    return { success: false, error: "An unexpected error occurred." };
+                }
+            },
+
+
+            getUserCompletedJobs: async () => {
+                const token = sessionStorage.getItem("token");
+            
+                try {
+                    const response = await fetch(`${process.env.BACKEND_URL}/api/user/completed-jobs`, {
+                        method: "GET",
+                        headers: {
+                            "Authorization": `Bearer ${token}`,
+                            "Content-Type": "application/json"
+                        }
+                    });
+            
+                    if (response.ok) {
+                        const data = await response.json();
+                        return { success: true, data };
+                    } else {
+                        const errorData = await response.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching completed jobs:", error);
+                    return { success: false, error: "An unexpected error occurred." };
+                }
+            },
+
+
             //refresh token
             refreshAccessToken: async () => {
                 const store = getStore();

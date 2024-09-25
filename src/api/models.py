@@ -126,17 +126,19 @@ class JobAssignment(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     job_post_id = db.Column(db.Integer, db.ForeignKey('job_post.id'), nullable=False)
-    plantsitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)  # Corrected table name
+    plantsitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
     status = db.Column(db.String(50), default='accepted')  # 'accepted', 'rejected', 'pending'
     accepted_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     completed_at = db.Column(db.DateTime, nullable=True)
+    client_marked_completed = db.Column(db.Boolean, default=False)
+    plantsitter_marked_completed = db.Column(db.Boolean, default=False)
 
     job_post = db.relationship('JobPost', backref=db.backref('assignments', lazy=True))
     plantsitter = db.relationship('PlantSitter', backref=db.backref('assignments', lazy=True))
 
     def __repr__(self):
         return f'<JobAssignment {self.id}: Job {self.job_post_id} assigned to Plant Sitter {self.plantsitter_id}>'
-    # Relationships
+
     def serialize(self):
         return {
             "id": self.id,
@@ -145,6 +147,8 @@ class JobAssignment(db.Model):
             "status": self.status,
             "accepted_at": self.accepted_at.isoformat(),
             "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+            "client_marked_completed": self.client_marked_completed,
+            "plantsitter_marked_completed": self.plantsitter_marked_completed,
             "job_post": {
                 "first_name": self.job_post.user.first_name if self.job_post.user else None,
                 "last_name": self.job_post.user.last_name if self.job_post.user else None,
@@ -152,8 +156,8 @@ class JobAssignment(db.Model):
                 "location": self.job_post.location or "Not provided",
                 "start_date": self.job_post.start_date.isoformat() if self.job_post.start_date else None,
                 "end_date": self.job_post.end_date.isoformat() if self.job_post.end_date else None,
-                }
             }
+        }
 
 
 class JobPost(db.Model):
