@@ -5,7 +5,7 @@ import cleaning from "../../img/cleaning.png";
 import pruning from "../../img/pruning.png";
 import repotting from "../../img/repotting.png";
 import pestControl from "../../img/pestControl.png";
-import BushTrimmingLoader from './BushTrimmingLoader';
+import ShovelAnimation from './ShovelAnimation';
 
 export const JobServices = () => {
     const { store, actions } = useContext(Context);
@@ -25,7 +25,7 @@ export const JobServices = () => {
     }, []);
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <ShovelAnimation />;
     }
 
     return (

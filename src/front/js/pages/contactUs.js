@@ -5,6 +5,7 @@ import noImage from "../../img/noImage.png";
 import { useNavigate } from "react-router-dom";
 import Sedonia from "../../img/Sedonia.jpg";
 import Cesar from "../../img/Cesar.jpg";
+import Gerry from "../../img/gerrypicture.jpg";
 
 export const ContactUs = () => {
 	const { store, actions } = useContext(Context);
@@ -81,31 +82,31 @@ export const ContactUs = () => {
                 {/* Gerardo */}
                 <div className="col contacts">
                     <img 
-                        src={noImage} 
+                        src={Gerry} 
                         alt="Image of ___" 
                         className="card-img-top" 
                         style={{ borderRadius: "25px", objectFit: "cover", margin: "auto", marginTop: "20px" }}
                     />
                     <div className="card-body text-center">
                         <h5 className="card-title diphylleia-regular text-white fs-2">
-                            <strong>First Name Last Name</strong>
+                            <strong>Gerardo Rivas</strong>
                         </h5>
                         <div className="card-text">
-                            <i className="fa-solid fa-location-dot"/>  City, State
+                            <i className="fa-solid fa-location-dot"/>  Plantation, FL
                         </div>
                         <div className="card-text">
                             <a className="contact-us" href="mailto:your-email@gmail.com">
-                                <i className="fa-regular fa-envelope"/>  email
+                                <i className="fa-regular fa-envelope"/>  gerardor2do@gmail.com
                             </a>
                         </div>
                         <div className="card-text">
                             <a className="contact-us" href="https://www.linkedin.com/">
-                                <i className="fa-brands fa-linkedin"/>  /linkedin
+                                <i className="fa-brands fa-linkedin"/> /gerardoarturorivas
                             </a>
                         </div>
                         <div className="card-text">
                             <a className="contact-us" href="https://github.com">
-                                <i className="fa-brands fa-github"/>  /github
+                                <i className="fa-brands fa-github"/>  /Thisisgerry123
                             </a>
                         </div>
                     </div>

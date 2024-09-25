@@ -8,7 +8,7 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
-import BushTrimmingLoader from './BushTrimmingLoader';
+import ShovelAnimation from './ShovelAnimation';
 
 export const JobPlants = () => {
     const { store, actions } = useContext(Context);
@@ -29,7 +29,7 @@ export const JobPlants = () => {
     }, []);
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <ShovelAnimation />;
     }
 
     return (

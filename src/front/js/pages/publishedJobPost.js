@@ -18,7 +18,7 @@ import usual from "../../img/usual.jpg";
 import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
-import BushTrimmingLoader from "../component/BushTrimmingLoader";
+import ShovelAnimation from "../component/ShovelAnimation";
 
 
 export const PublishedJobPosts = () => {
@@ -144,7 +144,7 @@ export const PublishedJobPosts = () => {
     };
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <ShovelAnimation />;
     }
 
     const changeColorOnClick = () => {

@@ -48,22 +48,6 @@ const BushTrimmingLoader = () => {
           <div className="leaf leaf5"></div>
         </div>
       </div>
-      <div className="tree-container">
-        <div className="tree">
-          <div className="leaf leaf1"></div>
-          <div className="leaf leaf2"></div>
-          <div className="leaf leaf3"></div>
-          <div className="leaf leaf4"></div>
-          <div className="leaf leaf5"></div>
-        </div>
-        <div className="tree">
-          <div className="leaf leaf1"></div>
-          <div className="leaf leaf2"></div>
-          <div className="leaf leaf3"></div>
-          <div className="leaf leaf4"></div>
-          <div className="leaf leaf5"></div>
-        </div>
-      </div>
     </div>
   );
 };

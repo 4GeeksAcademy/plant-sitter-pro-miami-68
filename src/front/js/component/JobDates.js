@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../store/appContext';
-import BushTrimmingLoader from './BushTrimmingLoader';
+import ShovelAnimation from './ShovelAnimation';
 
 export const JobDates = () => {
     const { store, actions } = useContext(Context);
@@ -20,7 +20,7 @@ export const JobDates = () => {
     }, []);
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <ShovelAnimation />;
     }
 
     return (
