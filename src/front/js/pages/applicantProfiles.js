@@ -36,6 +36,7 @@ export const ApplicantProfiles= () => {
     const [city, setCity] = useState("");
     const [state, setState] = useState("");
     const { sitter_id } = useParams();
+    const [id, setId] = useState('');
 
     useEffect(() => {
         const fetchData = async () => {
@@ -60,6 +61,7 @@ export const ApplicantProfiles= () => {
                 setPicture(res.data.profile_picture_url);
                 setFirstName(res.data.first_name);
                 setLastName(res.data.last_name);
+                setId(res.data.id);
             }
             setLoading(false);
         };
@@ -69,7 +71,8 @@ export const ApplicantProfiles= () => {
 
     return (
         <div className="text-center m-2">
-            <div className="row container-fluid mt-4">
+            <h1 className="mt-4">Applicant # {id}</h1>
+            <div className="row container-fluid mt-1">
                 <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                     <div className="col bckgrnd rounded p-3 m-2">
                         <div data-mdb-input-init className="form-outline form-white">
