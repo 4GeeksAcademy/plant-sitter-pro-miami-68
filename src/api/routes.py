@@ -460,6 +460,30 @@ def search_sitters():
     return jsonify({"success": True, "data": [sitter.serialize() for sitter in sitters_within_radius]})
     
 
+@api.route('/plant_sitters/<int:sitter_id>', methods=['GET'])
+def get_plant_sitter_public(sitter_id):
+    plant_sitter = PlantSitter.query.filter_by(id=sitter_id).first()
+    if not plant_sitter:
+        return jsonify({"error": "Plant sitter not found"}), 404
+
+    plant_sitter_data = {
+        "id": plant_sitter.id,
+        "user_id": plant_sitter.user_id,
+        "first_name": plant_sitter.user.first_name if plant_sitter.user else None,
+        "last_name": plant_sitter.user.last_name if plant_sitter.user else None,
+        "profile_picture_url": plant_sitter.profile_picture_url,
+        "professional_experience": plant_sitter.professional_experience,
+        "preferred_plants": plant_sitter.preferred_plants,
+        "service_preferences": plant_sitter.service_preferences,
+        "intro": plant_sitter.intro,
+        "current_plants": plant_sitter.current_plants,
+        "client_info": plant_sitter.client_info,
+        "extra_info": plant_sitter.extra_info,
+        "location": plant_sitter.user.location if plant_sitter.user else None,
+    }
+
+    return jsonify(plant_sitter_data), 200
+
 
 #----------------------------endpoints for JobPost---------------------------------------
 

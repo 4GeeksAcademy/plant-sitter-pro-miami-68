@@ -98,20 +98,20 @@ export const ProviderProfileCompleted = () => {
                     </div>
                     <div className="col bckgrnd rounded p-3 m-2">
                         <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
                         <div className="input-group mb-3">
                             <p className="fs-4 text-black description">{clientInfo}</p>
                         </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My plants:</strong></label>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>My plants:</strong></label>
                         <div className="input-group mb-3">
                             <p className="fs-4 text-black description">{currentPlants}</p>
                         </div>
 
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My background and experience:</strong></label>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>My background and experience:</strong></label>
                         <div className="input-group mb-3">
                             <p className="fs-4 text-black description">{professionalExperience}</p>
                         </div>
-                        <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things I'd like to share:</strong></label>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>Other things I'd like to share:</strong></label>
                         <div className="input-group justify-contents-center mb-3">
                             <p className="fs-4 text-black description">{extraInfo}</p>
                         </div>

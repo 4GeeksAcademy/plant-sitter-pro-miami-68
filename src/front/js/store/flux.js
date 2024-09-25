@@ -469,6 +469,27 @@ const getState = ({ getStore, getActions, setStore }) => {
                 }
             },
 
+            // Fetch a specific plant sitter by ID without a token
+            getPlantSitterByIdPublic: async (sitter_id) => {
+                try {
+                    const resp = await fetch(`${process.env.BACKEND_URL}/api/plant_sitters/${sitter_id}`, {
+                        method: "GET"
+                    });
+
+                    if (resp.ok) {
+                        const data = await resp.json();
+                        setStore({ plantSitters: data });
+                        return { success: true, data };
+                    } else {
+                        const errorData = await resp.json();
+                        return { success: false, error: errorData.error };
+                    }
+                } catch (error) {
+                    console.error("Error fetching plant sitter:", error);
+                    return { success: false, error: "An unexpected error occurred" };
+                }
+            },
+
 
             //save JobPost Details
             setJobPostDetails: (details) => {
