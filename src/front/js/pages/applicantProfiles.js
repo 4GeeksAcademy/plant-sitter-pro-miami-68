@@ -62,6 +62,8 @@ export const ApplicantProfiles= () => {
                 setFirstName(res.data.first_name);
                 setLastName(res.data.last_name);
                 setId(res.data.id);
+                setCity(res.data.city);
+                setState(res.data.state);
             }
             setLoading(false);
         };
@@ -76,8 +78,8 @@ export const ApplicantProfiles= () => {
                 <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                     <div className="col bckgrnd rounded p-3 m-2">
                         <div data-mdb-input-init className="form-outline form-white">
-                            <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
-                            <h3>{city}, {state}</h3>
+                            <h2 className="diphylleia-regular mb-4"><strong>{firstName} {lastName}</strong></h2>
+                            {/* <h3>{city}, {state}</h3> */}
                         </div>
                         <div
                             className="profile-picture m-auto mb-4"
