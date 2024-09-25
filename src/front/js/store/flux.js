@@ -478,7 +478,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
                     if (resp.ok) {
                         const data = await resp.json();
-                        setStore({ plantSitter: data });
+                        setStore({ plantSitters: data });
                         return { success: true, data };
                     } else {
                         const errorData = await resp.json();
