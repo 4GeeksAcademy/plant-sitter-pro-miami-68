@@ -116,19 +116,22 @@ export const PublishedJobPosts = () => {
         
     }
 
-    // Delete Job Post function
-    const handleDeleteJobPost = async () => {
-        setDeleting(true);
-        const response = await actions.deleteJobPost(job_post_id);
+  // Delete Job Post function
+  const handleDeleteJobPost = async () => {
+    setDeleting(true);
+    const response = await actions.deleteJobPost(job_post_id);
 
-        if (response.success) {
-            setShowModal(false);
-            navigate('/job-posts'); // Redirect to job post listing after successful deletion
-        } else {
-            alert("Failed to delete job post: " + response.error);
-        }
-        setDeleting(false);
-    };
+    if (response.success) {  // Check if the response is marked as successful
+        setShowModal(false);
+        alert(response.message);  // Show success message
+        navigate('/job-posts'); // Redirect to job post listing after successful deletion
+    } else {
+        alert("Failed to delete job post: " + response.error);  // Handle failure
+    }
+    setDeleting(false);
+};
+
+
 
     return (
         <div className="text-center d-grid mt-4">

@@ -612,15 +612,14 @@ const getState = ({ getStore, getActions, setStore }) => {
                             "Authorization": `Bearer ${token}`
                         }
                     });
-
-                    if (resp.ok) {
+            
+                    if (resp.ok) {  // This should handle the success
                         const data = await resp.json();
-                        // Optionally remove the deleted job post from the store
                         const store = getStore();
                         const updatedJobPosts = store.jobPostDetails.filter(post => post.id !== job_post_id);
                         setStore({ jobPostDetails: updatedJobPosts });
-
-                        return { success: true, message: "Job post deleted successfully" };
+            
+                        return { success: true, message: "Job post deleted successfully" };  // Ensure this success message is returned
                     } else {
                         const errorData = await resp.json();
                         return { success: false, error: errorData.error };
@@ -629,9 +628,8 @@ const getState = ({ getStore, getActions, setStore }) => {
                     console.error("Error deleting job post:", error);
                     return { success: false, error: "An unexpected error occurred" };
                 }
-            },
-
-
+            },            
+            
             // Fetch a specific job post by ID
             getJobPostById: async (job_post_id) => {
                 const token = sessionStorage.getItem("token");
