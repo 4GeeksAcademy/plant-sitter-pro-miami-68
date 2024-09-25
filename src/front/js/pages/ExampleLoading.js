@@ -1,10 +1,10 @@
 import React from 'react';
-import ScissorsLoader from '../component/ScissorsLoader';
+import ShovelAnimation from '../component/ShovelAnimation';
 export const Trimming = () => {
   return (
     <div>
       {/* This will display the loading animation */}
-      <ScissorsLoader />
+      <ShovelAnimation />
     </div>
   );
 };

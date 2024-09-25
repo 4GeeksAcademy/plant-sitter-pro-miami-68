@@ -1,11 +1,13 @@
 
 .animation-wrapper {
-    display: flex;
-    justify-content: center;
+    display: inline-flex;
+    /* justify-content: center; */
     align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: #ffffff;
+    padding-left:280px;
+    margin: 2rem;
   }
   
   

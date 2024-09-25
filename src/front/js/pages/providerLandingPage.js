@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import BushTrimmingLoader from "../component/BushTrimmingLoader";
+import ShovelAnimation from "../component/ShovelAnimation";
 
 export const ProviderLandingPage = () => {
     const { store, actions } = useContext(Context);
@@ -75,7 +75,7 @@ export const ProviderLandingPage = () => {
         return new Date(dateString).toLocaleDateString(undefined, options);
     };
 
-    if (loading) return <BushTrimmingLoader />;
+    if (loading) return <ShovelAnimation />;
 
     return (
         <div className="container-fluid">
