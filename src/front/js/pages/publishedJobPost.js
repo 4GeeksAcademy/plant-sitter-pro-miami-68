@@ -42,7 +42,6 @@ export const PublishedJobPosts = () => {
     const [jobPlants, setJobPlants] = useState([]);
     const { job_post_id } = useParams();
     const [isActive, setIsActive] = useState(false);
-
     const [showModal, setShowModal] = useState(false);
     const [deleting, setDeleting] = useState(false);
     const [isOwner, setIsOwner] = useState(false);
@@ -50,6 +49,7 @@ export const PublishedJobPosts = () => {
     const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
     const [isAccepted, setIsAccepted] = useState(false);
     const [assignmentId, setAssignmentId] = useState(null);
+    // const sitter_id = 
 
     useEffect(() => {
 
@@ -63,7 +63,7 @@ export const PublishedJobPosts = () => {
             if (plantSitterRes.success && plantSitterRes.data) {
                 setHasPlantSitterProfile(true);
             } else {
-                alert('error: no plant sitter retrieved');
+                console.log('error: no plant sitter retrieved');
             }
 
             const res = await actions.getJobPostByIdPublic(job_post_id);
@@ -237,7 +237,7 @@ export const PublishedJobPosts = () => {
                             type="button"
                             style={{
                                 backgroundColor: 'red',
-                                color: 'white',
+                                color: 'black',
                             }}
                             onClick={() => setShowModal(true)}
                         >
@@ -522,25 +522,25 @@ export const PublishedJobPosts = () => {
                         </div>
                     </div>
                     <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-    <Modal.Header closeButton>
-        <Modal.Title>Confirm Deletion</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        Are you sure you want to delete this job post? This action cannot be undone.
-    </Modal.Body>
-    <Modal.Footer>
-        <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Cancel
-        </Button>
-        <Button
-            variant="danger"
-            onClick={handleDeleteJobPost}
-            disabled={deleting} // Disable button while deleting
-        >
-            {deleting ? 'Deleting...' : 'Confirm Delete'}
-        </Button>
-    </Modal.Footer>
-</Modal>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Confirm Deletion</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            Are you sure you want to delete this job post? This action cannot be undone.
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                Cancel
+                            </Button>
+                            <Button
+                                variant="danger"
+                                onClick={handleDeleteJobPost}
+                                disabled={deleting} // Disable button while deleting
+                            >
+                                {deleting ? 'Deleting...' : 'Confirm Delete'}
+                            </Button>
+                        </Modal.Footer>
+                    </Modal>
 
         </div>
             </div>
