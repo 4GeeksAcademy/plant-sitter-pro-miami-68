@@ -48,6 +48,7 @@ export const PublishedJobPosts = () => {
     const [isOwner, setIsOwner] = useState(false);
     const [hasApplied, setHasApplied] = useState(false);  
     const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
+    const [isAccepted, setIsAccepted] = useState(false);
 
     useEffect(() => {
 
@@ -85,6 +86,9 @@ export const PublishedJobPosts = () => {
                 } else {
                     const applied = await actions.checkAssignment(job_post_id);
                     setHasApplied(applied.success && applied.data.applied);
+                    if (applied.success && applied.data.status === 'accepted') {
+                        setIsAccepted(true);
+                    }
                 }
             }
             setLoading(false);
@@ -93,6 +97,18 @@ export const PublishedJobPosts = () => {
         fetchData();
     }, []);
 
+
+    const handleMarkCompleted = async () => {
+        const assignmentId = job_post_id; // Ensure you're fetching the correct assignment ID
+
+        const res = await actions.markJobAsCompleted(assignmentId);
+        if (res.success) {
+            alert("Job marked as completed!");
+            setIsActive(false);
+        } else {
+            alert("Error marking job as completed: " + res.error);
+        }
+    };
 
 
     const handleApply = async () => {
@@ -135,7 +151,7 @@ export const PublishedJobPosts = () => {
 
         if (response.success) {
             setShowModal(false);
-            navigate('/job-posts'); // Redirect to job post listing after successful deletion
+            navigate('/job-posts');
         } else {
             alert("Failed to delete job post: " + response.error);
         }
@@ -188,26 +204,41 @@ export const PublishedJobPosts = () => {
                             style={{
                                 backgroundColor: isActive ? 'blue' : 'orange',
                                 color: isActive ? 'white' : 'black',
-                              }}
-                            onClick={() => setIsActive(!isActive)}
+                            }}
+                            onClick={handleMarkCompleted}
                         >
                             <strong>Mark As Completed</strong>
                         </button>
-                              {/* Delete Job Post Button */}
-                <button
-                    className="delete-job-post mb-3 ms-2"
-                    type="button"
-                    style={{
-                        backgroundColor: 'red',
-                        color: 'white',
-                    }}
-                    onClick={() => setShowModal(true)} // Show the modal when clicked
-                >
-                    <strong>Delete Job Post</strong>
-                </button>
 
-            </div>
+                        <button
+                            className="delete-job-post mb-3 ms-2"
+                            type="button"
+                            style={{
+                                backgroundColor: 'red',
+                                color: 'white',
+                            }}
+                            onClick={() => setShowModal(true)}
+                        >
+                            <strong>Delete Job Post</strong>
+                        </button>
+                    </div>
                 </>
+            )}
+
+            {!isOwner && hasApplied && isAccepted && (
+                <div className="mb-2">
+                    <button
+                        className="mark-completed mb-3"
+                        type="button"
+                        style={{
+                            backgroundColor: isActive ? 'blue' : 'orange',
+                            color: isActive ? 'white' : 'black',
+                        }}
+                        onClick={handleMarkCompleted}
+                    >
+                        <strong>Mark As Completed</strong>
+                    </button>
+                </div>
             )}
             <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
                 <div className="col bckgrnd rounded p-3 m-2">
