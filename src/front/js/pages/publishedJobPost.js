@@ -62,6 +62,8 @@ export const PublishedJobPosts = () => {
             const plantSitterRes = await actions.getPlantSitter();
             if (plantSitterRes.success && plantSitterRes.data) {
                 setHasPlantSitterProfile(true);
+            } else {
+                alert('error: no plant sitter retrieved');
             }
 
             const res = await actions.getJobPostByIdPublic(job_post_id);

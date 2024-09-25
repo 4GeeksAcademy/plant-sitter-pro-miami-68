@@ -25,6 +25,15 @@ export const ViewApplicants = () => {
             }
         };
 
+        // const fetchPlantSitter = async (sitter_id) => {
+        //     const result = await actions.getPlantSitterByIdPublic(sitter_id);
+        //     if (result.success) {
+        //         setFirstName = result.data.first_name;
+        //     } else {
+        //         alert(result.error, "Error finding plant sitter.");
+        //     }
+        // };
+
         fetchApplicants();
     }, [job_post_id]);
 
@@ -40,20 +49,20 @@ export const ViewApplicants = () => {
         }
     };
 
-    const fetchPlantSitter = async (sitter_id) => {
-        const result = await actions.getPlantSitterByIdPublic(sitter_id);
-        if (result.success) {
-            setFirstName = result.data.first_name;
-        } else {
-            alert(result.error, "Error finding plant sitter.");
-        }
-    };
+    // const fetchPlantSitter = async (sitter_id) => {
+    //     const result = await actions.getPlantSitterByIdPublic(sitter_id);
+    //     if (result.success) {
+    //         setFirstName = result.data.first_name;
+    //     } else {
+    //         alert(result.error, "Error finding plant sitter.");
+    //     }
+    // };
    
     return (
         <div>
             <h1 className="text-center mt-4 mb-5"><strong>View Applicants</strong></h1>
             <div className="container">
-                {/* {applicants.length > 0 ? (
+                {applicants.length > 0 ? (
                     applicants.map(applicant => (
                         <div key={applicant.id} className="applicant-card">
                             <h5>Plant Sitter ID: {applicant.plantsitter_id}</h5>
@@ -79,7 +88,7 @@ export const ViewApplicants = () => {
                     ))
                 ) : (
                     <p>No applicants found.</p>
-                )} */}
+                )}
             </div>
         </div>
     );
