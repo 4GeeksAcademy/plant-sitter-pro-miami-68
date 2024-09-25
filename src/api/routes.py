@@ -487,6 +487,18 @@ def get_plant_sitter_public(sitter_id):
 
 #----------------------------endpoints for JobPost---------------------------------------
 
+
+# Fetch jobs created by the current user
+@api.route('/user/owned-jobs', methods=['GET'])
+@jwt_required()
+def get_user_owned_jobs():
+    user_id = get_jwt_identity()
+
+    owned_jobs = JobPost.query.filter_by(user_id=user_id).all()
+
+    return jsonify([job.serialize() for job in owned_jobs]), 200
+
+
 @api.route('/job_posts', methods=['POST'])
 @jwt_required()
 def create_job_post():
@@ -554,15 +566,12 @@ def create_job_post():
 @jwt_required()
 def delete_job_post(job_post_id):
     user_id = get_jwt_identity()
-    
-    # Fetch the job post by the user and the job_post_id
-    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
-    
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()  # Ensure the job belongs to the user
+
     if not job_post:
         return jsonify({"error": "Job post not found or you do not have permission to delete this post"}), 404
-    
+
     try:
-        # Delete the job post
         db.session.delete(job_post)
         db.session.commit()
         return jsonify({"message": "Job post deleted successfully"}), 200
@@ -868,6 +877,39 @@ def get_ratings(plantsitter_id):
 
 
 #--------------------JobAssaingment endpoints
+
+
+@api.route('/search-job-posts-insession', methods=['POST'])
+@jwt_required()
+def search_job_posts_in_session():
+    data = request.get_json()
+    zip_code = data.get("zip_code")
+    distance = data.get("distance")
+    user_id = get_jwt_identity()
+
+    user = User.query.filter_by(zip_code=zip_code).first()
+    if not user or not user.latitude or not user.longitude:
+        return jsonify({"success": False, "message": "Invalid ZIP code"}), 400
+
+    user_location = (user.latitude, user.longitude)
+    radius_miles = float(distance)
+
+    job_posts_within_radius = []
+    
+    job_posts = JobPost.query.filter(
+        JobPost.user_id != user_id,
+        JobPost.status == 'open',
+        ~JobPost.assignments.any(JobAssignment.status == 'completed')
+    ).all()
+
+    for post in job_posts:
+        if post.latitude and post.longitude:
+            post_location = (post.latitude, post.longitude)
+            distance = geodesic(user_location, post_location).miles
+            if distance <= radius_miles:
+                job_posts_within_radius.append(post)
+
+    return jsonify({"success": True, "data": [post.serialize() for post in job_posts_within_radius]}), 200
 
 
 #apply for a jobpost as a plantsitter

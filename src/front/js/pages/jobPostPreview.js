@@ -18,7 +18,7 @@ import landscape from "../../img/landscape.jpg";
 import outdoors from "../../img/outdoors.jpg";
 import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
-import BushTrimmingLoader from "../component/BushTrimmingLoader";
+import ShovelAnimation from "../component/ShovelAnimation";
 
 
 export const JobPost2 = () => {
@@ -77,7 +77,7 @@ export const JobPost2 = () => {
     }, []);
 
     if (loading) {
-        return <BushTrimmingLoader />;
+        return <ShovelAnimation />;
     }
 
     console.log(jobServices);
