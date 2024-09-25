@@ -49,6 +49,7 @@ export const PublishedJobPosts = () => {
     const [hasApplied, setHasApplied] = useState(false);  
     const [hasPlantSitterProfile, setHasPlantSitterProfile] = useState(false);
     const [isAccepted, setIsAccepted] = useState(false);
+    const [assignmentId, setAssignmentId] = useState(null);
 
     useEffect(() => {
 
@@ -83,24 +84,34 @@ export const PublishedJobPosts = () => {
 
                 if (res.data.user_id === store.user.id) {
                     setIsOwner(true);
+                    const assignmentRes = await actions.getAssignmentForOwner(job_post_id);
+                    if (assignmentRes.success && assignmentRes.data) {
+                    setAssignmentId(assignmentRes.data.assignment_id);
+                    }
                 } else {
                     const applied = await actions.checkAssignment(job_post_id);
-                    setHasApplied(applied.success && applied.data.applied);
-                    if (applied.success && applied.data.status === 'accepted') {
-                        setIsAccepted(true);
+                    if (applied.success && applied.data) {
+                        setHasApplied(applied.data.applied);
+                        setAssignmentId(applied.data.assignment_id);
+                        if (applied.data.status === 'accepted') {
+                            setIsAccepted(true);
+                        }
                     }
                 }
             }
             setLoading(false);
         };
-
+    
         fetchData();
     }, []);
 
 
     const handleMarkCompleted = async () => {
-        const assignmentId = job_post_id; // Ensure you're fetching the correct assignment ID
-
+        if (!assignmentId) {
+            alert("Assignment ID is missing.");
+            return;
+        }
+    
         const res = await actions.markJobAsCompleted(assignmentId);
         if (res.success) {
             alert("Job marked as completed!");
