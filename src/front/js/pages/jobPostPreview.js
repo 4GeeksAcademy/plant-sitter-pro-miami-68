@@ -366,14 +366,14 @@ export const JobPost2 = () => {
                         // onClick={() => /*insert navigate link*/}
                         />
                     </div>
-                    <button
+                    {/* <button
                         title="This will be active for applicants"
                         className="apply-now"
                         type="button"
-                    // onClick={() => /*insert navigate link*/}
+                 
                     >
                         <strong>Apply Now</strong>
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>

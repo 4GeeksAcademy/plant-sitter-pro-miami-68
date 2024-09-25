@@ -77,7 +77,7 @@ export const ApplicantProfiles= () => {
                     <div className="col bckgrnd rounded p-3 m-2">
                         <div data-mdb-input-init className="form-outline form-white">
                             <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
-                            <h3>{city}, {state}</h3>
+                            {/* <h3>{city}, {state}</h3> */}
                         </div>
                         <div
                             className="profile-picture m-auto mb-4"
