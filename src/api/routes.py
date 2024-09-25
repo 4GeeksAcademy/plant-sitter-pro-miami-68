@@ -899,7 +899,7 @@ def get_applied_jobs():
     return jsonify([job.serialize() for job in job_assignments]), 200
 
 
-#Check assigment
+# Check assignment (plansitter)
 @api.route('/job_posts/<int:job_post_id>/check_assignment', methods=['GET'])
 @jwt_required()
 def check_assignment(job_post_id):
@@ -913,9 +913,36 @@ def check_assignment(job_post_id):
     job_assignment = JobAssignment.query.filter_by(job_post_id=job_post_id, plantsitter_id=plant_sitter.id).first()
 
     if job_assignment:
-        return jsonify({"applied": True, "status": job_assignment.status}), 200
+        return jsonify({
+            "applied": True, 
+            "assignment_id": job_assignment.id, 
+            "status": job_assignment.status
+        }), 200
     else:
         return jsonify({"applied": False}), 200
+    
+
+
+# Get Job Assignment for Job Owner
+@api.route('/job_posts/<int:job_post_id>/owner_assignment', methods=['GET'])
+@jwt_required()
+def get_assignment_for_owner(job_post_id):
+    user_id = get_jwt_identity()
+
+    job_post = JobPost.query.filter_by(id=job_post_id, user_id=user_id).first()
+    if not job_post:
+        return jsonify({"error": "User is not the owner of this job post."}), 403
+
+    job_assignment = JobAssignment.query.filter_by(job_post_id=job_post_id).first()
+    if not job_assignment:
+        return jsonify({"error": "No assignment found for this job post."}), 404
+
+    return jsonify({
+        "assignment_id": job_assignment.id,
+        "status": job_assignment.status,
+        "plantsitter_id": job_assignment.plantsitter_id,
+        "job_post_id": job_assignment.job_post_id
+    }), 200
     
 
 
