@@ -20,15 +20,21 @@ import veggies from "../../img/veggies.jpg";
 import { JobDates } from "../component/JobDates";
 import Picker from 'emoji-picker-react'; 
 import io from 'socket.io-client';
+import axios from 'axios';
+import { height } from "@fortawesome/free-solid-svg-icons/fa0";
 // import DMchatApp from '../dm/DMchatApp'; 
 
 export const PublishedJobPosts = () => {
     const { store, actions } = useContext(Context);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); 
     const [isChatOpen, setIsChatOpen] = useState(false);
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [isEmojiPickerVisible, setIsEmojiPickerVisible] = useState(false);
+    const [gifs, setGifs] = useState([]);
+    const [isGifPickerVisible, setIsGifPickerVisible] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
     const [readReceipt, setReadReceipt] = useState({});
     const [isMediaMenuOpen, setMediaMenuOpen] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -75,8 +81,13 @@ export const PublishedJobPosts = () => {
     };
 
     const onEmojiClick = (event, emojiObject) => {
-        setMessage((prevMessage) => prevMessage + emojiObject.emoji);
+        console.log('Emoji Object:', emojiObject); // Debugging: log the emoji object
+        if (emojiObject && emojiObject.emoji) {
+            setMessage((prevMessage) => prevMessage + emojiObject.emoji); // Append the selected emoji to the message
+        }
     };
+    
+    
 
     useEffect(() => {
         const fetchData = async () => {
@@ -116,14 +127,19 @@ export const PublishedJobPosts = () => {
     const sendMessage = () => {
         if (message.trim()) {
             const newMessage = {
-                text: message,
-                timestamp: new Date().toLocaleString(),
+                text: message, // Contains both text and emojis
+                timestamp: new Date().toLocaleTimeString(),
                 senderId: store.user.id,
+                isRead: false,
+                type: 'text',
             };
-            setMessages([...messages, newMessage]);
-            setMessage("");
+            
+            setMessages((prevMessages) => [...prevMessages, newMessage]); // Add message to the array
+            setMessage(''); // Clear the message input after sending
         }
     };
+    
+    
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -152,6 +168,53 @@ export const PublishedJobPosts = () => {
     };
     
 
+    const apiKey = 'YOUR_GIPHY_API_KEY'; // Replace with your Giphy API Key
+
+    const handleSearch = async () => {
+      try {
+        const response = await axios.get(`https://api.giphy.com/v1/gifs/search`, {
+          params: {
+            api_key: apiKey,
+            q: searchTerm,
+            limit: 10,
+          },
+        });
+        setGifs(response.data.data);
+      } catch (error) {
+        console.error('Error fetching GIFs:', error);
+      }
+    };
+
+    const sendGif = (gifUrl) => {
+        setMessages([...messages, { gifUrl, type: 'gif', senderId: 1, timestamp: new Date().toLocaleTimeString() }]);
+        setIsGifPickerVisible(false); // Close the GIF picker after selection
+      };
+
+
+      const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+          const fileUrl = URL.createObjectURL(file); // Create a URL for the file
+          setSelectedFile(file);
+          console.log("Selected file:", file);
+      
+          // Add the file URL to the messages array
+          setMessages([...messages, { fileName: file.name, fileUrl, type: 'file', senderId: store.user.id, timestamp: new Date().toLocaleTimeString() }]);
+        }
+      };
+      
+      const emojiMapping = {
+        ':smile:': '😊',
+        ':thumbsup:': '👍',
+        // Add more mappings as needed
+    };
+    
+    const getEmoji = (emojiName) => {
+        return emojiMapping[emojiName] || emojiName; // Return the mapped emoji or the original name if not found
+    };
+    
+
+      
     return (
         <div
             className="text-center d-grid mt-4"
@@ -448,32 +511,38 @@ export const PublishedJobPosts = () => {
                                     color: 'white'
                                 }}>✖</button>
                             </div>
+
                             <div className="chat-body" style={chatBodyStyles} onClick={markMessagesAsRead}>
                                 {messages.length > 0 ? (
                                     messages.map((msg, index) => {
-                                        const isSender = msg.senderId === store.user.id; // Compare senderId with the current user's id
+                                        const isSender = msg.senderId === store.user.id;
 
                                         return (
-                                            <div
-                                                key={index}
-                                                style={{
-                                                    display: 'flex',
-                                                    justifyContent: isSender ? 'flex-end' : 'flex-start', // Align messages
-                                                    marginBottom: '10px',
-                                                }}
-                                            >
-                                                <div
-                                                    style={{
-                                                        backgroundColor: isSender ? '#dcf8c6' : '#fff', // Background colors for sender/receiver
-                                                        color: 'black',
-                                                        padding: '10px',
-                                                        borderRadius: '20px',
-                                                        maxWidth: '60%',
-                                                        textAlign: isSender ? 'right' : 'left', // Text alignment
-                                                        boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)',
-                                                    }}
-                                                >
-                                                    <strong>{msg.text}</strong>
+                                            <div key={index} style={{ display: 'flex', justifyContent: isSender ? 'flex-end' : 'flex-start', marginBottom: '10px' }}>
+                                                <div style={{ backgroundColor: isSender ? '#dcf8c6' : '#fff', color: 'black', padding: '10px', borderRadius: '20px', maxWidth: '60%', textAlign: isSender ? 'right' : 'left', boxShadow: '0 1px 2px rgba(0, 0, 0, 0.1)' }}>
+
+                                                    {msg.type === 'file' ? (
+                                                        <div>
+                                                            <strong>📎 {msg.fileName}</strong>
+                                                            <br />
+                                                            {msg.fileName.match(/\.(jpeg|jpg|png|gif)$/i) ? (
+                                                                // Show image preview for image files and make it clickable to download
+                                                                <a href={msg.fileUrl} download={msg.fileName} target="_blank" rel="noopener noreferrer">
+                                                                    <img src={msg.fileUrl} alt={msg.fileName} style={{ width: '100px', marginTop: '10px', cursor: 'pointer' }} />
+                                                                </a>
+                                                            ) : (
+                                                                // Show clickable link to download the file
+                                                                <a href={msg.fileUrl} download={msg.fileName} target="_blank" rel="noopener noreferrer" style={{ color: 'blue' }}>
+                                                                    Download {msg.fileName}
+                                                                </a>
+                                                            )}
+                                                        </div>
+                                                    ) : (
+                                                        // Display text and emojis here
+                                                        msg.type === 'text' && <span>{msg.text}</span>
+
+                                                    )}
+
                                                     <div style={{ fontSize: '0.8em', color: 'gray', marginTop: '5px' }}>
                                                         {msg.timestamp}
                                                         {msg.isRead ? ' - Read' : ' - Unread'}
@@ -486,6 +555,7 @@ export const PublishedJobPosts = () => {
                                     <p>No messages yet.</p>
                                 )}
                             </div>
+
                             <div className="chat-footer" style={{
                                 marginTop: 'auto',
                                 display: 'flex',
@@ -494,12 +564,39 @@ export const PublishedJobPosts = () => {
                                 backgroundColor: '#1f2c34',
                                 borderTop: '1px solid #ccc'
                             }}>
+                                {isGifPickerVisible && (
+                        <div className="gif-picker" style={{ padding: '10px', backgroundColor: '#333', color: 'white' }}>
+                            <input
+                                type="text"
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                placeholder="Search for GIFs"
+                                style={{ padding: '10px', width: '80%' }}
+                            />
+                            <button onClick={handleSearch} style={{ padding: '10px', marginLeft: '10px' }}>
+                                Search
+                            </button>
+
+                            <div className="gif-results" style={{ marginTop: '10px', display: 'flex', flexWrap: 'wrap' }}>
+                                {gifs.map((gif) => (
+                                    <img
+                                        key={gif.id}
+                                        src={gif.images.fixed_height.url}
+                                        alt={gif.title}
+                                        style={{ width: '100px', height: '100px', cursor: 'pointer', margin: '5px' }}
+                                        onClick={() => sendGif(gif.images.fixed_height.url)}
+                                    />
+                                ))}
+                            </div>
+                        </div>
+                    )}
+
                                 <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
                                     <input
                                         type="text"
                                         placeholder="Write a message..."
                                         value={message}
-                                        onChange={(e) => setMessage(e.target.value)}
+                                        onChange={(e) => setMessage(e.target.value)} // Make sure this correctly updates the message state
                                         onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
                                         style={{
                                             flex: '1',
@@ -533,7 +630,7 @@ export const PublishedJobPosts = () => {
                                 {isEmojiPickerVisible && (
                                     <Picker
                                         onEmojiClick={onEmojiClick}
-                                        pickerStyle={{ width: '100%' }} // Adjust the width of the emoji picker
+                                        pickerStyle={{ width: '20%', height: '20%'}} // Adjust the width of the emoji picker
                                     />
                                 )}
 
@@ -542,16 +639,6 @@ export const PublishedJobPosts = () => {
                                     alignItems: 'center',
                                     justifyContent: 'space-between'
                                 }}>
-                                    <button style={{
-                                        background: 'none',
-                                        border: 'none',
-                                        cursor: 'pointer',
-                                        color: '#ccc',
-                                        fontSize: '24px',
-                                        marginRight: '10px'
-                                    }} title="Upload Image">
-                                        <i className="fa fa-image"></i>
-                                    </button>
 
                                     <button style={{
                                         background: 'none',
@@ -560,8 +647,14 @@ export const PublishedJobPosts = () => {
                                         color: '#ccc',
                                         fontSize: '24px',
                                         marginRight: '10px'
-                                    }} title="Attach File">
+                                    }} title="Attach File" onClick={() => document.getElementById('fileInput').click()}>
                                         <i className="fa fa-paperclip"></i>
+                                        <input
+                                            type="file"
+                                            style={{ display: 'none' }} // Hide the input
+                                            id="fileInput"
+                                            onChange={(e) => handleFileChange(e)} // Handle file selection
+                                        />
                                     </button>
 
                                     <button style={{
@@ -571,9 +664,12 @@ export const PublishedJobPosts = () => {
                                         color: '#ccc',
                                         fontSize: '24px',
                                         marginRight: '10px'
-                                    }} title="Send GIF">
+                                    }} title="Send GIF"
+                                        onClick={() => setIsGifPickerVisible(!isGifPickerVisible)} // Toggle GIF picker visibility
+                                    >
                                         GIF
                                     </button>
+                                    
 
                                     <button style={{
                                         background: 'none',
@@ -591,6 +687,8 @@ export const PublishedJobPosts = () => {
                             </div>
                         </div>
                     )}
+
+                    
 
                     <button
                         title="This will be active for applicants"

@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 import os
-from flask_cors import CORS
+# from flask_cors import CORS
 from flask import Flask, request, jsonify, url_for, send_from_directory
 from flask_cors import CORS
 from flask_migrate import Migrate
@@ -19,6 +19,10 @@ from flask_sqlalchemy import SQLAlchemy
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+from flask_socketio import SocketIO
+
+
+
 
 
 # from models import Person
@@ -31,7 +35,9 @@ app.url_map.strict_slashes = False
 # CORS(app)
 
 # Allow CORS for all routes and origins
-CORS(app)
+# CORS(app)
+CORS(app, resources={r"/*": {"origins": "https://congenial-space-enigma-5gvj4px9wpg5c4949-3000.app.github.dev"}})
+socketio = SocketIO(app, cors_allowed_origins="https://congenial-space-enigma-5gvj4px9wpg5c4949-3000.app.github.dev")
 
 # Cloudinary Configuration
 cloudinary.config( 
@@ -98,8 +104,22 @@ def serve_any_other_file(path):
     return response
 
 
+@socketio.on('connect')
+def handle_connect():
+    print('A user connected')
+
+@socketio.on('send_message')
+def handle_message(data):
+    print(f"Message received: {data}")
+    socketio.emit('receive_message', data)
+
+@socketio.on('disconnect')
+def handle_disconnect():
+    print('A user disconnected')
+
+
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
  with app.app_context():
     PORT = int(os.environ.get('PORT', 3001))
-    app.run(host='0.0.0.0', port=PORT, debug=True)
+    socketio.run(host='0.0.0.0', port=PORT, debug=True)

@@ -1,11 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import '../../styles/Chat.css'; // Ensure this path is correct
+import '../../styles/Chat.css';
+import io from 'socket.io-client';
 
 function Chat() {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
     const messagesEndRef = useRef(null);
+    const socketRef = useRef(null);
+
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -13,31 +16,48 @@ function Chat() {
 
     useEffect(scrollToBottom, [messages]);
 
+    
+    useEffect(() => {
+       
+        socketRef.current = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-3001.app.github.dev');  
+
+       
+        socketRef.current.on('receive_message', (newMessage) => {
+            setMessages((prevMessages) => [...prevMessages, { from: 'bot', text: newMessage }]);
+        });
+
+       
+        return () => {
+            socketRef.current.disconnect();
+        };
+    }, []);
+
     const toggleChat = () => setIsOpen(!isOpen);
 
-    const sendMessage = async (text) => {
+    // Send message function (using socket instead of API)
+    const sendMessage = (text) => {
         if (!text.trim()) return;
-        setMessages([...messages, { from: 'user', text: text }]); // Display user's message immediately
 
-        try {
-            const response = await fetch('https://api-inference.huggingface.co/models/<plantsitterspro>', { // Replace with your bot's API endpoint
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer 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' },
-                body: JSON.stringify({ message: text })
-            });
-            const data = await response.json();
-            setMessages(msgs => [...msgs, { from: 'bot', text: data.message }]);
-        } catch (error) {
-            setMessages(msgs => [...msgs, { from: 'bot', text: 'Sorry, there was an error communicating with the bot.' }]);
-            console.error('Chat bot error:', error);
-        }
-        setInput('');
+        // Emit the message to the server via socket
+        socketRef.current.emit('send_message', text);
+
+        // Display user's message immediately
+        setMessages([...messages, { from: 'user', text: text }]);
+
+        setInput('');  // Clear the input field after sending
     };
+
+    const socket = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-3001.app.github.dev');
+
+socket.on('receive_message', (message) => {
+    console.log('New message received:', message);
+});
+
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
             sendMessage(input);
-            event.preventDefault(); // Prevent default to avoid any form submission behavior
+            event.preventDefault();
         }
     };
 
