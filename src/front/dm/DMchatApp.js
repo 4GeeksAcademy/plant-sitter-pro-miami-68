@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-5000.app.github.dev/');  // Update as necessary
+const socket = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-3000.app.github.dev/');  // Update as necessary
 
 const DMChatApp = () => {
     const [message, setMessage] = useState('');

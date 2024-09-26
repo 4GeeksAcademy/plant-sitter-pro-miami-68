@@ -637,22 +637,42 @@ def search_job_posts():
 @jwt_required()
 def send_message():
     data = request.get_json()
-    if not data or 'receiver_id' not in data or 'message_content' not in data:
+    
+    # Retrieve the text message or GIF URL from the request
+    message_content = data.get('message_content')
+    gif_url = data.get('api.giphy.com/v1/gifs/search')  # New field to handle GIF messages
+
+    # Ensure either a text message or a GIF URL is provided
+    if not data or ('receiver_id' not in data and not message_content and not gif_url):
         return jsonify({'message': 'Missing data'}), 400
 
     try:
         user_id = get_jwt_identity()
-        new_message = Message(
-            sender_id=user_id,
-            receiver_id=data['receiver_id'],
-            message_content=data['message_content']
-        )
+
+        # Create the message, depending on whether it's a text message or a GIF
+        if gif_url:
+            new_message = Message(
+                sender_id=user_id,
+                receiver_id=data['receiver_id'],
+                message_content='',  # No text content for GIFs
+                gif_url=gif_url  # Store the GIF URL
+            )
+        else:
+            new_message = Message(
+                sender_id=user_id,
+                receiver_id=data['receiver_id'],
+                message_content=message_content,  # Text message content
+                gif_url=None  # No GIF URL for text messages
+            )
+
         db.session.add(new_message)
         db.session.commit()
+        
         return jsonify(new_message.serialize()), 201
     except Exception as e:
         db.session.rollback()
         return jsonify({'message': 'Error sending message', 'error': str(e)}), 500
+
 
 @api.route('/messages', methods=['GET'])
 @jwt_required()

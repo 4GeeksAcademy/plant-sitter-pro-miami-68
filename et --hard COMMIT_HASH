@@ -1,0 +1,285 @@
+[33m493dfce[m[33m ([m[1;36mHEAD -> [m[1;32mDM_features[m[33m)[m Co-authored-by: Daniel Pena <daperk@users.noreply.github.com>
+[33m5ec132e[m chat and dm feature
+[33m5bf83c5[m working on the GIF button
+[33mdf8502f[m updating chat styling
+[33m784c539[m code okay so far
+[33m4b52d9e[m[33m ([m[1;32mdevelop[m[33m)[m Merge pull request #110 from 4GeeksAcademy/profile-pages
+[33m0e5d666[m[33m ([m[1;31morigin/profile-pages[m[33m)[m added jobApplicants page, edited publishedJobPost and jobsInProgress pages to adjust flow of page to allow for providers to apply to jobs
+[33m823262e[m fixed formatting issue with chat icon on active job page
+[33m599ae5f[m fMerge branch 'develop' into DM_features
+[33mcf9d75c[m code okay so far
+[33m23a5d44[m working progress
+[33mdb78af9[m worked on trying to figure out applying to job feature
+[33m4e83b24[m Merge pull request #108 from 4GeeksAcademy/update-jobpost
+[33mc760c17[m[33m ([m[1;31morigin/update-jobpost[m[33m)[m populating providerLandingPage with jobposts avaliable within the users zipcode
+[33m31e1d39[m made a couple of minor fixes for console errors
+[33md704980[m Merge pull request #107 from 4GeeksAcademy/update-jobpost
+[33m4924a9c[m getting the plantsitter cards and jobpost cards unclickeable for clients that haven't signed up when they are searching for them
+[33md1eeb50[m commented out first line of handleSubmit function in jobPost page and added a line to the onClick function for the add job post button in clientLandPage
+[33m6247f6e[m Merge pull request #106 from 4GeeksAcademy/update-jobpost
+[33m44429ad[m fix the problem when getting the jobposts in the client landing page as we were fetching all jobposts, now We are only fetching the jobposts of the user in session
+[33m6189576[m Merge pull request #105 from 4GeeksAcademy/update-jobpost
+[33mdeac33f[m search jobpost by using zip code feature implemented, the fetch function and endpoint were builded to achieve that. Also the josbpost card is hardcoded we could consider creating a new component for that
+[33me041b2b[m Merge pull request #103 from 4GeeksAcademy/update-jobpost
+[33ma4b047d[m Merge pull request #102 from 4GeeksAcademy/forgot-password
+[33m65f182a[m getting changes from develop
+[33m9e8970c[m fixed the forgot password page
+[33m87b5b2e[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into forgot-password
+[33m77df7ce[m Merge pull request #101 from 4GeeksAcademy/profile-pages
+[33m1d9be96[m updated links in account to navigate to provider-landing and client-landing pages and adjusted useEffect in clientLandingPage to allow for auto-populate of city and state
+[33m4b2f49d[m changed "activeJobPosts" to "publishedJobPosts"
+[33m13ffcab[m updated clientLandingPage to correct formatting issue
+[33m8cb2594[m Merge pull request #100 from 4GeeksAcademy/profile-pages
+[33m892aa9d[m deleted one instance of for in a label element (no associated id)
+[33mac64028[m added (|| "") to text area value assignments to handle console errors
+[33m5a432a8[m removed for element of label element in providerMapPage
+[33m1f20507[m added readOnly to input field for country in clientSignUp2 page - fixing small console errors
+[33mee09f02[m removed all instances of for and htmlFor in label elements of clientSignUp2 page
+[33m5841e0b[m changed class to className in viewSitters.js element in one case
+[33mbc20368[m fixed the rendering issue for active-job-posts and the get function by changing the route for the active-job-posts page in the layout so that the navigate call uses job_post_id instead of only id, which was preventing useParams from working properly as I had set it up!
+[33mea591d4[m deleted the for element of the label elements of the jobPostPreview page
+[33mf5b3b9c[m undid change to route as it broke the code
+[33m13c1479[m updated home.js so that every instance of class was properly renamed to className in the file elements
+[33md0d4723[m changed the routes.py file so that the GET method for /job_posts included the "job_posts" key in the return (it was missing and the route was only returning jsonify([post.serialize() for post in job_posts]), 200
+[33m72f7c8f[m removed the for element of the labels in activeJobPost since they were not valid and also not associated with any ids, and commented out the forgot password components in the layout since the component is all commented out
+[33ma9970a6[m some styling added, also a new component for the profile view from a different user was creaded, even though, is not yet working
+[33m2fa9808[m logic to be able to show the plantsitters near you was implemented by updating routes.py and flux.js to search in the database within a radius of 15miles from your zipcode, also the component plantsitter card was updated to populate the viewsitters page.
+[33m58ea6ab[m updated paymentForm
+[33m71f2a27[m added nav pill and amount form section
+[33mc6d5e61[m began fixing the forgot password page. Something is happening with the stripe installation, somehow it is conflicting
+[33mc8b3e35[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into forgot-password
+[33m29298b4[m added the ability to click the enter key and submit the form on multiple pages
+[33me306122[m Merge pull request #99 from 4GeeksAcademy/profile-pages
+[33m54072cf[m updated client landing page to reflect active job posts
+[33made8dce[m Merge pull request #98 from 4GeeksAcademy/profile-pages
+[33mab61b76[m updated job post pages
+[33mbac3d5f[m Merge pull request #97 from 4GeeksAcademy/develop-bup
+[33mf97946e[m[33m ([m[1;31morigin/develop-bup[m[33m)[m payment processor merged with develop bup
+[33m18ef664[m merges
+[33m4da579d[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into forgot-password
+[33m820f53c[m added so that on click the enter button works
+[33m6bea248[m updated job post and client landing pages to match formatting of provider pages where the image squishing issue is fixed, the edit and publish buttons appear on the bottom of the page on the completed view, etc...
+[33m29a6e52[m updated client-landing page to populate job posts and fixed issue with edit button over profile picture
+[33mbbf3266[m added edit feature to providerProfile page so that services can be edited
+[33mf822f0c[m updated provider-profile-completed page to move edit button to bottom, adjacent to the publish button and added sytling to center both buttons
+[33m14f13dd[m Merge pull request #96 from 4GeeksAcademy/profile-pages
+[33m9d6226b[m deleted providerSignUp2 and renamed providerSignUp1 to just providerSignUp. edited provider landing page to include profile photo that links to edit profile, and added placeholders for job options (available jobs in the providers search radius) and providers current jobs. fixed image resizing issue for completed provider profile - still need to apply to client side
+[33mab3c4bb[m Merge pull request #95 from 4GeeksAcademy/profile-pages
+[33m4477a49[m added provider and client landing pages
+[33m389d0f7[m updated some links and changed cancel subscription to manage in acount settings
+[33m8a205b2[m Merge branch 'develop' into update-jobpost
+[33m852b061[m commit a few changes
+[33m93416ff[m[33m ([m[1;31morigin/Profile-ratings[m[33m)[m Merge pull request #93 from 4GeeksAcademy/forgot-password
+[33mff4ff6f[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into forgot-password
+[33m0f51a82[m Merge branch 'forgot-password' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into forgot-password
+[33m10a1851[m added select to the signup and personal info page, styling for the enternewpassword page, fixed CORS issue
+[33md621b88[m Merge pull request #92 from 4GeeksAcademy/client-profile-sedonia
+[33mb0a156a[m created provider and client landing / profile home pages and made some other adjustments to flow
+[33m34f146e[m Merge pull request #91 from 4GeeksAcademy/client-profile-sedonia
+[33m9e11bc1[m added option to create and add new job posts to job post list page
+[33m8551b1b[m Merge pull request #90 from 4GeeksAcademy/client-profile-sedonia
+[33m7649e3c[m added scrolling feature to navbar
+[33m15675bf[m Merge pull request #89 from 4GeeksAcademy/update-jobpost
+[33m75fe753[m updated the clean id feature to be able to create a jobpost. The clientservice1 component doesn't work when clicking next if the id is not present in the store, it only works when refreshing in the component. Still to work on that.
+[33m2ffacb4[m Merge branch 'develop' into update-jobpost
+[33mc95deba[m Merge pull request #88 from 4GeeksAcademy/forgot-password
+[33m593dfa2[m Merge branch 'develop' into forgot-password
+[33m2d80c4f[m verify account with email works, added some changes into the signup page as well
+[33mba1f9e7[m Merge pull request #87 from 4GeeksAcademy/client-profile-sedonia
+[33m9530894[m updated all the things
+[33m067c9b5[m updated clearJobPostId in clientMapPage and created the function in the flux, still to check if it works
+[33m1657733[m merging develop into branch
+[33mdbde159[m before pull from develop and reseting database
+[33m58980d4[m Merge branch 'develop' into forgot-password
+[33mcfee9c1[m still working, idk something
+[33m5c28d04[m Merge pull request #86 from 4GeeksAcademy/client-profile-sedonia
+[33md24b52b[m fixed email verification
+[33m185658c[m fixed email alert during signup
+[33mb738c58[m pipfile
+[33m3478f63[m commented out is_verified column in class User of models.py until ready to implement - it was preventing admin from working on the back end
+[33m83ecd04[m installed flask_mail, which updated the Pipfile and pipPipfile.lofiles
+[33m53999e0[m handled the jobpost updating feature, still to solve the isuee of clearing the id from the store after updating a jobpost so that I can create a new one if I want to
+[33m05ebde2[m new component to update a jobpost created
+[33m7273b7b[m fixed CORS issue
+[33mbcb2761[m added payment and payout forms
+[33m4580eea[m checkout form updates
+[33meceb11e[m payment processing updates
+[33maec274f[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into payment-processor
+[33mfca6271[m Merge pull request #85 from 4GeeksAcademy/client-profile-sedonia
+[33mb4dbb8b[m cleaned up landing page
+[33m972da37[m wip landing page updates
+[33m5be503d[m wip landing page updates
+[33m526ea30[m trying to get front end to work
+[33m4077429[m front end working from forgot password issue
+[33mb4d69ce[m Co-authored-by: Yeju Lee (Julie) Motley <yjlmotley@users.noreply.github.com>
+[33m24302d1[m payment processing start
+[33m7492245[m Merge pull request #84 from 4GeeksAcademy/forgot-password
+[33m755a143[m[33m ([m[1;31morigin/updated-branch[m[33m)[m added a cursor pointer to the Navbar
+[33m5d779c5[m done with the styling for
+[33ma383d17[m finally working for the verify emial and forgot password
+[33m0300de0[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into forgot-password
+[33mf54ae2a[m[33m ([m[1;31morigin/verify-email-address-feature[m[33m)[m working
+[33m420ff96[m wip landing page updates
+[33m976906d[m Merge branch 'develop' into client-profile-sedonia
+[33m730f3e0[m Merge branch 'develop' into update-jobpost
+[33m4de5d3c[m changes to update jobpost, still to fix some issues with jobpost component
+[33m722be9b[m updated landing page
+[33m8010133[m error fixed
+[33m4676b80[m Merge pull request #83 from 4GeeksAcademy/Profile-ratings
+[33mf6c1d88[m Merge branch 'develop' into Profile-ratings
+[33m3cba5d1[m Merge pull request #82 from 4GeeksAcademy/client-profile-sedonia
+[33m6a8d503[m fixed job post preview issue
+[33m62dd3ad[m[33m ([m[1;31morigin/job-posts[m[33m)[m Merge pull request #80 from 4GeeksAcademy/client-profile-sedonia
+[33m4a12877[m updated contact us page, added styling to job posts list page, updated navbar and footer, updated landing page
+[33mad64efa[m Hopefully the forgot password and email verification works
+[33mcc89846[m almost finish
+[33m679b737[m worked on styling job post list
+[33m7be5509[m Merge pull request #79 from 4GeeksAcademy/client-profile-sedonia
+[33m77d8ea1[m Merge pull request #78 from 4GeeksAcademy/job-posts
+[33m2c6eb3e[m new component to map the jobPost created
+[33mc44664b[m updated job post preview page again, to remove redundant fields
+[33m462935f[m Merge pull request #77 from 4GeeksAcademy/client-profile-sedonia
+[33m929022f[m fixed job post preview page to render from get call
+[33m0b6dd2f[m Merge pull request #76 from 4GeeksAcademy/client-profile-sedonia
+[33m6eda2ef[m updated jobPost2 to include GET fetch. still needs work on integration
+[33mdbe14a7[m Merge pull request #75 from 4GeeksAcademy/client-profile-sedonia
+[33mb3de673[m updated job post pages
+[33m25354f8[m Merge pull request #74 from 4GeeksAcademy/job-posts
+[33m608bf64[m added get method in the routes.py for jobposts and also fetch function in the flux for jobpost
+[33m48bdad4[m Merge pull request #73 from 4GeeksAcademy/client-profile-sedonia
+[33m2c9b3df[m created components for and updated job post pages
+[33m7e3532c[m added the functionality for when the user signs up, the user receives an email to verify their account
+[33m9538a8c[m Merge pull request #71 from 4GeeksAcademy/userprofile-plantsitter-client
+[33m186d6d4[m[33m ([m[1;31morigin/userprofile-plantsitter-client[m[33m)[m got the profile img for the job post working
+[33mfb7816f[m Merge pull request #70 from 4GeeksAcademy/userprofile-plantsitter-client
+[33m4f1b9bd[m merge changes from develop
+[33m9d2e295[m Merge pull request #69 from 4GeeksAcademy/client-profile-sedonia
+[33m824d186[m updated some of the formatting on the jobPost and clientServices pages
+[33mdbd5fee[m Merge pull request #66 from 4GeeksAcademy/client-profile-sedonia
+[33m85bf8ea[m Merge pull request #67 from 4GeeksAcademy/general-changes
+[33mdb17343[m[33m ([m[1;31morigin/general-changes[m[33m)[m hopefully this fixes it
+[33mf76161f[m got it looking nice, you may need to install fortawesome for font awesome icons
+[33m7f4948f[m Merge pull request #65 from 4GeeksAcademy/userprofile-plantsitter-client
+[33m3d8e190[m updated completed provider profile and provider profile pages to autopopulate services provided images
+[33mfca1070[m some styling and using useEffect to fetch the users data in clientService component. The profile img is yet not being rendered in the output once is selected.
+[33mf3c8c35[m added the feature to change you password. Upon changing the password it will take you to your profile page
+[33mbc3786a[m job post integrated with geolocation with zip code. The img is not working yet.
+[33m3206467[m integrating backend with Job Post, for now the job post is being created, still we need to add change color of the text when selecting services and plants, to fix the styles of the scheduler, and to get the img to render in the frontend when selecting it
+[33m952b3a0[m Merge branch 'develop' into userprofile-plantsitter-client
+[33m11dc994[m added to the routes to update the password for the user and added a change password page for the Plant Sitter
+[33m0378df0[m class JobPost updated
+[33m731dfaa[m Merge pull request #60 from 4GeeksAcademy/client-profile-sedonia
+[33ma6f2b94[m updated plant card and completed provider profile
+[33m7ab4065[m updated database now there is not clientprofile but only jobpost which will manage any job post from the user
+[33m5d10bef[m Merge pull request #59 from 4GeeksAcademy/userprofile-plantsitter-client
+[33m382c2c6[m updating token expiration times and adding refresh token functions to make it last more in case you're in session and it's about to be expired
+[33me1a5392[m[33m ([m[1;31morigin/ProfileImageUploader[m[33m)[m Merge pull request #58 from 4GeeksAcademy/updates-to-services-page
+[33mcc7fd90[m[33m ([m[1;31morigin/updates-to-services-page[m[33m)[m finished the css
+[33m86e31c1[m Merge pull request #57 from 4GeeksAcademy/client-profile-sedonia
+[33m0161578[m updated provider profile pages
+[33m0fea2f1[m corrected minor formatting change on providerServices page that added padding between service options
+[33ma1a534f[m made some changes so that the images when clicked play the video
+[33mf0ff36a[m Merge pull request #56 from 4GeeksAcademy/userprofile-plantsitter-client
+[33m81b0837[m The profilepicture feature is now working with an external api which is Cloudinary in the providerProfile component. Everything is working as expected. Still need to integrate the providerProfileComplited with the backend
+[33mea0109d[m Merge pull request #55 from 4GeeksAcademy/userprofile-plantsitter-client
+[33me32ad13[m Conflict solved, integraded updated sedonias code with my changes
+[33mc9182da[m applyed sedonias changes and integrated them with the backend code
+[33mb38fd77[m the providerProfile component now renders the info of the plantsitter when already exists, at the moment the providedprofilecompleted is not yet integrated to the backend and the submit in the providerprofile component is not working when adding an img. Still need to solve the issue of the img
+[33m0c44396[m plansitter creation process integrated with backend, still need to solve a problem with providerProfile component that doesn't render the info when its already in the database and to include providerProfileCompleted with the integration
+[33m95e6317[m Merge pull request #54 from 4GeeksAcademy/client-profile-sedonia
+[33m69ef81b[m added profile upload with preview feature to client job post page and adjusted some formatting on the job post and provider profile pages
+[33mca0f0d6[m updated chat.js and chat.css to correct formatting crossover issues with form borders
+[33mea74f2b[m Merge pull request #53 from 4GeeksAcademy/provider-profile
+[33m8dd6c31[m updating provider profile pages
+[33m42cbcf3[m built profile picture upload functionality
+[33m911617d[m Merge pull request #52 from 4GeeksAcademy/how-it-works
+[33m9851cda[m added videos to the service page
+[33m713c1f2[m adjusted some images and sizing on front end
+[33m259196a[m changed some images and styling and started building image upload for provider profile page
+[33m0070f4e[m Merge pull request #51 from 4GeeksAcademy/messages-frontend
+[33m72404da[m[33m ([m[1;31morigin/messages-frontend[m[33m)[m Merge remote-tracking branch 'origin/develop' into messages-frontend
+[33mab51192[m Merge pull request #50 from 4GeeksAcademy/userprofile-plantsitter-client
+[33md32f81a[m account component created to manage users info, security... Still need to work on the rest of the components that are part of the account, at the moment, personal info is the only one ready, it fetches the info of the user and it gives you the option to update the info. Also an option to delete the user was created. Currently integrated to the backend
+[33m1d83e3a[m chat function add
+[33m48be2ab[m Merge pull request #49 from 4GeeksAcademy/how-it-works
+[33mc596e3c[m updated how it works and blog pages
+[33m552765a[m Merge pull request #47 from 4GeeksAcademy/Messages-backend
+[33mf3907b6[m[33m ([m[1;31morigin/Messages-backend[m[33m)[m migrations upgraded
+[33mc35b775[m endpoints and models.py for messages
+[33m8976df4[m Merge pull request #45 from 4GeeksAcademy/updates-to-services-page
+[33mdb4db28[m added service pages and correct links, will add informational videos next
+[33mbf841a0[m Merge pull request #42 from 4GeeksAcademy/state-added-to-signup
+[33m384ec39[m[33m ([m[1;31morigin/state-added-to-signup[m[33m)[m modified the flow of the app so that if there is a token stored meaning a user is already logged in, that signup forms for clients and providers will be skipped so that it goes right to create his profile as a plantsitter or client
+[33mc51f85f[m integrated signup form for clients and providers with backend without affecting the flow of the app
+[33m88edc4c[m Merge pull request #41 from 4GeeksAcademy/state-added-to-signup
+[33m2fbea7f[m Updated the backend, fetch functions and signup form to add a state to the data base of the user
+[33m9448ae9[m Merge pull request #40 from 4GeeksAcademy/how-it-works
+[33m0eadc73[m created blog page and updated a few front end details
+[33mf7d8492[m Merge pull request #39 from 4GeeksAcademy/how-it-works
+[33m7749f57[m added icons to how it works page
+[33mef2c46f[m updated how it works page and navbar
+[33m4fbff59[m swapped client and provider photos
+[33m55d3b54[m Merge pull request #36 from 4GeeksAcademy/how-it-works
+[33m9a6cdbd[m updated how it works page
+[33mcf2a9d9[m Merge pull request #35 from 4GeeksAcademy/plantsitter-user-intergration
+[33m8dfb446[m conflics fixed
+[33m1b5691d[m minor changes
+[33m8a77f29[m Merge pull request #34 from 4GeeksAcademy/how-it-works
+[33m30137e0[m updating how it works page
+[33m5cb5725[m log in, sign up, navbar features created and integrated with the flux and backend code
+[33m8775d79[m log in and sign up components created and added to work from the navbar
+[33me43de34[m updated flux.js
+[33m9c26452[m updated models and routes
+[33m6533459[m Merge pull request #32 from 4GeeksAcademy/provider-profile
+[33m5d25032[m made some minor changes to provider pages
+[33m2e819b0[m Merge pull request #30 from 4GeeksAcademy/client-profile-sedonia
+[33m23ed514[m made some small adjustments to client and provider pages
+[33mc431a54[m updated job posts
+[33mf114493[m Merge pull request #29 from 4GeeksAcademy/client-profile-sedonia
+[33mea85e8e[m updated client side front end pages
+[33maf11a20[m Merge pull request #28 from 4GeeksAcademy/fetchching-plantsitter-user
+[33mf0afa06[m[33m ([m[1;31morigin/fetchching-plantsitter-user[m[33m)[m Fetching functions to manage endpoints for users and plantsitters were created. Still to be implemented in Sedonias Code
+[33me974119[m updated client services
+[33m8c159b7[m Merge pull request #26 from 4GeeksAcademy/landing-page-updates
+[33mf2e78a0[m[33m ([m[1;31morigin/landing-page-updates[m[33m)[m added a services scroll with a feature to link to the service page
+[33m6120853[m Merge pull request #24 from 4GeeksAcademy/endpoints
+[33m12717e3[m[33m ([m[1;31morigin/endpoints[m[33m)[m endpoints for plantsitter to work with frontend code created. Endpoints for clients, rating and jobpost waiting to be updated
+[33mc9b07cf[m Added images to the page for the front page
+[33m8e98f5a[m updated user, clients, plantsitter and jobpost classes, created a new rating class and builded new endpoints for the user. Still missing endpoints for the other classes, the ones we have are not up to date
+[33m4cfbd2c[m created the card carousel that fetches the PlantSitters. May need to update so that it shows up in different peoples Zip Codes
+[33m82be9ec[m started building client front end
+[33mec79727[m Merge pull request #22 from 4GeeksAcademy/backend-integration-for-clients-and-providers
+[33me604bed[m[33m ([m[1;31morigin/backend-integration-for-clients-and-providers[m[33m)[m database updated to work with front end code, still missing endpoints
+[33mb01c1a0[m changes in the user, clients and plantsitter classes to work with the front end code
+[33m33e221d[m Merge pull request #21 from 4GeeksAcademy/provider-profile
+[33m456e3a6[m created completed profile page and modified model classes
+[33m47b7735[m Merge pull request #19 from 4GeeksAcademy/provider-profile
+[33m4ecdb17[m minor adjustment to provider profile page
+[33m99c4097[m make pictures clickable in provider profile file
+[33m107f182[m added check marks to provider sign up 1 page
+[33mb4152cc[m made some small formatting changes to provider pages designs
+[33m5c2e329[m Merge pull request #15 from 4GeeksAcademy/develop
+[33mf541e76[m adjusted button size on provider sign up 2 page
+[33m92e4338[m Merge pull request #14 from 4GeeksAcademy/provider-profile
+[33m0755f20[m made some minor updates before making pull request
+[33m9894de3[m updated provider profile page
+[33ma73dad7[m rearranged and updated provider pages
+[33m2c27db4[m updating provider pages
+[33mfdac791[m began creating provider profile set-up pages
+[33m644c0f6[m Merge pull request #11 from 4GeeksAcademy/plantsitter-backend
+[33mce921e8[m[33m ([m[1;31morigin/plantsitter-backend[m[33m)[m finished endpoints for plantsitter and job post
+[33m3a9a033[m added class Plant sitter and JobPost
+[33mf1c5bad[m[33m ([m[1;31morigin/clients-profile[m[33m)[m Merge pull request #10 from 4GeeksAcademy/clients-backend
+[33m4e8c1c0[m[33m ([m[1;31morigin/clients-backend[m[33m)[m endpoints for user to login and signup were created as they were needed for testing. Also methods create clients profile, update, get and delete were created and tested in thunder client and currently working
+[33mce32bcb[m updated the user class and created clientProfiles class. ClientProfiles class creates a database that will store the location of the client using the zip code to get the location with geopy, from which later on, a client will have access to plant sitters around his area. It also has my plants and service preferences to store the plant tipes of the client and his preferences for service
+[33m64796ed[m slightly changed home page
+[33mceb7a4a[m Merge branch 'develop' of https://github.com/4GeeksAcademy/plant-sitter-pro-miami-68 into develop
+[33m8fecef4[m updated to include landing page
+[33m80f15ff[m Merge pull request #5 from 4GeeksAcademy/main
+[33mdf4169f[m Merge pull request #3 from 4GeeksAcademy/main
+[33m8761dcd[m cleaned up some unnecessary lines
+[33m0019396[m Merge pull request #2 from 4GeeksAcademy/landing-page
+[33mc8f01c6[m updated dropdown menu
+[33me493431[m Merge pull request #1 from 4GeeksAcademy/main
+[33md4624a3[m started building landing page
+[33me96a73b[m Initial commit

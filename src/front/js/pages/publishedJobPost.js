@@ -61,7 +61,7 @@ export const PublishedJobPosts = () => {
     const profileName = store.user?.first_name + " " + store.user?.last_name || "User";
     const lastSeen = "Last seen 2 hours ago";
 
-    const socket = io('https://your-socket-url');
+    const socket = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-3002.app.github.dev');
 
     useEffect(() => {
         socket.on('receive_message', (newMessage) => {
@@ -168,21 +168,21 @@ export const PublishedJobPosts = () => {
     };
     
 
-    const apiKey = 'YOUR_GIPHY_API_KEY'; // Replace with your Giphy API Key
+    const apiKey = 'R4CjfY8t2UJTaVte8ytGRqdUQaL93DoS'; // Giphy API Key
 
     const handleSearch = async () => {
-      try {
-        const response = await axios.get(`https://api.giphy.com/v1/gifs/search`, {
-          params: {
-            api_key: apiKey,
-            q: searchTerm,
-            limit: 10,
-          },
-        });
-        setGifs(response.data.data);
-      } catch (error) {
-        console.error('Error fetching GIFs:', error);
-      }
+        try {
+            const response = await axios.get(`https://api.giphy.com/v1/gifs/search`, {
+                params: {
+                    api_key: apiKey,
+                    q: searchTerm,
+                    limit: 10,
+                },
+            });
+            setGifs(response.data.data);
+        } catch (error) {
+            console.error('Error fetching GIFs:', error);
+        }
     };
 
     const sendGif = (gifUrl) => {
@@ -194,11 +194,9 @@ export const PublishedJobPosts = () => {
       const handleFileChange = (event) => {
         const file = event.target.files[0];
         if (file) {
-          const fileUrl = URL.createObjectURL(file); // Create a URL for the file
+          const fileUrl = URL.createObjectURL(file);
           setSelectedFile(file);
           console.log("Selected file:", file);
-      
-          // Add the file URL to the messages array
           setMessages([...messages, { fileName: file.name, fileUrl, type: 'file', senderId: store.user.id, timestamp: new Date().toLocaleTimeString() }]);
         }
       };
@@ -210,7 +208,7 @@ export const PublishedJobPosts = () => {
     };
     
     const getEmoji = (emojiName) => {
-        return emojiMapping[emojiName] || emojiName; // Return the mapped emoji or the original name if not found
+        return emojiMapping[emojiName] || emojiName;
     };
     
 

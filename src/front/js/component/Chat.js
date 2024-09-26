@@ -9,24 +9,31 @@ function Chat() {
     const messagesEndRef = useRef(null);
     const socketRef = useRef(null);
 
-
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
     };
 
     useEffect(scrollToBottom, [messages]);
 
-    
     useEffect(() => {
-       
-        socketRef.current = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-3001.app.github.dev');  
+        // Connect to the Socket.IO server
+        socketRef.current = io(process.env.REACT_APP_SOCKET_URL, {
+            transports: ['websocket'],
+            secure: true
+        });
 
-       
+        socketRef.current.on('connect', () => {
+            console.log('Connected to server');
+        });
+
+        socketRef.current.on('connect_error', (error) => {
+            console.error('Connection error:', error);
+        });
+
         socketRef.current.on('receive_message', (newMessage) => {
             setMessages((prevMessages) => [...prevMessages, { from: 'bot', text: newMessage }]);
         });
 
-       
         return () => {
             socketRef.current.disconnect();
         };
@@ -34,7 +41,6 @@ function Chat() {
 
     const toggleChat = () => setIsOpen(!isOpen);
 
-    // Send message function (using socket instead of API)
     const sendMessage = (text) => {
         if (!text.trim()) return;
 
@@ -42,17 +48,10 @@ function Chat() {
         socketRef.current.emit('send_message', text);
 
         // Display user's message immediately
-        setMessages([...messages, { from: 'user', text: text }]);
+        setMessages((prevMessages) =>  [...prevMessages, { from: 'user', text: text }]);
 
         setInput('');  // Clear the input field after sending
     };
-
-    const socket = io('https://congenial-space-enigma-5gvj4px9wpg5c4949-3001.app.github.dev');
-
-socket.on('receive_message', (message) => {
-    console.log('New message received:', message);
-});
-
 
     const handleKeyDown = (event) => {
         if (event.key === 'Enter') {
@@ -68,9 +67,11 @@ socket.on('receive_message', (message) => {
                 <div className="chat-box">
                     <div className="messages">
                         {messages.map((msg, index) => (
-                            <div key={index} className={msg.from === 'user' ? 'user-message' : 'bot-message'}>
-                                {msg.text}
-                            </div>
+                            <div 
+                                key={index} 
+                                className={msg.from === 'user' ? 'user-message' : 'bot-message'}
+                                dangerouslySetInnerHTML={msg.from === 'bot' ? { __html: msg.text } : { __html: msg.text }}
+                            />
                         ))}
                         <div ref={messagesEndRef} />
                     </div>
