@@ -85,7 +85,8 @@ export const JobPost1 = () => {
             </div>
             <div className="row container-fluid mt-4">
                 <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-4"><strong>Upload a profile picture</strong></h2>
+                    <h2 className="diphylleia-regular text-white"><strong>Upload a job post picture</strong></h2>
+                    <h5 className="diphylleia-regular text-white mb-4">A picture of your plants is ideal</h5>
                     <div
                         className="profile-picture m-auto mb-4"
                         style={{
