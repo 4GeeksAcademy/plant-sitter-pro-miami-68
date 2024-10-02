@@ -1,0 +1,23 @@
+/* Base button styling */
+button {
+    background-color: #4CAF50; /* Default background */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+/* Button style when clicked or focused via keyboard */
+button:active, /* When clicked */
+button:focus-visible { /* When focused with keyboard */
+    background-color: #45a049; /* Darker background when active */
+    transform: scale(0.98); /* Slightly smaller to simulate press */
+}
+
+/* Button resets its state when focus is lost */
+button:focus {
+    outline: none; /* Optional, removes focus ring */
+}

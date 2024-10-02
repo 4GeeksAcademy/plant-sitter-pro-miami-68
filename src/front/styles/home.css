@@ -6,9 +6,309 @@
     on that page only (the ones not reused in other pages).
 */
 
-.logo {
-    height: 150px;
+.applicant-card {
+  border: 3px solid rgb(70, 108, 70);
+  border-radius: 15px;
+  width: auto;
+  height: auto;
+  margin: 10px;
+  padding: 20px;
+}
 
+.status-button:hover {
+  background-color: blue;
+}
+
+.applicant-card:hover {
+  cursor: pointer;
+  background-color:#ccded1;
+  opacity: 1;
+}
+
+.apply-link:hover {
+  cursor: pointer;
+  color: blue;
+}
+
+.upload-job {
+  border: 2px solid darkgrey;
+  border-radius: 15%;
+  width: 200px;
+  height: 200px;
+  opacity: 100;
+  transition: opacity 0.3s ease;
+  color: #ccc;
+  background-color: rgb(238, 238, 238);
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #bbb;
+}
+
+.job-cards:hover {
+  background-color: rgb(251, 251, 243);
+  cursor: pointer;
+}
+
+.plus-sign {
+  position: relative;
+  top: 25%;
+  left: 25%;
+}
+
+.upload-job:hover {
+  background-color: rgb(251, 251, 243);
+  color:rgb(70, 108, 70);
+  cursor: pointer;
+}
+
+.scrollLink:hover {
+  background-color: rgb(238, 238, 238);
+}
+
+.lp-headers {
+  font-size: 4vw;
+}
+
+.landing-page {
+  width: 100%;
+  padding-right: -25px;
+}
+
+.sitter-pics {
+  height: 250px;
+  width: auto;
+  margin: auto;
+}
+
+/* The hero image */
+.hero-image {
+/* Use "linear-gradient" to add a darken background effect to the image (photographer.jpg). This will make the text easier to read */
+background-image: url("../img/landing-page.jpg");
+
+/* Set a specific height */
+height: 10%;
+
+/* Position and center the image to scale nicely on all screens */
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+position: relative;
+}
+
+/* Place text in the middle of the image */
+.hero-text {
+text-align: left;
+position: absolute;
+top: 10%;
+left: 2%;
+width: 60%;
+max-height: 100%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+.caretaker-text {
+text-align: right;
+position: absolute;
+top: 5%;
+right: 4%;
+width: 68%;
+max-height: 100%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+.owner-text {
+text-align: left;
+position: absolute;
+top: 5%;
+left: 4%;
+width: 68%;
+max-height: 100%;
+/* transform: translate(-50%, -50%); */
+color: black;
+}
+
+
+.for-owners {
+border-top-right-radius: 100px;
+border-bottom-left-radius: 100px;
+}
+
+.for-sitters {
+  border-top-left-radius: 100px;
+  border-bottom-right-radius: 100px;
+}
+
+.contact-us {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.contact-us:hover {
+  color: black !important;
+}
+
+.contactLink {
+  color: black;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.contactLink:hover {
+  background-color: rgb(70, 108, 70);
+  color: white;
+  border: none;
+}
+
+.navbar {
+  border-bottom: 2px solid rgb(70, 108, 70);
+}
+
+.navbar-banner {
+  margin-left: 20px;
+  margin-right: 40px;
+  max-width: 100%;
+  /* padding: 5px 100px; */
+}
+
+.works {
+  border-top: 2px solid rgb(70, 108, 70);
+  /* padding: 20px;
+  margin: 30px; */
+}
+
+.profileIcon {
+  width: 70%;
+  height: auto;
+}
+
+.profile-picture {
+  opacity: 1;
+  height: 250px;
+  width: 250px;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+
+  /* default image */
+  background: url('https://qph.cf2.quoracdn.net/main-qimg-f32f85d21d59a5540948c3bfbce52e68');
+
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  box-shadow: 0 8px 6px -6px black;
+}
+
+.profile-container {
+  position: relative;
+  width: 100%;
+}
+
+.landing-profile {
+  align-items: start;
+  height: 200px;
+  width: 200px;
+  border-radius: 100px;
+  border: 3px solid green;
+  position: relative;
+  overflow: hidden;
+  /* default image */
+  background: url('https://qph.cf2.quoracdn.net/main-qimg-f32f85d21d59a5540948c3bfbce52e68');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* opacity with box */
+  opacity: 1;
+  display: block;
+  transition: .5s ease;
+  backface-visibility: hidden;
+}
+
+.profile-container:hover .landing-profile {
+  cursor: pointer;
+  opacity: 0.3;
+}
+
+.profile-container:hover .middle {
+  cursor: pointer;
+  opacity: 1;
+}
+
+.middle {
+  transition: .5s ease;
+  opacity: 0;
+  position: absolute;
+  top: 50%;
+  left: 120px;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.edit-profile {
+  background-color: none;
+  color: green;
+  font-size: 50px;
+}
+
+.profile-picture:hover .upload-icon {
+  opacity: 1;
+}
+
+.upload-icon {
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* initial icon state */
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #ccc;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #bbb;
+}
+
+.file-uploader {
+  /* make it invisible */
+  opacity: 0;
+  /* make it take the full height and width of the parent container */
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+  /* make it absolute */
+  position: absolute;
+  top: 0%;
+  left: 0%;
+}
+
+.blog-header {
+  font-size: 60px;
+}
+
+.article {
+  width: 300px !important;
+  height: auto;
+  background-color: white;
+  border: 1px solid rgb(70, 108, 70);
+  border-radius: 25px;
+}
+
+.steps {
+  text-align: left;
+}
+
+.arrow {
+  height: 150px;
+  width: auto;
+}
+
+.client-services {
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
+
+.logo {
+    height: 120px;
 }
 
 .diphylleia-regular {
@@ -25,4 +325,395 @@
 .homePageImages {
     height: 20rem;
     margin: 30px;
+}
+
+.picUpload {
+    height: 10rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.icon {
+  height: 40px;
+  padding-right: 10px;
+}
+
+.plants {
+  /* width: 30%;
+  height: auto; */
+  border-radius: 25px;
+  border: 3px solid white;
+  padding: 0;
+  /* margin: auto; */
+}
+
+.scheduler {
+  background-color: rgb(70, 108, 70) !important;
+  border-radius: 25px;
+  padding: 20px;
+}
+
+.calendar {
+  width: 80%;
+}
+
+.plant-types {
+  flex-wrap: wrap;
+  /* justify-content:space-evenly; */
+  background-color: rgb(70, 108, 70) !important;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.selectPlants {
+  width: 50%;
+  height: auto;
+  padding: 5px;
+}
+
+.selectPlantsCompleted {
+  width: 100%;
+  height: auto;
+  border-radius: 25px;
+}
+
+.selectPlantsClient {
+  width: 12%;
+  height: auto;
+  padding: 5px;
+}
+
+.plantImageWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.plantImageContainer {
+  position:relative;
+  display:inline-block;
+  text-align:center;
+}
+
+.dates {
+  display: flex;
+  justify-content:center;
+  background-color: white;
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  margin-bottom: 20px;
+}
+
+.dateWrapper {
+  background-color: rgb(70, 108, 70);
+  position:relative;
+  display:inline-block;
+  text-align:center;
+  border-radius: 10px;
+  border: 2px solid white;
+  padding: 8px 20px;
+  margin: 10px;
+}
+
+.selectServices {
+  width: 12%;
+  height: auto;
+  padding: 5px;
+}
+
+.plantLabel {
+  text-wrap: wrap;
+}
+
+.divider {
+  height: 100px;
+  width: auto;
+}
+
+.map {
+  height: auto;
+  width: 700px;
+  justify-content: center;
+}
+
+.pin {
+  padding-left: 10px;
+}
+
+/* .fa-pencil {
+  background: transparent;
+} */
+
+.fa-leaf {
+  color: rgb(70, 108, 70);
+}
+
+.div-wrapper {
+  position: relative;
+  left: 0;
+  bottom: 0;
+}
+
+.jobs {
+  text-align: center;
+}
+
+.apply-now {
+  margin-top: 10px;
+  width: 200px;
+  height: auto;
+  color: black;
+  border-radius:25px;
+  border: 3px solid white;
+  background-color: orange;
+}
+
+.see-applicants {
+  margin-top: 10px;
+  width: 200px;
+  height: auto;
+  color: white;
+  border-radius:25px;
+  border: 3px solid black;
+  background-color: rgb(70, 108, 70);
+}
+
+.mark-completed {
+  margin-top: 10px;
+  width: 200px;
+  height: auto;
+  color: black;
+  border-radius:25px;
+  border: 3px solid black;
+  /* background-color: orange; */
+}
+
+.delete-job-post {
+  margin-top: 10px;
+  width: 200px;
+  height: auto;
+  color: black;
+  border-radius:25px;
+  border: 3px solid black;
+}
+
+.description {
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  min-width: 100%;
+  min-height: 200px;
+  background-color: white;
+}
+
+.job-option:hover {
+  cursor: pointer;
+}
+
+.needs {
+  border: 2px solid rgb(70, 108, 70);
+  border-radius: 25px;
+  height: 100%;
+  width: auto;
+}
+
+.centered {
+  position: relative;
+  margin-top: 30px;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border: 2px solid rgb(70, 108, 70);
+  border-radius: 25px;
+  text-wrap: wrap;
+  text-align: center;
+  width: 300px;
+  height: 100px;
+}
+
+.subscription {
+  height: 300px;
+  width:400px;
+  border-radius: 25px;
+  padding: 5px;
+  background-color: blanchedalmond;
+  border: 2px solid rgb(70, 108, 70);
+  text-align: center;
+}
+
+.plant {
+  height: 100px;
+  width: auto;
+  margin-bottom: 10px;
+}
+
+/* Customize the label (the container) */
+.checkbx {
+    display: block;
+    position: relative;
+    padding-left: 15px;
+    margin-bottom: 12px;
+    border: 1px solid black;
+    border-radius: 10px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbx input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 15px;
+    width: 15px;
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbx:hover input ~ .checkmark {
+    background-color: white;
+    border: 1px solid black;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbx input:checked ~ .checkmark {
+    background-color: #2196F3;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .checkbx input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbx .checkmark:after {
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+  .imageSmall {
+    height: 150px;
+    width: 150px;
+    border-radius: 25px;
+  }
+
+  .bckgrnd{
+    background-color: rgb(70, 108, 70) !important;
+    color: white;
+  }
+
+  .topRow {
+    margin-top: 30px;
+  }
+
+  .bottomRow {
+    margin-bottom: 30px;
+  }
+
+.btn{
+  background-color: rgb(70, 108, 70);
+  color: white;
+}
+
+.edit {
+  width:auto;
+  height:auto;
+  color: white;
+  margin: auto;
+  padding: auto;
+  background-color:rgb(70, 108, 70);
+}
+
+  /* * {box-sizing: border-box;} */
+
+/* Style the input container */
+/* .input-container {
+  width: 700px;
+  margin-bottom: 5px;
+} */
+
+/* Style the input fields */
+.input-field {
+  width: 300px;
+  padding: 10px;
+  outline: black;
+  margin: 5px auto;
+}
+
+.address {
+  margin: 15px auto;
+}
+
+/* .input-field:focus {
+  border: 2px solid dodgerblue;
+} */ 
+
+.contacts {
+  background-color: rgb(70, 108, 70);
+  border-radius: 10px;
+  color: white;
+  margin: 3px;
+}
+
+/* .footer {
+  position: relative;
+  bottom: 0;
+} */
+
+
+/* Text displayed in the center when there's no profile picture */
+.no-profile-text {
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8); /* optional background for better readability */
+  border-radius: 5px; /* optional rounded corners */
+  max-width: 80%; /* to prevent the text from overflowing */
+}
+
+/* Profile hover container */
+.profile-hover {
+  position: relative;
+  cursor: pointer;
+}
+
+/* Optional styles for image container when profile picture is not available */
+.landing-profile {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0; /* default background when no image */
+  border-radius: 50%;
 }
