@@ -1,4 +1,10 @@
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_jwt_extended import create_access_token
+from sqlalchemy.dialects.postgresql import JSONB
+from datetime import datetime, timezone
+from geopy.geocoders import Nominatim
+from geopy.exc import GeocoderTimedOut, GeocoderQuotaExceeded
 
 db = SQLAlchemy()
 
