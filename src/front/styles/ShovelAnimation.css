@@ -1,0 +1,128 @@
+.shovel-animation-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    margin-left: 500px;
+  }
+  
+  /* Shovel container, includes both head and handle */
+  .shovel {
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    width: 40px;
+    height: 150px;
+    transform-origin: bottom center;
+    animation: dig 2s infinite ease-in-out;
+  }
+  
+  /* Shovel head (the metal part) */
+  .shovel-head {
+    width: 40px;
+    height: 50px;
+    background-color: gray;
+    border-radius: 5px;
+    position: absolute;
+    top: 100px; /* Adjust to align with handle */
+  }
+  
+  /* Shovel handle */
+  .shovel-handle {
+    width: 10px;
+    height: 100px;
+    background-color: brown;
+    position: absolute;
+    top: 0; /* Ensures handle stays connected to the head */
+    left: 15px;
+    border-radius: 5px;
+  }
+  
+  /* Dirt particles following shovel */
+  .dirt-particles {
+    position: absolute;
+    top: 130px;
+    left: 80px;
+  }
+  
+  .dirt {
+    width: 15px;
+    height: 15px;
+    background-color: rgb(81, 33, 33);
+    border-radius: 50%;
+    position: absolute;
+    opacity: 0;
+    animation: throwDirt 2s infinite ease-in-out;
+  }
+
+  .floor{
+    background-color:rgb(81, 33, 33);
+    width: 200px;
+    height: 50px;
+    border-radius: 200px 200px 100px 100px;
+    position:absolute;
+    top:200px;
+  }
+  
+  .dirt1 {
+    animation-delay: 0s;
+  }
+  
+  .dirt2 {
+    animation-delay: 0.2s;
+  }
+  
+  .dirt3 {
+    animation-delay: 0.4s;
+  }
+  
+  /* Shovel digging with a 45-degree movement and slight handle rotation */
+  @keyframes dig {
+    0% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+    20% {
+      transform: translate(10px, 10px) rotate(10deg);
+    }
+    40% {
+      transform: translate(-30px, 50px) rotate(-10deg);
+    }
+    60% {
+      transform: translate(-60px, -20px) rotate(5deg);
+    }
+    80% {
+      transform: translate(-40px, -40px) rotate(-5deg);
+    }
+    100% {
+      transform: translate(0px, 0px) rotate(0deg);
+    }
+  }
+  
+  /* Dirt throwing animation following the shovel head direction */
+  @keyframes throwDirt {
+    0% {
+      opacity: 0;
+      transform: translate(0px, 0px);
+    }
+    20% {
+      opacity: 1;
+      transform: translate(10px, 10px);
+    }
+    40% {
+      opacity: 1;
+      transform: translate(-20px, 30px);
+    }
+    60% {
+      opacity: 1;
+      transform: translate(-40px, -10px);
+    }
+    80% {
+      opacity: 0;
+      transform: translate(-50px, -30px);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(0px, 0px);
+    }
+  }
+  

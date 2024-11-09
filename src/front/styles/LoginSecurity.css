@@ -61,7 +61,7 @@
     border-radius: 5px;
     font-size: 16px;
     cursor: pointer;
-    transition: ba;
+    transition: background-color 0.3s ease;
 }
 /* Container for the input and icon */
 .password-wrapper {
@@ -90,8 +90,10 @@
     cursor: pointer;
     color: #000000; /* Black color for the icon */
     opacity: 0.7;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: scale(1); /* Initial scale */
   }
+  
   
   /* Icon hover effect */
   .toggle-password-icon:hover {

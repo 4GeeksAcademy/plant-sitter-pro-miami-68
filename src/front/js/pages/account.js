@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Context } from "./../store/appContext";
 import './../../styles/AccountSettings.css';
+import BushTrimmingLoader from "../component/BushTrimmingLoader";
 
 const AccountSettings = () => {
     const { store, actions } = useContext(Context);
@@ -20,6 +21,7 @@ const AccountSettings = () => {
     }, []);
 
     const handleDeleteAccount = async (e) => {
+        if (e.type === "keydown" && e.key !== "Enter") return;
         e.preventDefault();
         if (window.confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
             const result = await actions.deleteUser();
@@ -53,7 +55,7 @@ const AccountSettings = () => {
                     </footer>
                 </>
             ) : (
-                <p>Loading...</p>
+                <BushTrimmingLoader />
             )}
         </div>
     );
@@ -61,10 +63,11 @@ const AccountSettings = () => {
 
 const settingsOptions = [
     { title: 'Personal info', description: 'Provide personal details and how we can reach you', link: '/personal-info' },
-    { title: 'Login & security', description: 'Update your password and secure your account', link: '/login-security' },
-    { title: 'Payments & payouts', description: 'Review your payments, payouts and update your payment methods', link: '/payments-payouts' },
-    { title: 'Plant Sitter Profile or Become a Plant Sitter', description: 'Check your profile as a Plant Sitter or Become a Plant Sitter', link: '/provider-profile' },
-    { title: 'Hire a Plant Sitter or Your Job Posts', description: 'Hire a Plant Sitter or Check Job Posts', link: '/job-posts' }
+    { title: 'Login & Security', description: 'Update your password and secure your account', link: '/login-security' },
+    { title: 'Payment History', description: 'Review your payments and update your payment method', link: '/payments-payouts' },
+    { title: 'Your Jobs (Plant Sitters)', description: "Apply for Jobs, follow the status of your Jobs, Manage Applications", link: '/provider-landing' },
+    { title: 'Your Job Posts (Plant Owners)', description: 'See and edit your Job Posts', link: '/client-landing' },
+    { title: 'Manage Subscription', description: 'Cancel, Renew, or Update Your Subscription Here', link: '/cancel' }
 ];
 
 export default AccountSettings;

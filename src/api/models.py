@@ -26,6 +26,7 @@ class User(db.Model):
     longitude = db.Column(db.Float, nullable=True)  # Longitude for geolocation
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
+    is_verified = db.Column(db.Boolean, default=False)  # verification for email
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -38,6 +39,12 @@ class User(db.Model):
 
     def generate_token(self):
         return create_access_token(identity=self.id)
+    
+    # @staticmethod
+    # def generate_verification_token(email):
+    #     """Generates a secure email verification token."""
+    #     serializer = URLSafeTimedSerializer(app.config['SECRET_KEY'])
+    #     return serializer.dumps(email, salt=app.config['SECURITY_PASSWORD_SALT'])
     
     def set_location_by_zip(self, zip_code):
         geolocator = Nominatim(user_agent="Plant_Sitter_Pro")
@@ -70,7 +77,8 @@ class User(db.Model):
             "latitude": self.latitude,
             "longitude": self.longitude,
             "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "updated_at": self.updated_at.isoformat(),
+            "is_verified": self.is_verified,
         }
 
 
@@ -113,6 +121,43 @@ class PlantSitter(db.Model):
             "updated_at": self.updated_at.isoformat()
         }
     
+class JobAssignment(db.Model):
+    __tablename__ = 'job_assignments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    job_post_id = db.Column(db.Integer, db.ForeignKey('job_post.id'), nullable=False)
+    plantsitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
+    status = db.Column(db.String(50), default='accepted')  # 'accepted', 'rejected', 'pending'
+    accepted_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+    completed_at = db.Column(db.DateTime, nullable=True)
+    client_marked_completed = db.Column(db.Boolean, default=False)
+    plantsitter_marked_completed = db.Column(db.Boolean, default=False)
+
+    job_post = db.relationship('JobPost', backref=db.backref('assignments', lazy=True))
+    plantsitter = db.relationship('PlantSitter', backref=db.backref('assignments', lazy=True))
+
+    def __repr__(self):
+        return f'<JobAssignment {self.id}: Job {self.job_post_id} assigned to Plant Sitter {self.plantsitter_id}>'
+
+    def serialize(self):
+        return {
+            "id": self.id,
+            "job_post_id": self.job_post_id,
+            "plantsitter_id": self.plantsitter_id,
+            "status": self.status,
+            "accepted_at": self.accepted_at.isoformat(),
+            "completed_at": self.completed_at.isoformat() if self.completed_at else None,
+            "client_marked_completed": self.client_marked_completed,
+            "plantsitter_marked_completed": self.plantsitter_marked_completed,
+            "job_post": {
+                "first_name": self.job_post.user.first_name if self.job_post.user else None,
+                "last_name": self.job_post.user.last_name if self.job_post.user else None,
+                "profile_picture_url": self.job_post.profile_picture_url or "",
+                "location": self.job_post.location or "Not provided",
+                "start_date": self.job_post.start_date.isoformat() if self.job_post.start_date else None,
+                "end_date": self.job_post.end_date.isoformat() if self.job_post.end_date else None,
+            }
+        }
 
 
 class JobPost(db.Model):
@@ -132,10 +177,10 @@ class JobPost(db.Model):
     profile_picture_url = db.Column(db.String(255), nullable=True)
     service_preferences = db.Column(JSONB, nullable=True)
     my_plants = db.Column(JSONB, nullable=True)
-    intro = db.Column(db.Text, nullable=True)
-    more_about_your_plants = db.Column(db.Text, nullable=True)
-    more_about_services = db.Column(db.Text, nullable=True)
-    job_duration = db.Column(db.String(100), nullable=True)
+    intro = db.Column(db.String(1000), nullable=True)
+    more_about_your_plants = db.Column(db.String(1000), nullable=True)
+    more_about_services = db.Column(db.String(1000), nullable=True)
+    job_duration = db.Column(db.String(1000), nullable=True)
     status = db.Column(db.String(50), default='open', nullable=False)
     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc))
@@ -190,32 +235,32 @@ class JobPost(db.Model):
 
 
 
-class Rating(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
-    rating_value = db.Column(db.Integer, nullable=False)
-    review = db.Column(db.Text, nullable=True)
-    created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
+# class Rating(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
+#     sitter_id = db.Column(db.Integer, db.ForeignKey('plant_sitters.id'), nullable=False)
+#     rating_value = db.Column(db.Integer, nullable=False)
+#     review = db.Column(db.Text, nullable=True)
+#     created_at = db.Column(db.DateTime, default=lambda: datetime.now(timezone.utc))
 
-    plant_sitter = db.relationship('PlantSitter', backref=db.backref('ratings', lazy=True))
+#     plant_sitter = db.relationship('PlantSitter', backref=db.backref('ratings', lazy=True))
 
-    def __repr__(self):
-        return f'<Rating {self.rating_value} for Sitter {self.sitter_id}>'
+#     def __repr__(self):
+#         return f'<Rating {self.rating_value} for Sitter {self.sitter_id}>'
 
-    def serialize(self):
-        return {
-            "id": self.id,
-            "sitter_id": self.sitter_id,
-            "rating_value": self.rating_value,
-            "review": self.review,
-            "created_at": self.created_at.isoformat()
-        }
+#     def serialize(self):
+#         return {
+#             "id": self.id,
+#             "sitter_id": self.sitter_id,
+#             "rating_value": self.rating_value,
+#             "review": self.review,
+#             "created_at": self.created_at.isoformat()
+#         }
     
-    def set_rating(self, value):
-        if 1 <= value <= 5:
-            self.rating_value = value
-        else:
-            raise ValueError("Rating must be an integer between 1 and 5.")    
+#     def set_rating(self, value):
+#         if 1 <= value <= 5:
+#             self.rating_value = value
+#         else:
+#             raise ValueError("Rating must be an integer between 1 and 5.")    
 
 
 class Message(db.Model):
@@ -237,4 +282,22 @@ class Message(db.Model):
             "message_content": self.message_content,
             "timestamp": self.timestamp.isoformat(),
             "status": self.status
+        }
+    
+class Rating(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    plantsitter_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    score = db.Column(db.Integer, nullable=False)
+    comment = db.Column(db.String(500))
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def serialize(self):
+        return {
+            'id': self.id,
+            'plantsitter_id': self.plantsitter_id,
+            'user_id': self.user_id,
+            'score': self.score,
+            'comment': self.comment,
+            'timestamp': self.timestamp.isoformat()
         }

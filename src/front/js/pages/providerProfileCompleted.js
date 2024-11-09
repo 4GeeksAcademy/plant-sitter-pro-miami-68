@@ -6,8 +6,8 @@ import { PlantCard } from "../component/PlantCard";
 import { ServiceCard } from "../component/ServiceCard";
 
 export const ProviderProfileCompleted = () => {
-	const { store, actions } = useContext(Context);
-	const navigate = useNavigate();
+    const { store, actions } = useContext(Context);
+    const navigate = useNavigate();
     const [loading, setLoading] = useState(true);
     const [picture, setPicture] = useState(null);
     const [professionalExperience, setProfessionalExperience] = useState("");
@@ -46,78 +46,84 @@ export const ProviderProfileCompleted = () => {
         fetchData();
     }, []);
 
-	return (
-		<div className="text-center m-2">
+    return (
+        <div className="text-center m-2">
             <div className="row container-fluid mt-4">
-                <h2 className="mb-3 mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
-                
-                <div className="container row mb-2">   
-                        <button 
-                            className="edit editButton" 
-                            onClick={() => {
-                                navigate("/provider-profile")
+                <h2 className="mt-3 diphylleia-regular jobs"><strong>This is how your profile will appear to others.</strong></h2>
+                <div
+                    className="container-fluid row mb-1 mt-3 "
+                >
+                    <div className="col-4"></div>
+                    <button
+                        className="btn btn-success col-2 rounded-pill"
+                        onClick={() => {
+                            navigate("/provider-profile")
+                        }}
+                    >
+                        Edit <i className="fas fa-pencil-alt"></i>
+                    </button>
+                    <button
+                        type="button"
+                        className="btn btn-success col-2 rounded-pill"
+                        onClick={
+                            () => {
+                                navigate('/profile-success-page')
+                            }
+                        }
+                    >
+                        Publish My Profile
+                    </button>
+                    <div className="col-4"></div>
+                </div>
+                <div className="row" style={{ padding: "20px", margin: "30px", border: "2px solid black", borderRadius: "15px" }}>
+                    <div className="col bckgrnd rounded p-3 m-2">
+                        <div data-mdb-input-init className="form-outline form-white">
+                            <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
+                            <h3>{city}, {state}</h3>
+                        </div>
+                        <div
+                            className="profile-picture m-auto mb-4"
+                            style={{
+                                backgroundImage: picture ? `url(${picture})` : '',
+                                backgroundSize: 'cover',
+                                backgroundPosition: 'center'
                             }}
                         >
-                            Edit <i className="fas fa-pencil-alt"></i>
-                        </button>
-                    </div> 
+                        </div>
+                        <div data-mdb-input-init className="form-outline form-white">
+                            <p className="fs-4 mt-4 text-black description">{intro}</p>
+                        </div>
+                        <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>I can provide the following services:</strong></h3>
+                        <ServiceCard />
+                    </div>
+                    <div className="col bckgrnd rounded p-3 m-2">
+                        <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
+                        <div className="input-group mb-3">
+                            <p className="fs-4 text-black description">{clientInfo}</p>
+                        </div>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>My plants:</strong></label>
+                        <div className="input-group mb-3">
+                            <p className="fs-4 text-black description">{currentPlants}</p>
+                        </div>
 
-                <div className="col bckgrnd rounded p-3 m-2">
-                    <div data-mdb-input-init className="form-outline form-white">
-                        <h2 className="diphylleia-regular"><strong>{firstName} {lastName}</strong></h2>
-                        <h3>{city}, {state}</h3>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>My background and experience:</strong></label>
+                        <div className="input-group mb-3">
+                            <p className="fs-4 text-black description">{professionalExperience}</p>
+                        </div>
+                        <label className="form-label diphylleia-regular fs-5 text-white"><strong>Other things I'd like to share:</strong></label>
+                        <div className="input-group justify-contents-center mb-3">
+                            <p className="fs-4 text-black description">{extraInfo}</p>
+                        </div>
                     </div>
-                    <img 
-                        className="profile-picture m-auto" 
-                        style={{
-                            maxHeight: '250px'
-                        }}
-                        src={picture}
-                    />
-                    <div data-mdb-input-init className="form-outline form-white">
-                        <p className="fs-4 mt-4 text-white description">{intro}</p>
-                    </div>
-                    <h3 className="diphylleia-regular text-white mt-3 mb-4"><strong>I can provide the following services:</strong></h3>
-                    <ServiceCard/>
-                </div>
-                <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-4"><strong>About me</strong></h2>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>What potential clients should know about me:</strong></label>
-                    <div className="input-group mb-3">
-                        <p className="fs-4 text-white description">{clientInfo}</p>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My plants:</strong></label>
-                    <div className="input-group mb-3">
-                        <p className="fs-4 text-white description">{currentPlants}</p>
-                    </div>
-
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>My background and experience:</strong></label>
-                    <div className="input-group mb-3">
-                        <p className="fs-4 text-white description">{professionalExperience}</p>
-                    </div>
-                    <label for="basic-url" className="form-label diphylleia-regular fs-5 text-white"><strong>Other things I'd like to share:</strong></label>
-                    <div className="input-group justify-contents-center mb-3">
-                        <p className="fs-4 text-white description">{extraInfo}</p>
-                    </div>
-                </div>
-                <div className="col bckgrnd rounded p-3 m-2">
-                    <h2 className="diphylleia-regular text-white mb-3"><strong>I am comfortable caring for:</strong></h2>
-                    <div className="d-flex justify-content-center">
-                        <PlantCard />
+                    <div className="col bckgrnd rounded p-3 m-2">
+                        <h2 className="diphylleia-regular text-white mb-3"><strong>I am comfortable caring for:</strong></h2>
+                        <div className="d-flex justify-content-center">
+                            <PlantCard />
+                        </div>
                     </div>
                 </div>
             </div>
-            <button
-                type="submit" 
-                className="btn btn-success mb-3 mt-3 col-2 rounded-pill"
-                onClick={
-                    () => {
-                        navigate('/view-jobs')
-                    }
-                }
-            >
-                Next
-            </button>
         </div>
-	);
+    );
 };

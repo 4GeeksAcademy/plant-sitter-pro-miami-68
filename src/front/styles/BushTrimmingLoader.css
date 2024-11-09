@@ -1,0 +1,79 @@
+
+.animation-wrapper {
+    display: inline-flex;
+    /* justify-content: center; */
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    padding-left:280px;
+    margin: 2rem;
+  }
+  
+  
+  .tree-container {
+    position: relative;
+    width: 100px; /* Smaller overall container */
+    height: 180px; /* Smaller height */
+  }
+  
+  /* The tree trunk */
+  .tree {
+    position: relative;
+    width: 20px; /* Smaller trunk width */
+    height: 50px; /* Shorter trunk height */
+    background-color: #deb887;
+    border-radius: 10px;
+    margin: 0 auto;
+    top: -10px; /* Bringing the trunk closer to the foliage */
+    animation: shake 0.5s infinite ease-in-out; /* Brisker tree shake effect */
+  }
+  
+  /* Tree top - triangular shape */
+  .tree::before {
+    content: "";
+    position: absolute;
+    top: -90px; /* Adjusted to make it smaller */
+    left: -40px; /* Center the triangle */
+    width: 0;
+    height: 0;
+    border-left: 50px solid transparent;
+    border-right: 50px solid transparent;
+    border-bottom: 90px solid #4caf50; /* Green triangular tree top */
+  }
+  
+  /* Leaves that will fall */
+  .leaf {
+    position: absolute;
+    width: 8px; /* Smaller leaf size */
+    height: 8px;
+    background-color: #4caf50;
+    border-radius: 50%;
+    opacity: 0;
+    animation: fall 4s ease-in-out infinite;
+  }
+  
+  /* Specific leaf positions (these will fall from different parts of the tree) */
+  .leaf1 { top: -80px; left: -25px; animation-delay: 0s; }
+  .leaf2 { top: -60px; left: 15px; animation-delay: 1s; }
+  .leaf3 { top: -70px; left: -10px; animation-delay: 2s; }
+  .leaf4 { top: -100px; left: 20px; animation-delay: 1.5s; }
+  .leaf5 { top: -90px; left: -15px; animation-delay: 3s; }
+  
+  /* Brisk tree shake */
+  @keyframes shake {
+    0% { transform: rotate(0deg); }
+    15% { transform: rotate(3deg); }
+    30% { transform: rotate(-3deg); }
+    45% { transform: rotate(2deg); }
+    60% { transform: rotate(-2deg); }
+    75% { transform: rotate(1deg); }
+    100% { transform: rotate(0deg); }
+  }
+  
+  /* Falling leaves animation */
+  @keyframes fall {
+    0% { opacity: 1; transform: translateY(0px) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(150px) rotate(360deg); } /* Smaller fall distance */
+  }
+  
