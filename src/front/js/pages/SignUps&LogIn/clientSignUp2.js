@@ -1,9 +1,9 @@
 import React, { useState, useContext } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import { Context } from "../../store/appContext";
+import "../../../styles/home.css";
 import { useNavigate } from "react-router-dom";
 import { Modal, Button } from "react-bootstrap";
-import "../../styles/handleSubmit.css"
+import "../../../styles/handleSubmit.css"
 
 export const ClientSignUp2 = () => {
     const [firstName, setFirstName] = useState("");

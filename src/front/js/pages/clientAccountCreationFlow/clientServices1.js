@@ -1,54 +1,32 @@
 import React, { useContext, useState, useEffect } from "react"; 
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import { Context } from "../../store/appContext";
+import "../../../styles/home.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import succulents from "../../img/succulents.jpg";
-import orchids from "../../img/orchids.jpg";
-import unusual from "../../img/unusual.jpg";
-import carnivorous from "../../img/carnivorous.jpg";
-import usual from "../../img/usual.jpg";
-import landscape from "../../img/landscape.jpg";
-import outdoors from "../../img/outdoors.jpg";
-import veggies from "../../img/veggies.jpg";
-import watering from "../../img/watering.png";
-import cleaning from "../../img/cleaning.png";
-import pruning from "../../img/pruning.png";
-import repotting from "../../img/repotting.png";
-import pestControl from "../../img/pestControl.png";
-import border from "../../img/border.png";
-import { useNavigate, useParams } from "react-router-dom";
+import succulents from "../../../img/succulents.jpg";
+import orchids from "../../../img/orchids.jpg";
+import unusual from "../../../img/unusual.jpg";
+import carnivorous from "../../../img/carnivorous.jpg";
+import usual from "../../../img/usual.jpg";
+import landscape from "../../../img/landscape.jpg";
+import outdoors from "../../../img/outdoors.jpg";
+import veggies from "../../../img/veggies.jpg";
+import watering from "../../../img/watering.png";
+import cleaning from "../../../img/cleaning.png";
+import pruning from "../../../img/pruning.png";
+import repotting from "../../../img/repotting.png";
+import pestControl from "../../../img/pestControl.png";
+import border from "../../../img/border.png";
+import { useNavigate } from "react-router-dom";
 
-export const ClientServicesUpdate = () => {
+export const ClientServices1 = () => {
     const { store, actions } = useContext(Context);
     const navigate = useNavigate();
-    const { job_post_id } = useParams();
 
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
     const [selectedPlants, setSelectedPlants] = useState([]);
     const [selectedServices, setSelectedServices] = useState([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchData = async () => {
-            setLoading(true);
-            const res = await actions.getJobPostById(job_post_id);
-            if (res.success && res.data) {
-                setStartDate(new Date(res.data.start_date));
-                setEndDate(new Date(res.data.end_date));
-                setSelectedPlants(JSON.parse(res.data.my_plants));
-                setSelectedServices(JSON.parse(res.data.service_preferences));
-            }
-            setLoading(false);
-        };
-
-        if (job_post_id) {
-            fetchData();
-        } else {
-            navigate('/client-services1');
-        }
-    }, []);
 
     const handlePlantSelection = (plant) => {
         setSelectedPlants((prevPlants) =>
@@ -78,9 +56,8 @@ export const ClientServicesUpdate = () => {
             selectedServices,
         });
 
-        navigate(`/job-post-update/${job_post_id}`);
+        navigate('/job-post');
     };
-
 
     return (
         <div className="text-center m-5">

@@ -2,26 +2,38 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
-
 import { Home } from "./pages/home";
 import { ContactUs } from "./pages/contactUs";
 import { Single } from "./pages/single";
-import { ProviderProfile } from "./pages/providerProfile";
-import { ProviderMapPage } from "./pages/providerMapPage";
-import injectContext from "./store/appContext";
-import { ProviderSignUp } from "./pages/providerSignUp";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import injectContext from "./store/appContext";
+
+
+//-----------clientAccountCreationFlow--------------
+import { ClientMapPage } from "./pages/clientAccountCreationFlow/clientMapPage";
+import { ViewSitters } from "./pages/clientAccountCreationFlow/viewSitters.js";
+import { ClientServices1 } from "./pages/clientAccountCreationFlow/clientServices1";
+import { ClientSignUp1 } from "./pages/clientAccountCreationFlow/clientSignUp1.js";
+import { JobPost1 } from "./pages/clientAccountCreationFlow/jobPost.js";
+import { JobPost2 } from "./pages/clientAccountCreationFlow/jobPostPreview.js";
+//-------------UpdateJobPost-----------------------
+import { ClientServicesUpdate } from "./pages/clientAccountCreationFlow/UpdateJobPost/clientServicesUpdate.js";
+import { JobPostUpdate } from "./pages/clientAccountCreationFlow/UpdateJobPost/JobPostUpdate.js";
+
+
+//------------SignUps&LogIn-------------------------------
+import { ClientSignUp2 } from "./pages/SignUps&LogIn/clientSignUp2.js";
+import { SignUp } from "./pages/SignUps&LogIn/SignUp.js";
+
+
+
+import { ProviderSignUp } from "./pages/providerSignUp";
+import { ProviderProfile } from "./pages/providerProfile";
+import { ProviderMapPage } from "./pages/providerMapPage";
 import { ProviderServices } from "./pages/providerServices";
 import { ProviderProfileCompleted } from "./pages/providerProfileCompleted";
-import { ClientMapPage } from "./pages/clientMapPage";
-import { ClientSignUp1 } from "./pages/clientSignUp1";
-import { ClientSignUp2 } from "./pages/clientSignUp2";
-import { ClientServices1 } from "./pages/clientServices1";
-import { JobPost1 } from "./pages/jobPost";
-import { JobPost2 } from "./pages/jobPostPreview";
-import { JobPostUpdate } from "./pages/JobPostUpdate";
-import { SignUp } from "./component/SignUp";
+
 import { Login } from "./component/login";
 import { ViewJobs } from "./pages/viewJobs";
 import { Blog } from "./pages/blog";
@@ -40,7 +52,6 @@ import { PlantSitterProfile } from './pages/PlantSitterProfile';
 import { AccountVerification } from "./pages/AccountVerification";
 import { EnterNewPassword } from "./pages/EnterNewPassword";
 import { ForgotPassword } from "./pages/ForgotPassword";
-import { ViewSitters } from "./pages/viewSitters";
 import { Cancel } from "./pages/cancel";
 import { ProviderLandingPage } from "./pages/providerLandingPage";
 import { ClientLandingPage } from "./pages/clientLandingPage";
@@ -50,7 +61,6 @@ import { JobsInProgress } from "./pages/jobsInProgress";
 import { ViewApplicants } from "./pages/jobApplicants";
 import { ProfileSuccessPage } from "./pages/profileSuccessPage";
 import { CompletedJobsPage } from "./pages/completedJobsPage";
-import { ClientServicesUpdate } from "./pages/clientServicesUpdate";
 import { Trimming } from "./pages/ExampleLoading.js";
 import { ProviderPaymentPage } from "./pages/providerPaymentPage.js";
 import { ApplicantProfiles } from "./pages/applicantProfiles.js";

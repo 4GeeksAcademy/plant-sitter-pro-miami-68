@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
-import PlantSitterCard from "../component/PlantSitterCard";
-import clientSignUp from "../../img/client-sign-up.png";
+import { Context } from "../../store/appContext";
+import "../../../styles/home.css";
+import PlantSitterCard from "../../component/PlantSitterCard";
+import clientSignUp from "../../../img/client-sign-up.png";
 import { useNavigate } from "react-router-dom";
 
 export const ViewSitters = () => {

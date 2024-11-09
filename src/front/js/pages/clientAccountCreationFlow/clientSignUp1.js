@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Context } from "../store/appContext";
-import "../../styles/home.css";
+import { Context } from "../../store/appContext";
+import "../../../styles/home.css";
 import { useNavigate } from "react-router-dom";
-import plant from "../../img/plant.png";
+import plant from "../../../img/plant.png";
 
 export const ClientSignUp1 = () => {
 	// const { store, actions } = useContext(Context);
